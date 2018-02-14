@@ -38,6 +38,7 @@ Partial Class frmPrincipal
         Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Exportar gastos viaje"}, 18, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
         Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Exportar anticipos nomina"}, 17, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
         Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Asimilados Marinos"}, 0, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Simple Maecco Sindicato"}, 0, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
         Me.pnlBar = New System.Windows.Forms.Panel()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.chkCBB = New System.Windows.Forms.CheckBox()
@@ -189,7 +190,7 @@ Partial Class frmPrincipal
         ListViewItem2.ToolTipText = "Crear recibos via fiscal"
         ListViewItem3.ToolTipText = "Crear recibos sindicato Lupita"
         ListViewItem5.ToolTipText = "Genera recibos aguinaldo"
-        Me.lsvPanel.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13, ListViewItem14})
+        Me.lsvPanel.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13, ListViewItem14, ListViewItem15})
         Me.lsvPanel.LargeImageList = Me.ImageList1
         Me.lsvPanel.Location = New System.Drawing.Point(0, 0)
         Me.lsvPanel.Name = "lsvPanel"
@@ -232,7 +233,7 @@ Partial Class frmPrincipal
         Me.MenuInicio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContpaqToolStripMenuItem, Me.ImssToolStripMenuItem, Me.FlujoBToolStripMenuItem, Me.FlujoCToolStripMenuItem, Me.AltaNominasToolStripMenuItem, Me.CatalogosToolStripMenuItem, Me.PlaneaciónToolStripMenuItem, Me.FacturacionToolStripMenuItem, Me.ControlTesoreriaToolStripMenuItem, Me.NominaToolStripMenuItem, Me.JuridicoToolStripMenuItem, Me.ComisionesToolStripMenuItem, Me.ConciliacionToolStripMenuItem, Me.GastosToolStripMenuItem, Me.KioskoClientesToolStripMenuItem, Me.mnuSalir})
         Me.MenuInicio.Name = "MenuInicio"
         Me.MenuInicio.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuInicio.Size = New System.Drawing.Size(206, 634)
+        Me.MenuInicio.Size = New System.Drawing.Size(206, 612)
         '
         'ContpaqToolStripMenuItem
         '
@@ -244,7 +245,7 @@ Partial Class frmPrincipal
         'VerEmpresasToolStripMenuItem
         '
         Me.VerEmpresasToolStripMenuItem.Name = "VerEmpresasToolStripMenuItem"
-        Me.VerEmpresasToolStripMenuItem.Size = New System.Drawing.Size(166, 24)
+        Me.VerEmpresasToolStripMenuItem.Size = New System.Drawing.Size(167, 24)
         Me.VerEmpresasToolStripMenuItem.Text = "Ver Empresas"
         '
         'ImssToolStripMenuItem
@@ -257,7 +258,7 @@ Partial Class frmPrincipal
         'VerEmpresasToolStripMenuItem1
         '
         Me.VerEmpresasToolStripMenuItem1.Name = "VerEmpresasToolStripMenuItem1"
-        Me.VerEmpresasToolStripMenuItem1.Size = New System.Drawing.Size(166, 24)
+        Me.VerEmpresasToolStripMenuItem1.Size = New System.Drawing.Size(167, 24)
         Me.VerEmpresasToolStripMenuItem1.Text = "Ver Empresas"
         '
         'FlujoBToolStripMenuItem
@@ -494,7 +495,7 @@ Partial Class frmPrincipal
         'PictureBox1
         '
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.PictureBox1.Location = New System.Drawing.Point(334, 208)
+        Me.PictureBox1.Location = New System.Drawing.Point(449, 170)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(309, 213)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
