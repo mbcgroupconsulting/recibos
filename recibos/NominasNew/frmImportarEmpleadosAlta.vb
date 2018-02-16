@@ -328,14 +328,14 @@ Public Class frmImportarEmpleadosAlta
                         Dim number As Integer
                         Select Case Trim(empleadofull.SubItems(33).Text)
                             Case "QUINCENAL"
-                                number = 0
+                                number = 4
                                 ' The following is the only Case clause that evaluates to True.
                             Case "MENSUAL"
-                                number = 2
+                                number = 5
                             Case "SEMANAL"
-                                number = 1
+                                number = 2
                             Case Else
-                                number = 0
+                                number = 10
                         End Select
                         Dim clave As String = Trim(empleadofull.SubItems(40).Text) ''tienen que agregar metodod de pago
                         Dim fkIdMetodoPago As String
@@ -399,32 +399,29 @@ Public Class frmImportarEmpleadosAlta
                         dFechaAntiguedad = Trim(empleadofull.SubItems(30).Text)
 
 
-
                         SQL = "EXEC setempleadosAltaInsertar 0 ,'" & Trim(empleadofull.SubItems(1).Text) & "','" & Trim(empleadofull.SubItems(3).Text)
                         SQL &= "','" & Trim(empleadofull.SubItems(4).Text)
                         SQL &= "','" & Trim(empleadofull.SubItems(5).Text) & "','" & Trim(empleadofull.SubItems(4).Text) & " " & Trim(empleadofull.SubItems(5).Text) & " " & Trim(empleadofull.SubItems(3).Text)
                         SQL &= "','" & Trim(empleadofull.SubItems(20).Text) & "','" & Trim(empleadofull.SubItems(19).Text) & "','" & Trim(empleadofull.SubItems(21).Text)
                         SQL &= "','" & Trim(empleadofull.SubItems(29).Text)
-                        SQL &= "','" & " " & "','" & " " & "'," & 0 & ",'" & " " ''banco traba
+                        SQL &= "','" & " " & "','" & " " & "'," & 1 & ",'" & " " ''ESTADO traba
                         SQL &= "'," & IIf(Trim(empleadofull.SubItems(7).Text) = "FEMENINO", 0, 1) & ",'" & dFechaNac & "','" & dFechaCap
                         SQL &= "','" & Trim(empleadofull.SubItems(10).Text) & "','" & Trim(empleadofull.SubItems(11).Text) ''Puesto
                         SQL &= "','" & Trim(empleadofull.SubItems(16).Text) & "','" & Trim(empleadofull.SubItems(17).Text) & "','" & Trim(empleadofull.SubItems(34).Text) & "','" & 0 ''salario real8-
                         SQL &= "','" & Trim(empleadofull.SubItems(29).Text) & "','" & Trim(empleadofull.SubItems(28).Text) & "','','','" & empleadofull.SubItems(32).Text & "','" & Trim(empleadofull.SubItems(35).Text)
                         SQL &= "'," & empresapa & "," & empresa & "," & idbanco ''BNCO
                         SQL &= ",'" & Trim(empleadofull.SubItems(25).Text) & "','" & Trim(empleadofull.SubItems(26).Text) & "','" & "" & "','" & "1" ''Asignar codigo por tipo de cuenta
-                        SQL &= "'," & 0 & ",'" & "" & "','" & " " & "','" & " " ' IIf(cbobanco2.SelectedValue <> "", 1, cbobanco2.SelectedIndex) 'Asignar codigo por tipo de cuenta2
-                        SQL &= "','" & " " & "','" & " " & "'," & 0 & ",'" & " " ''cp2
+                        SQL &= "'," & 1 & ",'" & "" & "','" & " " & "','" & " " ' IIf(cbobanco2.SelectedValue <> "", 1, cbobanco2.SelectedIndex) 'Asignar codigo por tipo de cuenta2
+                        SQL &= "','" & " " & "','" & " " & "'," & 1 & ",'" & " " ''cp2
                         SQL &= "','" & dFechaPatrona & "','" & dFechaTerminoContrato & "','" & dFechaSindicato & "','" & dFechaAntiguedad
                         ''COMILLA
-                        SQL &= "'," & 0 & "," & Trim(empleadofull.SubItems(22).Text) & ",'" & " " & "'," & IIf(Trim(empleadofull.SubItems(12).Text) = "A", 0, 1) & ",'" & Trim(empleadofull.SubItems(23).Text) & "','" & factor ''switch
-
-
-                        SQL &= "'," & IIf(Trim(empleadofull.SubItems(24).Text) = "", 0, Trim(empleadofull.SubItems(24).Text)) & ",'" & Trim(empleadofull.SubItems(33).Text) & "','" & Trim(empleadofull.SubItems(36).Text) ''JORNADA
+                        SQL &= "'," & 0 & "," & Trim(empleadofull.SubItems(22).Text) & ",'" & 1 & "'," & IIf(Trim(empleadofull.SubItems(12).Text) = "A", 0, 1) & ",'" & Trim(empleadofull.SubItems(23).Text) & "','" & factor ''switch
+                        SQL &= "'," & IIf(Trim(empleadofull.SubItems(24).Text) = "", 0, Trim(empleadofull.SubItems(24).Text)) & ",'" & number & "','" & Trim(empleadofull.SubItems(36).Text) ''JORNADA
                         SQL &= "','" & Trim(empleadofull.SubItems(37).Text) & "','" & Trim(empleadofull.SubItems(38).Text) & "','" & " " & "','" & Trim(empleadofull.SubItems(39).Text) & "','" & " " ''fecha de pago
                         SQL &= "','" & " " & "','" & " " & "'," & 0 & "," & IIf(Trim(empleadofull.SubItems(6).Text) = "", 0, Trim(empleadofull.SubItems(6).Text)) & "," & 0 ''depto- y puesto +
                         ''   abiriEmpresasC()
                         ''1 es de predeterminado
-                        SQL &= ",'" & IIf(Trim(empleadofull.SubItems(8).Text) = "SOLTERO", 0, 1) & "'," & 0 & ",0" & "," & fkIdMetodoPago & ",'" & " " & "', 1, " & 0 & ", 1, 1,'" & 1 & "','" & 1 & "','" & Trim(empleadofull.SubItems(31).Text) & "','" & rpatronal & "'"
+                        SQL &= ",'" & IIf(Trim(empleadofull.SubItems(8).Text) = "SOLTERO", 0, 1) & "'," & 1 & ",0" & "," & fkIdMetodoPago & ",'" & " " & "', 1, " & 1 & ", 1, 1,'" & 1 & "','" & cbEmpresasC.SelectedValue & "','" & Trim(empleadofull.SubItems(31).Text) & "','" & rpatronal & "'"
 
 
                         If nExecute(SQL) = False Then
