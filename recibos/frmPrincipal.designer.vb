@@ -24,21 +24,21 @@ Partial Class frmPrincipal
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPrincipal))
-        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Recibos Via Sindicato"}, 11, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Recibos Via Fiscal"}, 4, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Recibos Sindicato"}, 13, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Recibo TMM Fiscal"}, 4, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem5 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Guo Aguinaldo"}, 5, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Importacion Guo"}, 10, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Altas Guo"}, 1, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Importacion Flujos"}, 15, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Fiscal TMMxT"}, 9, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Sindicato TMMxT"}, 12, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Exportar nomina TMM"}, 16, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Exportar gastos viaje"}, 18, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Exportar anticipos nomina"}, 17, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Asimilados Marinos"}, 0, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
-        Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Simple Maecco Sindicato"}, 0, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem16 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Recibos Via Sindicato"}, 11, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem17 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Recibos Via Fiscal"}, 4, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem18 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Recibos Sindicato"}, 13, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem19 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Recibo TMM Fiscal"}, 4, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem20 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Guo Aguinaldo"}, 5, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem21 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Importacion Guo"}, 10, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem22 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Altas Guo"}, 1, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem23 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Importacion Flujos"}, 15, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem24 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Fiscal TMMxT"}, 9, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem25 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Sindicato TMMxT"}, 12, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem26 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Exportar nomina TMM"}, 16, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem27 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Exportar gastos viaje"}, 18, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem28 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Exportar anticipos nomina"}, 17, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem29 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Asimilados Marinos"}, 0, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem30 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Simple Maecco Sindicato"}, 0, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
         Me.pnlBar = New System.Windows.Forms.Panel()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.chkCBB = New System.Windows.Forms.CheckBox()
@@ -90,6 +90,8 @@ Partial Class frmPrincipal
         Me.AgregarDatosJuridicoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.MostrarEmpleadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ImportarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlBar.SuspendLayout()
         Me.MenuInicio.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -186,11 +188,11 @@ Partial Class frmPrincipal
         Me.lsvPanel.FullRowSelect = True
         Me.lsvPanel.HideSelection = False
         Me.lsvPanel.HoverSelection = True
-        ListViewItem1.ToolTipText = "Crear recibos via sindicato"
-        ListViewItem2.ToolTipText = "Crear recibos via fiscal"
-        ListViewItem3.ToolTipText = "Crear recibos sindicato Lupita"
-        ListViewItem5.ToolTipText = "Genera recibos aguinaldo"
-        Me.lsvPanel.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13, ListViewItem14, ListViewItem15})
+        ListViewItem16.ToolTipText = "Crear recibos via sindicato"
+        ListViewItem17.ToolTipText = "Crear recibos via fiscal"
+        ListViewItem18.ToolTipText = "Crear recibos sindicato Lupita"
+        ListViewItem20.ToolTipText = "Genera recibos aguinaldo"
+        Me.lsvPanel.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem16, ListViewItem17, ListViewItem18, ListViewItem19, ListViewItem20, ListViewItem21, ListViewItem22, ListViewItem23, ListViewItem24, ListViewItem25, ListViewItem26, ListViewItem27, ListViewItem28, ListViewItem29, ListViewItem30})
         Me.lsvPanel.LargeImageList = Me.ImageList1
         Me.lsvPanel.Location = New System.Drawing.Point(0, 0)
         Me.lsvPanel.Name = "lsvPanel"
@@ -233,7 +235,7 @@ Partial Class frmPrincipal
         Me.MenuInicio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContpaqToolStripMenuItem, Me.ImssToolStripMenuItem, Me.FlujoBToolStripMenuItem, Me.FlujoCToolStripMenuItem, Me.AltaNominasToolStripMenuItem, Me.CatalogosToolStripMenuItem, Me.PlaneaciónToolStripMenuItem, Me.FacturacionToolStripMenuItem, Me.ControlTesoreriaToolStripMenuItem, Me.NominaToolStripMenuItem, Me.JuridicoToolStripMenuItem, Me.ComisionesToolStripMenuItem, Me.ConciliacionToolStripMenuItem, Me.GastosToolStripMenuItem, Me.KioskoClientesToolStripMenuItem, Me.mnuSalir})
         Me.MenuInicio.Name = "MenuInicio"
         Me.MenuInicio.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuInicio.Size = New System.Drawing.Size(206, 612)
+        Me.MenuInicio.Size = New System.Drawing.Size(206, 634)
         '
         'ContpaqToolStripMenuItem
         '
@@ -245,7 +247,7 @@ Partial Class frmPrincipal
         'VerEmpresasToolStripMenuItem
         '
         Me.VerEmpresasToolStripMenuItem.Name = "VerEmpresasToolStripMenuItem"
-        Me.VerEmpresasToolStripMenuItem.Size = New System.Drawing.Size(167, 24)
+        Me.VerEmpresasToolStripMenuItem.Size = New System.Drawing.Size(166, 24)
         Me.VerEmpresasToolStripMenuItem.Text = "Ver Empresas"
         '
         'ImssToolStripMenuItem
@@ -258,7 +260,7 @@ Partial Class frmPrincipal
         'VerEmpresasToolStripMenuItem1
         '
         Me.VerEmpresasToolStripMenuItem1.Name = "VerEmpresasToolStripMenuItem1"
-        Me.VerEmpresasToolStripMenuItem1.Size = New System.Drawing.Size(167, 24)
+        Me.VerEmpresasToolStripMenuItem1.Size = New System.Drawing.Size(166, 24)
         Me.VerEmpresasToolStripMenuItem1.Text = "Ver Empresas"
         '
         'FlujoBToolStripMenuItem
@@ -319,6 +321,7 @@ Partial Class frmPrincipal
         '
         'AltaNominasToolStripMenuItem
         '
+        Me.AltaNominasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MostrarEmpleadosToolStripMenuItem, Me.ImportarToolStripMenuItem})
         Me.AltaNominasToolStripMenuItem.Name = "AltaNominasToolStripMenuItem"
         Me.AltaNominasToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
         Me.AltaNominasToolStripMenuItem.Text = "Alta nominas"
@@ -503,6 +506,18 @@ Partial Class frmPrincipal
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Visible = False
         '
+        'MostrarEmpleadosToolStripMenuItem
+        '
+        Me.MostrarEmpleadosToolStripMenuItem.Name = "MostrarEmpleadosToolStripMenuItem"
+        Me.MostrarEmpleadosToolStripMenuItem.Size = New System.Drawing.Size(214, 24)
+        Me.MostrarEmpleadosToolStripMenuItem.Text = "Mostrar empleados"
+        '
+        'ImportarToolStripMenuItem
+        '
+        Me.ImportarToolStripMenuItem.Name = "ImportarToolStripMenuItem"
+        Me.ImportarToolStripMenuItem.Size = New System.Drawing.Size(214, 24)
+        Me.ImportarToolStripMenuItem.Text = "Importar empleados"
+        '
         'frmPrincipal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -573,4 +588,6 @@ Partial Class frmPrincipal
     Friend WithEvents ImportarFlujosConceptosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MostrarFlujosConceptosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ReportesFlujosConceptosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MostrarEmpleadosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ImportarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

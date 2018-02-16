@@ -643,6 +643,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="NominasNew\frmAltaEmpleadoImp.Designer.vb">
+      <DependentUpon>frmAltaEmpleadoImp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NominasNew\frmAltaEmpleadoImp.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="NominasNew\frmAltaEmpleadoNew.Designer.vb">
       <DependentUpon>frmAltaEmpleadoNew.vb</DependentUpon>
     </Compile>
@@ -653,6 +659,12 @@
       <DependentUpon>frmEmpleadosXCliente.vb</DependentUpon>
     </Compile>
     <Compile Include="NominasNew\frmEmpleadosXCliente.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NominasNew\frmImportarEmpleadosAlta.Designer.vb">
+      <DependentUpon>frmImportarEmpleadosAlta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NominasNew\frmImportarEmpleadosAlta.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="nominas\AltaNominaEmpleado.Designer.vb">
@@ -1117,11 +1129,17 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="NominasNew\frmAltaEmpleadoImp.resx">
+      <DependentUpon>frmAltaEmpleadoImp.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NominasNew\frmAltaEmpleadoNew.resx">
       <DependentUpon>frmAltaEmpleadoNew.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NominasNew\frmEmpleadosXCliente.resx">
       <DependentUpon>frmEmpleadosXCliente.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NominasNew\frmImportarEmpleadosAlta.resx">
+      <DependentUpon>frmImportarEmpleadosAlta.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nominas\AltaNominaEmpleado.resx">
       <DependentUpon>AltaNominaEmpleado.vb</DependentUpon>

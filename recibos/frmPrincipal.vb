@@ -1101,4 +1101,16 @@ Public Class frmPrincipal
     Private Sub NominaToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NominaToolStripMenuItem.Click
 
     End Sub
+
+    Private Sub MostrarEmpleadosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MostrarEmpleadosToolStripMenuItem.Click
+        Dim Forma As New frmEmpleadosXCliente
+        '' Dim Forma As New AltaNominaEmpleado
+        Forma.ShowDialog()
+    End Sub
+
+    Private Sub ImportarToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ImportarToolStripMenuItem.Click
+        Dim Forma As New frmImportarEmpleadosAlta
+        '' Dim Forma As New AltaNominaEmpleado
+        Forma.ShowDialog()
+    End Sub
 End Class

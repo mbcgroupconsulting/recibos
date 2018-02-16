@@ -292,7 +292,7 @@ Public Class frmAltaEmpleadoNew
                 txtRegistroPatronal.Text = Fila.Item("cRegistroPatronal")
               
                 iOrigen = Fila.Item("iOrigen")
-                cbEmpresasC.SelectedIndex = Fila.Item("fkiIdEmpresaC")
+                cbEmpresasC.SelectedValue = Fila.Item("fkiIdEmpresaC")
                 '' iEmpresaC = Fila.Item("fkiIdEmpresaC")
 
 
@@ -596,7 +596,7 @@ Public Class frmAltaEmpleadoNew
                 SQL &= "','" & txtcallenum.Text & "','" & txtnacionalidad.Text & "','','','" & (Format(dtpFechaterminocontrato.Value.Date, "yyyy/dd/MM")) & "','" & txtcomentarios.Text
                 SQL &= "'," & gIdEmpresa & "," & gIdCliente & "," & cbobanco.SelectedValue ''BNCO
                 SQL &= ",'" & txtcuenta.Text & "','" & txtclabe.Text & "','" & txttarjeta.Text & "','" & " 1 " 'Asignar codigo por tipo de cuenta
-                SQL &= "'," & cbobanco2.SelectedValue & ",'" & txtcuenta2.Text & "','" & txtclabe2.Text & "','" & cbobanco2.SelectedValue ' IIf(cbobanco2.SelectedValue <> "", 1, cbobanco2.SelectedIndex) 'Asignar codigo por tipo de cuenta2
+                SQL &= "'," & cbobanco2.SelectedValue & ",'" & txtcuenta2.Text & "','" & txtclabe2.Text & "','" & "1" ' IIf(cbobanco2.SelectedValue <> "", 1, cbobanco2.SelectedIndex) 'Asignar codigo por tipo de cuenta2
                 SQL &= "','" & txtdireccionP.Text & "','" & txtciudadP.Text & "'," & cboestadoP.SelectedValue & ",'" & txtcp2.Text
                 SQL &= "','" & Format(dtppatrona.Value.Date, "yyyy/dd/MM") & "','" & Format(dtpFechaterminocontrato.Value.Date, "yyyy/dd/MM") & "','" & Format(dtpsindicato.Value.Date, "yyyy/dd/MM") & "','" & Format(dtpantiguedad.Value.Date, "yyyy/dd/MM")
                 SQL &= "'," & IIf(chkAntiguedad.Checked, 1, 0) & "," & cboautorizacion.SelectedIndex & "," & cboIntegrar.SelectedIndex
@@ -604,7 +604,7 @@ Public Class frmAltaEmpleadoNew
                 SQL &= "'," & IIf(txtfactor.Text = "", 0, txtfactor.Text) & ",'" & cbojornada.SelectedValue & "','" & txtcorreo.Text ''JORNADA
                 SQL &= "','" & txthorario.Text & "','" & txthoras.Text & "','" & " " & "','" & txtdescanso.Text & "','" & txtFechapago.Text
                 SQL &= "','" & txtFormaPago.Text & "','" & txtlugarpago.Text & "'," & 0 & "," & cbopuesto.SelectedValue & "," & cbodepartamento.SelectedValue ''depto
-                SQL &= ",'" & cboedocivil.SelectedIndex & "'," & cboTipoContrato.SelectedValue & ",0" & "," & cbometodopago.SelectedValue & ",'" & txtlugarpago.Text & "', 1, " & cboEdoNac.SelectedValue & ", 1, 1,'" & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "','" & cbEmpresasC.SelectedIndex & "','" & txtlugarfirma.Text & "','" & txtRegistroPatronal.Text & "'"
+                SQL &= ",'" & cboedocivil.SelectedIndex & "'," & cboTipoContrato.SelectedValue & ",0" & "," & cbometodopago.SelectedValue & ",'" & txtlugarpago.Text & "', 1, " & cboEdoNac.SelectedValue & ", 1, 1,'" & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "','" & cbEmpresasC.SelectedValue & "','" & txtlugarfirma.Text & "','" & txtRegistroPatronal.Text & "'"
 
 
             Else
@@ -622,7 +622,7 @@ Public Class frmAltaEmpleadoNew
                 SQL &= "','" & txtcallenum.Text & "','" & txtnacionalidad.Text & "','','','" & (Format(dtpFechaterminocontrato.Value.Date, "yyyy/dd/MM")) & "','" & txtcomentarios.Text
                 SQL &= "'," & gIdEmpresa & "," & gIdCliente & "," & cbobanco.SelectedValue
                 SQL &= ",'" & txtcuenta.Text & "','" & txtclabe.Text & "','" & txttarjeta.Text & "','" & " 1 " 'Asignar codigo por tipo de cuenta
-                SQL &= "'," & cbobanco2.SelectedValue & ",'" & txtcuenta2.Text & "','" & txtclabe2.Text & "','" & cbobanco2.SelectedValue ' IIf(cbobanco2.SelectedValue <> "", 1, cbobanco2.SelectedIndex) 'Asignar codigo por tipo de cuenta2
+                SQL &= "'," & cbobanco2.SelectedValue & ",'" & txtcuenta2.Text & "','" & txtclabe2.Text & "','" & "1" ' IIf(cbobanco2.SelectedValue <> "", 1, cbobanco2.SelectedIndex) 'Asignar codigo por tipo de cuenta2
                 SQL &= "','" & txtdireccionP.Text & "','" & txtciudadP.Text & "'," & cboestadoP.SelectedValue & ",'" & txtcp2.Text
                 SQL &= "','" & Format(dtppatrona.Value.Date, "yyyy/dd/MM") & "','" & Format(dtpFechaterminocontrato.Value.Date, "yyyy/dd/MM") & "','" & Format(dtpsindicato.Value.Date, "yyyy/dd/MM") & "','" & Format(dtpantiguedad.Value.Date, "yyyy/dd/MM")
                 SQL &= "'," & IIf(chkAntiguedad.Checked, 1, 0) & "," & cboautorizacion.SelectedIndex & "," & cboIntegrar.SelectedIndex
@@ -630,7 +630,7 @@ Public Class frmAltaEmpleadoNew
                 SQL &= "'," & IIf(txtfactor.Text = "", 0, txtfactor.Text) & ",'" & cbojornada.SelectedValue & "','" & txtcorreo.Text ''JORNADA
                 SQL &= "','" & txthorario.Text & "','" & txthoras.Text & "','" & " " & "','" & txtdescanso.Text & "','" & txtFechapago.Text
                 SQL &= "','" & txtFormaPago.Text & "','" & txtlugarpago.Text & "'," & 0 & "," & cbopuesto.SelectedValue & "," & cbodepartamento.SelectedValue ''depto
-                SQL &= ",'" & cboedocivil.SelectedIndex & "'," & cboTipoContrato.SelectedValue & ",0" & "," & cbometodopago.SelectedValue & ",'" & txtlugarpago.Text & "', 1, " & cboEdoNac.SelectedValue & ", 1, 1,'" & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "','" & cbEmpresasC.SelectedIndex & "','" & txtlugarfirma.Text & "','" & txtRegistroPatronal.Text & "'"
+                SQL &= ",'" & cboedocivil.SelectedIndex & "'," & cboTipoContrato.SelectedValue & ",0" & "," & cbometodopago.SelectedValue & ",'" & txtlugarpago.Text & "', 1, " & cboEdoNac.SelectedValue & ", 1, 1,'" & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "','" & cbEmpresasC.SelectedValue & "','" & txtlugarfirma.Text & "','" & txtRegistroPatronal.Text & "'"
 
             End If
 
@@ -684,6 +684,10 @@ Public Class frmAltaEmpleadoNew
     End Sub
 
     Private Sub cboTipoContrato_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboTipoContrato.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub cbotipofactor_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbotipofactor.SelectedIndexChanged
 
     End Sub
 End Class
