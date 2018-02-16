@@ -278,7 +278,7 @@ Public Class frmImportarEmpleadosAlta
                             empleadofull = empleado
                             '' MessageBox.Show("Pasa" & empleado.SubItems(x).Text, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
-                            '' bandera = True
+                            bandera = True
 
                         End If
                     Next x
