@@ -579,7 +579,6 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmExportarAnticipoTMM.
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmExportarGastoViajeTMM.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmExportarNominaTMM.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.Resources.resources
-D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAltaEmpleadoImport.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAltaEmpleadoNew.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmEmpleadosXCliente.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmImportarEmpleadosAlta.resources

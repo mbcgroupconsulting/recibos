@@ -654,9 +654,9 @@ Public Class frmEmpleadosXCliente
                                 t = "F"
                             End If
                             sql = "SELECT * FROM PuestosAlta WHERE iIdPuestoAlta=" & Fila.Item("fkiIdPuesto")
-                            Dim cPuesto As DataRow() = nConsulta(sql)
-                            Dim puesto As String
-                            puesto = cPuesto(0).Item("cNombre")
+                            'Dim cPuesto As DataRow() = nConsulta(sql)
+                            'Dim puesto As String
+                            'puesto = cPuesto(0).Item("cNombre")
                             sRenglon = sRenglon & "|" & t & "|" & "" & "|" & Fila.Item("dFechaNac") & "|" & "0" & "|" & "" & "|" & "" & "|" & "" & "|" & "(Ninguno)" & "|" & "" & "|" & "" & "|" & "0"
                             sRenglon = sRenglon & "|" & "" & "|" & "" & "|" & "0" & "|" & "1" & "|" & "0" & "|" & "0" & "|" & Fila.Item("dFechaCap")
                             sRenglon = sRenglon & "|" & Fila.Item("dFechaCap") & "|" & "0" & "|" & Fila.Item("dFechaCap") & "|" & "0" & "|" & "30/12/1899" & "|" & "0" & "|" & "0" & "|" & "1" & "|" & "1"
@@ -936,7 +936,7 @@ Public Class frmEmpleadosXCliente
 
     End Sub
 
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             Dim filaExcel As Integer = 5
             Dim dialogo As New SaveFileDialog()

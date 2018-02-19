@@ -240,7 +240,10 @@ Public Class frmImportarEmpleadosAlta
 
                 Dim IdEmpleado As Long
                 Dim i As Integer = 0
+
+                Dim t As Integer = 0
                 Dim conta As Integer = 0
+
 
 
                 pgbProgreso.Minimum = 0
@@ -259,7 +262,7 @@ Public Class frmImportarEmpleadosAlta
 
                 Dim empleadofull As ListViewItem
                 Dim mensa As String
-                mensa = "Vacia la columna: "
+                '' mensa = "Datos incompletos en el empleado: "
 
                 For Each empleado As ListViewItem In lsvLista.CheckedItems
 
@@ -267,14 +270,17 @@ Public Class frmImportarEmpleadosAlta
                     For x = 0 To empleado.SubItems.Count - 1
 
                         If empleado.SubItems(x).Text = "" Then
+                            mensa = " Datos incompletos en el empleado: Empleado: " & empleado.Text & " Columna:" & x.ToString() & " "
 
-                            mensa &= empleado.SubItems(x).Name.ToString() & "  "
-                            ''MessageBox.Show("Vacio en la columna" & empleado.SubItems(x).Text, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                            '' MessageBox.Show(mensa, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                             bandera = False
+                            x = empleado.SubItems.Count - 1
 
                         Else
 
                             empleadofull = empleado
+
                             '' MessageBox.Show("Pasa" & empleado.SubItems(x).Text, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
                             bandera = True
@@ -283,11 +289,13 @@ Public Class frmImportarEmpleadosAlta
                     Next x
 
                     If bandera <> False Then
+
                         Dim b As String = Trim(empleadofull.SubItems(27).Text)
                         Dim idbanco As Integer
                         If b <> "" Then
                             Dim banco As DataRow() = nConsulta(" select * from bancos where clave =" & b)
                             If banco Is Nothing Then
+                                idbanco = 1
                                 mensa = "Revise el tipo de banco"
                                 bandera = False
                             Else
@@ -296,21 +304,8 @@ Public Class frmImportarEmpleadosAlta
 
                         Else
                             b = 0
-
                         End If
-                        'Dim nom, app, apm As String
-                        'Dim delimiter As Char = "''"
-                        'Dim substrings() As String = Trim(empleado.SubItems(2).Text).Split(delimiter)
-                        'For Each substring In substrings
-                        '    Console.WriteLine(substring)
-                        '    nom = substring
-                        '    app = substring
-                        '    apm = substring
-                        'Next
 
-                        ''Nombre
-                        'Dim nombrelargo As String = Trim(empleado.SubItems(1).Text)
-                        'Dim nombre As Array = nombrelargo.Split("''")
 
                         Dim factor As Integer
                         Select Case Trim(empleadofull.SubItems(24).Text)
@@ -328,14 +323,14 @@ Public Class frmImportarEmpleadosAlta
                         Dim number As Integer
                         Select Case Trim(empleadofull.SubItems(33).Text)
                             Case "QUINCENAL"
-                                number = 0
+                                number = 4
                                 ' The following is the only Case clause that evaluates to True.
                             Case "MENSUAL"
-                                number = 2
+                                number = 5
                             Case "SEMANAL"
-                                number = 1
+                                number = 2
                             Case Else
-                                number = 0
+                                number = 10
                         End Select
                         Dim clave As String = Trim(empleadofull.SubItems(40).Text) ''tienen que agregar metodod de pago
                         Dim fkIdMetodoPago As String
@@ -405,58 +400,56 @@ Public Class frmImportarEmpleadosAlta
                         SQL &= "','" & Trim(empleadofull.SubItems(5).Text) & "','" & Trim(empleadofull.SubItems(4).Text) & " " & Trim(empleadofull.SubItems(5).Text) & " " & Trim(empleadofull.SubItems(3).Text)
                         SQL &= "','" & Trim(empleadofull.SubItems(20).Text) & "','" & Trim(empleadofull.SubItems(19).Text) & "','" & Trim(empleadofull.SubItems(21).Text)
                         SQL &= "','" & Trim(empleadofull.SubItems(29).Text)
-                        SQL &= "','" & " " & "','" & " " & "'," & 0 & ",'" & " " ''banco traba
+                        SQL &= "','" & " " & "','" & " " & "'," & 1 & ",'" & " " ''ESTADO traba
                         SQL &= "'," & IIf(Trim(empleadofull.SubItems(7).Text) = "FEMENINO", 0, 1) & ",'" & dFechaNac & "','" & dFechaCap
                         SQL &= "','" & Trim(empleadofull.SubItems(10).Text) & "','" & Trim(empleadofull.SubItems(11).Text) ''Puesto
                         SQL &= "','" & Trim(empleadofull.SubItems(16).Text) & "','" & Trim(empleadofull.SubItems(17).Text) & "','" & Trim(empleadofull.SubItems(34).Text) & "','" & 0 ''salario real8-
                         SQL &= "','" & Trim(empleadofull.SubItems(29).Text) & "','" & Trim(empleadofull.SubItems(28).Text) & "','','','" & empleadofull.SubItems(32).Text & "','" & Trim(empleadofull.SubItems(35).Text)
                         SQL &= "'," & empresapa & "," & empresa & "," & idbanco ''BNCO
                         SQL &= ",'" & Trim(empleadofull.SubItems(25).Text) & "','" & Trim(empleadofull.SubItems(26).Text) & "','" & "" & "','" & "1" ''Asignar codigo por tipo de cuenta
-                        SQL &= "'," & 0 & ",'" & "" & "','" & " " & "','" & " " ' IIf(cbobanco2.SelectedValue <> "", 1, cbobanco2.SelectedIndex) 'Asignar codigo por tipo de cuenta2
-                        SQL &= "','" & " " & "','" & " " & "'," & 0 & ",'" & " " ''cp2
+                        SQL &= "'," & 36 & ",'" & "" & "','" & " " & "','" & " " ' 36 es banco 1 ordenado IIf(cbobanco2.SelectedValue <> "", 1, cbobanco2.SelectedIndex) 'Asignar codigo por tipo de cuenta2
+                        SQL &= "','" & " " & "','" & " " & "'," & 1 & ",'" & " " ''cp2
                         SQL &= "','" & dFechaPatrona & "','" & dFechaTerminoContrato & "','" & dFechaSindicato & "','" & dFechaAntiguedad
                         ''COMILLA
-                        SQL &= "'," & 0 & "," & Trim(empleadofull.SubItems(22).Text) & ",'" & " " & "'," & IIf(Trim(empleadofull.SubItems(12).Text) = "A", 0, 1) & ",'" & Trim(empleadofull.SubItems(23).Text) & "','" & factor ''switch
-
-
-                        SQL &= "'," & IIf(Trim(empleadofull.SubItems(24).Text) = "", 0, Trim(empleadofull.SubItems(24).Text)) & ",'" & Trim(empleadofull.SubItems(33).Text) & "','" & Trim(empleadofull.SubItems(36).Text) ''JORNADA
+                        SQL &= "'," & 0 & "," & Trim(empleadofull.SubItems(22).Text) & ",'" & 1 & "'," & IIf(Trim(empleadofull.SubItems(12).Text) = "A", 0, 1) & ",'" & Trim(empleadofull.SubItems(23).Text) & "','" & factor ''switch
+                        SQL &= "'," & IIf(Trim(empleadofull.SubItems(24).Text) = "", 0, Trim(empleadofull.SubItems(24).Text)) & ",'" & number & "','" & Trim(empleadofull.SubItems(36).Text) ''JORNADA
                         SQL &= "','" & Trim(empleadofull.SubItems(37).Text) & "','" & Trim(empleadofull.SubItems(38).Text) & "','" & " " & "','" & Trim(empleadofull.SubItems(39).Text) & "','" & " " ''fecha de pago
                         SQL &= "','" & " " & "','" & " " & "'," & 0 & "," & IIf(Trim(empleadofull.SubItems(6).Text) = "", 0, Trim(empleadofull.SubItems(6).Text)) & "," & 0 ''depto- y puesto +
                         ''   abiriEmpresasC()
                         ''1 es de predeterminado
-                        SQL &= ",'" & IIf(Trim(empleadofull.SubItems(8).Text) = "SOLTERO", 0, 1) & "'," & 0 & ",0" & "," & fkIdMetodoPago & ",'" & " " & "', 1, " & 0 & ", 1, 1,'" & 1 & "','" & 1 & "','" & Trim(empleadofull.SubItems(31).Text) & "','" & rpatronal & "'"
+                        SQL &= ",'" & IIf(Trim(empleadofull.SubItems(8).Text) = "SOLTERO", 0, 1) & "'," & 1 & ",0" & "," & fkIdMetodoPago & ",'" & " " & "', 1, " & 1 & ", 1, 1,'" & 1 & "','" & cbEmpresasC.SelectedValue & "','" & Trim(empleadofull.SubItems(31).Text) & "','" & rpatronal & "'"
 
 
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Error en el registro con los siguiente datos:   Empleado:  " & Trim(empleado.SubItems(3).Text), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                           
+
                             Exit Sub
                         End If
                         pgbProgreso.Value += 1
                         Application.DoEvents()
+                        t = t + 1
                     Else
                         MessageBox.Show(mensa, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         tsbCancelar_Click(sender, e)
                         pnlProgreso.Visible = False
                     End If
 
-                
-                  
+
+
 
                 Next
 
                 'Enviar correo
                 '' Enviar_Mail(GenerarCorreoFlujo("Importación Flujo-Conceptos", "Área Facturación", "Se importo un flujo con los conceptos necesarios"), "g.gomez@mbcgroup.mx", "Importación")
 
+                If bandera <> False Then
+                    tsbCancelar_Click(sender, e)
+                    pnlProgreso.Visible = False
 
-
-                'If bandera = False Then
-                tsbCancelar_Click(sender, e)
-                pnlProgreso.Visible = False
-                MessageBox.Show("Proceso terminado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                'Else
-                '    MessageBox.Show("Revice los datos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                'End If
+                    MessageBox.Show(t.ToString() & "  Proceso terminado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    MessageBox.Show("No se guardo ninguna dato, revise y vuelva a intentarlo ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                End If
 
 
             Else

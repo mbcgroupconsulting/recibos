@@ -421,9 +421,9 @@ Public Class frmPrincipal
 
     Private Sub AltaNominasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AltaNominasToolStripMenuItem.Click
 
-        Dim Forma As New frmEmpleadosXCliente
-        '' Dim Forma As New AltaNominaEmpleado
-        Forma.ShowDialog()
+        'Dim Forma As New frmEmpleadosXCliente
+        ' '' Dim Forma As New AltaNominaEmpleado
+        'Forma.ShowDialog()
     End Sub
 
     Private Sub MenuInicio_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MenuInicio.Opening
