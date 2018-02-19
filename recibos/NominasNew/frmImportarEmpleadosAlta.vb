@@ -240,7 +240,10 @@ Public Class frmImportarEmpleadosAlta
 
                 Dim IdEmpleado As Long
                 Dim i As Integer = 0
+
+                Dim t As Integer = 0
                 Dim conta As Integer = 0
+
 
 
                 pgbProgreso.Minimum = 0
@@ -270,12 +273,14 @@ Public Class frmImportarEmpleadosAlta
                             mensa = " Datos incompletos en el empleado: Empleado: " & empleado.Text & " Columna:" & x.ToString() & " "
 
 
-                            ''MessageBox.Show("Vacio en la columna" & empleado.SubItems(x).Text, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                            '' MessageBox.Show(mensa, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                             bandera = False
+                            x = empleado.SubItems.Count - 1
 
                         Else
 
                             empleadofull = empleado
+
                             '' MessageBox.Show("Pasa" & empleado.SubItems(x).Text, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
                             bandera = True
@@ -422,6 +427,7 @@ Public Class frmImportarEmpleadosAlta
                         End If
                         pgbProgreso.Value += 1
                         Application.DoEvents()
+                        t = t + 1
                     Else
                         MessageBox.Show(mensa, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         tsbCancelar_Click(sender, e)
@@ -439,7 +445,8 @@ Public Class frmImportarEmpleadosAlta
                 If bandera <> False Then
                     tsbCancelar_Click(sender, e)
                     pnlProgreso.Visible = False
-                    MessageBox.Show("Proceso terminado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    MessageBox.Show(t.ToString() & "  Proceso terminado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
                     MessageBox.Show("No se guardo ninguna dato, revise y vuelva a intentarlo ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
