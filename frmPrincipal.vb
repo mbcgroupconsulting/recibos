@@ -424,6 +424,7 @@ Public Class frmPrincipal
         'Dim Forma As New frmEmpleadosXCliente
         ' '' Dim Forma As New AltaNominaEmpleado
         'Forma.ShowDialog()
+
     End Sub
 
     Private Sub MenuInicio_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MenuInicio.Opening
