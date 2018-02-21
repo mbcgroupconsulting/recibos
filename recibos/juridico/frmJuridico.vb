@@ -58,6 +58,7 @@ Public Class frmJuridico
 
                                 Documento.Bookmarks.Item("nombrecompleto").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                                 Documento.Bookmarks.Item("imss").Range.Text = fEmpleado.Item("cIMSS")
+                                Documento.Bookmarks.Item("nombrecompleto2").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
 
                                 Documento.Save()
 
@@ -337,6 +338,7 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("iOrigen").Range.Text = IIf(fEmpleado.Item("iOrigen") = "0", "SOLTERO", "CASADO")
                     Documento.Bookmarks.Item("mes").Range.Text = MonthName(Today.Month).ToUpper()
                     Documento.Bookmarks.Item("nombrefiscal").Range.Text = fEmpleado.Item("nombrefiscal")
+                    Documento.Bookmarks.Item("cLugar").Range.Text = "OAXACA DE JUAREZ, OAXACA,"
 
                     Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
                     ''Documento.Bookmarks.Item("cLogoSindicato").Range.Text = System.Windows.Forms.Application.StartupPath & "\Archivos\logos\7enero.jpg"
