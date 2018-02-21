@@ -49,6 +49,9 @@ Public Class frmEmpresas
                 cbonivel.SelectedText = Fila.Item("Clasificacion")
                 txtfraccion.Text = Fila.Item("fraccion")
                 txtfactor.Text = Fila.Item("factor")
+
+                txtRepresentanteP.Text = Fila.Item("cRepresentanteP")
+                txtObjetoSocialP.Text = Fila.Item("cObjetoSocialP")
                 blnNuevo = False
             End If
         Catch ex As Exception
@@ -133,7 +136,7 @@ Public Class frmEmpresas
                 SQL &= "','" & txttelefono2.Text & "','" & txtcontacto.Text & "','" & txtemail.Text
                 SQL &= "','" & txtpatronal.Text & "'," & cbotipoempresa.SelectedValue
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & IIf(cbomatriz.SelectedIndex = 0, 1, 0)
-                SQL &= ",'" & cbonivel.Text & "','" & txtfraccion.Text & "','" & txtfactor.Text & "'"
+                SQL &= ",'" & cbonivel.Text & "','" & txtfraccion.Text & "','" & txtfactor.Text & "','" & txtRepresentanteP.Text & "','" & txtObjetoSocialP.Text & "'"
             Else
                 'Actualizar
 
@@ -146,7 +149,7 @@ Public Class frmEmpresas
                 SQL &= "','" & txttelefono2.Text & "','" & txtcontacto.Text & "','" & txtemail.Text
                 SQL &= "','" & txtpatronal.Text & "'," & cbotipoempresa.SelectedValue
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & IIf(cbomatriz.SelectedIndex = 0, 1, 0)
-                SQL &= ",'" & cbonivel.Text & "','" & txtfraccion.Text & "','" & txtfactor.Text & "'"
+                SQL &= ",'" & cbonivel.Text & "','" & txtfraccion.Text & "','" & txtfactor.Text & "','" & txtRepresentanteP.Text & "','" & txtObjetoSocialP.text & "'"
 
 
             End If
@@ -171,6 +174,7 @@ Public Class frmEmpresas
 
         MostrarTiposEmpresa()
         MostrarEstados()
+
         cmdguardar.Enabled = False
         cmdcancelar.Enabled = False
     End Sub
@@ -183,6 +187,7 @@ Public Class frmEmpresas
         SQL = "Select * from Cat_Estados order by iIdEstado"
         nCargaCBO(cboestados, SQL, "cEstado", "iIdEstado")
     End Sub
+   
 
     Private Sub txtnumero_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtnumero.KeyPress
         'SoloNumero.NumeroDec(e, sender)
