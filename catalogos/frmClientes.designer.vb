@@ -84,6 +84,8 @@ Partial Class frmClientes
         Me.cmdnuevo = New System.Windows.Forms.Button()
         Me.cmdsalir = New System.Windows.Forms.Button()
         Me.cmdguardar = New System.Windows.Forms.Button()
+        Me.cboSindicato = New System.Windows.Forms.ComboBox()
+        Me.Label27 = New System.Windows.Forms.Label()
         Me.pnlProveedores.SuspendLayout()
         CType(Me.nupflujo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nupsindicato, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -94,6 +96,8 @@ Partial Class frmClientes
         'pnlProveedores
         '
         Me.pnlProveedores.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlProveedores.Controls.Add(Me.cboSindicato)
+        Me.pnlProveedores.Controls.Add(Me.Label27)
         Me.pnlProveedores.Controls.Add(Me.cboplaza)
         Me.pnlProveedores.Controls.Add(Me.Label26)
         Me.pnlProveedores.Controls.Add(Me.Label25)
@@ -149,7 +153,7 @@ Partial Class frmClientes
         Me.pnlProveedores.Enabled = False
         Me.pnlProveedores.Location = New System.Drawing.Point(6, 9)
         Me.pnlProveedores.Name = "pnlProveedores"
-        Me.pnlProveedores.Size = New System.Drawing.Size(689, 629)
+        Me.pnlProveedores.Size = New System.Drawing.Size(689, 652)
         Me.pnlProveedores.TabIndex = 0
         '
         'cboplaza
@@ -593,7 +597,7 @@ Partial Class frmClientes
         Me.Panel1.Controls.Add(Me.cmdnuevo)
         Me.Panel1.Controls.Add(Me.cmdsalir)
         Me.Panel1.Controls.Add(Me.cmdguardar)
-        Me.Panel1.Location = New System.Drawing.Point(701, 9)
+        Me.Panel1.Location = New System.Drawing.Point(701, 24)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(105, 571)
         Me.Panel1.TabIndex = 36
@@ -685,10 +689,27 @@ Partial Class frmClientes
         Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdguardar.UseVisualStyleBackColor = True
         '
+        'cboSindicato
+        '
+        Me.cboSindicato.FormattingEnabled = True
+        Me.cboSindicato.Location = New System.Drawing.Point(129, 613)
+        Me.cboSindicato.Name = "cboSindicato"
+        Me.cboSindicato.Size = New System.Drawing.Size(544, 27)
+        Me.cboSindicato.TabIndex = 53
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(55, 613)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(72, 19)
+        Me.Label27.TabIndex = 52
+        Me.Label27.Text = "Sindicato:"
+        '
         'frmClientes
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(811, 642)
+        Me.ClientSize = New System.Drawing.Size(811, 673)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.pnlProveedores)
         Me.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -766,4 +787,6 @@ Partial Class frmClientes
     Friend WithEvents cboplaza As ComboBox
     Friend WithEvents Label26 As Label
     Friend WithEvents cmdusuario As Button
+    Friend WithEvents cboSindicato As System.Windows.Forms.ComboBox
+    Friend WithEvents Label27 As System.Windows.Forms.Label
 End Class

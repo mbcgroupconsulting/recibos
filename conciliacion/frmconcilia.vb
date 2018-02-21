@@ -261,6 +261,7 @@ Public Class frmconcilia
                 Dim bValidar As Boolean
 
                 contadorlista = 0
+                'If rdbIguales.Checked = True Then
                 For Each producto As ListViewItem In lsvLista.CheckedItems
                     cadena = ""
                     facturas = ""
@@ -272,7 +273,10 @@ Public Class frmconcilia
                         If chkfecha.Checked = True Then
                             fecha = CDate(producto.SubItems(CInt(NudFecha.Value)).Text)
                             If fecha.Date >= dtpfechainicio.Value.Date And fecha.Date <= dtpfechafin.Value.Date Then
+
                                 If producto.SubItems(CInt(NudCargo.Value)).Text <> "" And (producto.SubItems(CInt(NudAbono.Value)).Text = "" Or producto.SubItems(CInt(NudAbono.Value)).Text = "0") Then
+
+
                                     'Buscamos en gastos
 
                                     SQL = "select * from gastos"
@@ -404,7 +408,7 @@ Public Class frmconcilia
                                             producto.SubItems.Add("--")
                                             producto.SubItems.Add("3")
                                         End If
-                                        End If
+                                    End If
 
 
 
@@ -563,6 +567,9 @@ Public Class frmconcilia
                                     producto.SubItems.Add("//")
                                     producto.SubItems.Add("3")
                                 End If
+
+
+
                                 'MessageBox.Show("esta dentro del rango", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                             End If
@@ -577,6 +584,11 @@ Public Class frmconcilia
 
 
                 Next
+                'ElseIf rdbrango.Checked = True Then
+                '    Dim range As String = Nudrango.Value
+                '    MessageBox.Show("Rango", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                'End If
+
 
                 'tsbCancelar_Click(sender, e)
                 pnlProgreso.Visible = False

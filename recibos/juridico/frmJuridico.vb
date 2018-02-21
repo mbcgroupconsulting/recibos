@@ -304,10 +304,11 @@ Public Class frmJuridico
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
                 SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,dFechaNac,puestos.cNombre as cPuesto,fSueldoBase,"
                 SQL &= "cNacionalidad, fSueldoOrd, iOrigen, empresa.calle + empresa.numero + empresa.numeroint + empresa.localidad AS cDireccionP, cCiudadP, cCPP, iCategoria, cJornada, cHorario,"
-                SQL &= "cHoras, cDescanso,nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP "
-                SQL &= " from (empleadosAlta"
+                SQL &= "cHoras, cDescanso, empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+                SQL &= " from ((empleadosAlta"
                 SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
-                SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto"
+                SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
+                SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
                 SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
                 Dim rwEmpleado As DataRow() = nConsulta(SQL)
 
@@ -326,8 +327,8 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
                     Documento.Bookmarks.Item("dia").Range.Text = Today.Day.ToString()
 
-                    Documento.Bookmarks.Item("cDireccionP").Range.Text = fEmpleado.Item("cDireccionP")
-                    Documento.Bookmarks.Item("eRFC").Range.Text = fEmpleado.Item("eRFC")
+                    ''Documento.Bookmarks.Item("cDireccion").Range.Text = fEmpleado.Item("cDireccionP")
+                    Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
 
                     Dim fechanac As Date
                     fechanac = fEmpleado.Item("dFechaNac")
@@ -337,8 +338,26 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("mes").Range.Text = MonthName(Today.Month).ToUpper()
                     Documento.Bookmarks.Item("nombrefiscal").Range.Text = fEmpleado.Item("nombrefiscal")
 
+                    Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
+                    ''Documento.Bookmarks.Item("cLogoSindicato").Range.Text = System.Windows.Forms.Application.StartupPath & "\Archivos\logos\7enero.jpg"
+                    Documento.Bookmarks.Item("cLogoSindicato").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\7enero.png", LinkToFile:=True, SaveWithDocument:=True)
 
 
+                    '' Ubica la selección en el marcador del documento de word
+                    'MSWord.Selection.GoTo(
+                    '    What:=-1,
+                    '    Name:=Documento.Bookmarks.Item("cLogoSindicato").Name)
+
+                    '' Limpia el Clipboard  
+                    'Clipboard.Clear()
+
+                    '' Pasa el gráfico al portapapeles  
+                    'Clipboard.SetData(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\7enero.jpg", MSWord)
+
+                    '' Pega la imagen en la selección  
+                    'MSWord.Selection.Paste()
+
+                    
                     Documento.Save()
                     MSWord.Visible = True
 
@@ -351,6 +370,7 @@ Public Class frmJuridico
 
         Catch ex As Exception
             Documento.Close()
+            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
         End Try
     End Sub
 

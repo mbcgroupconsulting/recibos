@@ -634,8 +634,6 @@ Public Class frmEmpleadosXCliente
 
                             End If
 
-
-
                             sRenglon = sRenglon & "|" & "A" & "|" & "(Ninguno)" & "|" & "C" & "|" & "S" & "|" & Trim(Fila.Item("fkiIdMetodoPagoAlta"))
                             sRenglon = sRenglon & "|" & "Matutino" & "|" & IIf(Fila.Item("iCategoria") = "0", "A", "B") & "|" & "" & "|" & "" & "|" & "" & "|" & "" & "|" & ""
                             Dim var, var2 As String

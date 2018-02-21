@@ -672,7 +672,28 @@ Public Class frmAltaEmpleadoNew
     End Sub
 
     Private Sub cmdjuridico_Click(sender As Object, e As EventArgs) Handles cmdjuridico.Click
+        SQL = "select * from usuarios where idUsuario = " & idUsuario
+        Dim rwFilas As DataRow() = nConsulta(SQL)
+        Dim forma As New frmJuridico
+        Try
+            If rwFilas Is Nothing = False Then
 
+
+                Dim Fila As DataRow = rwFilas(0)
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "6") Then
+                    forma.gIdCliente = gIdCliente
+                    forma.gIdEmpleado = gIdEmpleado
+                    forma.gIdEmpresa = gIdEmpresa
+                    forma.ShowDialog()
+                Else
+                    MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub cmdsalir_Click(sender As Object, e As EventArgs) Handles cmdsalir.Click

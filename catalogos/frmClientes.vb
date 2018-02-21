@@ -67,6 +67,9 @@ Public Class frmClientes
         MostrarPromotores()
         MostrarPromotores2()
         MostrarPromotores3()
+
+        MostrarSindicatos()
+
         cbotipop.SelectedIndex = 0
         cmdguardar.Enabled = False
         cmdcancelar.Enabled = False
@@ -92,6 +95,10 @@ Public Class frmClientes
     Private Sub MostrarEstados()
         SQL = "Select * from Cat_Estados order by iIdEstado"
         nCargaCBO(cboestados, SQL, "cEstado", "iIdEstado")
+    End Sub
+    Private Sub MostrarSindicatos()
+        SQL = "Select * from Cat_SindicatosAlta order by cNombre"
+        nCargaCBO(cboSindicato, SQL, "cNombre", "iIdSindicato")
     End Sub
 
     Private Sub txtcp_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtcp.KeyPress
@@ -163,6 +170,8 @@ Public Class frmClientes
                 cbopromotor.SelectedValue = IIf(aID(0) = "", 0, aID(0))
                 cbopromotor2.SelectedValue = IIf(aID(1) = "", 0, aID(1))
                 cbopromotor3.SelectedValue = IIf(aID(2) = "", 0, aID(2))
+
+                cboSindicato.SelectedIndex = IIf(cboSindicato.SelectedIndex = "", 0, cboSindicato.SelectedIndex)
 
 
 
@@ -253,7 +262,7 @@ Public Class frmClientes
                 SQL &= "','" & txttelefono2.Text & "','" & txtcontacto.Text & "','" & txtemail.Text
                 SQL &= "',''," & IIf(cbotipop.SelectedIndex = 0, 1, 0) & "," & nupordinario.Value & "," & nupsindicato.Value
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & cboplaza.SelectedValue & "," & nupflujo.Value
-                SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "'"
+                SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "," & cboSindicato.SelectedIndex & "'"
             Else
                 'Actualizar
 
@@ -266,7 +275,8 @@ Public Class frmClientes
                 SQL &= "','" & txttelefono2.Text & "','" & txtcontacto.Text & "','" & txtemail.Text
                 SQL &= "',''," & IIf(cbotipop.SelectedIndex = 0, 1, 0) & "," & nupordinario.Value & "," & nupsindicato.Value
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & cboplaza.SelectedValue & "," & nupflujo.Value
-                SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "'"
+                SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "," & cboSindicato.SelectedIndex & "'"
+
 
 
 
