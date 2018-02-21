@@ -305,7 +305,7 @@ Public Class frmJuridico
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
                 SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,dFechaNac,puestos.cNombre as cPuesto,fSueldoBase,"
                 SQL &= "cNacionalidad, fSueldoOrd, iOrigen, empresa.calle + empresa.numero + empresa.numeroint + empresa.localidad AS cDireccionP, cCiudadP, cCPP, iCategoria, cJornada, cHorario,"
-                SQL &= "cHoras, cDescanso, empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+                SQL &= "cHoras, cDescanso, empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato, Cat_SindicatosAlta.iIdSindicato "
                 SQL &= " from ((empleadosAlta"
                 SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
                 SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
@@ -341,25 +341,18 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cLugar").Range.Text = "OAXACA DE JUAREZ, OAXACA"
 
                     Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
-                    ''Documento.Bookmarks.Item("cLogoSindicato").Range.Text = System.Windows.Forms.Application.StartupPath & "\Archivos\logos\7enero.jpg"
-                    Documento.Bookmarks.Item("cLogoSindicato").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\dev.png", LinkToFile:=True, SaveWithDocument:=True)
+                  
+                    If fEmpleado.Item("iIdSindicato") = 1 Then
+                        Documento.Bookmarks.Item("cLogoSindicato").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\7enero.png", LinkToFile:=True, SaveWithDocument:=True)
+                        Documento.Bookmarks.Item("cLogoSindicato2").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\croc.jpg", LinkToFile:=True, SaveWithDocument:=True)
 
+                    ElseIf fEmpleado.Item("iIdSindicato") = 2 Then
+                        Documento.Bookmarks.Item("cLogoSindicato").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\ctm.png", LinkToFile:=True, SaveWithDocument:=True)
+                       
 
-                    '' Ubica la selección en el marcador del documento de word
-                    'MSWord.Selection.GoTo(
-                    '    What:=-1,
-                    '    Name:=Documento.Bookmarks.Item("cLogoSindicato").Name)
+                    End If
 
-                    '' Limpia el Clipboard  
-                    'Clipboard.Clear()
-
-                    '' Pasa el gráfico al portapapeles  
-                    'Clipboard.SetData(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\7enero.jpg", MSWord)
-
-                    '' Pega la imagen en la selección  
-                    'MSWord.Selection.Paste()
-
-                    
+                   
                     Documento.Save()
                     MSWord.Visible = True
 
