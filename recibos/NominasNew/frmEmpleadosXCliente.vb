@@ -590,103 +590,106 @@ Public Class frmEmpleadosXCliente
             dialogo.DefaultExt = "*.txt"
             dialogo.FileName = "Empleados"
             dialogo.Filter = "Archivos de texto (*.txt)|*.txt"
-            dialogo.ShowDialog()
+            Dim ret As DialogResult = dialogo.ShowDialog()
             PathArchivo = ""
             PathArchivo = dialogo.FileName
 
-            If PathArchivo <> "" Then
+            If ret = Windows.Forms.DialogResult.OK Then
+                If PathArchivo <> "" Then
 
-                'If dialogo.ShowDialog() = DialogResult.OK Then
+                    'If dialogo.ShowDialog() = DialogResult.OK Then
 
-                strStreamW = File.Create(PathArchivo) ' lo creamos
-                strStreamWriter = New StreamWriter(strStreamW, System.Text.Encoding.Default) ' tipo de codificacion para escritura
+                    strStreamW = File.Create(PathArchivo) ' lo creamos
+                    strStreamWriter = New StreamWriter(strStreamW, System.Text.Encoding.Default) ' tipo de codificacion para escritura
 
-                contador = 1
-                sRenglon = ""
-                For x = 0 To lsvLista.CheckedItems.Count - 1
-                    ''s = s & "Checked Item " & (x + 1).ToString & " = " & lsvLista.CheckedItems(x).ToString & "Tag" & lsvLista.Items(x).Tag & ControlChars.CrLf
-                    sql = "select * from empleadosAlta where iIdEmpleadoAlta= " & lsvLista.CheckedItems(x).Tag
-                    '' sql = "select * from empleadosAlta where cCodigoEmpleado= " & lsvLista.CheckedItems(x).Tag
-                    Dim rwDatos As DataRow() = nConsulta(sql)
+                    contador = 1
+                    sRenglon = ""
+                    For x = 0 To lsvLista.CheckedItems.Count - 1
+                        ''s = s & "Checked Item " & (x + 1).ToString & " = " & lsvLista.CheckedItems(x).ToString & "Tag" & lsvLista.Items(x).Tag & ControlChars.CrLf
+                        sql = "select * from empleadosAlta where iIdEmpleadoAlta= " & lsvLista.CheckedItems(x).Tag
+                        '' sql = "select * from empleadosAlta where cCodigoEmpleado= " & lsvLista.CheckedItems(x).Tag
+                        Dim rwDatos As DataRow() = nConsulta(sql)
 
-                    If rwDatos Is Nothing = False Then
+                        If rwDatos Is Nothing = False Then
 
-                        For Each Fila In rwDatos
-                            sql = "SELECT * FROM Cat_TipoJornadaAlta where iIdTipoJornadaAlta=" & Fila.Item("cJornada")
-                            Dim cJornada As DataRow() = nConsulta(sql)
-                            Dim Jor As String
-                            If cJornada Is Nothing Then
-                                Jor = "(No asignada)"
-                            Else
-                                Jor = cJornada(0).Item("Descripcion")
-                            End If
-                            sRenglon = Fila.Item("cCodigoEmpleado") & "|" & Fila.Item("dFechaCap") & "|" & "30/12/1899" & "|" & "30/12/1899" & "|" & Fila.Item("fkiIdTipoContratoAlta")
-                            sRenglon = sRenglon & "|" & Fila.Item("cApellidoP") & "|" & Fila.Item("cApellidoM") & "|" & Fila.Item("cNombre")
-                            sRenglon = sRenglon & "|" & Jor & "|" & Fila.Item("fSueldoBase") & "|" & Fila.Item("fSueldoIntegrado") & "|" & "F"
+                            For Each Fila In rwDatos
+                                sql = "SELECT * FROM Cat_TipoJornadaAlta where iIdTipoJornadaAlta=" & Fila.Item("cJornada")
+                                Dim cJornada As DataRow() = nConsulta(sql)
+                                Dim Jor As String
+                                If cJornada Is Nothing Then
+                                    Jor = "(No asignada)"
+                                Else
+                                    Jor = cJornada(0).Item("Descripcion")
+                                End If
+                                sRenglon = Fila.Item("cCodigoEmpleado") & "|" & Fila.Item("dFechaCap") & "|" & "30/12/1899" & "|" & "30/12/1899" & "|" & Fila.Item("fkiIdTipoContratoAlta")
+                                sRenglon = sRenglon & "|" & Fila.Item("cApellidoP") & "|" & Fila.Item("cApellidoM") & "|" & Fila.Item("cNombre")
+                                sRenglon = sRenglon & "|" & Jor & "|" & Fila.Item("fSueldoBase") & "|" & Fila.Item("fSueldoIntegrado") & "|" & "F"
 
-                            sql = "SELECT * FROM DepartamentosALTA WHERE iIdDepartamentoAlta=" & Fila.Item("fkiIdDepartamento")
-                            Dim cDepto As DataRow() = nConsulta(sql)
-                            Dim dpto As String
-                            If cDepto Is Nothing Then
-                                dpto = "(No asignado)"
-                            Else
-                                dpto = cDepto(0).Item("cNombre")
+                                sql = "SELECT * FROM DepartamentosALTA WHERE iIdDepartamentoAlta=" & Fila.Item("fkiIdDepartamento")
+                                Dim cDepto As DataRow() = nConsulta(sql)
+                                Dim dpto As String
+                                If cDepto Is Nothing Then
+                                    dpto = "(No asignado)"
+                                Else
+                                    dpto = cDepto(0).Item("cNombre")
 
-                            End If
+                                End If
 
-                            sRenglon = sRenglon & "|" & "A" & "|" & "(Ninguno)" & "|" & "C" & "|" & "S" & "|" & Trim(Fila.Item("fkiIdMetodoPagoAlta"))
-                            sRenglon = sRenglon & "|" & "Matutino" & "|" & IIf(Fila.Item("iCategoria") = "0", "A", "B") & "|" & "" & "|" & "" & "|" & "" & "|" & "" & "|" & ""
-                            Dim var, var2 As String
-                            Dim var_leg As Integer
-                            var = Fila.Item("cRFC")
-                            var_leg = var.Length
+                                sRenglon = sRenglon & "|" & "A" & "|" & "(Ninguno)" & "|" & "C" & "|" & "S" & "|" & Trim(Fila.Item("fkiIdMetodoPagoAlta"))
+                                sRenglon = sRenglon & "|" & "Matutino" & "|" & IIf(Fila.Item("iCategoria") = "0", "A", "B") & "|" & "" & "|" & "" & "|" & "" & "|" & "" & "|" & ""
+                                Dim var, var2 As String
+                                Dim var_leg As Integer
+                                var = Fila.Item("cRFC")
+                                var_leg = var.Length
 
-                            Dim curp_leg As Integer
-                            var2 = Fila.Item("cCURP")
-                            curp_leg = var2.Length
-                            sRenglon = sRenglon & "|" & Fila.Item("cIMSS") & "|" & Fila.Item("cRFC").Substring(0, 4) & "|" & Fila.Item("cRFC").Substring(var_leg - 3, 3) & "|" & Fila.Item("cRFC").Substring(0, 4) & "|" & Fila.Item("cCURP").Substring(curp_leg - 8, 8)
-                            Dim t As String
-                            If Fila.Item("iSexo") = "1" Then
-                                t = "M"
-                            Else
-                                t = "F"
-                            End If
-                            sql = "SELECT * FROM PuestosAlta WHERE iIdPuestoAlta=" & Fila.Item("fkiIdPuesto")
-                           
-                            sRenglon = sRenglon & "|" & t & "|" & "" & "|" & Fila.Item("dFechaNac") & "|" & "0" & "|" & "" & "|" & "" & "|" & "" & "|" & "(Ninguno)" & "|" & "" & "|" & "" & "|" & "0"
-                            sRenglon = sRenglon & "|" & "" & "|" & "" & "|" & "0" & "|" & "1" & "|" & "0" & "|" & "0" & "|" & Fila.Item("dFechaCap")
-                            sRenglon = sRenglon & "|" & Fila.Item("dFechaCap") & "|" & "0" & "|" & Fila.Item("dFechaCap") & "|" & "0" & "|" & "30/12/1899" & "|" & "0" & "|" & "0" & "|" & "1" & "|" & "1"
+                                Dim curp_leg As Integer
+                                var2 = Fila.Item("cCURP")
+                                curp_leg = var2.Length
+                                sRenglon = sRenglon & "|" & Fila.Item("cIMSS") & "|" & Fila.Item("cRFC").Substring(0, 4) & "|" & Fila.Item("cRFC").Substring(var_leg - 3, 3) & "|" & Fila.Item("cRFC").Substring(0, 4) & "|" & Fila.Item("cCURP").Substring(curp_leg - 8, 8)
+                                Dim t As String
+                                If Fila.Item("iSexo") = "1" Then
+                                    t = "M"
+                                Else
+                                    t = "F"
+                                End If
+                                sql = "SELECT * FROM PuestosAlta WHERE iIdPuestoAlta=" & Fila.Item("fkiIdPuesto")
 
-                            sql = "SELECT * FROM bancos WHERE iIdBanco=" & Fila.Item("fkiIdBanco")
-                            Dim bancoClave As DataRow() = nConsulta(sql)
-                            Dim banco As String
-                            banco = bancoClave(0).Item("clave")
-                            sRenglon = sRenglon & "|" & "" & "|" & banco & "|" & Fila.Item("NumCuenta") & "|" & "" & "|" & "" & "|" & "0" & "|" & "0" & "|" & "0" & "|" & "0" & "|" & "0"
-                            sRenglon = sRenglon & "|" & "_A" & "|" & "30/12/1899" & "|" & "0" & "|" & Fila.Item("cRegistroPatronal") & "|" & Fila.Item("cRFC").Substring(0, 4) & "|" & ""
-                            sql = "SELECT * FROM Cat_Estados WHERE iIdEstado=" & Fila.Item("fkiIdEstadoNac")
-                            Dim c As String
-                            c = Fila.Item("cCURP").Substring(curp_leg - 7, 7)
-                            Dim codeE As String
-                            codeE = c.Substring(0, 2)
+                                sRenglon = sRenglon & "|" & t & "|" & "" & "|" & Fila.Item("dFechaNac") & "|" & "0" & "|" & "" & "|" & "" & "|" & "" & "|" & "(Ninguno)" & "|" & "" & "|" & "" & "|" & "0"
+                                sRenglon = sRenglon & "|" & "" & "|" & "" & "|" & "0" & "|" & "1" & "|" & "0" & "|" & "0" & "|" & Fila.Item("dFechaCap")
+                                sRenglon = sRenglon & "|" & Fila.Item("dFechaCap") & "|" & "0" & "|" & Fila.Item("dFechaCap") & "|" & "0" & "|" & "30/12/1899" & "|" & "0" & "|" & "0" & "|" & "1" & "|" & "1"
 
-                            sRenglon = sRenglon & "|" & Fila.Item("cCorreo") & "|" & "2" & "|" & Fila.Item("Clabe") & "|" & codeE & "|" & "0"
+                                sql = "SELECT * FROM bancos WHERE iIdBanco=" & Fila.Item("fkiIdBanco")
+                                Dim bancoClave As DataRow() = nConsulta(sql)
+                                Dim banco As String
+                                banco = bancoClave(0).Item("clave")
+                                sRenglon = sRenglon & "|" & "" & "|" & banco & "|" & Fila.Item("NumCuenta") & "|" & "" & "|" & "" & "|" & "0" & "|" & "0" & "|" & "0" & "|" & "0" & "|" & "0"
+                                sRenglon = sRenglon & "|" & "_A" & "|" & "30/12/1899" & "|" & "0" & "|" & Fila.Item("cRegistroPatronal") & "|" & Fila.Item("cRFC").Substring(0, 4) & "|" & ""
+                                sql = "SELECT * FROM Cat_Estados WHERE iIdEstado=" & Fila.Item("fkiIdEstadoNac")
+                                Dim c As String
+                                c = Fila.Item("cCURP").Substring(curp_leg - 7, 7)
+                                Dim codeE As String
+                                codeE = c.Substring(0, 2)
 
-                        Next
+                                sRenglon = sRenglon & "|" & Fila.Item("cCorreo") & "|" & "2" & "|" & Fila.Item("Clabe") & "|" & codeE & "|" & "0"
 
-                    End If
-                    strStreamWriter.WriteLine(sRenglon)
-                    contador = contador + 1
-                Next x
-                strStreamWriter.Close() ' cerramos
-                MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Next
 
-                'Else
-                '    MessageBox.Show("No gaurdo nada", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        End If
+                        strStreamWriter.WriteLine(sRenglon)
+                        contador = contador + 1
+                    Next x
+                    strStreamWriter.Close() ' cerramos
+                    MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                'End If
+                   
 
 
+                End If
+                ''end path
+            Else
+                MessageBox.Show("No gaurdo nada", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
+            
 
 
         End If

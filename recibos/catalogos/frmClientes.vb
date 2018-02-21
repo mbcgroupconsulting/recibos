@@ -171,7 +171,7 @@ Public Class frmClientes
                 cbopromotor2.SelectedValue = IIf(aID(1) = "", 0, aID(1))
                 cbopromotor3.SelectedValue = IIf(aID(2) = "", 0, aID(2))
 
-                cboSindicato.SelectedIndex = IIf(cboSindicato.SelectedIndex = "", 0, cboSindicato.SelectedIndex)
+                cboSindicato.SelectedIndex = IIf(cboSindicato.SelectedIndex = "", -1, cboSindicato.SelectedIndex)
 
 
 

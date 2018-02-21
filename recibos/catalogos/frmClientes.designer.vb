@@ -24,6 +24,8 @@ Partial Class frmClientes
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmClientes))
         Me.pnlProveedores = New System.Windows.Forms.Panel()
+        Me.cboSindicato = New System.Windows.Forms.ComboBox()
+        Me.Label27 = New System.Windows.Forms.Label()
         Me.cboplaza = New System.Windows.Forms.ComboBox()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.Label25 = New System.Windows.Forms.Label()
@@ -84,8 +86,6 @@ Partial Class frmClientes
         Me.cmdnuevo = New System.Windows.Forms.Button()
         Me.cmdsalir = New System.Windows.Forms.Button()
         Me.cmdguardar = New System.Windows.Forms.Button()
-        Me.cboSindicato = New System.Windows.Forms.ComboBox()
-        Me.Label27 = New System.Windows.Forms.Label()
         Me.pnlProveedores.SuspendLayout()
         CType(Me.nupflujo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nupsindicato, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -155,6 +155,24 @@ Partial Class frmClientes
         Me.pnlProveedores.Name = "pnlProveedores"
         Me.pnlProveedores.Size = New System.Drawing.Size(689, 652)
         Me.pnlProveedores.TabIndex = 0
+        '
+        'cboSindicato
+        '
+        Me.cboSindicato.FormattingEnabled = True
+        Me.cboSindicato.Items.AddRange(New Object() {"Seleccione  Sindicato"})
+        Me.cboSindicato.Location = New System.Drawing.Point(129, 613)
+        Me.cboSindicato.Name = "cboSindicato"
+        Me.cboSindicato.Size = New System.Drawing.Size(544, 27)
+        Me.cboSindicato.TabIndex = 53
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(55, 613)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(72, 19)
+        Me.Label27.TabIndex = 52
+        Me.Label27.Text = "Sindicato:"
         '
         'cboplaza
         '
@@ -688,23 +706,6 @@ Partial Class frmClientes
         Me.cmdguardar.Text = "Guardar"
         Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdguardar.UseVisualStyleBackColor = True
-        '
-        'cboSindicato
-        '
-        Me.cboSindicato.FormattingEnabled = True
-        Me.cboSindicato.Location = New System.Drawing.Point(129, 613)
-        Me.cboSindicato.Name = "cboSindicato"
-        Me.cboSindicato.Size = New System.Drawing.Size(544, 27)
-        Me.cboSindicato.TabIndex = 53
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(55, 613)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(72, 19)
-        Me.Label27.TabIndex = 52
-        Me.Label27.Text = "Sindicato:"
         '
         'frmClientes
         '
