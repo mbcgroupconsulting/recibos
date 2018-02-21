@@ -338,11 +338,11 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("iOrigen").Range.Text = IIf(fEmpleado.Item("iOrigen") = "0", "SOLTERO", "CASADO")
                     Documento.Bookmarks.Item("mes").Range.Text = MonthName(Today.Month).ToUpper()
                     Documento.Bookmarks.Item("nombrefiscal").Range.Text = fEmpleado.Item("nombrefiscal")
-                    Documento.Bookmarks.Item("cLugar").Range.Text = "OAXACA DE JUAREZ, OAXACA,"
+                    Documento.Bookmarks.Item("cLugar").Range.Text = "OAXACA DE JUAREZ, OAXACA"
 
                     Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
                     ''Documento.Bookmarks.Item("cLogoSindicato").Range.Text = System.Windows.Forms.Application.StartupPath & "\Archivos\logos\7enero.jpg"
-                    Documento.Bookmarks.Item("cLogoSindicato").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\7enero.png", LinkToFile:=True, SaveWithDocument:=True)
+                    Documento.Bookmarks.Item("cLogoSindicato").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\dev.png", LinkToFile:=True, SaveWithDocument:=True)
 
 
                     '' Ubica la selección en el marcador del documento de word
