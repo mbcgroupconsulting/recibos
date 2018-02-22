@@ -67,7 +67,7 @@ Public Class frmJuridico
                                 rango = Documento.Range()
                                 rango.Select()
                                 Documento.Select()
-                                
+
                                 'MSWord.Visible = True
                                 DocumentoL.Range.Text = rango.Text
                                 Documento.Close()
@@ -104,7 +104,7 @@ Public Class frmJuridico
 
                 End If
 
-                
+
 
             Else
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -246,7 +246,7 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cFuncionesPuesto2").Range.Text = fEmpleado.Item("cFuncionesPuesto")
                     Documento.Bookmarks.Item("cHorario").Range.Text = fEmpleado.Item("cHorario")
                     Documento.Bookmarks.Item("cFormaPago").Range.Text = fEmpleado.Item("cFormaPago")
-                    Documento.Bookmarks.Item("iEstadoCivil").Range.Text = IIf(fEmpleado.Item("iEstadoCivil") = "0", "MASCULINO", "FEMENINO")
+                    Documento.Bookmarks.Item("iEstadoCivil").Range.Text = IIf(fEmpleado.Item("iEstadoCivil") = "0", "SOLTERO", "CASADO")
                     Documento.Bookmarks.Item("cEdad").Range.Text = fEmpleado.Item("cEdad")
                     Documento.Bookmarks.Item("cLugarPago").Range.Text = fEmpleado.Item("cLugarPago")
                     Documento.Bookmarks.Item("cLugarFirmaContrato").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
@@ -341,18 +341,18 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cLugar").Range.Text = "OAXACA DE JUAREZ, OAXACA"
 
                     Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
-                  
+
                     If fEmpleado.Item("iIdSindicato") = 1 Then
                         Documento.Bookmarks.Item("cLogoSindicato").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\7enero.png", LinkToFile:=True, SaveWithDocument:=True)
                         Documento.Bookmarks.Item("cLogoSindicato2").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\croc.jpg", LinkToFile:=True, SaveWithDocument:=True)
 
                     ElseIf fEmpleado.Item("iIdSindicato") = 2 Then
                         Documento.Bookmarks.Item("cLogoSindicato").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\ctm.png", LinkToFile:=True, SaveWithDocument:=True)
-                       
+
 
                     End If
 
-                   
+
                     Documento.Save()
                     MSWord.Visible = True
 
