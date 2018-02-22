@@ -171,7 +171,7 @@ Public Class frmClientes
                 cbopromotor2.SelectedValue = IIf(aID(1) = "", 0, aID(1))
                 cbopromotor3.SelectedValue = IIf(aID(2) = "", 0, aID(2))
 
-                cboSindicato.SelectedIndex = IIf(cboSindicato.SelectedIndex = "", -1, cboSindicato.SelectedIndex)
+                cboSindicato.SelectedValue = IIf(Fila.Item("fkiIdSindicato") = 0, -1, cboSindicato.SelectedValue)
 
 
 
@@ -262,7 +262,7 @@ Public Class frmClientes
                 SQL &= "','" & txttelefono2.Text & "','" & txtcontacto.Text & "','" & txtemail.Text
                 SQL &= "',''," & IIf(cbotipop.SelectedIndex = 0, 1, 0) & "," & nupordinario.Value & "," & nupsindicato.Value
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & cboplaza.SelectedValue & "," & nupflujo.Value
-                SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "," & cboSindicato.SelectedIndex & "'"
+                SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "'," & cboSindicato.SelectedValue & ""
             Else
                 'Actualizar
 
@@ -275,7 +275,7 @@ Public Class frmClientes
                 SQL &= "','" & txttelefono2.Text & "','" & txtcontacto.Text & "','" & txtemail.Text
                 SQL &= "',''," & IIf(cbotipop.SelectedIndex = 0, 1, 0) & "," & nupordinario.Value & "," & nupsindicato.Value
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & cboplaza.SelectedValue & "," & nupflujo.Value
-                SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "," & cboSindicato.SelectedIndex & "'"
+                SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "'," & cboSindicato.SelectedValue & ""
 
 
 

@@ -28,6 +28,11 @@ Public Class frmAltaEmpleadoNew
         MostrarDepartamentos()
         IndexTab()
 
+        txtcurp.MaxLength = 18
+        txtrfc.MaxLength = 13
+        txtimss.MaxLength = 11
+        txtcredito.MaxLength = 11
+
         'blnNuevo = gIdEmpleado = ""
 
 
@@ -69,68 +74,70 @@ Public Class frmAltaEmpleadoNew
         txtcodigo.TabIndex = 1
         dtpCaptura.TabIndex = 2
         cboTipoContrato.TabIndex = 3
-        cboIntegrar.TabIndex = 4
-        cbojornada.TabIndex = 5
-        txtpaterno.TabIndex = 6
-        txtmaterno.TabIndex = 7
-        txtnombre.TabIndex = 8
-        cbosexo.TabIndex = 9
-        cboedocivil.TabIndex = 10
-        cbopuesto.TabIndex = 11
-        txtfunciones.TabIndex = 12
-        cbodepartamento.TabIndex = 13
-        cbocategoria.TabIndex = 14
-        txtnacionalidad.TabIndex = 15
-        dtpfechanac.TabIndex = 16
-        txtedad.TabIndex = 17
-        dtppatrona.TabIndex = 18
-        dtpsindicato.TabIndex = 19
-        dtpantiguedad.TabIndex = 20
-        chkAntiguedad.TabIndex = 21
-        cboautorizacion.TabIndex = 22
-        txtcredito.TabIndex = 23
-        cbotipofactor.TabIndex = 24
-        txtfactor.TabIndex = 25
-        txtcurp.TabIndex = 26
-        txtrfc.TabIndex = 27
-        txtimss.TabIndex = 28
-        cboEdoNac.TabIndex = 29
-        txtsd.TabIndex = 30
-        txtsdi.TabIndex = 31
-        txtsalario.TabIndex = 32
-        cbometodopago.TabIndex = 33
-        GroupBox3.TabIndex = 34
-        cbobanco.TabIndex = 35
-        txtcuenta.TabIndex = 36
-        txtclabe.TabIndex = 37
-        txttarjeta.TabIndex = 38
-        GroupBox4.TabIndex = 39
-        cbobanco2.TabIndex = 40
-        txtcuenta2.TabIndex = 41
-        txtclabe2.TabIndex = 42
-        GroupBox2.TabIndex = 43
-        txtcallenum.TabIndex = 44
-        txtcolonia.TabIndex = 45
-        txtmunicipio.TabIndex = 46
-        cboestadotrab.TabIndex = 47
-        txtcp.TabIndex = 48
-        GroupBox1.TabIndex = 49
-        txtdireccionP.TabIndex = 50
-        txtciudadP.TabIndex = 51
-        cboestadoP.TabIndex = 52
-        txtcp2.TabIndex = 53
-        txtRegistroPatronal.TabIndex = 54
-        cbEmpresasC.TabIndex = 55
-        txthorario.TabIndex = 56
-        txthoras.TabIndex = 57
-        txtdescanso.TabIndex = 58
-        txtFechapago.TabIndex = 59
-        txtFormaPago.TabIndex = 60
-        txtlugarpago.TabIndex = 61
-        txtlugarfirma.TabIndex = 62
-        dtpFechaterminocontrato.TabIndex = 63
-        txtcorreo.TabIndex = 64
-        txtcomentarios.TabIndex = 65
+        cboTipoContratoJuridico.TabIndex = 4
+        cboIntegrar.TabIndex = 5
+        cbojornada.TabIndex = 6
+        txtpaterno.TabIndex = 7
+        txtmaterno.TabIndex = 8
+        txtnombre.TabIndex = 9
+        cbosexo.TabIndex = 10
+        cboedocivil.TabIndex = 11
+        cbopuesto.TabIndex = 12
+        txtPuestoJuridico.TabIndex = 13
+        txtfunciones.TabIndex = 14
+        cbodepartamento.TabIndex = 15
+        cbocategoria.TabIndex = 16
+        txtnacionalidad.TabIndex = 17
+        dtpfechanac.TabIndex = 18
+        txtedad.TabIndex = 19
+        dtppatrona.TabIndex = 20
+        dtpsindicato.TabIndex = 21
+        dtpantiguedad.TabIndex = 22
+        chkAntiguedad.TabIndex = 23
+        cboautorizacion.TabIndex = 24
+        txtcredito.TabIndex = 25
+        cbotipofactor.TabIndex = 26
+        txtfactor.TabIndex = 27
+        txtcurp.TabIndex = 28
+        txtrfc.TabIndex = 29
+        txtimss.TabIndex = 30
+        cboEdoNac.TabIndex = 31
+        txtsd.TabIndex = 32
+        txtsdi.TabIndex = 33
+        txtsalario.TabIndex = 34
+        cbometodopago.TabIndex = 35
+        GroupBox3.TabIndex = 36
+        cbobanco.TabIndex = 37
+        txtcuenta.TabIndex = 38
+        txtclabe.TabIndex = 39
+        txttarjeta.TabIndex = 40
+        GroupBox4.TabIndex = 41
+        cbobanco2.TabIndex = 42
+        txtcuenta2.TabIndex = 43
+        txtclabe2.TabIndex = 44
+        GroupBox2.TabIndex = 45
+        txtcallenum.TabIndex = 46
+        txtcolonia.TabIndex = 47
+        txtmunicipio.TabIndex = 48
+        cboestadotrab.TabIndex = 49
+        txtcp.TabIndex = 50
+        GroupBox1.TabIndex = 51
+        txtdireccionP.TabIndex = 52
+        txtciudadP.TabIndex = 53
+        cboestadoP.TabIndex = 54
+        txtcp2.TabIndex = 55
+        txtRegistroPatronal.TabIndex = 56
+        cbEmpresasC.TabIndex = 57
+        txthorario.TabIndex = 58
+        txthoras.TabIndex = 59
+        txtdescanso.TabIndex = 60
+        txtFechapago.TabIndex = 61
+        txtFormaPago.TabIndex = 62
+        txtlugarpago.TabIndex = 63
+        txtlugarfirma.TabIndex = 64
+        dtpFechaterminocontrato.TabIndex = 65
+        txtcorreo.TabIndex = 66
+        txtcomentarios.TabIndex = 67
 
 
 
@@ -306,7 +313,8 @@ Public Class frmAltaEmpleadoNew
                 End If
 
                 cboautorizacion.SelectedIndex = Fila.Item("iPermanente")
-
+                cboTipoContratoJuridico.SelectedIndex = Fila.Item("iTipoContratoJuridico")
+                txtPuestoJuridico.Text = Fila.Item("cPuestoSeguroSocial")
 
                 blnNuevo = False
             End If
@@ -477,6 +485,7 @@ Public Class frmAltaEmpleadoNew
 
         cbodepartamento.SelectedIndex = 0
         cbopuesto.SelectedIndex = 0
+        cboTipoContratoJuridico.SelectedIndex = 0
 
 
 
@@ -539,6 +548,8 @@ Public Class frmAltaEmpleadoNew
                     Me.txtcorreo.Focus()
                 End If
             End If
+
+
 
             If Mensaje <> "" Then
                 MessageBox.Show(Mensaje, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -605,7 +616,7 @@ Public Class frmAltaEmpleadoNew
                 SQL &= "','" & txthorario.Text & "','" & txthoras.Text & "','" & " " & "','" & txtdescanso.Text & "','" & txtFechapago.Text
                 SQL &= "','" & txtFormaPago.Text & "','" & txtlugarpago.Text & "'," & 0 & "," & cbopuesto.SelectedValue & "," & cbodepartamento.SelectedValue ''depto
                 SQL &= ",'" & cboedocivil.SelectedIndex & "'," & cboTipoContrato.SelectedValue & ",0" & "," & cbometodopago.SelectedValue & ",'" & txtlugarpago.Text & "', 1, " & cboEdoNac.SelectedValue & ", 1, 1,'" & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "','" & cbEmpresasC.SelectedValue & "','" & txtlugarfirma.Text & "','" & txtRegistroPatronal.Text & "'"
-
+                SQL &= "," & cboTipoContratoJuridico.SelectedIndex & ",'" & txtPuestoJuridico.Text & "'"
 
             Else
                 'Actualizar
@@ -631,6 +642,7 @@ Public Class frmAltaEmpleadoNew
                 SQL &= "','" & txthorario.Text & "','" & txthoras.Text & "','" & " " & "','" & txtdescanso.Text & "','" & txtFechapago.Text
                 SQL &= "','" & txtFormaPago.Text & "','" & txtlugarpago.Text & "'," & 0 & "," & cbopuesto.SelectedValue & "," & cbodepartamento.SelectedValue ''depto
                 SQL &= ",'" & cboedocivil.SelectedIndex & "'," & cboTipoContrato.SelectedValue & ",0" & "," & cbometodopago.SelectedValue & ",'" & txtlugarpago.Text & "', 1, " & cboEdoNac.SelectedValue & ", 1, 1,'" & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "','" & cbEmpresasC.SelectedValue & "','" & txtlugarfirma.Text & "','" & txtRegistroPatronal.Text & "'"
+                SQL &= "," & cboTipoContratoJuridico.SelectedIndex & ",'" & txtPuestoJuridico.Text & "'"
 
             End If
 
@@ -659,7 +671,7 @@ Public Class frmAltaEmpleadoNew
 
     End Sub
 
-    Private Sub cmdcancelar_Click(sender As Object, e As EventArgs) Handles cmdcancelar.Click
+    Private Sub cmdcancelar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdcancelar.Click
         If blnNuevo Then
             'Cargar los datos anteriores
         Else
@@ -667,7 +679,7 @@ Public Class frmAltaEmpleadoNew
         End If
     End Sub
 
-    Private Sub cmdimss_Click(sender As Object, e As EventArgs) Handles cmdimss.Click
+    Private Sub cmdimss_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdimss.Click
         Dim forma As New frmImss
         If gIdEmpleado <> "" Then
             forma.gIdEmpleado = gIdEmpleado
@@ -679,7 +691,7 @@ Public Class frmAltaEmpleadoNew
         End If
     End Sub
 
-    Private Sub cmdjuridico_Click(sender As Object, e As EventArgs) Handles cmdjuridico.Click
+    Private Sub cmdjuridico_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdjuridico.Click
         SQL = "select * from usuarios where idUsuario = " & idUsuario
         Dim rwFilas As DataRow() = nConsulta(SQL)
         Dim forma As New frmJuridico
@@ -719,4 +731,11 @@ Public Class frmAltaEmpleadoNew
     Private Sub cbotipofactor_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbotipofactor.SelectedIndexChanged
 
     End Sub
+
+    Private Sub dtpfechanac_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dtpfechanac.ValueChanged
+        Dim datenac As Date = CDate(dtpfechanac.Value)
+        txtedad.Text = DateTime.Now.Year - datenac.Year
+    End Sub
+
+   
 End Class

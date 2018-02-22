@@ -226,9 +226,7 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cPuesto2").Range.Text = fEmpleado.Item("cPuesto")
                     Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
                     Documento.Bookmarks.Item("cRFC2").Range.Text = fEmpleado.Item("cRFC")
-                    Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = fEmpleado.Item("fSueldoOrd")
-                    Documento.Bookmarks.Item("fSueldoBase").Range.Text = fEmpleado.Item("fSueldoBase")
-
+                   
                     Documento.Bookmarks.Item("iCategoria").Range.Text = IIf(fEmpleado.Item("iCategoria") = "0", "A", "B")
                     Documento.Bookmarks.Item("iSexo").Range.Text = IIf(fEmpleado.Item("iSexo") = "0", "FEMENINO", "MASCULINO")
                     Documento.Bookmarks.Item("iSexo2").Range.Text = IIf(fEmpleado.Item("iSexo") = "0", "FEMENINO", "MASCULINO")
@@ -242,6 +240,7 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cRepresentanteP").Range.Text = fEmpleado.Item("cRepresentanteP")
                     Documento.Bookmarks.Item("cRepresentanteP2").Range.Text = fEmpleado.Item("cRepresentanteP")
                     Documento.Bookmarks.Item("cObjetoSocialP").Range.Text = fEmpleado.Item("cObjetoSocialP")
+                    Documento.Bookmarks.Item("cObjetoSocialP2").Range.Text = fEmpleado.Item("cObjetoSocialP")
                     Documento.Bookmarks.Item("cFuncionesPuesto").Range.Text = fEmpleado.Item("cFuncionesPuesto")
                     Documento.Bookmarks.Item("cFuncionesPuesto2").Range.Text = fEmpleado.Item("cFuncionesPuesto")
                     Documento.Bookmarks.Item("cHorario").Range.Text = fEmpleado.Item("cHorario")
@@ -249,6 +248,7 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("iEstadoCivil").Range.Text = IIf(fEmpleado.Item("iEstadoCivil") = "0", "SOLTERO", "CASADO")
                     Documento.Bookmarks.Item("cEdad").Range.Text = fEmpleado.Item("cEdad")
                     Documento.Bookmarks.Item("cLugarPago").Range.Text = fEmpleado.Item("cLugarPago")
+                    Documento.Bookmarks.Item("cFechaPago").Range.Text = fEmpleado.Item("cFechaPago")
                     Documento.Bookmarks.Item("cLugarFirmaContrato").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
                     Documento.Bookmarks.Item("cLugarFirmaContrato2").Range.Text = fEmpleado.Item("cLugarFirmaContrato").ToLower()
                     Documento.Bookmarks.Item("cLugarFirmaContrato3").Range.Text = fEmpleado.Item("cLugarFirmaContrato").ToLower()
@@ -257,6 +257,34 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("dFecha3").Range.Text = DateTime.Now.ToString("dd/MM/yyyy")
                     Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
                     Documento.Bookmarks.Item("cNombreSindicato2").Range.Text = fEmpleado.Item("cNombreSindicato")
+
+                    ''Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = fEmpleado.Item("fSueldoOrd")
+                    Documento.Bookmarks.Item("fSueldoBase").Range.Text = fEmpleado.Item("fSueldoBase")
+
+
+                    Dim cJornada As DataRow() = nConsulta("SELECT * FROM Cat_TipoJornadaAlta where iIdTipoJornadaAlta=" & fEmpleado.Item("cJornada"))
+
+                    ''If cJornada Is Nothing = False Then
+                    Documento.Bookmarks.Item("cSalarioPeriodoTipo").Range.Text = cJornada(0).Item("Descripcion")
+                    Dim periodo As Integer
+                    Select Case cJornada(0).Item("iIdTipoJornadaAlta")
+                        Case 1
+                            periodo = 1
+                        Case 2
+                            periodo = 7
+                        Case 3
+                            periodo = 14
+                        Case 4
+                            periodo = 15
+                        Case 5
+                            periodo = 30
+                        Case 6
+                            periodo = 60
+                        Case Else
+                            periodo = 1
+                    End Select
+                    Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = CStr(periodo * fEmpleado.Item("fSueldoBase"))
+                    Documento.Bookmarks.Item("cSalarioPeriodoLetra").Range.Text = SpellNumber(CStr(periodo * fEmpleado.Item("fSueldoBase")))
 
                     Documento.Save()
                     MSWord.Visible = True
@@ -324,12 +352,12 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cNacionalidad").Range.Text = fEmpleado.Item("cNacionalidad")
                     Documento.Bookmarks.Item("cNombreLargo").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                     Documento.Bookmarks.Item("cNombreLargo2").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
-                    Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto")
+                    ''Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto")
                     Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
                     Documento.Bookmarks.Item("dia").Range.Text = Today.Day.ToString()
 
                     ''Documento.Bookmarks.Item("cDireccion").Range.Text = fEmpleado.Item("cDireccionP")
-                    Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
+                    ''Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
 
                     Dim fechanac As Date
                     fechanac = fEmpleado.Item("dFechaNac")
