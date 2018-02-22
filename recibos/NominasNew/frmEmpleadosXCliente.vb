@@ -146,11 +146,13 @@ Public Class frmEmpleadosXCliente
         Try
             If rbActivos.Checked Then
                 SQL = "select * from empleadosAlta "
+                ''SQL = "select * from empleados "
                 SQL &= " where (fkiIdCliente=" & cboclientes.SelectedValue & " and fkiIdEmpresa=" & cboempresas.SelectedValue & " AND iEstatus = 1)"
 
                 SQL &= " order by cCodigoEmpleado,cNombre,cApellidoP,cApellidoM "
             Else
                 SQL = "select * from empleadosAlta "
+                ''SQL = "select * from empleados "
                 SQL &= " where (fkiIdCliente=" & cboclientes.SelectedValue & " and fkiIdEmpresa=" & cboempresas.SelectedValue & " )"
 
                 SQL &= " order by cCodigoEmpleado,cNombre,cApellidoP,cApellidoM "
