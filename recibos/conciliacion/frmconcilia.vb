@@ -760,4 +760,16 @@ Public Class frmconcilia
 
         End Try
     End Sub
+
+    Private Sub tsbCancelar_Click(sender As System.Object, e As System.EventArgs) Handles tsbCancelar.Click
+        pnlCatalogo.Enabled = False
+        lsvLista.Items.Clear()
+        chkAll.Checked = False
+        lblRuta.Text = ""
+        tsbImportar.Enabled = False
+        tsbProcesar.Enabled = False
+        tsbGuardar.Enabled = False
+        tsbCancelar.Enabled = False
+        tsbNuevo.Enabled = True
+    End Sub
 End Class

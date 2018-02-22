@@ -432,27 +432,7 @@ Public Class frmPrincipal
     End Sub
 
     Private Sub ConciliacionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConciliacionToolStripMenuItem.Click
-        SQL = "select * from usuarios where idUsuario = " & idUsuario
-        Dim rwFilas As DataRow() = nConsulta(SQL)
-        Dim Forma As New frmconcilia
-
-        Try
-            If rwFilas Is Nothing = False Then
-
-
-                Dim Fila As DataRow = rwFilas(0)
-                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4") Then
-
-                    Forma.ShowDialog()
-                Else
-                    MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-
-                End If
-            End If
-
-        Catch ex As Exception
-
-        End Try
+        
 
 
 
@@ -1113,5 +1093,77 @@ Public Class frmPrincipal
         Dim Forma As New frmImportarEmpleadosAlta
         '' Dim Forma As New AltaNominaEmpleado
         Forma.ShowDialog()
+    End Sub
+
+    Private Sub ConciliarToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ConciliarToolStripMenuItem.Click
+        SQL = "select * from usuarios where idUsuario = " & idUsuario
+        Dim rwFilas As DataRow() = nConsulta(SQL)
+        Dim Forma As New frmConciliacionAreas
+
+        Try
+            If rwFilas Is Nothing = False Then
+
+
+                Dim Fila As DataRow = rwFilas(0)
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5") Then
+
+                    Forma.ShowDialog()
+                Else
+                    MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub SubirDatosBancoToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles SubirDatosBancoToolStripMenuItem.Click
+        SQL = "select * from usuarios where idUsuario = " & idUsuario
+        Dim rwFilas As DataRow() = nConsulta(SQL)
+        Dim Forma As New frmSubirInfoBancosConciliacion
+
+        Try
+            If rwFilas Is Nothing = False Then
+
+
+                Dim Fila As DataRow = rwFilas(0)
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4") Then
+
+                    Forma.ShowDialog()
+                Else
+                    MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub MostrarDatosBancoToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles MostrarDatosBancoToolStripMenuItem.Click
+        SQL = "select * from usuarios where idUsuario = " & idUsuario
+        Dim rwFilas As DataRow() = nConsulta(SQL)
+        Dim Forma As New frmMostrarInfoBancosConciliacion
+
+        Try
+            If rwFilas Is Nothing = False Then
+
+
+                Dim Fila As DataRow = rwFilas(0)
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5") Then
+
+                    Forma.ShowDialog()
+                Else
+                    MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

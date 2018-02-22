@@ -227,6 +227,12 @@
     <Compile Include="conciliacion\frmconcilia.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="conciliacion\frmConciliacionAreas.Designer.vb">
+      <DependentUpon>frmConciliacionAreas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="conciliacion\frmConciliacionAreas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="conciliacion\frmHojasNomina.designer.vb">
       <DependentUpon>frmHojasNomina.vb</DependentUpon>
     </Compile>
@@ -245,10 +251,22 @@
     <Compile Include="conciliacion\frmListaGastos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="conciliacion\frmMostrarInfoBancosConciliacion.Designer.vb">
+      <DependentUpon>frmMostrarInfoBancosConciliacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="conciliacion\frmMostrarInfoBancosConciliacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="conciliacion\frmReportesConciliacion.Designer.vb">
       <DependentUpon>frmReportesConciliacion.vb</DependentUpon>
     </Compile>
     <Compile Include="conciliacion\frmReportesConciliacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="conciliacion\frmSubirInfoBancosConciliacion.Designer.vb">
+      <DependentUpon>frmSubirInfoBancosConciliacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="conciliacion\frmSubirInfoBancosConciliacion.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="contpaq2\frmcontpaqnominas2.Designer.vb">
@@ -922,6 +940,9 @@
     <EmbeddedResource Include="conciliacion\frmconcilia.resx">
       <DependentUpon>frmconcilia.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="conciliacion\frmConciliacionAreas.resx">
+      <DependentUpon>frmConciliacionAreas.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="conciliacion\frmHojasNomina.resx">
       <DependentUpon>frmHojasNomina.vb</DependentUpon>
     </EmbeddedResource>
@@ -931,8 +952,14 @@
     <EmbeddedResource Include="conciliacion\frmListaGastos.resx">
       <DependentUpon>frmListaGastos.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="conciliacion\frmMostrarInfoBancosConciliacion.resx">
+      <DependentUpon>frmMostrarInfoBancosConciliacion.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="conciliacion\frmReportesConciliacion.resx">
       <DependentUpon>frmReportesConciliacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="conciliacion\frmSubirInfoBancosConciliacion.resx">
+      <DependentUpon>frmSubirInfoBancosConciliacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="contpaq2\frmcontpaqnominas2.resx">
       <DependentUpon>frmcontpaqnominas2.vb</DependentUpon>

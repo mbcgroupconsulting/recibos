@@ -49,8 +49,8 @@ Partial Class frmEmpleadosXCliente
         'pnlVentana
         '
         Me.pnlVentana.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlVentana.Controls.Add(Me.btnDepto)
         Me.pnlVentana.Controls.Add(Me.btnPuestoN)
         Me.pnlVentana.Controls.Add(Me.txtCodigo)
@@ -138,8 +138,8 @@ Partial Class frmEmpleadosXCliente
         'lsvLista
         '
         Me.lsvLista.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lsvLista.CheckBoxes = True
         Me.lsvLista.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvLista.FullRowSelect = True
@@ -246,7 +246,7 @@ Partial Class frmEmpleadosXCliente
         'btnExport
         '
         Me.btnExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExport.Location = New System.Drawing.Point(751, 449)
+        Me.btnExport.Location = New System.Drawing.Point(751, 447)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(145, 24)
         Me.btnExport.TabIndex = 25

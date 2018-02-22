@@ -25,6 +25,8 @@ Partial Class frmconcilia
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmconcilia))
         Me.cmdCerrar = New System.Windows.Forms.Button()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.txtidempresa = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.txtcomision = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -67,8 +69,6 @@ Partial Class frmconcilia
         Me.pnlProgreso = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
-        Me.txtidempresa = New System.Windows.Forms.TextBox()
-        Me.Label15 = New System.Windows.Forms.Label()
         Me.pnlCatalogo.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.Nudrango, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -125,6 +125,23 @@ Partial Class frmconcilia
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Size = New System.Drawing.Size(945, 501)
         Me.pnlCatalogo.TabIndex = 38
+        '
+        'txtidempresa
+        '
+        Me.txtidempresa.Location = New System.Drawing.Point(395, 109)
+        Me.txtidempresa.Name = "txtidempresa"
+        Me.txtidempresa.Size = New System.Drawing.Size(65, 27)
+        Me.txtidempresa.TabIndex = 57
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(28, 109)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(361, 19)
+        Me.Label15.TabIndex = 56
+        Me.Label15.Text = "Identificador de la empresa en el catalogo de clientes:"
         '
         'txtcomision
         '
@@ -559,23 +576,6 @@ Partial Class frmconcilia
         Me.pgbProgreso.Name = "pgbProgreso"
         Me.pgbProgreso.Size = New System.Drawing.Size(413, 30)
         Me.pgbProgreso.TabIndex = 0
-        '
-        'txtidempresa
-        '
-        Me.txtidempresa.Location = New System.Drawing.Point(395, 109)
-        Me.txtidempresa.Name = "txtidempresa"
-        Me.txtidempresa.Size = New System.Drawing.Size(65, 27)
-        Me.txtidempresa.TabIndex = 57
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(28, 109)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(361, 19)
-        Me.Label15.TabIndex = 56
-        Me.Label15.Text = "Identificador de la empresa en el catalogo de clientes:"
         '
         'frmconcilia
         '

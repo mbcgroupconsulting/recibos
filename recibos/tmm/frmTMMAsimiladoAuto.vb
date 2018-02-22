@@ -139,11 +139,11 @@ Public Class frmTMMAsimiladoAuto
 
                 For Each producto As ListViewItem In lsvLista.CheckedItems
 
-                    Dim netoasimilado As Double = Double.Parse(IIf(producto.SubItems(52).Text = "", "0", producto.SubItems(52).Text))
+                    Dim netoasimilado As Double = Double.Parse(IIf(producto.SubItems(53).Text = "", "0", producto.SubItems(53).Text))
 
                     If netoasimilado > 0 Then
                         '###### CALCULAMOS EL ISR ##################
-                        propuesta = Double.Parse(producto.SubItems(52).Text) / 30
+                        propuesta = Double.Parse(producto.SubItems(53).Text) / 30
                         bruto = propuesta * 30
 
                         Do
@@ -165,16 +165,16 @@ Public Class frmTMMAsimiladoAuto
 
 
 
-                            If Math.Round((calculado), 2) = Math.Round(Double.Parse(producto.SubItems(52).Text), 2) Then
+                            If Math.Round((calculado), 2) = Math.Round(Double.Parse(producto.SubItems(53).Text), 2) Then
                                 'el sueldo de la propuesta es correcto
                                 'dtgDatos.Rows(x).Cells(3).Value = propuesta
 
                                 'MessageBox.Show("propuesta:" & isr.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
                             Else
-                                If calculado > Double.Parse(producto.SubItems(52).Text) Then
+                                If calculado > Double.Parse(producto.SubItems(53).Text) Then
 
-                                    diferencia = (calculado) - Double.Parse(producto.SubItems(52).Text)
+                                    diferencia = (calculado) - Double.Parse(producto.SubItems(53).Text)
                                     If diferencia > 1000 Then
                                         propuesta = propuesta - 150
                                     ElseIf diferencia > 500 And diferencia < 999.999 Then
@@ -217,7 +217,7 @@ Public Class frmTMMAsimiladoAuto
                                     End If
 
                                 Else
-                                    diferencia = Double.Parse(producto.SubItems(52).Text) - (calculado)
+                                    diferencia = Double.Parse(producto.SubItems(53).Text) - (calculado)
                                     If diferencia > 1000 Then
                                         propuesta = propuesta + 100
                                     ElseIf diferencia > 500 And diferencia < 999.999 Then
@@ -257,14 +257,14 @@ Public Class frmTMMAsimiladoAuto
 
 
 
-                        Loop While Math.Round((calculado), 2) <> Math.Round(Double.Parse(producto.SubItems(52).Text), 2)
+                        Loop While Math.Round((calculado), 2) <> Math.Round(Double.Parse(producto.SubItems(53).Text), 2)
                         '###### FIN CALCULO ISR #######
 
                         ISRRECIBO = isr
-                        NETORECIBO = Double.Parse(producto.SubItems(52).Text)
-                        PRESTAMORECIBO = Double.Parse(IIf(producto.SubItems(49).Text = "", 0, producto.SubItems(49).Text))
-                        DESCUENTOINFRECIBO = Double.Parse(IIf(producto.SubItems(50).Text = "", 0, producto.SubItems(50).Text))
-                        DIFINFONAVITRECIBO = Double.Parse(IIf(producto.SubItems(51).Text = "", 0, producto.SubItems(51).Text))
+                        NETORECIBO = Double.Parse(producto.SubItems(53).Text)
+                        PRESTAMORECIBO = Double.Parse(IIf(producto.SubItems(50).Text = "", 0, producto.SubItems(50).Text))
+                        DESCUENTOINFRECIBO = Double.Parse(IIf(producto.SubItems(51).Text = "", 0, producto.SubItems(51).Text))
+                        DIFINFONAVITRECIBO = Double.Parse(IIf(producto.SubItems(52).Text = "", 0, producto.SubItems(52).Text))
                         TOTALRECIBO = ISRRECIBO + NETORECIBO + PRESTAMORECIBO + DESCUENTOINFRECIBO + DIFINFONAVITRECIBO
 
 
@@ -331,7 +331,7 @@ Public Class frmTMMAsimiladoAuto
                             Dim PRESTAMO As DataRow = dsReporte.Tables("Deducciones").NewRow
                             PRESTAMO.Item("numtrabajador") = Trim(producto.SubItems(1).Text)
                             PRESTAMO.Item("dias") = Trim(producto.SubItems(15).Text)
-                            PRESTAMO.Item("concepto") = lsvLista.Columns(49).Text
+                            PRESTAMO.Item("concepto") = lsvLista.Columns(50).Text
                             PRESTAMO.Item("monto") = Math.Round(PRESTAMORECIBO / 2, 2).ToString("#,###,##0.00")
                             dsReporte.Tables("Deducciones").Rows.Add(PRESTAMO)
 
@@ -339,7 +339,7 @@ Public Class frmTMMAsimiladoAuto
                             Dim PRESTAMOA As DataRow = dsReporte.Tables("Deducciones").NewRow
                             PRESTAMOA.Item("numtrabajador") = Trim(producto.SubItems(1).Text)
                             PRESTAMOA.Item("dias") = Trim(producto.SubItems(15).Text)
-                            PRESTAMOA.Item("concepto") = lsvLista.Columns(49).Text & " A"
+                            PRESTAMOA.Item("concepto") = lsvLista.Columns(50).Text & " A"
                             PRESTAMOA.Item("monto") = Math.Round(PRESTAMORECIBO / 2, 2).ToString("#,###,##0.00")
                             dsReporte.Tables("Deducciones").Rows.Add(PRESTAMOA)
                         End If
@@ -350,7 +350,7 @@ Public Class frmTMMAsimiladoAuto
                             Dim DSCTOINF As DataRow = dsReporte.Tables("Deducciones").NewRow
                             DSCTOINF.Item("numtrabajador") = Trim(producto.SubItems(1).Text)
                             DSCTOINF.Item("dias") = Trim(producto.SubItems(15).Text)
-                            DSCTOINF.Item("concepto") = lsvLista.Columns(50).Text
+                            DSCTOINF.Item("concepto") = lsvLista.Columns(51).Text
                             DSCTOINF.Item("monto") = Math.Round(DESCUENTOINFRECIBO / 2, 2).ToString("#,###,##0.00")
                             dsReporte.Tables("Deducciones").Rows.Add(DSCTOINF)
 
@@ -359,7 +359,7 @@ Public Class frmTMMAsimiladoAuto
                             Dim DSCTOINFA As DataRow = dsReporte.Tables("Deducciones").NewRow
                             DSCTOINFA.Item("numtrabajador") = Trim(producto.SubItems(1).Text)
                             DSCTOINFA.Item("dias") = Trim(producto.SubItems(15).Text)
-                            DSCTOINFA.Item("concepto") = lsvLista.Columns(50).Text & " A"
+                            DSCTOINFA.Item("concepto") = lsvLista.Columns(51).Text & " A"
                             DSCTOINFA.Item("monto") = Math.Round(DESCUENTOINFRECIBO / 2, 2).ToString("#,###,##0.00")
                             dsReporte.Tables("Deducciones").Rows.Add(DSCTOINFA)
                         End If
@@ -371,7 +371,7 @@ Public Class frmTMMAsimiladoAuto
                             Dim DIFINFONAVIT As DataRow = dsReporte.Tables("Deducciones").NewRow
                             DIFINFONAVIT.Item("numtrabajador") = Trim(producto.SubItems(1).Text)
                             DIFINFONAVIT.Item("dias") = Trim(producto.SubItems(15).Text)
-                            DIFINFONAVIT.Item("concepto") = lsvLista.Columns(51).Text
+                            DIFINFONAVIT.Item("concepto") = lsvLista.Columns(52).Text
                             DIFINFONAVIT.Item("monto") = Math.Round(DIFINFONAVITRECIBO / 2, 2).ToString("#,###,##0.00")
                             dsReporte.Tables("Deducciones").Rows.Add(DIFINFONAVIT)
 
@@ -380,7 +380,7 @@ Public Class frmTMMAsimiladoAuto
                             Dim DIFINFONAVITA As DataRow = dsReporte.Tables("Deducciones").NewRow
                             DIFINFONAVITA.Item("numtrabajador") = Trim(producto.SubItems(1).Text)
                             DIFINFONAVITA.Item("dias") = Trim(producto.SubItems(15).Text)
-                            DIFINFONAVITA.Item("concepto") = lsvLista.Columns(51).Text & " A"
+                            DIFINFONAVITA.Item("concepto") = lsvLista.Columns(52).Text & " A"
                             DIFINFONAVITA.Item("monto") = Math.Round(DIFINFONAVITRECIBO / 2, 2).ToString("#,###,##0.00")
                             dsReporte.Tables("Deducciones").Rows.Add(DIFINFONAVITA)
 
