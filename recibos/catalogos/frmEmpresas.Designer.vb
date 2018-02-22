@@ -24,6 +24,7 @@ Partial Class frmEmpresas
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmEmpresas))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.cmdlista = New System.Windows.Forms.Button()
         Me.cmdsucursal = New System.Windows.Forms.Button()
         Me.cmdcancelar = New System.Windows.Forms.Button()
         Me.cmdbuscar = New System.Windows.Forms.Button()
@@ -75,7 +76,10 @@ Partial Class frmEmpresas
         Me.cbomatriz = New System.Windows.Forms.ComboBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.txtpatronal = New System.Windows.Forms.TextBox()
-        Me.cmdlista = New System.Windows.Forms.Button()
+        Me.txtRepresentanteP = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txtObjetoSocialP = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.pnlEmpresa.SuspendLayout()
         Me.SuspendLayout()
@@ -91,10 +95,23 @@ Partial Class frmEmpresas
         Me.Panel1.Controls.Add(Me.cmdnuevo)
         Me.Panel1.Controls.Add(Me.cmdsalir)
         Me.Panel1.Controls.Add(Me.cmdguardar)
-        Me.Panel1.Location = New System.Drawing.Point(698, 19)
+        Me.Panel1.Location = New System.Drawing.Point(698, 59)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(105, 539)
         Me.Panel1.TabIndex = 37
+        '
+        'cmdlista
+        '
+        Me.cmdlista.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cmdlista.Image = CType(resources.GetObject("cmdlista.Image"), System.Drawing.Image)
+        Me.cmdlista.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdlista.Location = New System.Drawing.Point(9, 378)
+        Me.cmdlista.Name = "cmdlista"
+        Me.cmdlista.Size = New System.Drawing.Size(87, 72)
+        Me.cmdlista.TabIndex = 40
+        Me.cmdlista.Text = "Empresas"
+        Me.cmdlista.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdlista.UseVisualStyleBackColor = True
         '
         'cmdsucursal
         '
@@ -460,6 +477,10 @@ Partial Class frmEmpresas
         'pnlEmpresa
         '
         Me.pnlEmpresa.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlEmpresa.Controls.Add(Me.txtObjetoSocialP)
+        Me.pnlEmpresa.Controls.Add(Me.Label24)
+        Me.pnlEmpresa.Controls.Add(Me.txtRepresentanteP)
+        Me.pnlEmpresa.Controls.Add(Me.Label20)
         Me.pnlEmpresa.Controls.Add(Me.txtfactor)
         Me.pnlEmpresa.Controls.Add(Me.txtfraccion)
         Me.pnlEmpresa.Controls.Add(Me.cbonivel)
@@ -507,7 +528,7 @@ Partial Class frmEmpresas
         Me.pnlEmpresa.Enabled = False
         Me.pnlEmpresa.Location = New System.Drawing.Point(3, 19)
         Me.pnlEmpresa.Name = "pnlEmpresa"
-        Me.pnlEmpresa.Size = New System.Drawing.Size(689, 589)
+        Me.pnlEmpresa.Size = New System.Drawing.Size(689, 667)
         Me.pnlEmpresa.TabIndex = 38
         '
         'txtfactor
@@ -586,23 +607,42 @@ Partial Class frmEmpresas
         Me.txtpatronal.Size = New System.Drawing.Size(216, 27)
         Me.txtpatronal.TabIndex = 16
         '
-        'cmdlista
+        'txtRepresentanteP
         '
-        Me.cmdlista.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.cmdlista.Image = CType(resources.GetObject("cmdlista.Image"), System.Drawing.Image)
-        Me.cmdlista.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdlista.Location = New System.Drawing.Point(9, 378)
-        Me.cmdlista.Name = "cmdlista"
-        Me.cmdlista.Size = New System.Drawing.Size(87, 72)
-        Me.cmdlista.TabIndex = 40
-        Me.cmdlista.Text = "Empresas"
-        Me.cmdlista.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdlista.UseVisualStyleBackColor = True
+        Me.txtRepresentanteP.Location = New System.Drawing.Point(151, 584)
+        Me.txtRepresentanteP.Name = "txtRepresentanteP"
+        Me.txtRepresentanteP.Size = New System.Drawing.Size(523, 27)
+        Me.txtRepresentanteP.TabIndex = 47
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(-6, 587)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(162, 19)
+        Me.Label20.TabIndex = 46
+        Me.Label20.Text = "Representante Patrona:"
+        '
+        'txtObjetoSocialP
+        '
+        Me.txtObjetoSocialP.Location = New System.Drawing.Point(130, 621)
+        Me.txtObjetoSocialP.Name = "txtObjetoSocialP"
+        Me.txtObjetoSocialP.Size = New System.Drawing.Size(544, 27)
+        Me.txtObjetoSocialP.TabIndex = 49
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(34, 624)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(99, 19)
+        Me.Label24.TabIndex = 48
+        Me.Label24.Text = "Objeto Social:"
         '
         'frmEmpresas
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(812, 618)
+        Me.ClientSize = New System.Drawing.Size(812, 698)
         Me.Controls.Add(Me.pnlEmpresa)
         Me.Controls.Add(Me.Panel1)
         Me.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -669,4 +709,8 @@ Partial Class frmEmpresas
     Friend WithEvents txtfraccion As System.Windows.Forms.TextBox
     Friend WithEvents cbonivel As System.Windows.Forms.ComboBox
     Friend WithEvents cmdlista As Button
+    Friend WithEvents txtRepresentanteP As System.Windows.Forms.TextBox
+    Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents txtObjetoSocialP As System.Windows.Forms.TextBox
+    Friend WithEvents Label24 As System.Windows.Forms.Label
 End Class
