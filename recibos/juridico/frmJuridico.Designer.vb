@@ -24,6 +24,8 @@ Partial Class frmJuridico
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmJuridico))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.cmdDeterminado = New System.Windows.Forms.Button()
+        Me.btnAsimilados = New System.Windows.Forms.Button()
         Me.btnAnexo4 = New System.Windows.Forms.Button()
         Me.btnAnexo3 = New System.Windows.Forms.Button()
         Me.btnAnexo2 = New System.Windows.Forms.Button()
@@ -33,8 +35,6 @@ Partial Class frmJuridico
         Me.cmdingreso = New System.Windows.Forms.Button()
         Me.cmdsimple = New System.Windows.Forms.Button()
         Me.cmdcontrato = New System.Windows.Forms.Button()
-        Me.btnAsimilados = New System.Windows.Forms.Button()
-        Me.cmdDeterminado = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -57,11 +57,36 @@ Partial Class frmJuridico
         Me.Panel1.Size = New System.Drawing.Size(478, 250)
         Me.Panel1.TabIndex = 99
         '
+        'cmdDeterminado
+        '
+        Me.cmdDeterminado.Image = CType(resources.GetObject("cmdDeterminado.Image"), System.Drawing.Image)
+        Me.cmdDeterminado.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdDeterminado.Location = New System.Drawing.Point(7, 82)
+        Me.cmdDeterminado.Name = "cmdDeterminado"
+        Me.cmdDeterminado.Size = New System.Drawing.Size(87, 72)
+        Me.cmdDeterminado.TabIndex = 46
+        Me.cmdDeterminado.Text = "C. Determ."
+        Me.cmdDeterminado.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdDeterminado.UseVisualStyleBackColor = True
+        '
+        'btnAsimilados
+        '
+        Me.btnAsimilados.Image = CType(resources.GetObject("btnAsimilados.Image"), System.Drawing.Image)
+        Me.btnAsimilados.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.btnAsimilados.Location = New System.Drawing.Point(7, 160)
+        Me.btnAsimilados.Name = "btnAsimilados"
+        Me.btnAsimilados.Size = New System.Drawing.Size(87, 72)
+        Me.btnAsimilados.TabIndex = 45
+        Me.btnAsimilados.Text = " Asimilados"
+        Me.btnAsimilados.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.btnAsimilados.UseVisualStyleBackColor = True
+        Me.btnAsimilados.Visible = False
+        '
         'btnAnexo4
         '
         Me.btnAnexo4.Image = CType(resources.GetObject("btnAnexo4.Image"), System.Drawing.Image)
         Me.btnAnexo4.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.btnAnexo4.Location = New System.Drawing.Point(286, 82)
+        Me.btnAnexo4.Location = New System.Drawing.Point(379, 82)
         Me.btnAnexo4.Name = "btnAnexo4"
         Me.btnAnexo4.Size = New System.Drawing.Size(87, 72)
         Me.btnAnexo4.TabIndex = 44
@@ -73,7 +98,7 @@ Partial Class frmJuridico
         '
         Me.btnAnexo3.Image = CType(resources.GetObject("btnAnexo3.Image"), System.Drawing.Image)
         Me.btnAnexo3.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.btnAnexo3.Location = New System.Drawing.Point(193, 82)
+        Me.btnAnexo3.Location = New System.Drawing.Point(286, 82)
         Me.btnAnexo3.Name = "btnAnexo3"
         Me.btnAnexo3.Size = New System.Drawing.Size(87, 72)
         Me.btnAnexo3.TabIndex = 43
@@ -85,7 +110,7 @@ Partial Class frmJuridico
         '
         Me.btnAnexo2.Image = CType(resources.GetObject("btnAnexo2.Image"), System.Drawing.Image)
         Me.btnAnexo2.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.btnAnexo2.Location = New System.Drawing.Point(100, 82)
+        Me.btnAnexo2.Location = New System.Drawing.Point(193, 82)
         Me.btnAnexo2.Name = "btnAnexo2"
         Me.btnAnexo2.Size = New System.Drawing.Size(87, 72)
         Me.btnAnexo2.TabIndex = 42
@@ -97,7 +122,7 @@ Partial Class frmJuridico
         '
         Me.btnAnexos.Image = CType(resources.GetObject("btnAnexos.Image"), System.Drawing.Image)
         Me.btnAnexos.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.btnAnexos.Location = New System.Drawing.Point(7, 82)
+        Me.btnAnexos.Location = New System.Drawing.Point(100, 82)
         Me.btnAnexos.Name = "btnAnexos"
         Me.btnAnexos.Size = New System.Drawing.Size(87, 72)
         Me.btnAnexos.TabIndex = 41
@@ -164,31 +189,6 @@ Partial Class frmJuridico
         Me.cmdcontrato.Text = "Contrato"
         Me.cmdcontrato.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdcontrato.UseVisualStyleBackColor = True
-        '
-        'btnAsimilados
-        '
-        Me.btnAsimilados.Image = CType(resources.GetObject("btnAsimilados.Image"), System.Drawing.Image)
-        Me.btnAsimilados.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.btnAsimilados.Location = New System.Drawing.Point(379, 82)
-        Me.btnAsimilados.Name = "btnAsimilados"
-        Me.btnAsimilados.Size = New System.Drawing.Size(87, 72)
-        Me.btnAsimilados.TabIndex = 45
-        Me.btnAsimilados.Text = " Asimilados"
-        Me.btnAsimilados.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.btnAsimilados.UseVisualStyleBackColor = True
-        Me.btnAsimilados.Visible = False
-        '
-        'cmdDeterminado
-        '
-        Me.cmdDeterminado.Image = CType(resources.GetObject("cmdDeterminado.Image"), System.Drawing.Image)
-        Me.cmdDeterminado.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdDeterminado.Location = New System.Drawing.Point(7, 171)
-        Me.cmdDeterminado.Name = "cmdDeterminado"
-        Me.cmdDeterminado.Size = New System.Drawing.Size(87, 72)
-        Me.cmdDeterminado.TabIndex = 46
-        Me.cmdDeterminado.Text = "C. Determ."
-        Me.cmdDeterminado.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdDeterminado.UseVisualStyleBackColor = True
         '
         'frmJuridico
         '
