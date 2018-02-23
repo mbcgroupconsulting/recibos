@@ -33,12 +33,16 @@ Partial Class frmJuridico
         Me.cmdingreso = New System.Windows.Forms.Button()
         Me.cmdsimple = New System.Windows.Forms.Button()
         Me.cmdcontrato = New System.Windows.Forms.Button()
+        Me.btnAsimilados = New System.Windows.Forms.Button()
+        Me.cmdDeterminado = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.cmdDeterminado)
+        Me.Panel1.Controls.Add(Me.btnAsimilados)
         Me.Panel1.Controls.Add(Me.btnAnexo4)
         Me.Panel1.Controls.Add(Me.btnAnexo3)
         Me.Panel1.Controls.Add(Me.btnAnexo2)
@@ -50,7 +54,7 @@ Partial Class frmJuridico
         Me.Panel1.Controls.Add(Me.cmdcontrato)
         Me.Panel1.Location = New System.Drawing.Point(3, 5)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(478, 169)
+        Me.Panel1.Size = New System.Drawing.Size(478, 250)
         Me.Panel1.TabIndex = 99
         '
         'btnAnexo4
@@ -161,10 +165,35 @@ Partial Class frmJuridico
         Me.cmdcontrato.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdcontrato.UseVisualStyleBackColor = True
         '
+        'btnAsimilados
+        '
+        Me.btnAsimilados.Image = CType(resources.GetObject("btnAsimilados.Image"), System.Drawing.Image)
+        Me.btnAsimilados.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.btnAsimilados.Location = New System.Drawing.Point(379, 82)
+        Me.btnAsimilados.Name = "btnAsimilados"
+        Me.btnAsimilados.Size = New System.Drawing.Size(87, 72)
+        Me.btnAsimilados.TabIndex = 45
+        Me.btnAsimilados.Text = " Asimilados"
+        Me.btnAsimilados.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.btnAsimilados.UseVisualStyleBackColor = True
+        Me.btnAsimilados.Visible = False
+        '
+        'cmdDeterminado
+        '
+        Me.cmdDeterminado.Image = CType(resources.GetObject("cmdDeterminado.Image"), System.Drawing.Image)
+        Me.cmdDeterminado.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdDeterminado.Location = New System.Drawing.Point(7, 171)
+        Me.cmdDeterminado.Name = "cmdDeterminado"
+        Me.cmdDeterminado.Size = New System.Drawing.Size(87, 72)
+        Me.cmdDeterminado.TabIndex = 46
+        Me.cmdDeterminado.Text = "C. Determ."
+        Me.cmdDeterminado.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdDeterminado.UseVisualStyleBackColor = True
+        '
         'frmJuridico
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(493, 184)
+        Me.ClientSize = New System.Drawing.Size(493, 279)
         Me.Controls.Add(Me.Panel1)
         Me.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
@@ -185,4 +214,6 @@ Partial Class frmJuridico
     Friend WithEvents btnAnexo4 As System.Windows.Forms.Button
     Friend WithEvents btnAnexo3 As System.Windows.Forms.Button
     Friend WithEvents btnAnexo2 As System.Windows.Forms.Button
+    Friend WithEvents btnAsimilados As System.Windows.Forms.Button
+    Friend WithEvents cmdDeterminado As System.Windows.Forms.Button
 End Class
