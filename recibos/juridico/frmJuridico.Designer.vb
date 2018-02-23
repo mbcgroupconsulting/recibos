@@ -24,19 +24,20 @@ Partial Class frmJuridico
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmJuridico))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.pnlLote = New System.Windows.Forms.Panel()
+        Me.chkAnexo4 = New System.Windows.Forms.CheckBox()
+        Me.chkAnexo3 = New System.Windows.Forms.CheckBox()
+        Me.chkAnexo2 = New System.Windows.Forms.CheckBox()
+        Me.chkAnexo1 = New System.Windows.Forms.CheckBox()
+        Me.btnAnexo4 = New System.Windows.Forms.Button()
+        Me.btnAnexo3 = New System.Windows.Forms.Button()
+        Me.btnAnexo2 = New System.Windows.Forms.Button()
+        Me.btnAnexos = New System.Windows.Forms.Button()
         Me.cmdoficio = New System.Windows.Forms.Button()
         Me.cmdempleo = New System.Windows.Forms.Button()
         Me.cmdingreso = New System.Windows.Forms.Button()
         Me.cmdsimple = New System.Windows.Forms.Button()
         Me.cmdcontrato = New System.Windows.Forms.Button()
-        Me.pnlLote = New System.Windows.Forms.Panel()
-        Me.rbContrato = New System.Windows.Forms.RadioButton()
-        Me.rbOficio = New System.Windows.Forms.RadioButton()
-        Me.rbSolicitud = New System.Windows.Forms.RadioButton()
-        Me.rbSimple = New System.Windows.Forms.RadioButton()
-        Me.chkLotes = New System.Windows.Forms.CheckBox()
-        Me.txtlotes = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.pnlLote.SuspendLayout()
         Me.SuspendLayout()
@@ -44,6 +45,10 @@ Partial Class frmJuridico
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.btnAnexo4)
+        Me.Panel1.Controls.Add(Me.btnAnexo3)
+        Me.Panel1.Controls.Add(Me.btnAnexo2)
+        Me.Panel1.Controls.Add(Me.btnAnexos)
         Me.Panel1.Controls.Add(Me.cmdoficio)
         Me.Panel1.Controls.Add(Me.cmdempleo)
         Me.Panel1.Controls.Add(Me.cmdingreso)
@@ -51,8 +56,104 @@ Partial Class frmJuridico
         Me.Panel1.Controls.Add(Me.cmdcontrato)
         Me.Panel1.Location = New System.Drawing.Point(3, 5)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(474, 87)
+        Me.Panel1.Size = New System.Drawing.Size(563, 169)
         Me.Panel1.TabIndex = 99
+        '
+        'pnlLote
+        '
+        Me.pnlLote.Controls.Add(Me.chkAnexo4)
+        Me.pnlLote.Controls.Add(Me.chkAnexo3)
+        Me.pnlLote.Controls.Add(Me.chkAnexo2)
+        Me.pnlLote.Controls.Add(Me.chkAnexo1)
+        Me.pnlLote.Location = New System.Drawing.Point(7, 177)
+        Me.pnlLote.Name = "pnlLote"
+        Me.pnlLote.Size = New System.Drawing.Size(559, 146)
+        Me.pnlLote.TabIndex = 100
+        Me.pnlLote.Visible = False
+        '
+        'chkAnexo4
+        '
+        Me.chkAnexo4.AutoSize = True
+        Me.chkAnexo4.Location = New System.Drawing.Point(467, 3)
+        Me.chkAnexo4.Name = "chkAnexo4"
+        Me.chkAnexo4.Size = New System.Drawing.Size(83, 22)
+        Me.chkAnexo4.TabIndex = 9
+        Me.chkAnexo4.Text = "Anexo IV"
+        Me.chkAnexo4.UseVisualStyleBackColor = True
+        '
+        'chkAnexo3
+        '
+        Me.chkAnexo3.AutoSize = True
+        Me.chkAnexo3.Location = New System.Drawing.Point(374, 3)
+        Me.chkAnexo3.Name = "chkAnexo3"
+        Me.chkAnexo3.Size = New System.Drawing.Size(82, 22)
+        Me.chkAnexo3.TabIndex = 8
+        Me.chkAnexo3.Text = "Anexo III"
+        Me.chkAnexo3.UseVisualStyleBackColor = True
+        '
+        'chkAnexo2
+        '
+        Me.chkAnexo2.AutoSize = True
+        Me.chkAnexo2.Location = New System.Drawing.Point(281, 3)
+        Me.chkAnexo2.Name = "chkAnexo2"
+        Me.chkAnexo2.Size = New System.Drawing.Size(78, 22)
+        Me.chkAnexo2.TabIndex = 7
+        Me.chkAnexo2.Text = "Anexo II"
+        Me.chkAnexo2.UseVisualStyleBackColor = True
+        '
+        'chkAnexo1
+        '
+        Me.chkAnexo1.AutoSize = True
+        Me.chkAnexo1.Location = New System.Drawing.Point(201, 3)
+        Me.chkAnexo1.Name = "chkAnexo1"
+        Me.chkAnexo1.Size = New System.Drawing.Size(74, 22)
+        Me.chkAnexo1.TabIndex = 6
+        Me.chkAnexo1.Text = "Anexo I"
+        Me.chkAnexo1.UseVisualStyleBackColor = True
+        '
+        'btnAnexo4
+        '
+        Me.btnAnexo4.Image = CType(resources.GetObject("btnAnexo4.Image"), System.Drawing.Image)
+        Me.btnAnexo4.Location = New System.Drawing.Point(286, 82)
+        Me.btnAnexo4.Name = "btnAnexo4"
+        Me.btnAnexo4.Size = New System.Drawing.Size(87, 72)
+        Me.btnAnexo4.TabIndex = 44
+        Me.btnAnexo4.Text = "Anexo IV"
+        Me.btnAnexo4.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.btnAnexo4.UseVisualStyleBackColor = True
+        '
+        'btnAnexo3
+        '
+        Me.btnAnexo3.Image = CType(resources.GetObject("btnAnexo3.Image"), System.Drawing.Image)
+        Me.btnAnexo3.Location = New System.Drawing.Point(193, 82)
+        Me.btnAnexo3.Name = "btnAnexo3"
+        Me.btnAnexo3.Size = New System.Drawing.Size(87, 72)
+        Me.btnAnexo3.TabIndex = 43
+        Me.btnAnexo3.Text = "Anexo III"
+        Me.btnAnexo3.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.btnAnexo3.UseVisualStyleBackColor = True
+        '
+        'btnAnexo2
+        '
+        Me.btnAnexo2.Image = CType(resources.GetObject("btnAnexo2.Image"), System.Drawing.Image)
+        Me.btnAnexo2.Location = New System.Drawing.Point(100, 82)
+        Me.btnAnexo2.Name = "btnAnexo2"
+        Me.btnAnexo2.Size = New System.Drawing.Size(87, 72)
+        Me.btnAnexo2.TabIndex = 42
+        Me.btnAnexo2.Text = "Anexo II"
+        Me.btnAnexo2.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.btnAnexo2.UseVisualStyleBackColor = True
+        '
+        'btnAnexos
+        '
+        Me.btnAnexos.Image = CType(resources.GetObject("btnAnexos.Image"), System.Drawing.Image)
+        Me.btnAnexos.Location = New System.Drawing.Point(7, 82)
+        Me.btnAnexos.Name = "btnAnexos"
+        Me.btnAnexos.Size = New System.Drawing.Size(87, 72)
+        Me.btnAnexos.TabIndex = 41
+        Me.btnAnexos.Text = "Anexo I"
+        Me.btnAnexos.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.btnAnexos.UseVisualStyleBackColor = True
         '
         'cmdoficio
         '
@@ -114,93 +215,10 @@ Partial Class frmJuridico
         Me.cmdcontrato.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdcontrato.UseVisualStyleBackColor = True
         '
-        'pnlLote
-        '
-        Me.pnlLote.Controls.Add(Me.txtlotes)
-        Me.pnlLote.Controls.Add(Me.chkLotes)
-        Me.pnlLote.Controls.Add(Me.rbSimple)
-        Me.pnlLote.Controls.Add(Me.rbSolicitud)
-        Me.pnlLote.Controls.Add(Me.rbOficio)
-        Me.pnlLote.Controls.Add(Me.rbContrato)
-        Me.pnlLote.Location = New System.Drawing.Point(7, 104)
-        Me.pnlLote.Name = "pnlLote"
-        Me.pnlLote.Size = New System.Drawing.Size(470, 166)
-        Me.pnlLote.TabIndex = 100
-        '
-        'rbContrato
-        '
-        Me.rbContrato.AutoSize = True
-        Me.rbContrato.Checked = True
-        Me.rbContrato.Location = New System.Drawing.Point(21, 39)
-        Me.rbContrato.Name = "rbContrato"
-        Me.rbContrato.Size = New System.Drawing.Size(80, 22)
-        Me.rbContrato.TabIndex = 0
-        Me.rbContrato.TabStop = True
-        Me.rbContrato.Text = "Contrato"
-        Me.rbContrato.UseVisualStyleBackColor = True
-        '
-        'rbOficio
-        '
-        Me.rbOficio.AutoSize = True
-        Me.rbOficio.Location = New System.Drawing.Point(251, 39)
-        Me.rbOficio.Name = "rbOficio"
-        Me.rbOficio.Size = New System.Drawing.Size(62, 22)
-        Me.rbOficio.TabIndex = 1
-        Me.rbOficio.Text = "Oficio"
-        Me.rbOficio.UseVisualStyleBackColor = True
-        '
-        'rbSolicitud
-        '
-        Me.rbSolicitud.AutoSize = True
-        Me.rbSolicitud.Location = New System.Drawing.Point(128, 39)
-        Me.rbSolicitud.Name = "rbSolicitud"
-        Me.rbSolicitud.Size = New System.Drawing.Size(86, 22)
-        Me.rbSolicitud.TabIndex = 2
-        Me.rbSolicitud.Text = "S. Ingreso"
-        Me.rbSolicitud.UseVisualStyleBackColor = True
-        '
-        'rbSimple
-        '
-        Me.rbSimple.AutoSize = True
-        Me.rbSimple.Location = New System.Drawing.Point(350, 39)
-        Me.rbSimple.Name = "rbSimple"
-        Me.rbSimple.Size = New System.Drawing.Size(76, 22)
-        Me.rbSimple.TabIndex = 3
-        Me.rbSimple.Text = "Oficio S."
-        Me.rbSimple.UseVisualStyleBackColor = True
-        '
-        'chkLotes
-        '
-        Me.chkLotes.AutoSize = True
-        Me.chkLotes.Location = New System.Drawing.Point(21, 7)
-        Me.chkLotes.Name = "chkLotes"
-        Me.chkLotes.Size = New System.Drawing.Size(207, 22)
-        Me.chkLotes.TabIndex = 4
-        Me.chkLotes.Text = "Activar documentos por lotes"
-        Me.chkLotes.UseVisualStyleBackColor = True
-        '
-        'txtlotes
-        '
-        Me.txtlotes.Location = New System.Drawing.Point(5, 67)
-        Me.txtlotes.Multiline = True
-        Me.txtlotes.Name = "txtlotes"
-        Me.txtlotes.Size = New System.Drawing.Size(450, 96)
-        Me.txtlotes.TabIndex = 5
-        '
-        'Label1
-        '
-        Me.Label1.Location = New System.Drawing.Point(13, 275)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(458, 36)
-        Me.Label1.TabIndex = 101
-        Me.Label1.Text = "Para generar el archivo por lotes, poner los numeros de trabajador separado por c" & _
-            "omas sin espacios."
-        '
         'frmJuridico
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(483, 331)
-        Me.Controls.Add(Me.Label1)
+        Me.ClientSize = New System.Drawing.Size(578, 371)
         Me.Controls.Add(Me.pnlLote)
         Me.Controls.Add(Me.Panel1)
         Me.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -221,11 +239,12 @@ Partial Class frmJuridico
     Friend WithEvents cmdsimple As System.Windows.Forms.Button
     Friend WithEvents cmdcontrato As System.Windows.Forms.Button
     Friend WithEvents pnlLote As System.Windows.Forms.Panel
-    Friend WithEvents txtlotes As System.Windows.Forms.TextBox
-    Friend WithEvents chkLotes As System.Windows.Forms.CheckBox
-    Friend WithEvents rbSimple As System.Windows.Forms.RadioButton
-    Friend WithEvents rbSolicitud As System.Windows.Forms.RadioButton
-    Friend WithEvents rbOficio As System.Windows.Forms.RadioButton
-    Friend WithEvents rbContrato As System.Windows.Forms.RadioButton
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents chkAnexo2 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkAnexo1 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkAnexo4 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkAnexo3 As System.Windows.Forms.CheckBox
+    Friend WithEvents btnAnexos As System.Windows.Forms.Button
+    Friend WithEvents btnAnexo4 As System.Windows.Forms.Button
+    Friend WithEvents btnAnexo3 As System.Windows.Forms.Button
+    Friend WithEvents btnAnexo2 As System.Windows.Forms.Button
 End Class

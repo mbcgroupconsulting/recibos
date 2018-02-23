@@ -1308,6 +1308,7 @@
     <Content Include="Resources\1361622577_find.png" />
     <Content Include="Resources\GF1.png" />
     <Content Include="Resources\GF3.png" />
+    <None Include="Resources\if_General_Office_01_2530843.png" />
     <Content Include="Resources\insert-text.png" />
   </ItemGroup>
   <ItemGroup>

@@ -31,57 +31,19 @@ Public Class frmJuridico
 
                 Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\" & Fila.Item("Oficio") & ".docx"
                 Ruta2 = System.Windows.Forms.Application.StartupPath & "\Archivos\oficio1L.docx"
-                If chkLotes.Checked And rbOficio.Checked Then
-                    Empleados = txtlotes.Text.Split(",")
-                    If Empleados.Length = 1 Then
-                        MessageBox.Show("Solo existe un código de empleado por favor generarlo de la manera normal", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    ElseIf Empleados.Length > 1 Then
+                'If chkLotes.Checked And rbOficio.Checked Then
+                '    Empleados = txtlotes.Text.Split(",")
+                '    If Empleados.Length = 1 Then
+                '        MessageBox.Show("Solo existe un código de empleado por favor generarlo de la manera normal", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                '    ElseIf Empleados.Length > 1 Then
 
-                        FileCopy(Ruta2, "C:\Temp\oficioL.docx")
-                        DocumentoL = MSWordL.Documents.Open("C:\Temp\oficioL.docx")
+                FileCopy(Ruta2, "C:\Temp\oficioL.docx")
+                DocumentoL = MSWordL.Documents.Open("C:\Temp\oficioL.docx")
 
-                        For i = 1 To Empleados.Length - 1
+                For i = 1 To Empleados.Length - 1
 
-                            FileCopy(Ruta, "C:\Temp\oficio1.docx")
-                            Documento = MSWord.Documents.Open("C:\Temp\oficio1.docx")
-
-                            'Buscamos datos del empleado
-
-                            SQL = "select * from empleadosAlta where iIdEmpleadoAlta = " & gIdEmpleado
-                            Dim rwEmpleado As DataRow() = nConsulta(SQL)
-
-                            If rwEmpleado Is Nothing = False Then
-
-                                Dim fEmpleado As DataRow = rwEmpleado(0)
-
-
-
-                                Documento.Bookmarks.Item("nombrecompleto").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
-                                Documento.Bookmarks.Item("imss").Range.Text = fEmpleado.Item("cIMSS")
-                                Documento.Bookmarks.Item("nombrecompleto2").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
-
-                                Documento.Save()
-
-
-                                Dim rango As Word.Range
-                                rango = Documento.Range()
-                                rango.Select()
-                                Documento.Select()
-
-                                'MSWord.Visible = True
-                                DocumentoL.Range.Text = rango.Text
-                                Documento.Close()
-                            End If
-                        Next
-                        MSWordL.Visible = True
-
-                    Else
-                        MessageBox.Show("No hay códigos de empleado, para generar el lote", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    End If
-
-                Else
-                    FileCopy(Ruta, "C:\Temp\oficio.docx")
-                    Documento = MSWord.Documents.Open("C:\Temp\oficio.docx")
+                    FileCopy(Ruta, "C:\Temp\oficio1.docx")
+                    Documento = MSWord.Documents.Open("C:\Temp\oficio1.docx")
 
                     'Buscamos datos del empleado
 
@@ -96,13 +58,51 @@ Public Class frmJuridico
 
                         Documento.Bookmarks.Item("nombrecompleto").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                         Documento.Bookmarks.Item("imss").Range.Text = fEmpleado.Item("cIMSS")
+                        Documento.Bookmarks.Item("nombrecompleto2").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
 
                         Documento.Save()
-                        MSWord.Visible = True
 
+
+                        Dim rango As Word.Range
+                        rango = Documento.Range()
+                        rango.Select()
+                        Documento.Select()
+
+                        'MSWord.Visible = True
+                        DocumentoL.Range.Text = rango.Text
+                        Documento.Close()
                     End If
+                Next
+                MSWordL.Visible = True
 
-                End If
+                'Else
+                '    MessageBox.Show("No hay códigos de empleado, para generar el lote", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                'End If
+
+                '    Else
+                'FileCopy(Ruta, "C:\Temp\oficio.docx")
+                'Documento = MSWord.Documents.Open("C:\Temp\oficio.docx")
+
+                ''Buscamos datos del empleado
+
+                '    SQL = "select * from empleadosAlta where iIdEmpleadoAlta = " & gIdEmpleado
+                '    Dim rwEmpleado As DataRow() = nConsulta(SQL)
+
+                '    If rwEmpleado Is Nothing = False Then
+
+                '        Dim fEmpleado As DataRow = rwEmpleado(0)
+
+
+
+                '        Documento.Bookmarks.Item("nombrecompleto").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
+                '        Documento.Bookmarks.Item("imss").Range.Text = fEmpleado.Item("cIMSS")
+
+                '        Documento.Save()
+                '        MSWord.Visible = True
+
+                '    End If
+
+                'End If
 
 
 
@@ -187,7 +187,7 @@ Public Class frmJuridico
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
                 SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestos.cNombre as cPuesto,fSueldoBase,"
                 SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
-                SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago, (cast(datediff(dd,dFechaNac,GETDATE()) / 365.25 as int)) as cEdad,cLugarFirmaContrato,empleadosAlta.cLugarPrestacion,"
+                SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago,  cLugarFirmaContrato,empleadosAlta.cLugarPrestacion,"
                 SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
                 SQL &= " from ((empleadosAlta"
                 SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
@@ -246,7 +246,10 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cHorario").Range.Text = fEmpleado.Item("cHorario")
                     Documento.Bookmarks.Item("cFormaPago").Range.Text = fEmpleado.Item("cFormaPago")
                     Documento.Bookmarks.Item("iEstadoCivil").Range.Text = IIf(fEmpleado.Item("iEstadoCivil") = "0", "SOLTERO", "CASADO")
-                    Documento.Bookmarks.Item("cEdad").Range.Text = fEmpleado.Item("cEdad")
+                    Dim fechanac As Date
+                    fechanac = fEmpleado.Item("dFechaNac")
+                    Dim edad As Integer = DateDiff(DateInterval.Year, fechanac, Date.Today)
+                    Documento.Bookmarks.Item("cEdad").Range.Text = edad
                     Documento.Bookmarks.Item("cLugarPago").Range.Text = fEmpleado.Item("cLugarPago")
                     Documento.Bookmarks.Item("cFechaPago").Range.Text = fEmpleado.Item("cFechaPago")
                     Documento.Bookmarks.Item("cLugarFirmaContrato").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
@@ -438,7 +441,196 @@ Public Class frmJuridico
 
     End Sub
 
-    Private Sub frmJuridico_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub btnAnexos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAnexos.Click
+        Dim MSWord As New Word.Application
+        Dim Documento As Word.Document
+        Dim Ruta As String, strPWD As String
+        Dim SQL As String
+        Try
+            SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
+            SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestos.cNombre as cPuesto,fSueldoBase,"
+            SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
+            SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago, cLugarFirmaContrato,empleadosAlta.cLugarPrestacion,"
+            SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+            SQL &= " from ((empleadosAlta"
+            SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+            SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
+            SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+            SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
+            Dim rwEmpleado As DataRow() = nConsulta(SQL)
 
+            If rwEmpleado Is Nothing = False Then
+                Dim fEmpleado As DataRow = rwEmpleado(0)
+
+                Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\anexoI.docx"
+
+                FileCopy(Ruta, "C:\Temp\AnexoI.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\AnexoI.docx")
+
+                Documento.Bookmarks.Item("cNombreLargo").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
+                Documento.Bookmarks.Item("cNombreLargo2").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
+                Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto")
+                Documento.Bookmarks.Item("cNombreFiscal").Range.Text = fEmpleado.Item("nombrefiscal")
+                Documento.Bookmarks.Item("cNombreFiscal2").Range.Text = fEmpleado.Item("nombrefiscal")
+                '' Documento.Bookmarks.Item("cLugar").Range.Text = "OAXACA DE JUAREZ, OAXACA"
+                Documento.Bookmarks.Item("cRepresentanteP").Range.Text = fEmpleado.Item("cRepresentanteP")
+                Documento.Bookmarks.Item("cRepresentanteP2").Range.Text = fEmpleado.Item("cRepresentanteP")
+                Documento.Bookmarks.Item("cRepresentanteP3").Range.Text = fEmpleado.Item("cRepresentanteP")
+                Documento.Bookmarks.Item("cDireccionP").Range.Text = fEmpleado.Item("cDireccionP") & ", " & fEmpleado.Item("cCiudadP") & ", " & fEmpleado.Item("cCPP")
+                Documento.Bookmarks.Item("cFecha").Range.Text = DateTime.Now.ToString("dd/MM/yyyy")
+                Documento.Bookmarks.Item("cLugarFirma").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
+                Documento.Bookmarks.Item("cLugarFirma2").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
+                Documento.Save()
+                MSWord.Visible = True
+
+            End If
+
+
+        Catch ex As Exception
+            Documento.Close()
+        End Try
+
+
+        'Buscamos datos del empleado
+
+    End Sub
+   
+  
+    
+   
+   
+    Private Sub btnAnexo2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAnexo2.Click
+        Dim MSWord As New Word.Application
+        Dim Documento As Word.Document
+        Dim Ruta As String, strPWD As String
+        Dim SQL As String
+        Try
+            SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
+            SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestos.cNombre as cPuesto,fSueldoBase,"
+            SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
+            SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago, cLugarFirmaContrato,empleadosAlta.cLugarPrestacion,"
+            SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+            SQL &= " from ((empleadosAlta"
+            SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+            SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
+            SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+            SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
+            Dim rwEmpleado As DataRow() = nConsulta(SQL)
+
+            If rwEmpleado Is Nothing = False Then
+                Dim fEmpleado As DataRow = rwEmpleado(0)
+                Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\anexoII.docx"
+
+                FileCopy(Ruta, "C:\Temp\AnexoII.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\AnexoII.docx")
+
+                Documento.Bookmarks.Item("cNombreLargo").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
+                Documento.Bookmarks.Item("cNombreLargo2").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
+                Documento.Bookmarks.Item("cCURP").Range.Text = fEmpleado.Item("cCURP")
+                Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
+                Dim fechanac As Date
+                fechanac = fEmpleado.Item("dFechaNac")
+                Dim edad As Integer = DateDiff(DateInterval.Year, fechanac, Date.Today)
+                Documento.Bookmarks.Item("cEdad").Range.Text = edad
+                Documento.Bookmarks.Item("cFecha").Range.Text = DateTime.Now.ToString("dd/MM/yyyy")
+                Documento.Bookmarks.Item("cLugarFirma").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
+                Documento.Bookmarks.Item("cNacionalidad").Range.Text = fEmpleado.Item("cNacionalidad")
+                Documento.Bookmarks.Item("cNombreFiscal").Range.Text = fEmpleado.Item("nombrefiscal")
+
+                Documento.Save()
+                MSWord.Visible = True
+            End If
+
+        Catch ex As Exception
+            Documento.Close()
+        End Try
+
+    End Sub
+
+    Private Sub btnAnexo3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAnexo3.Click
+        Dim MSWord As New Word.Application
+        Dim Documento As Word.Document
+        Dim Ruta As String, strPWD As String
+        Dim SQL As String
+        Try
+            SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
+            SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestos.cNombre as cPuesto,fSueldoBase,"
+            SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
+            SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago, cLugarFirmaContrato,empleadosAlta.cLugarPrestacion,"
+            SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+            SQL &= " from ((empleadosAlta"
+            SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+            SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
+            SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+            SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
+            Dim rwEmpleado As DataRow() = nConsulta(SQL)
+
+            If rwEmpleado Is Nothing = False Then
+                Dim fEmpleado As DataRow = rwEmpleado(0)
+                Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\anexoIII.docx"
+
+                FileCopy(Ruta, "C:\Temp\AnexoIII.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\AnexoIII.docx")
+
+                Documento.Bookmarks.Item("cNombreLargo").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
+                Documento.Bookmarks.Item("cNombreLargo2").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
+                Documento.Bookmarks.Item("cNombreFiscal").Range.Text = fEmpleado.Item("nombrefiscal")
+                Documento.Bookmarks.Item("cNombreFiscal2").Range.Text = fEmpleado.Item("nombrefiscal")
+                Documento.Bookmarks.Item("cFecha").Range.Text = DateTime.Now.ToString("dd/MM/yyyy")
+                Documento.Bookmarks.Item("cLugarFirma").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
+
+                Documento.Save()
+                MSWord.Visible = True
+
+            End If
+
+        Catch ex As Exception
+            Documento.Close()
+        End Try
+    End Sub
+
+    Private Sub btnAnexo4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAnexo4.Click
+
+        Dim MSWord As New Word.Application
+        Dim Documento As Word.Document
+        Dim Ruta As String, strPWD As String
+        Dim SQL As String
+        Try
+            SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
+            SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestos.cNombre as cPuesto,fSueldoBase,"
+            SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.iIdEmpresa ,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
+            SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago, cLugarFirmaContrato,empleadosAlta.cLugarPrestacion, dFechaPatrona,"
+            SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+            SQL &= " from ((empleadosAlta"
+            SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+            SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
+            SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+            SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
+            Dim rwEmpleado As DataRow() = nConsulta(SQL)
+
+            If rwEmpleado Is Nothing = False Then
+                Dim fEmpleado As DataRow = rwEmpleado(0)
+                Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\anexoIV.docx"
+
+                FileCopy(Ruta, "C:\Temp\AnexoIV.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\AnexoIV.docx")
+
+                Documento.Bookmarks.Item("cNombreLargo").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
+                'Documento.Bookmarks.Item("cNombreLargo2").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
+                Documento.Bookmarks.Item("cNombreFiscal").Range.Text = fEmpleado.Item("nombrefiscal")
+                Documento.Bookmarks.Item("cNombreFiscal2").Range.Text = fEmpleado.Item("nombrefiscal")
+                Documento.Bookmarks.Item("cFecha").Range.Text = DateTime.Now.ToString("dd/MM/yyyy")
+                Documento.Bookmarks.Item("cLugarFirma").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
+                Documento.Bookmarks.Item("dFechaIngreso").Range.Text = fEmpleado.Item("dFechaPatrona")
+
+                Documento.Bookmarks.Item("cLogo").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png", LinkToFile:=True, SaveWithDocument:=True)
+
+                Documento.Save()
+                MSWord.Visible = True
+            End If
+
+        Catch ex As Exception
+            Documento.Close()
+        End Try
     End Sub
 End Class
