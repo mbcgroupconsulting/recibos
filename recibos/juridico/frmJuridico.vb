@@ -237,67 +237,72 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cLugarPrestacion3").Range.Text = fEmpleado.Item("cLugarPrestacion")
                     Documento.Bookmarks.Item("cRFCP").Range.Text = fEmpleado.Item("cRFCP")
                     Documento.Bookmarks.Item("cRFCP2").Range.Text = fEmpleado.Item("cRFCP")
-                    Documento.Bookmarks.Item("cRepresentanteP").Range.Text = fEmpleado.Item("cRepresentanteP")
-                    Documento.Bookmarks.Item("cRepresentanteP2").Range.Text = fEmpleado.Item("cRepresentanteP")
-                    Documento.Bookmarks.Item("cObjetoSocialP").Range.Text = fEmpleado.Item("cObjetoSocialP")
-                    Documento.Bookmarks.Item("cObjetoSocialP2").Range.Text = fEmpleado.Item("cObjetoSocialP")
-                    Documento.Bookmarks.Item("cFuncionesPuesto").Range.Text = fEmpleado.Item("cFuncionesPuesto")
-                    Documento.Bookmarks.Item("cFuncionesPuesto2").Range.Text = fEmpleado.Item("cFuncionesPuesto")
-                    Documento.Bookmarks.Item("cHorario").Range.Text = fEmpleado.Item("cHorario")
-                    Documento.Bookmarks.Item("cFormaPago").Range.Text = fEmpleado.Item("cFormaPago")
-                    Documento.Bookmarks.Item("iEstadoCivil").Range.Text = IIf(fEmpleado.Item("iEstadoCivil") = "0", "SOLTERO", "CASADO")
-                    Dim fechanac As Date
-                    fechanac = fEmpleado.Item("dFechaNac")
-                    Dim edad As Integer = DateDiff(DateInterval.Year, fechanac, Date.Today)
-                    Documento.Bookmarks.Item("cEdad").Range.Text = edad
-                    Documento.Bookmarks.Item("cLugarPago").Range.Text = fEmpleado.Item("cLugarPago")
-                    Documento.Bookmarks.Item("cFechaPago").Range.Text = fEmpleado.Item("cFechaPago")
-                    Documento.Bookmarks.Item("cLugarFirmaContrato").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
-                    Documento.Bookmarks.Item("cLugarFirmaContrato2").Range.Text = fEmpleado.Item("cLugarFirmaContrato").ToLower()
-                    Documento.Bookmarks.Item("cLugarFirmaContrato3").Range.Text = fEmpleado.Item("cLugarFirmaContrato").ToLower()
-                    Documento.Bookmarks.Item("dFecha").Range.Text = DateTime.Now.ToString("dd/MM/yyyy")
-                    Documento.Bookmarks.Item("dFecha2").Range.Text = DateTime.Now.ToString("dd/MM/yyyy")
-                    Documento.Bookmarks.Item("dFecha3").Range.Text = DateTime.Now.ToString("dd/MM/yyyy")
-                    Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
-                    Documento.Bookmarks.Item("cNombreSindicato2").Range.Text = fEmpleado.Item("cNombreSindicato")
+                    If IsDBNull(fEmpleado.Item("cRepresentanteP")) = False Or IsDBNull(fEmpleado.Item("cObjetoSocialP")) Then
+                        Documento.Bookmarks.Item("cRepresentanteP").Range.Text = fEmpleado.Item("cRepresentanteP")
+                        Documento.Bookmarks.Item("cRepresentanteP2").Range.Text = fEmpleado.Item("cRepresentanteP")
+                        Documento.Bookmarks.Item("cObjetoSocialP").Range.Text = fEmpleado.Item("cObjetoSocialP")
+                        Documento.Bookmarks.Item("cObjetoSocialP2").Range.Text = fEmpleado.Item("cObjetoSocialP")
 
-                    ''Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = fEmpleado.Item("fSueldoOrd")
-                    Documento.Bookmarks.Item("fSueldoBase").Range.Text = fEmpleado.Item("fSueldoBase")
+                    Else
+                        MessageBox.Show("Falta agregar Representante Patrona y/u Objeto Social", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+                       Documento.Bookmarks.Item("cFuncionesPuesto").Range.Text = fEmpleado.Item("cFuncionesPuesto")
+                        Documento.Bookmarks.Item("cFuncionesPuesto2").Range.Text = fEmpleado.Item("cFuncionesPuesto")
+                        Documento.Bookmarks.Item("cHorario").Range.Text = fEmpleado.Item("cHorario")
+                        Documento.Bookmarks.Item("cFormaPago").Range.Text = fEmpleado.Item("cFormaPago")
+                        Documento.Bookmarks.Item("iEstadoCivil").Range.Text = IIf(fEmpleado.Item("iEstadoCivil") = "0", "SOLTERO", "CASADO")
+                        Dim fechanac As Date
+                        fechanac = fEmpleado.Item("dFechaNac")
+                        Dim edad As Integer = DateDiff(DateInterval.Year, fechanac, Date.Today)
+                        Documento.Bookmarks.Item("cEdad").Range.Text = edad
+                        Documento.Bookmarks.Item("cLugarPago").Range.Text = fEmpleado.Item("cLugarPago")
+                        Documento.Bookmarks.Item("cFechaPago").Range.Text = fEmpleado.Item("cFechaPago")
+                        Documento.Bookmarks.Item("cLugarFirmaContrato").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
+                        Documento.Bookmarks.Item("cLugarFirmaContrato2").Range.Text = fEmpleado.Item("cLugarFirmaContrato").ToLower()
+                        Documento.Bookmarks.Item("cLugarFirmaContrato3").Range.Text = fEmpleado.Item("cLugarFirmaContrato").ToLower()
+                        Documento.Bookmarks.Item("dFecha").Range.Text = DateTime.Now.ToString("dd/MM/yyyy")
+                        Documento.Bookmarks.Item("dFecha2").Range.Text = DateTime.Now.ToString("dd/MM/yyyy")
+                        Documento.Bookmarks.Item("dFecha3").Range.Text = DateTime.Now.ToString("dd/MM/yyyy")
+                        Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
+                        Documento.Bookmarks.Item("cNombreSindicato2").Range.Text = fEmpleado.Item("cNombreSindicato")
+
+                        ''Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = fEmpleado.Item("fSueldoOrd")
+                        Documento.Bookmarks.Item("fSueldoBase").Range.Text = fEmpleado.Item("fSueldoBase")
 
 
-                    Dim cJornada As DataRow() = nConsulta("SELECT * FROM Cat_TipoJornadaAlta where iIdTipoJornadaAlta=" & fEmpleado.Item("cJornada"))
+                        Dim cJornada As DataRow() = nConsulta("SELECT * FROM Cat_TipoJornadaAlta where iIdTipoJornadaAlta=" & fEmpleado.Item("cJornada"))
 
-                    ''If cJornada Is Nothing = False Then
-                    Documento.Bookmarks.Item("cSalarioPeriodoTipo").Range.Text = cJornada(0).Item("Descripcion")
-                    Dim periodo As Integer
-                    Select Case cJornada(0).Item("iIdTipoJornadaAlta")
-                        Case 1
-                            periodo = 1
-                        Case 2
-                            periodo = 7
-                        Case 3
-                            periodo = 14
-                        Case 4
-                            periodo = 15
-                        Case 5
-                            periodo = 30
-                        Case 6
-                            periodo = 60
-                        Case Else
-                            periodo = 1
-                    End Select
-                    Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = CStr(periodo * fEmpleado.Item("fSueldoBase"))
-                    Documento.Bookmarks.Item("cSalarioPeriodoLetra").Range.Text = SpellNumber(CStr(periodo * fEmpleado.Item("fSueldoBase")))
+                        ''If cJornada Is Nothing = False Then
+                        Documento.Bookmarks.Item("cSalarioPeriodoTipo").Range.Text = cJornada(0).Item("Descripcion")
+                        Dim periodo As Integer
+                        Select Case cJornada(0).Item("iIdTipoJornadaAlta")
+                            Case 1
+                                periodo = 1
+                            Case 2
+                                periodo = 7
+                            Case 3
+                                periodo = 14
+                            Case 4
+                                periodo = 15
+                            Case 5
+                                periodo = 30
+                            Case 6
+                                periodo = 60
+                            Case Else
+                                periodo = 1
+                        End Select
+                        Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = CStr(periodo * fEmpleado.Item("fSueldoBase"))
+                        Documento.Bookmarks.Item("cSalarioPeriodoLetra").Range.Text = SpellNumber(CStr(periodo * fEmpleado.Item("fSueldoBase")))
 
-                    Documento.Save()
-                    MSWord.Visible = True
+                        Documento.Save()
+                        MSWord.Visible = True
+
+                    End If
+
+                Else
+                    MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 End If
-
-            Else
-                MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            End If
 
         Catch ex As Exception
 
@@ -473,9 +478,16 @@ Public Class frmJuridico
                 Documento.Bookmarks.Item("cNombreFiscal").Range.Text = fEmpleado.Item("nombrefiscal")
                 Documento.Bookmarks.Item("cNombreFiscal2").Range.Text = fEmpleado.Item("nombrefiscal")
                 '' Documento.Bookmarks.Item("cLugar").Range.Text = "OAXACA DE JUAREZ, OAXACA"
-                Documento.Bookmarks.Item("cRepresentanteP").Range.Text = fEmpleado.Item("cRepresentanteP")
-                Documento.Bookmarks.Item("cRepresentanteP2").Range.Text = fEmpleado.Item("cRepresentanteP")
-                Documento.Bookmarks.Item("cRepresentanteP3").Range.Text = fEmpleado.Item("cRepresentanteP")
+                If IsDBNull(fEmpleado.Item("cRepresentanteP")) = False Then
+                    Documento.Bookmarks.Item("cRepresentanteP").Range.Text = fEmpleado.Item("cRepresentanteP")
+                    Documento.Bookmarks.Item("cRepresentanteP2").Range.Text = fEmpleado.Item("cRepresentanteP")
+                    Documento.Bookmarks.Item("cRepresentanteP3").Range.Text = fEmpleado.Item("cRepresentanteP")
+
+                Else
+                    MessageBox.Show("Falta agregar Representante Patrona", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                End If
+                
                 Documento.Bookmarks.Item("cDireccionP").Range.Text = fEmpleado.Item("cDireccionP") & ", " & fEmpleado.Item("cCiudadP") & ", " & fEmpleado.Item("cCPP")
                 Documento.Bookmarks.Item("cFecha").Range.Text = DateTime.Now.ToString("dd/MM/yyyy")
                 Documento.Bookmarks.Item("cLugarFirma").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
@@ -488,6 +500,8 @@ Public Class frmJuridico
 
         Catch ex As Exception
             Documento.Close()
+            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
         End Try
 
 
@@ -543,6 +557,8 @@ Public Class frmJuridico
 
         Catch ex As Exception
             Documento.Close()
+            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
         End Try
 
     End Sub
@@ -586,6 +602,8 @@ Public Class frmJuridico
 
         Catch ex As Exception
             Documento.Close()
+            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
         End Try
     End Sub
 
@@ -623,14 +641,19 @@ Public Class frmJuridico
                 Documento.Bookmarks.Item("cLugarFirma").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
                 Documento.Bookmarks.Item("dFechaIngreso").Range.Text = fEmpleado.Item("dFechaPatrona")
 
-                Documento.Bookmarks.Item("cLogo").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png", LinkToFile:=True, SaveWithDocument:=True)
+                If File.Exists(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png") Then
+                    Documento.Bookmarks.Item("cLogo").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png", LinkToFile:=True, SaveWithDocument:=True)
 
+                End If
+                
                 Documento.Save()
                 MSWord.Visible = True
             End If
 
         Catch ex As Exception
             Documento.Close()
+            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
         End Try
     End Sub
 End Class

@@ -114,6 +114,7 @@ Partial Class frmJuridico
         'btnAnexo4
         '
         Me.btnAnexo4.Image = CType(resources.GetObject("btnAnexo4.Image"), System.Drawing.Image)
+        Me.btnAnexo4.ImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnAnexo4.Location = New System.Drawing.Point(286, 82)
         Me.btnAnexo4.Name = "btnAnexo4"
         Me.btnAnexo4.Size = New System.Drawing.Size(87, 72)
@@ -125,6 +126,7 @@ Partial Class frmJuridico
         'btnAnexo3
         '
         Me.btnAnexo3.Image = CType(resources.GetObject("btnAnexo3.Image"), System.Drawing.Image)
+        Me.btnAnexo3.ImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnAnexo3.Location = New System.Drawing.Point(193, 82)
         Me.btnAnexo3.Name = "btnAnexo3"
         Me.btnAnexo3.Size = New System.Drawing.Size(87, 72)
@@ -136,6 +138,7 @@ Partial Class frmJuridico
         'btnAnexo2
         '
         Me.btnAnexo2.Image = CType(resources.GetObject("btnAnexo2.Image"), System.Drawing.Image)
+        Me.btnAnexo2.ImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnAnexo2.Location = New System.Drawing.Point(100, 82)
         Me.btnAnexo2.Name = "btnAnexo2"
         Me.btnAnexo2.Size = New System.Drawing.Size(87, 72)
@@ -147,6 +150,7 @@ Partial Class frmJuridico
         'btnAnexos
         '
         Me.btnAnexos.Image = CType(resources.GetObject("btnAnexos.Image"), System.Drawing.Image)
+        Me.btnAnexos.ImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnAnexos.Location = New System.Drawing.Point(7, 82)
         Me.btnAnexos.Name = "btnAnexos"
         Me.btnAnexos.Size = New System.Drawing.Size(87, 72)

@@ -245,7 +245,7 @@ Partial Class frmClientes
         'cbotipocliente
         '
         Me.cbotipocliente.FormattingEnabled = True
-        Me.cbotipocliente.Items.AddRange(New Object() {"Nominas", "Flujos", "Nominas + Flujo"})
+        Me.cbotipocliente.Items.AddRange(New Object() {"Nominas", "Flujos", "Nominas + Flujo", "Nominas Asimilados", "Nominas Sindicatos"})
         Me.cbotipocliente.Location = New System.Drawing.Point(369, 9)
         Me.cbotipocliente.Name = "cbotipocliente"
         Me.cbotipocliente.Size = New System.Drawing.Size(187, 27)
