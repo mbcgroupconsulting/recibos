@@ -24,11 +24,6 @@ Partial Class frmJuridico
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmJuridico))
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.pnlLote = New System.Windows.Forms.Panel()
-        Me.chkAnexo4 = New System.Windows.Forms.CheckBox()
-        Me.chkAnexo3 = New System.Windows.Forms.CheckBox()
-        Me.chkAnexo2 = New System.Windows.Forms.CheckBox()
-        Me.chkAnexo1 = New System.Windows.Forms.CheckBox()
         Me.btnAnexo4 = New System.Windows.Forms.Button()
         Me.btnAnexo3 = New System.Windows.Forms.Button()
         Me.btnAnexo2 = New System.Windows.Forms.Button()
@@ -39,7 +34,6 @@ Partial Class frmJuridico
         Me.cmdsimple = New System.Windows.Forms.Button()
         Me.cmdcontrato = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
-        Me.pnlLote.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -56,60 +50,8 @@ Partial Class frmJuridico
         Me.Panel1.Controls.Add(Me.cmdcontrato)
         Me.Panel1.Location = New System.Drawing.Point(3, 5)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(563, 169)
+        Me.Panel1.Size = New System.Drawing.Size(478, 169)
         Me.Panel1.TabIndex = 99
-        '
-        'pnlLote
-        '
-        Me.pnlLote.Controls.Add(Me.chkAnexo4)
-        Me.pnlLote.Controls.Add(Me.chkAnexo3)
-        Me.pnlLote.Controls.Add(Me.chkAnexo2)
-        Me.pnlLote.Controls.Add(Me.chkAnexo1)
-        Me.pnlLote.Location = New System.Drawing.Point(7, 177)
-        Me.pnlLote.Name = "pnlLote"
-        Me.pnlLote.Size = New System.Drawing.Size(559, 146)
-        Me.pnlLote.TabIndex = 100
-        Me.pnlLote.Visible = False
-        '
-        'chkAnexo4
-        '
-        Me.chkAnexo4.AutoSize = True
-        Me.chkAnexo4.Location = New System.Drawing.Point(467, 3)
-        Me.chkAnexo4.Name = "chkAnexo4"
-        Me.chkAnexo4.Size = New System.Drawing.Size(83, 22)
-        Me.chkAnexo4.TabIndex = 9
-        Me.chkAnexo4.Text = "Anexo IV"
-        Me.chkAnexo4.UseVisualStyleBackColor = True
-        '
-        'chkAnexo3
-        '
-        Me.chkAnexo3.AutoSize = True
-        Me.chkAnexo3.Location = New System.Drawing.Point(374, 3)
-        Me.chkAnexo3.Name = "chkAnexo3"
-        Me.chkAnexo3.Size = New System.Drawing.Size(82, 22)
-        Me.chkAnexo3.TabIndex = 8
-        Me.chkAnexo3.Text = "Anexo III"
-        Me.chkAnexo3.UseVisualStyleBackColor = True
-        '
-        'chkAnexo2
-        '
-        Me.chkAnexo2.AutoSize = True
-        Me.chkAnexo2.Location = New System.Drawing.Point(281, 3)
-        Me.chkAnexo2.Name = "chkAnexo2"
-        Me.chkAnexo2.Size = New System.Drawing.Size(78, 22)
-        Me.chkAnexo2.TabIndex = 7
-        Me.chkAnexo2.Text = "Anexo II"
-        Me.chkAnexo2.UseVisualStyleBackColor = True
-        '
-        'chkAnexo1
-        '
-        Me.chkAnexo1.AutoSize = True
-        Me.chkAnexo1.Location = New System.Drawing.Point(201, 3)
-        Me.chkAnexo1.Name = "chkAnexo1"
-        Me.chkAnexo1.Size = New System.Drawing.Size(74, 22)
-        Me.chkAnexo1.TabIndex = 6
-        Me.chkAnexo1.Text = "Anexo I"
-        Me.chkAnexo1.UseVisualStyleBackColor = True
         '
         'btnAnexo4
         '
@@ -222,8 +164,7 @@ Partial Class frmJuridico
         'frmJuridico
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(578, 371)
-        Me.Controls.Add(Me.pnlLote)
+        Me.ClientSize = New System.Drawing.Size(493, 184)
         Me.Controls.Add(Me.Panel1)
         Me.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
@@ -231,8 +172,6 @@ Partial Class frmJuridico
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Juridico"
         Me.Panel1.ResumeLayout(False)
-        Me.pnlLote.ResumeLayout(False)
-        Me.pnlLote.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -242,11 +181,6 @@ Partial Class frmJuridico
     Friend WithEvents cmdingreso As System.Windows.Forms.Button
     Friend WithEvents cmdsimple As System.Windows.Forms.Button
     Friend WithEvents cmdcontrato As System.Windows.Forms.Button
-    Friend WithEvents pnlLote As System.Windows.Forms.Panel
-    Friend WithEvents chkAnexo2 As System.Windows.Forms.CheckBox
-    Friend WithEvents chkAnexo1 As System.Windows.Forms.CheckBox
-    Friend WithEvents chkAnexo4 As System.Windows.Forms.CheckBox
-    Friend WithEvents chkAnexo3 As System.Windows.Forms.CheckBox
     Friend WithEvents btnAnexos As System.Windows.Forms.Button
     Friend WithEvents btnAnexo4 As System.Windows.Forms.Button
     Friend WithEvents btnAnexo3 As System.Windows.Forms.Button
