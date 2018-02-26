@@ -23,6 +23,8 @@ Partial Class frmImss
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtObservaciones = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -38,6 +40,7 @@ Partial Class frmImss
         Me.ColumnHeader5 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader6 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader7 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader18 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.lsvSalario = New System.Windows.Forms.ListView()
@@ -47,6 +50,7 @@ Partial Class frmImss
         Me.ColumnHeader11 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader19 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.cmdIncapacidad = New System.Windows.Forms.Button()
@@ -80,10 +84,6 @@ Partial Class frmImss
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.ColumnHeader18 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.txtObservaciones = New System.Windows.Forms.TextBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.ColumnHeader19 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -109,6 +109,22 @@ Partial Class frmImss
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(985, 63)
         Me.Panel1.TabIndex = 6
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(535, 5)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(103, 18)
+        Me.Label16.TabIndex = 33
+        Me.Label16.Text = "Observaciones:"
+        '
+        'txtObservaciones
+        '
+        Me.txtObservaciones.Location = New System.Drawing.Point(538, 25)
+        Me.txtObservaciones.Name = "txtObservaciones"
+        Me.txtObservaciones.Size = New System.Drawing.Size(350, 26)
+        Me.txtObservaciones.TabIndex = 32
         '
         'Label7
         '
@@ -240,6 +256,10 @@ Partial Class frmImss
         Me.ColumnHeader7.Text = "Acuse"
         Me.ColumnHeader7.Width = 135
         '
+        'ColumnHeader18
+        '
+        Me.ColumnHeader18.Text = "Observaciones"
+        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -301,6 +321,10 @@ Partial Class frmImss
         '
         Me.ColumnHeader2.Text = "Acuse"
         Me.ColumnHeader2.Width = 70
+        '
+        'ColumnHeader19
+        '
+        Me.ColumnHeader19.Text = "Observaciones"
         '
         'Label4
         '
@@ -591,30 +615,6 @@ Partial Class frmImss
         Me.Label6.Size = New System.Drawing.Size(115, 18)
         Me.Label6.TabIndex = 6
         Me.Label6.Text = "Riesgo de trabajo"
-        '
-        'ColumnHeader18
-        '
-        Me.ColumnHeader18.Text = "Observaciones"
-        '
-        'txtObservaciones
-        '
-        Me.txtObservaciones.Location = New System.Drawing.Point(538, 25)
-        Me.txtObservaciones.Name = "txtObservaciones"
-        Me.txtObservaciones.Size = New System.Drawing.Size(350, 26)
-        Me.txtObservaciones.TabIndex = 32
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(535, 5)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(103, 18)
-        Me.Label16.TabIndex = 33
-        Me.Label16.Text = "Observaciones:"
-        '
-        'ColumnHeader19
-        '
-        Me.ColumnHeader19.Text = "Observaciones"
         '
         'frmImss
         '
