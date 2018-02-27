@@ -118,26 +118,47 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="1300210270_BuildingManagement" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1300210270_BuildingManagement.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1358748164_document-new" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1358748164_document-new.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GF3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GF3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1361622577_find" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1361622577_find.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="1358748081_3floppy_unmount" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1358748081_3floppy_unmount.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1358748164_document-new" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1358748164_document-new.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1361008917_shutdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1361008917_shutdown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1361008659_cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1361008659_cancel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="1358748238_button_cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1358748238_button_cancel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1358748424_shutdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1358748424_shutdown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="insert-text" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\insert-text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1359875971_folder_search" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1359875971_folder_search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1361155112_ok-green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1361155112_ok-green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1300210270_BuildingManagement" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1300210270_BuildingManagement.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1361008510_save_diskette_floppy_disk" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1361008510_save_diskette_floppy_disk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="1359876031_folder_search" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1359876031_folder_search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1358748424_shutdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1358748424_shutdown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GF1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GF1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="1361007999_document-new" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1361007999_document-new.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,28 +166,10 @@
   <data name="1361008137_export_excel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1361008137_export_excel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1361008510_save_diskette_floppy_disk" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1361008510_save_diskette_floppy_disk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1359875971_folder_search" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1359875971_folder_search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1361008659_cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1361008659_cancel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="1361008917_shutdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1361008917_shutdown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="1361155112_ok-green" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1361155112_ok-green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="1361622577_find" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1361622577_find.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GF1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GF1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GF3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GF3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="insert-text" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\insert-text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="if_General_Office_01_2530843" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\if_General_Office_01_2530843.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

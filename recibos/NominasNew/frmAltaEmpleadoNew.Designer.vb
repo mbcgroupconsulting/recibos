@@ -158,6 +158,10 @@ Partial Class frmAltaEmpleadoNew
         Me.Label60 = New System.Windows.Forms.Label()
         Me.txtRegistroPatronal = New System.Windows.Forms.TextBox()
         Me.Label61 = New System.Windows.Forms.Label()
+        Me.Label62 = New System.Windows.Forms.Label()
+        Me.cboTipoContratoJuridico = New System.Windows.Forms.ComboBox()
+        Me.Label63 = New System.Windows.Forms.Label()
+        Me.txtPuestoJuridico = New System.Windows.Forms.TextBox()
         Me.Panel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -168,7 +172,7 @@ Partial Class frmAltaEmpleadoNew
         'Label48
         '
         Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(567, 156)
+        Me.Label48.Location = New System.Drawing.Point(700, 158)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(98, 18)
         Me.Label48.TabIndex = 195
@@ -177,9 +181,9 @@ Partial Class frmAltaEmpleadoNew
         'cbodepartamento
         '
         Me.cbodepartamento.FormattingEnabled = True
-        Me.cbodepartamento.Location = New System.Drawing.Point(570, 132)
+        Me.cbodepartamento.Location = New System.Drawing.Point(703, 132)
         Me.cbodepartamento.Name = "cbodepartamento"
-        Me.cbodepartamento.Size = New System.Drawing.Size(326, 26)
+        Me.cbodepartamento.Size = New System.Drawing.Size(193, 26)
         Me.cbodepartamento.TabIndex = 194
         '
         'cbopuesto
@@ -232,7 +236,7 @@ Partial Class frmAltaEmpleadoNew
         'cbojornada
         '
         Me.cbojornada.FormattingEnabled = True
-        Me.cbojornada.Location = New System.Drawing.Point(435, 39)
+        Me.cbojornada.Location = New System.Drawing.Point(703, 42)
         Me.cbojornada.Name = "cbojornada"
         Me.cbojornada.Size = New System.Drawing.Size(124, 26)
         Me.cbojornada.TabIndex = 185
@@ -315,7 +319,7 @@ Partial Class frmAltaEmpleadoNew
         '
         Me.lblDireccion.AutoSize = True
         Me.lblDireccion.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDireccion.Location = New System.Drawing.Point(576, 44)
+        Me.lblDireccion.Location = New System.Drawing.Point(825, 44)
         Me.lblDireccion.Name = "lblDireccion"
         Me.lblDireccion.Size = New System.Drawing.Size(60, 19)
         Me.lblDireccion.TabIndex = 183
@@ -325,7 +329,7 @@ Partial Class frmAltaEmpleadoNew
         '
         Me.lblEmpresa.AutoSize = True
         Me.lblEmpresa.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEmpresa.Location = New System.Drawing.Point(576, 9)
+        Me.lblEmpresa.Location = New System.Drawing.Point(822, 9)
         Me.lblEmpresa.Name = "lblEmpresa"
         Me.lblEmpresa.Size = New System.Drawing.Size(60, 19)
         Me.lblEmpresa.TabIndex = 182
@@ -409,7 +413,7 @@ Partial Class frmAltaEmpleadoNew
         'Label39
         '
         Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(432, 62)
+        Me.Label39.Location = New System.Drawing.Point(700, 65)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(85, 18)
         Me.Label39.TabIndex = 170
@@ -868,7 +872,7 @@ Partial Class frmAltaEmpleadoNew
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(252, 156)
+        Me.Label9.Location = New System.Drawing.Point(522, 156)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(140, 18)
         Me.Label9.TabIndex = 127
@@ -876,9 +880,9 @@ Partial Class frmAltaEmpleadoNew
         '
         'txtfunciones
         '
-        Me.txtfunciones.Location = New System.Drawing.Point(254, 132)
+        Me.txtfunciones.Location = New System.Drawing.Point(496, 132)
         Me.txtfunciones.Name = "txtfunciones"
-        Me.txtfunciones.Size = New System.Drawing.Size(305, 26)
+        Me.txtfunciones.Size = New System.Drawing.Size(201, 26)
         Me.txtfunciones.TabIndex = 126
         '
         'Label8
@@ -886,9 +890,9 @@ Partial Class frmAltaEmpleadoNew
         Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(6, 156)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(51, 18)
+        Me.Label8.Size = New System.Drawing.Size(81, 18)
         Me.Label8.TabIndex = 125
-        Me.Label8.Text = "Puesto"
+        Me.Label8.Text = "Puesto Real"
         '
         'cboedocivil
         '
@@ -959,7 +963,7 @@ Partial Class frmAltaEmpleadoNew
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(7, 65)
+        Me.Label4.Location = New System.Drawing.Point(423, 11)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(72, 18)
         Me.Label4.TabIndex = 116
@@ -968,7 +972,7 @@ Partial Class frmAltaEmpleadoNew
         'dtpCaptura
         '
         Me.dtpCaptura.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpCaptura.Location = New System.Drawing.Point(10, 39)
+        Me.dtpCaptura.Location = New System.Drawing.Point(496, 7)
         Me.dtpCaptura.Name = "dtpCaptura"
         Me.dtpCaptura.Size = New System.Drawing.Size(91, 26)
         Me.dtpCaptura.TabIndex = 115
@@ -1010,15 +1014,15 @@ Partial Class frmAltaEmpleadoNew
         'cboTipoContrato
         '
         Me.cboTipoContrato.FormattingEnabled = True
-        Me.cboTipoContrato.Location = New System.Drawing.Point(120, 39)
+        Me.cboTipoContrato.Location = New System.Drawing.Point(7, 37)
         Me.cboTipoContrato.Name = "cboTipoContrato"
-        Me.cboTipoContrato.Size = New System.Drawing.Size(142, 26)
+        Me.cboTipoContrato.Size = New System.Drawing.Size(321, 26)
         Me.cboTipoContrato.TabIndex = 196
         '
         'Label49
         '
         Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(118, 65)
+        Me.Label49.Location = New System.Drawing.Point(5, 63)
         Me.Label49.Name = "Label49"
         Me.Label49.Size = New System.Drawing.Size(90, 18)
         Me.Label49.TabIndex = 197
@@ -1027,7 +1031,7 @@ Partial Class frmAltaEmpleadoNew
         'cboIntegrar
         '
         Me.cboIntegrar.FormattingEnabled = True
-        Me.cboIntegrar.Location = New System.Drawing.Point(277, 39)
+        Me.cboIntegrar.Location = New System.Drawing.Point(545, 42)
         Me.cboIntegrar.Name = "cboIntegrar"
         Me.cboIntegrar.Size = New System.Drawing.Size(142, 26)
         Me.cboIntegrar.TabIndex = 198
@@ -1035,7 +1039,7 @@ Partial Class frmAltaEmpleadoNew
         'Label50
         '
         Me.Label50.AutoSize = True
-        Me.Label50.Location = New System.Drawing.Point(276, 65)
+        Me.Label50.Location = New System.Drawing.Point(544, 68)
         Me.Label50.Name = "Label50"
         Me.Label50.Size = New System.Drawing.Size(67, 18)
         Me.Label50.TabIndex = 199
@@ -1346,10 +1350,48 @@ Partial Class frmAltaEmpleadoNew
         Me.Label61.TabIndex = 211
         Me.Label61.Text = "Registro Patronal"
         '
+        'Label62
+        '
+        Me.Label62.AutoSize = True
+        Me.Label62.Location = New System.Drawing.Point(331, 63)
+        Me.Label62.Name = "Label62"
+        Me.Label62.Size = New System.Drawing.Size(141, 18)
+        Me.Label62.TabIndex = 221
+        Me.Label62.Text = "Tipo contrato Juridico"
+        '
+        'cboTipoContratoJuridico
+        '
+        Me.cboTipoContratoJuridico.FormattingEnabled = True
+        Me.cboTipoContratoJuridico.Items.AddRange(New Object() {"Indeterminado", "Determinado", "Aprueba"})
+        Me.cboTipoContratoJuridico.Location = New System.Drawing.Point(334, 37)
+        Me.cboTipoContratoJuridico.Name = "cboTipoContratoJuridico"
+        Me.cboTipoContratoJuridico.Size = New System.Drawing.Size(205, 26)
+        Me.cboTipoContratoJuridico.TabIndex = 220
+        '
+        'Label63
+        '
+        Me.Label63.AutoSize = True
+        Me.Label63.Location = New System.Drawing.Point(267, 156)
+        Me.Label63.Name = "Label63"
+        Me.Label63.Size = New System.Drawing.Size(136, 18)
+        Me.Label63.TabIndex = 223
+        Me.Label63.Text = "Puesto Seguro Social"
+        '
+        'txtPuestoJuridico
+        '
+        Me.txtPuestoJuridico.Location = New System.Drawing.Point(252, 132)
+        Me.txtPuestoJuridico.Name = "txtPuestoJuridico"
+        Me.txtPuestoJuridico.Size = New System.Drawing.Size(220, 26)
+        Me.txtPuestoJuridico.TabIndex = 222
+        '
         'frmAltaEmpleadoNew
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(1284, 693)
+        Me.ClientSize = New System.Drawing.Size(1304, 693)
+        Me.Controls.Add(Me.Label63)
+        Me.Controls.Add(Me.txtPuestoJuridico)
+        Me.Controls.Add(Me.Label62)
+        Me.Controls.Add(Me.cboTipoContratoJuridico)
         Me.Controls.Add(Me.Label61)
         Me.Controls.Add(Me.txtRegistroPatronal)
         Me.Controls.Add(Me.Label60)
@@ -1602,4 +1644,8 @@ Partial Class frmAltaEmpleadoNew
     Friend WithEvents Label60 As System.Windows.Forms.Label
     Friend WithEvents txtRegistroPatronal As System.Windows.Forms.TextBox
     Friend WithEvents Label61 As System.Windows.Forms.Label
+    Friend WithEvents Label62 As System.Windows.Forms.Label
+    Friend WithEvents cboTipoContratoJuridico As System.Windows.Forms.ComboBox
+    Friend WithEvents Label63 As System.Windows.Forms.Label
+    Friend WithEvents txtPuestoJuridico As System.Windows.Forms.TextBox
 End Class
