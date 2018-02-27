@@ -86,6 +86,9 @@
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>LOGO.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML, Version=0.75.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1292,6 +1295,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LOGO.ico" />
+    <Content Include="LOGO_RECIBOS.ico" />
+    <Content Include="LOGO_RECIBOS_APP.ico" />
     <Content Include="Resources\1300210270_BuildingManagement.png" />
     <Content Include="Resources\1358748081_3floppy_unmount.png" />
     <Content Include="Resources\1358748164_document-new.png" />
