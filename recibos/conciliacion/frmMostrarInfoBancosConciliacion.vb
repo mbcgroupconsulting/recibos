@@ -14,7 +14,7 @@ Public Class frmMostrarInfoBancosConciliacion
             If (tiempo.Days >= 0) Then
                 
                 SQL = "select iIdConciliacion,cBanco,nombre,dFechaMovimiento,cConcepto,fCargo,fAbono,fSaldo,"
-                SQL &= "cDatosfactura,cUsuario,iEstatus2 from (conciliacion "
+                SQL &= "cDatosfactura,cUsuario,iEstatus2,cUsuario2 from (conciliacion "
                 SQL &= " inner join bancos on conciliacion.fkiIdBanco=bancos.iIdBanco)"
                 SQL &= " inner join empresa on conciliacion.fkiIdEmpresa = empresa.iIdEmpresa where "
                 SQL &= " dFechaMovimiento between '" & inicio.ToShortDateString & "' and '" & fin.ToShortDateString() & "' "
@@ -45,7 +45,9 @@ Public Class frmMostrarInfoBancosConciliacion
                 lsvLista.Columns.Add("Datos Factura")
                 lsvLista.Columns(8).Width = 250
                 lsvLista.Columns.Add("Usuario")
-                lsvLista.Columns(8).Width = 100
+                lsvLista.Columns(9).Width = 100
+                lsvLista.Columns.Add("Usuario Concilia")
+                lsvLista.Columns(10).Width = 180
 
 
 
@@ -64,6 +66,7 @@ Public Class frmMostrarInfoBancosConciliacion
                         item.SubItems.Add("" & Format(CType(Fila.Item("fSaldo"), Decimal), "###,###,##0.#0"))
                         item.SubItems.Add("" & Fila.Item("cDatosfactura"))
                         item.SubItems.Add("" & Fila.Item("cUsuario"))
+                        item.SubItems.Add("" & Fila.Item("cUsuario2"))
                         item.Tag = Fila.Item("iIdConciliacion")
                         'item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
                         Alter = Not Alter
@@ -118,7 +121,7 @@ Public Class frmMostrarInfoBancosConciliacion
             If (tiempo.Days >= 0) Then
 
                 SQL = "select iIdConciliacion,cBanco,nombre,dFechaMovimiento,cConcepto,fCargo,fAbono,fSaldo,"
-                SQL &= "cDatosfactura,cUsuario,iEstatus2 from (conciliacion "
+                SQL &= "cDatosfactura,cUsuario,iEstatus2,cUsuario2 from (conciliacion "
                 SQL &= " inner join bancos on conciliacion.fkiIdBanco=bancos.iIdBanco)"
                 SQL &= " inner join empresa on conciliacion.fkiIdEmpresa = empresa.iIdEmpresa where "
                 SQL &= " dFechaMovimiento between '" & inicio.ToShortDateString & "' and '" & fin.ToShortDateString() & "' "
@@ -147,14 +150,14 @@ Public Class frmMostrarInfoBancosConciliacion
                     hoja.Column("N").Width = 50
                     hoja.Column("O").Width = 12
 
-                    hoja.Range(1, 1, 1, 10).Style.Font.FontSize = 10
-                    hoja.Range(1, 1, 1, 10).Style.Font.SetBold(True)
-                    hoja.Range(1, 1, 1, 10).Style.Alignment.WrapText = True
-                    hoja.Range(1, 1, 1, 10).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
-                    hoja.Range(1, 1, 1, 10).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                    hoja.Range(1, 1, 1, 11).Style.Font.FontSize = 10
+                    hoja.Range(1, 1, 1, 11).Style.Font.SetBold(True)
+                    hoja.Range(1, 1, 1, 11).Style.Alignment.WrapText = True
+                    hoja.Range(1, 1, 1, 11).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                    hoja.Range(1, 1, 1, 11).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
                     'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
-                    hoja.Range(1, 1, 1, 10).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
-                    hoja.Range(1, 1, 1, 10).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
+                    hoja.Range(1, 1, 1, 11).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
+                    hoja.Range(1, 1, 1, 11).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
 
                     'hoja.Cell(4, 1).Value = "Num"
 
@@ -168,6 +171,7 @@ Public Class frmMostrarInfoBancosConciliacion
                     hoja.Cell(1, 8).Value = "Saldo"
                     hoja.Cell(1, 9).Value = "Datos Factura"
                     hoja.Cell(1, 10).Value = "Usuario"
+                    hoja.Cell(1, 11).Value = "Usuario Concilia"
                     
 
 
@@ -184,8 +188,7 @@ Public Class frmMostrarInfoBancosConciliacion
                         hoja.Cell(filaExcel, 8).Value = Fila.Item("fSaldo")
                         hoja.Cell(filaExcel, 9).Value = Fila.Item("cDatosfactura")
                         hoja.Cell(filaExcel, 10).Value = Fila.Item("cUsuario")
-                        
-
+                        hoja.Cell(filaExcel, 10).Value = Fila.Item("cUsuarioC")
 
 
 

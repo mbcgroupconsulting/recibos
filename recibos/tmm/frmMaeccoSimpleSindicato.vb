@@ -356,16 +356,16 @@ Public Class frmMaeccoSimpleSindicato
 
                 For Each producto As ListViewItem In lsvLista.CheckedItems
 
-                    Dim netoasimilado As Double = Double.Parse(IIf(producto.SubItems(53).Text = "", "0", producto.SubItems(53).Text))
+                    Dim netoasimilado As Double = Double.Parse(IIf(producto.SubItems(55).Text = "", "0", producto.SubItems(55).Text))
 
                     If netoasimilado > 0 Then
                         '###### CALCULAMOS EL ISR ##################
 
 
-                        NETORECIBO = Double.Parse(producto.SubItems(53).Text)
-                        PRESTAMORECIBO = Double.Parse(IIf(producto.SubItems(50).Text = "", 0, producto.SubItems(50).Text))
-                        DESCUENTOINFRECIBO = Double.Parse(IIf(producto.SubItems(51).Text = "", 0, producto.SubItems(51).Text))
-                        DIFINFONAVITRECIBO = Double.Parse(IIf(producto.SubItems(52).Text = "", 0, producto.SubItems(52).Text))
+                        NETORECIBO = Double.Parse(producto.SubItems(55).Text)
+                        PRESTAMORECIBO = Double.Parse(IIf(producto.SubItems(52).Text = "", 0, producto.SubItems(52).Text))
+                        DESCUENTOINFRECIBO = Double.Parse(IIf(producto.SubItems(53).Text = "", 0, producto.SubItems(53).Text))
+                        DIFINFONAVITRECIBO = Double.Parse(IIf(producto.SubItems(54).Text = "", 0, producto.SubItems(54).Text))
                         TOTALRECIBO = NETORECIBO + PRESTAMORECIBO + DESCUENTOINFRECIBO + DIFINFONAVITRECIBO
 
 
@@ -426,7 +426,7 @@ Public Class frmMaeccoSimpleSindicato
                             Dim PRESTAMO As DataRow = dsReporte.Tables("Deducciones").NewRow
                             PRESTAMO.Item("numtrabajador") = Trim(producto.SubItems(1).Text)
                             PRESTAMO.Item("dias") = Trim(producto.SubItems(15).Text)
-                            PRESTAMO.Item("concepto") = lsvLista.Columns(50).Text
+                            PRESTAMO.Item("concepto") = lsvLista.Columns(52).Text
                             PRESTAMO.Item("monto") = Math.Round(PRESTAMORECIBO, 2).ToString("#,###,##0.00")
                             dsReporte.Tables("Deducciones").Rows.Add(PRESTAMO)
 
@@ -439,7 +439,7 @@ Public Class frmMaeccoSimpleSindicato
                             Dim DSCTOINF As DataRow = dsReporte.Tables("Deducciones").NewRow
                             DSCTOINF.Item("numtrabajador") = Trim(producto.SubItems(1).Text)
                             DSCTOINF.Item("dias") = Trim(producto.SubItems(15).Text)
-                            DSCTOINF.Item("concepto") = lsvLista.Columns(51).Text
+                            DSCTOINF.Item("concepto") = lsvLista.Columns(53).Text
                             DSCTOINF.Item("monto") = Math.Round(DESCUENTOINFRECIBO, 2).ToString("#,###,##0.00")
                             dsReporte.Tables("Deducciones").Rows.Add(DSCTOINF)
 
@@ -453,7 +453,7 @@ Public Class frmMaeccoSimpleSindicato
                             Dim DIFINFONAVIT As DataRow = dsReporte.Tables("Deducciones").NewRow
                             DIFINFONAVIT.Item("numtrabajador") = Trim(producto.SubItems(1).Text)
                             DIFINFONAVIT.Item("dias") = Trim(producto.SubItems(15).Text)
-                            DIFINFONAVIT.Item("concepto") = lsvLista.Columns(52).Text
+                            DIFINFONAVIT.Item("concepto") = lsvLista.Columns(54).Text
                             DIFINFONAVIT.Item("monto") = Math.Round(DIFINFONAVITRECIBO, 2).ToString("#,###,##0.00")
                             dsReporte.Tables("Deducciones").Rows.Add(DIFINFONAVIT)
 

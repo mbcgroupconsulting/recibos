@@ -308,11 +308,11 @@ Public Class frmSubirInfoBancosConciliacion
                         SQL &= "'," & IIf(producto.SubItems(CInt(NudCargo.Value)).Text = "", "0", producto.SubItems(CInt(NudCargo.Value)).Text)
                         SQL &= "," & IIf(producto.SubItems(CInt(NudAbono.Value)).Text = "", "0", producto.SubItems(CInt(NudAbono.Value)).Text)
                         SQL &= "," & IIf(producto.SubItems(CInt(NudSaldo.Value)).Text = "", "0", producto.SubItems(CInt(NudSaldo.Value)).Text)
-                        SQL &= ",'','',0,''," & idUsuario
+                        SQL &= ",'','',0,0,0,0,''," & idUsuario
                         SQL &= ",'" & nombresistema
                         SQL &= "','" & DateTime.Now.ToString.Substring(0, 20)
-
                         SQL &= "',1,1"
+                        SQL &= ",0,''"
 
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Error en el registro con los siguiente datos: Fecha:" & producto.SubItems(CInt(NudFecha.Value)).Text & " Cargo:" & producto.SubItems(CInt(NudCargo.Value)).Text & " Abono:" & producto.SubItems(CInt(NudAbono.Value)).Text & " Saldo:" & producto.SubItems(CInt(NudSaldo.Value)).Text, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -338,11 +338,11 @@ Public Class frmSubirInfoBancosConciliacion
                         SQL &= "'," & IIf(producto.SubItems(CInt(NudCargo.Value)).Text = "", "0", producto.SubItems(CInt(NudCargo.Value)).Text)
                         SQL &= "," & IIf(producto.SubItems(CInt(NudAbono.Value)).Text = "", "0", producto.SubItems(CInt(NudAbono.Value)).Text)
                         SQL &= "," & IIf(producto.SubItems(CInt(NudSaldo.Value)).Text = "", "0", producto.SubItems(CInt(NudSaldo.Value)).Text)
-                        SQL &= ",'','',0,''," & idUsuario
+                        SQL &= ",'','',0,0,0,0,''," & idUsuario
                         SQL &= ",'" & nombresistema
                         SQL &= "','" & DateTime.Now.ToString.Substring(0, 20)
-
                         SQL &= "',1,1"
+                        SQL &= ",0,''"
 
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Error en el registro con los siguiente datos: Fecha:" & producto.SubItems(CInt(NudFecha.Value)).Text & " Cargo:" & producto.SubItems(CInt(NudCargo.Value)).Text & " Abono:" & producto.SubItems(CInt(NudAbono.Value)).Text & " Saldo:" & producto.SubItems(CInt(NudSaldo.Value)).Text, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)

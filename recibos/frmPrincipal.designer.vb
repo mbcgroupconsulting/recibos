@@ -95,6 +95,7 @@ Partial Class frmPrincipal
         Me.AgregarDatosJuridicoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Conciliar10ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlBar.SuspendLayout()
         Me.MenuInicio.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -448,7 +449,7 @@ Partial Class frmPrincipal
         '
         'ConciliacionToolStripMenuItem
         '
-        Me.ConciliacionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SubirDatosBancoToolStripMenuItem, Me.MostrarDatosBancoToolStripMenuItem, Me.ConciliarToolStripMenuItem})
+        Me.ConciliacionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SubirDatosBancoToolStripMenuItem, Me.MostrarDatosBancoToolStripMenuItem, Me.ConciliarToolStripMenuItem, Me.Conciliar10ToolStripMenuItem})
         Me.ConciliacionToolStripMenuItem.Name = "ConciliacionToolStripMenuItem"
         Me.ConciliacionToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
         Me.ConciliacionToolStripMenuItem.Text = "Conciliacion"
@@ -540,6 +541,12 @@ Partial Class frmPrincipal
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Visible = False
         '
+        'Conciliar10ToolStripMenuItem
+        '
+        Me.Conciliar10ToolStripMenuItem.Name = "Conciliar10ToolStripMenuItem"
+        Me.Conciliar10ToolStripMenuItem.Size = New System.Drawing.Size(215, 24)
+        Me.Conciliar10ToolStripMenuItem.Text = "Conciliar 1.0"
+        '
         'frmPrincipal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -615,4 +622,5 @@ Partial Class frmPrincipal
     Friend WithEvents SubirDatosBancoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MostrarDatosBancoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ConciliarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Conciliar10ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

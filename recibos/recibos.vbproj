@@ -221,6 +221,24 @@
     <Compile Include="conciliacion\conciliacion.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="conciliacion\frmAnexarFacturaConciliacion.Designer.vb">
+      <DependentUpon>frmAnexarFacturaConciliacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="conciliacion\frmAnexarFacturaConciliacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="conciliacion\frmAnexarGastosConciliacion.Designer.vb">
+      <DependentUpon>frmAnexarGastosConciliacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="conciliacion\frmAnexarGastosConciliacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="conciliacion\frmCargoManual.Designer.vb">
+      <DependentUpon>frmCargoManual.vb</DependentUpon>
+    </Compile>
+    <Compile Include="conciliacion\frmCargoManual.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="conciliacion\frmconcilia.Designer.vb">
       <DependentUpon>frmconcilia.vb</DependentUpon>
     </Compile>
@@ -936,6 +954,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="conciliacion\conciliacion.resx">
       <DependentUpon>conciliacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="conciliacion\frmAnexarFacturaConciliacion.resx">
+      <DependentUpon>frmAnexarFacturaConciliacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="conciliacion\frmAnexarGastosConciliacion.resx">
+      <DependentUpon>frmAnexarGastosConciliacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="conciliacion\frmCargoManual.resx">
+      <DependentUpon>frmCargoManual.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="conciliacion\frmconcilia.resx">
       <DependentUpon>frmconcilia.vb</DependentUpon>

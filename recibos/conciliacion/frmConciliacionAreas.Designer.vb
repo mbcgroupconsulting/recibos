@@ -47,16 +47,16 @@ Partial Class frmConciliacionAreas
         Me.lsvLista = New System.Windows.Forms.ListView()
         Me.lblRuta = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.pnlProgreso = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.tsbNuevo = New System.Windows.Forms.ToolStripButton()
         Me.tsbImportar = New System.Windows.Forms.ToolStripButton()
+        Me.tsbConciliar = New System.Windows.Forms.ToolStripButton()
         Me.tsbGuardar = New System.Windows.Forms.ToolStripButton()
         Me.tsbProcesar = New System.Windows.Forms.ToolStripButton()
         Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         Me.tsbreportes = New System.Windows.Forms.ToolStripButton()
-        Me.tsbConciliar = New System.Windows.Forms.ToolStripButton()
-        Me.pnlProgreso = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.pnlCatalogo.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.Nudrango, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -324,6 +324,33 @@ Partial Class frmConciliacionAreas
         Me.ToolStrip1.TabIndex = 40
         Me.ToolStrip1.Text = "ToolStrip1"
         '
+        'pnlProgreso
+        '
+        Me.pnlProgreso.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.pnlProgreso.Controls.Add(Me.Label2)
+        Me.pnlProgreso.Controls.Add(Me.pgbProgreso)
+        Me.pnlProgreso.Location = New System.Drawing.Point(292, 320)
+        Me.pnlProgreso.Name = "pnlProgreso"
+        Me.pnlProgreso.Size = New System.Drawing.Size(449, 84)
+        Me.pnlProgreso.TabIndex = 44
+        Me.pnlProgreso.Visible = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(154, 55)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(145, 19)
+        Me.Label2.TabIndex = 1
+        Me.Label2.Text = "Procesando registros"
+        '
+        'pgbProgreso
+        '
+        Me.pgbProgreso.Location = New System.Drawing.Point(17, 12)
+        Me.pgbProgreso.Name = "pgbProgreso"
+        Me.pgbProgreso.Size = New System.Drawing.Size(413, 30)
+        Me.pgbProgreso.TabIndex = 0
+        '
         'tsbNuevo
         '
         Me.tsbNuevo.Image = Global.recibos.My.Resources.Resources._1361007999_document_new
@@ -344,6 +371,16 @@ Partial Class frmConciliacionAreas
         Me.tsbImportar.Text = "Importar archivo"
         Me.tsbImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.tsbImportar.Visible = False
+        '
+        'tsbConciliar
+        '
+        Me.tsbConciliar.Enabled = False
+        Me.tsbConciliar.Image = CType(resources.GetObject("tsbConciliar.Image"), System.Drawing.Image)
+        Me.tsbConciliar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbConciliar.Name = "tsbConciliar"
+        Me.tsbConciliar.Size = New System.Drawing.Size(58, 51)
+        Me.tsbConciliar.Text = "Conciliar"
+        Me.tsbConciliar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'tsbGuardar
         '
@@ -388,43 +425,6 @@ Partial Class frmConciliacionAreas
         Me.tsbreportes.Size = New System.Drawing.Size(90, 51)
         Me.tsbreportes.Text = "Reportes"
         Me.tsbreportes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        '
-        'tsbConciliar
-        '
-        Me.tsbConciliar.Enabled = False
-        Me.tsbConciliar.Image = CType(resources.GetObject("tsbConciliar.Image"), System.Drawing.Image)
-        Me.tsbConciliar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbConciliar.Name = "tsbConciliar"
-        Me.tsbConciliar.Size = New System.Drawing.Size(58, 51)
-        Me.tsbConciliar.Text = "Conciliar"
-        Me.tsbConciliar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        '
-        'pnlProgreso
-        '
-        Me.pnlProgreso.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.pnlProgreso.Controls.Add(Me.Label2)
-        Me.pnlProgreso.Controls.Add(Me.pgbProgreso)
-        Me.pnlProgreso.Location = New System.Drawing.Point(292, 320)
-        Me.pnlProgreso.Name = "pnlProgreso"
-        Me.pnlProgreso.Size = New System.Drawing.Size(449, 84)
-        Me.pnlProgreso.TabIndex = 44
-        Me.pnlProgreso.Visible = False
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(154, 55)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(145, 19)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Procesando registros"
-        '
-        'pgbProgreso
-        '
-        Me.pgbProgreso.Location = New System.Drawing.Point(17, 12)
-        Me.pgbProgreso.Name = "pgbProgreso"
-        Me.pgbProgreso.Size = New System.Drawing.Size(413, 30)
-        Me.pgbProgreso.TabIndex = 0
         '
         'frmConciliacionAreas
         '

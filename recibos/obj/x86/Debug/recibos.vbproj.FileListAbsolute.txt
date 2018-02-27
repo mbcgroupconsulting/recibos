@@ -497,7 +497,6 @@ C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.pdb
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\bin\Debug\recibos.exe
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\bin\Debug\recibos.pdb
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\bin\Debug\recibos.xml
-C:\systemw\proyectos\recibosgrupo2\recibos\recibos\bin\Debug\ClosedXML.xml
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmBuscarDepartamento.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmDepartamentoAlta.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmBuscarPuesto.resources
@@ -733,3 +732,7 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbproj.GenerateResource
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.xml
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.pdb
+C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
+C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAnexarFacturaConciliacion.resources
+C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAnexarGastosConciliacion.resources
+C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmCargoManual.resources

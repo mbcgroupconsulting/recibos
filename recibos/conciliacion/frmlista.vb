@@ -1,6 +1,7 @@
 ﻿Public Class frmlista
     Public gIdFacturas As String
     Public gIdFacturaSelec As String
+    Public giIdFactura As String
     Private Sub frmlista_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cargarlista()
     End Sub
@@ -220,6 +221,7 @@
 
             If Strings.Left(gIdFacturas, 1) = "F" Then
                 gIdFacturaSelec = lsvLista.SelectedItems(0).SubItems(3).Text & " " & lsvLista.SelectedItems(0).SubItems(6).Text
+                giIdFactura = lsvLista.SelectedItems(0).Tag
             Else
                 gIdFacturaSelec = lsvLista.SelectedItems(0).SubItems(0).Text & " " & lsvLista.SelectedItems(0).SubItems(2).Text
             End If
