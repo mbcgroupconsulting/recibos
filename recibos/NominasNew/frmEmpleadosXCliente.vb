@@ -683,7 +683,7 @@ Public Class frmEmpleadosXCliente
                     strStreamWriter.Close() ' cerramos
                     MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                   
+
 
 
                 End If
@@ -691,7 +691,7 @@ Public Class frmEmpleadosXCliente
             Else
                 MessageBox.Show("No gaurdo nada", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
-            
+
 
 
         End If
@@ -925,11 +925,11 @@ Public Class frmEmpleadosXCliente
 
 
             End If
-          
 
 
 
-            
+
+
 
         Catch ex As Exception
 

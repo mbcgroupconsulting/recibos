@@ -602,6 +602,12 @@
     <Compile Include="juridicoconceptos\frmReporteConceptoJuridico.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="juridico\frmContratos.Designer.vb">
+      <DependentUpon>frmContratos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="juridico\frmContratos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="juridico\frmJuridico.Designer.vb">
       <DependentUpon>frmJuridico.vb</DependentUpon>
     </Compile>
@@ -1146,6 +1152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="juridicoconceptos\frmReporteConceptoJuridico.resx">
       <DependentUpon>frmReporteConceptoJuridico.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="juridico\frmContratos.resx">
+      <DependentUpon>frmContratos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="juridico\frmJuridico.resx">
       <DependentUpon>frmJuridico.vb</DependentUpon>
