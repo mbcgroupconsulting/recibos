@@ -1085,7 +1085,7 @@ Public Class frmPrincipal
     End Sub
 
     Private Sub MostrarEmpleadosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MostrarEmpleadosToolStripMenuItem.Click
-        Dim Forma As New frmContratos
+        Dim Forma As New frmEmpleadosXCliente
         '' Dim Forma As New AltaNominaEmpleado
         Forma.ShowDialog()
     End Sub

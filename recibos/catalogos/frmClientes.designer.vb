@@ -153,7 +153,7 @@ Partial Class frmClientes
         Me.pnlProveedores.Enabled = False
         Me.pnlProveedores.Location = New System.Drawing.Point(6, 9)
         Me.pnlProveedores.Name = "pnlProveedores"
-        Me.pnlProveedores.Size = New System.Drawing.Size(689, 652)
+        Me.pnlProveedores.Size = New System.Drawing.Size(689, 687)
         Me.pnlProveedores.TabIndex = 0
         '
         'cboSindicato
@@ -615,7 +615,7 @@ Partial Class frmClientes
         Me.Panel1.Controls.Add(Me.cmdnuevo)
         Me.Panel1.Controls.Add(Me.cmdsalir)
         Me.Panel1.Controls.Add(Me.cmdguardar)
-        Me.Panel1.Location = New System.Drawing.Point(701, 24)
+        Me.Panel1.Location = New System.Drawing.Point(701, 42)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(105, 571)
         Me.Panel1.TabIndex = 36
@@ -710,7 +710,7 @@ Partial Class frmClientes
         'frmClientes
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(811, 673)
+        Me.ClientSize = New System.Drawing.Size(811, 708)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.pnlProveedores)
         Me.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

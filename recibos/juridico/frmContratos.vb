@@ -1,4 +1,7 @@
-﻿Imports ClosedXML.Excel
+﻿Imports Microsoft.Office.Interop.Word 'control de office
+Imports Microsoft.Office.Interop.Excel
+Imports Microsoft.Office.Interop
+Imports ClosedXML.Excel
 Imports System.IO
 Imports System.Text
 
@@ -140,4 +143,26 @@ Public Class frmContratos
         '' lsvLista.Clear()
     End Sub
 
+    Private Sub cmdcontrato_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdcontrato.Click
+        Dim MSWord As New Word.Application
+        Dim Documento As Word.Document
+        Dim Ruta As String, strPWD As String
+        Dim SQL As String
+
+        Try
+            Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\CPS.docx"
+
+
+            FileCopy(Ruta, "C:\Temp\CPS_APE_Excedente.docx")
+            Documento = MSWord.Documents.Open("C:\Temp\CPS_APE_Excedente.docx")
+
+
+
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+   
 End Class

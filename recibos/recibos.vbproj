@@ -134,6 +134,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="catalogos\frmNotario.Designer.vb">
+      <DependentUpon>frmNotario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="catalogos\frmNotario.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="catalogos\frmBuscarDepartamento.Designer.vb">
       <DependentUpon>frmBuscarDepartamento.vb</DependentUpon>
     </Compile>
@@ -919,6 +925,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="catalogos\frmNotario.resx">
+      <DependentUpon>frmNotario.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="catalogos\frmBuscarDepartamento.resx">
       <DependentUpon>frmBuscarDepartamento.vb</DependentUpon>
     </EmbeddedResource>
@@ -1348,8 +1357,10 @@
     <Content Include="Resources\1361008917_shutdown.png" />
     <Content Include="Resources\1361155112_ok-green.png" />
     <Content Include="Resources\1361622577_find.png" />
+    <None Include="Resources\bloggif_5aa81d204bc8d.png" />
     <Content Include="Resources\GF1.png" />
     <Content Include="Resources\GF3.png" />
+    <None Include="Resources\material-escolar.png" />
     <None Include="Resources\if_General_Office_01_2530843.png" />
     <Content Include="Resources\insert-text.png" />
   </ItemGroup>

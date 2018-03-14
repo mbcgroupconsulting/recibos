@@ -52,6 +52,11 @@ Public Class frmEmpresas
 
                 txtRepresentanteP.Text = Fila.Item("cRepresentanteP")
                 txtObjetoSocialP.Text = Fila.Item("cObjetoSocialP")
+
+                txtIntrumento.Text = Fila.Item("cInstrumentoPublico")
+                txtVolumen.Text = Fila.Item("cVolumen")
+                dtConstitucion.Value = Fila.Item("dFechaConstitucion")
+
                 blnNuevo = False
             End If
         Catch ex As Exception
@@ -137,6 +142,7 @@ Public Class frmEmpresas
                 SQL &= "','" & txtpatronal.Text & "'," & cbotipoempresa.SelectedValue
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & IIf(cbomatriz.SelectedIndex = 0, 1, 0)
                 SQL &= ",'" & cbonivel.Text & "','" & txtfraccion.Text & "','" & txtfactor.Text & "','" & txtRepresentanteP.Text & "','" & txtObjetoSocialP.Text & "'"
+                SQL &= ",'" & txtIntrumento.Text & "','" & txtVolumen.Text & "','" & dtConstitucion.Value & "'"
             Else
                 'Actualizar
 
@@ -149,8 +155,8 @@ Public Class frmEmpresas
                 SQL &= "','" & txttelefono2.Text & "','" & txtcontacto.Text & "','" & txtemail.Text
                 SQL &= "','" & txtpatronal.Text & "'," & cbotipoempresa.SelectedValue
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & IIf(cbomatriz.SelectedIndex = 0, 1, 0)
-                SQL &= ",'" & cbonivel.Text & "','" & txtfraccion.Text & "','" & txtfactor.Text & "','" & txtRepresentanteP.Text & "','" & txtObjetoSocialP.text & "'"
-
+                SQL &= ",'" & cbonivel.Text & "','" & txtfraccion.Text & "','" & txtfactor.Text & "','" & txtRepresentanteP.Text & "','" & txtObjetoSocialP.Text & "'"
+                SQL &= ",'" & txtIntrumento.Text & "','" & txtVolumen.Text & "','" & Format(dtConstitucion.Value, "yyyy/dd/MM") & "'"
 
             End If
             If nExecute(SQL) = False Then
@@ -177,6 +183,9 @@ Public Class frmEmpresas
 
         cmdguardar.Enabled = False
         cmdcancelar.Enabled = False
+
+        cmdNotario.Enabled = False
+
     End Sub
 
     Private Sub MostrarTiposEmpresa()
@@ -218,11 +227,13 @@ Public Class frmEmpresas
         Next
     End Sub
     Private Sub pnlEmpresa_EnabledChanged(sender As Object, e As System.EventArgs) Handles pnlEmpresa.EnabledChanged
+
         cmdnuevo.Enabled = Not pnlEmpresa.Enabled
         cmdguardar.Enabled = pnlEmpresa.Enabled
         cmdcancelar.Enabled = pnlEmpresa.Enabled
         cmdsucursal.Enabled = IIf(blnNuevo <> True And (cmdnuevo.Enabled <> True), True, False)
         cmdbuscar.Enabled = Not pnlEmpresa.Enabled
+        cmdNotario.Enabled = pnlEmpresa.Enabled
     End Sub
 
     Private Sub txttelefono_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txttelefono.KeyPress
@@ -348,5 +359,14 @@ Public Class frmEmpresas
         Else
             MessageBox.Show("No hay datos a mostrar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
+    End Sub
+
+   
+  
+    Private Sub cmdNotario_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNotario.Click
+        Dim frmN As New frmNotario
+        frmN.gIdEmpresa = gIdEmpresa
+        frmN.ShowDialog()
+
     End Sub
 End Class
