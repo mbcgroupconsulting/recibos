@@ -11,6 +11,11 @@ Public Class frmContratos
         MostrarClientes()
         MostrarEmpresas()
         MostrarDireccion()
+
+        TabIndex()
+
+        cmdcontrato.Enabled = False
+        cmdingreso.Enabled = False
     End Sub
 
     Private Sub MostrarDireccion()
@@ -173,9 +178,8 @@ Public Class frmContratos
                 Dim fEmpleado As DataRow = rwEmpleado(0)
 
                 Documento.Bookmarks.Item("cNombreFiscalU").Range.Text = UCase(fEmpleado.Item("cNombreFiscalU"))
-                Documento.Bookmarks.Item("cRepresentanteU").Range.Text = UCase(fEmpleado.Item("cRepresentanteU"))
                 Documento.Bookmarks.Item("cNombreFiscalP").Range.Text = UCase(fEmpleado.Item("cNombreFiscalP"))
-                Documento.Bookmarks.Item("cRepresentanteP").Range.Text = UCase(fEmpleado.Item("cRepresentanteP"))
+
                 Documento.Bookmarks.Item("cDireccionP").Range.Text = UCase(fEmpleado.Item("cDireccionP"))
                 Documento.Bookmarks.Item("cRFCU").Range.Text = UCase(fEmpleado.Item("cRFCU"))
                 Documento.Bookmarks.Item("cDireccionU").Range.Text = UCase(fEmpleado.Item("cDireccionU"))
@@ -189,21 +193,35 @@ Public Class frmContratos
 
                 Documento.Bookmarks.Item("cFechaLetra").Range.Text = ArrCadena(1).ToString.ToUpper
                 Documento.Bookmarks.Item("cNombreFiscalU2").Range.Text = UCase(fEmpleado.Item("cNombreFiscalU"))
-                Documento.Bookmarks.Item("cRepresentanteU2").Range.Text = UCase(fEmpleado.Item("cRepresentanteU"))
                 Documento.Bookmarks.Item("cNombreFiscalP2").Range.Text = UCase(fEmpleado.Item("cNombreFiscalP"))
-                Documento.Bookmarks.Item("cRepresentanteP2").Range.Text = UCase(fEmpleado.Item("cRepresentanteP"))
 
-                ''If System.IO.File.Exists("\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png") Then
-                ' El archivo Existe!
-                Documento.Bookmarks.Item("cLogo").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png", LinkToFile:=True, SaveWithDocument:=True)
-                ''End If
+
+                If File.Exists(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png") Then
+                    ' El archivo Existe!
+                    Documento.Bookmarks.Item("cLogo").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png", LinkToFile:=True, SaveWithDocument:=True)
+                End If
 
                 Documento.Bookmarks.Item("cLugarJurisdiccion").Range.Text = UCase(txtJurisdiccion.Text)
                 Documento.Bookmarks.Item("cLugarFirma").Range.Text = UCase(txtLugarFirma.Text)
 
 
-                Documento.Save()
-                MSWord.Visible = True
+                If IsDBNull(fEmpleado.Item("cRepresentanteP")) = False And IsDBNull(fEmpleado.Item("cRepresentanteU")) = False Then
+                    Documento.Bookmarks.Item("cRepresentanteP").Range.Text = UCase(fEmpleado.Item("cRepresentanteP"))
+                    Documento.Bookmarks.Item("cRepresentanteP2").Range.Text = UCase(fEmpleado.Item("cRepresentanteP"))
+                    Documento.Bookmarks.Item("cRepresentanteU").Range.Text = UCase(fEmpleado.Item("cRepresentanteU"))
+                    Documento.Bookmarks.Item("cRepresentanteU2").Range.Text = UCase(fEmpleado.Item("cRepresentanteU"))
+
+                    Documento.Save()
+                    MSWord.Visible = True
+                Else
+                    MessageBox.Show("Faltan algunos datos, revise la información de la empresa y/o cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento.Close()
+                End If
+
+
+
+
+                
             End If
 
 
@@ -215,7 +233,17 @@ Public Class frmContratos
         End Try
     End Sub
 
-   
+    Private Sub TabIndex()
+        cboclientes.TabIndex = 1
+        cboempresas.TabIndex = 2
+        txtJurisdiccion.TabIndex = 3
+        txtLugarFirma.TabIndex = 4
+        dtpFirma.TabIndex = 5
+        cmdcontrato.TabIndex = 6
+        cmdingreso.TabIndex = 7
+
+    End Sub
+
    
     Private Sub cmdingreso_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdingreso.Click
         Dim MSWord As New Word.Application
@@ -251,14 +279,8 @@ Public Class frmContratos
                 Dim fEmpleado As DataRow = rwEmpleado(0)
 
                 Documento.Bookmarks.Item("cNombreFiscalU").Range.Text = UCase(fEmpleado.Item("cNombreFiscalU"))
-                Documento.Bookmarks.Item("cRepresentanteU").Range.Text = UCase(fEmpleado.Item("cRepresentanteU"))
                 Documento.Bookmarks.Item("cNombreFiscalP").Range.Text = UCase(fEmpleado.Item("cNombreFiscalP"))
-                Documento.Bookmarks.Item("cRepresentanteP").Range.Text = UCase(fEmpleado.Item("cRepresentanteP"))
-                
-                Documento.Bookmarks.Item("cCargoRepresentanteP").Range.Text = UCase(fEmpleado.Item("cCargoRepresentanteP"))
-                Documento.Bookmarks.Item("cCargoRepresentanteU").Range.Text = UCase(fEmpleado.Item("cCargoRepresentanteU"))
-                Documento.Bookmarks.Item("cCargoRepresentanteP2").Range.Text = UCase(fEmpleado.Item("cCargoRepresentanteP"))
-                Documento.Bookmarks.Item("cCargoRepresentanteU2").Range.Text = UCase(fEmpleado.Item("cCargoRepresentanteU"))
+              
 
                 Documento.Bookmarks.Item("cDireccionP").Range.Text = UCase(fEmpleado.Item("cDireccionP"))
                 Documento.Bookmarks.Item("cRFCU").Range.Text = UCase(fEmpleado.Item("cRFCU"))
@@ -275,43 +297,68 @@ Public Class frmContratos
                 Documento.Bookmarks.Item("cJurisdiccion").Range.Text = UCase(txtJurisdiccion.Text)
                 Documento.Bookmarks.Item("cLugarFirma").Range.Text = UCase(txtLugarFirma.Text)
 
-                Documento.Bookmarks.Item("cRepresentanteU2").Range.Text = UCase(fEmpleado.Item("cRepresentanteU"))
-                Documento.Bookmarks.Item("cRepresentanteP2").Range.Text = UCase(fEmpleado.Item("cRepresentanteP"))
-                
-                Documento.Bookmarks.Item("cLogo").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png", LinkToFile:=True, SaveWithDocument:=True)
+               
+                If File.Exists(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png") Then
 
-                Documento.Bookmarks.Item("dFechaConstitucionP").Range.Text = UCase(fEmpleado.Item("dFechaConstitucionP"))
-                Documento.Bookmarks.Item("dFechaConstitucionU").Range.Text = UCase(fEmpleado.Item("dFechaConstitucionU"))
-                Documento.Bookmarks.Item("cVolumenP").Range.Text = UCase(fEmpleado.Item("cVolumenP"))
-                Documento.Bookmarks.Item("cVolumenU").Range.Text = UCase(fEmpleado.Item("cVolumenU"))
-                Documento.Bookmarks.Item("cVolumenLetraP").Range.Text = UCase(SpellNumber2(CStr(fEmpleado.Item("cVolumenP"))))
-                Documento.Bookmarks.Item("cVolumenLetraU").Range.Text = UCase(SpellNumber2(CStr(fEmpleado.Item("cVolumenU"))))
+                    Documento.Bookmarks.Item("cLogo").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png", LinkToFile:=True, SaveWithDocument:=True)
+
+                End If
+                If IsDBNull(fEmpleado.Item("cRepresentanteU")) = False And IsDBNull(fEmpleado.Item("cRepresentanteP")) = False And
+                    IsDBNull(fEmpleado.Item("cCargoRepresentanteP")) = False And IsDBNull(fEmpleado.Item("cCargoRepresentanteU")) = False And
+                    IsDBNull(fEmpleado.Item("dFechaConstitucionP")) = False And IsDBNull(fEmpleado.Item("dFechaConstitucionU")) = False And
+                    IsDBNull(fEmpleado.Item("cVolumenP")) = False And IsDBNull(fEmpleado.Item("cVolumenU")) = False And
+                    IsDBNull(fEmpleado.Item("cInstrumentoP")) = False And IsDBNull(fEmpleado.Item("cInstrumentoU")) = False And
+                    IsDBNull(fEmpleado.Item("cNotarioP")) = False And IsDBNull(fEmpleado.Item("cNotarioU")) = False And
+                    IsDBNull(fEmpleado.Item("cNotarioNumeroP")) = False And IsDBNull(fEmpleado.Item("cNotarioNumeroU")) = False And
+                    IsDBNull(fEmpleado.Item("cNotarioResidenciaP")) = False And IsDBNull(fEmpleado.Item("cNotarioResidenciaU")) = False And
+                    IsDBNull(fEmpleado.Item("cFolioMercantilP")) = False And IsDBNull(fEmpleado.Item("cFolioMercantilU")) = False Then
+
+                    Documento.Bookmarks.Item("cRepresentanteP").Range.Text = UCase(fEmpleado.Item("cRepresentanteP"))
+                    Documento.Bookmarks.Item("cRepresentanteU").Range.Text = UCase(fEmpleado.Item("cRepresentanteU"))
+
+                    Documento.Bookmarks.Item("cCargoRepresentanteP").Range.Text = UCase(fEmpleado.Item("cCargoRepresentanteP"))
+                    Documento.Bookmarks.Item("cCargoRepresentanteU").Range.Text = UCase(fEmpleado.Item("cCargoRepresentanteU"))
+                    Documento.Bookmarks.Item("cCargoRepresentanteP2").Range.Text = UCase(fEmpleado.Item("cCargoRepresentanteP"))
+                    Documento.Bookmarks.Item("cCargoRepresentanteU2").Range.Text = UCase(fEmpleado.Item("cCargoRepresentanteU"))
+                    Documento.Bookmarks.Item("cRepresentanteU2").Range.Text = UCase(fEmpleado.Item("cRepresentanteU"))
+                    Documento.Bookmarks.Item("cRepresentanteP2").Range.Text = UCase(fEmpleado.Item("cRepresentanteP"))
+
+                    Documento.Bookmarks.Item("dFechaConstitucionP").Range.Text = UCase(fEmpleado.Item("dFechaConstitucionP"))
+                    Documento.Bookmarks.Item("dFechaConstitucionU").Range.Text = UCase(fEmpleado.Item("dFechaConstitucionU"))
+                    Documento.Bookmarks.Item("cVolumenP").Range.Text = UCase(fEmpleado.Item("cVolumenP"))
+                    Documento.Bookmarks.Item("cVolumenU").Range.Text = UCase(fEmpleado.Item("cVolumenU"))
+                    Documento.Bookmarks.Item("cVolumenLetraP").Range.Text = UCase(SpellNumber2(CStr(fEmpleado.Item("cVolumenP"))))
+                    Documento.Bookmarks.Item("cVolumenLetraU").Range.Text = UCase(SpellNumber2(CStr(fEmpleado.Item("cVolumenU"))))
 
 
-                Documento.Bookmarks.Item("cInstrumentoP").Range.Text = UCase(fEmpleado.Item("cInstrumentoP"))
-                Documento.Bookmarks.Item("cInstrumentoU").Range.Text = UCase(fEmpleado.Item("cInstrumentoU"))
-                Documento.Bookmarks.Item("cInstrumentoLetraP").Range.Text = UCase(SpellNumber2(CStr(fEmpleado.Item("cInstrumentoP")))).ToString
-                Documento.Bookmarks.Item("cInstrumentoLetraU").Range.Text = UCase(SpellNumber2(CStr(fEmpleado.Item("cInstrumentoU"))))
+                    Documento.Bookmarks.Item("cInstrumentoP").Range.Text = UCase(fEmpleado.Item("cInstrumentoP"))
+                    Documento.Bookmarks.Item("cInstrumentoU").Range.Text = UCase(fEmpleado.Item("cInstrumentoU"))
+                    Documento.Bookmarks.Item("cInstrumentoLetraP").Range.Text = UCase(SpellNumber2(CStr(fEmpleado.Item("cInstrumentoP")))).ToString
+                    Documento.Bookmarks.Item("cInstrumentoLetraU").Range.Text = UCase(SpellNumber2(CStr(fEmpleado.Item("cInstrumentoU"))))
 
-                Documento.Bookmarks.Item("cNotarioP").Range.Text = UCase(fEmpleado.Item("cNotarioP"))
-                Documento.Bookmarks.Item("cNotarioU").Range.Text = UCase(fEmpleado.Item("cNotarioU"))
-                Documento.Bookmarks.Item("cNotarioNumeroP").Range.Text = UCase(fEmpleado.Item("cNotarioNumeroP"))
-                Documento.Bookmarks.Item("cNotarioNumeroU").Range.Text = UCase(fEmpleado.Item("cNotarioNumeroU"))
-                Documento.Bookmarks.Item("cNotarioNumeroLetraP").Range.Text = UCase(SpellNumber2(CStr(fEmpleado.Item("cNotarioNumeroP"))))
-                Documento.Bookmarks.Item("cNotarioNumeroLetraU").Range.Text = UCase(SpellNumber2(CStr(fEmpleado.Item("cNotarioNumeroU"))))
+                    Documento.Bookmarks.Item("cNotarioP").Range.Text = UCase(fEmpleado.Item("cNotarioP"))
+                    Documento.Bookmarks.Item("cNotarioU").Range.Text = UCase(fEmpleado.Item("cNotarioU"))
+                    Documento.Bookmarks.Item("cNotarioNumeroP").Range.Text = UCase(fEmpleado.Item("cNotarioNumeroP"))
+                    Documento.Bookmarks.Item("cNotarioNumeroU").Range.Text = UCase(fEmpleado.Item("cNotarioNumeroU"))
+                    Documento.Bookmarks.Item("cNotarioNumeroLetraP").Range.Text = UCase(SpellNumber2(CStr(fEmpleado.Item("cNotarioNumeroP"))))
+                    Documento.Bookmarks.Item("cNotarioNumeroLetraU").Range.Text = UCase(SpellNumber2(CStr(fEmpleado.Item("cNotarioNumeroU"))))
 
-                Documento.Bookmarks.Item("cNotarioResidenciaP").Range.Text = UCase(fEmpleado.Item("cNotarioResidenciaP"))
-                Documento.Bookmarks.Item("cNotarioResidenciaU").Range.Text = UCase(fEmpleado.Item("cNotarioResidenciaU"))
+                    Documento.Bookmarks.Item("cNotarioResidenciaP").Range.Text = UCase(fEmpleado.Item("cNotarioResidenciaP"))
+                    Documento.Bookmarks.Item("cNotarioResidenciaU").Range.Text = UCase(fEmpleado.Item("cNotarioResidenciaU"))
 
-                Documento.Bookmarks.Item("cFolioMercantilP").Range.Text = UCase(fEmpleado.Item("cFolioMercantilP"))
-                Documento.Bookmarks.Item("cFolioMercantilU").Range.Text = UCase(fEmpleado.Item("cFolioMercantilU"))
+                    Documento.Bookmarks.Item("cFolioMercantilP").Range.Text = UCase(fEmpleado.Item("cFolioMercantilP"))
+                    Documento.Bookmarks.Item("cFolioMercantilU").Range.Text = UCase(fEmpleado.Item("cFolioMercantilU"))
 
+                    Documento.Save()
+                    MSWord.Visible = True
 
+                Else
+                    MessageBox.Show("Faltan algunos datos, revise la información de la empresa y/o cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+                    Documento.Close()
 
-
-                Documento.Save()
-                MSWord.Visible = True
+                End If
+               
             End If
 
 
@@ -321,5 +368,24 @@ Public Class frmContratos
             MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         End Try
+    End Sub
+
+
+
+    Private Sub Textbox_LostFocus() Handles txtJurisdiccion.LostFocus, txtLugarFirma.LostFocus
+
+        If String.IsNullOrEmpty(txtJurisdiccion.Text) Or _
+          String.IsNullOrEmpty(txtLugarFirma.Text) Then
+
+            cmdcontrato.Enabled = False
+            cmdingreso.Enabled = False
+
+        Else
+
+            cmdcontrato.Enabled = True
+            cmdingreso.Enabled = True
+
+        End If
+
     End Sub
 End Class
