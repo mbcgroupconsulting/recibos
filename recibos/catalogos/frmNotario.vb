@@ -125,7 +125,7 @@ Public Class frmNotario
         Me.Close()
     End Sub
 
-    Private Sub frmSucursal_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub frmNotario_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         pnlEmpresa.Enabled = True
 
         cmdguardar.Enabled = True

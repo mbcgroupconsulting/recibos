@@ -171,12 +171,16 @@ Public Class frmClientes
                 cbopromotor2.SelectedValue = IIf(aID(1) = "", 0, aID(1))
                 cbopromotor3.SelectedValue = IIf(aID(2) = "", 0, aID(2))
 
-                cboSindicato.SelectedValue = IIf(Fila.Item("fkiIdSindicato") = 0, -1, cboSindicato.SelectedValue)
+                cboSindicato.SelectedValue = IIf(Fila.Item("fkiIdSindicato") = -1, 0, cboSindicato.SelectedValue)
 
-
-
+                txtIntrumento.Text = Fila.Item("cInstrumentoPublico")
+                txtVolumen.Text = Fila.Item("cVolumen")
+                dtConstitucion.Value = Fila.Item("dFechaConstitucion")
+                txtCargo.Text = Fila.Item("cCargoRepresentante")
+                txtRepresentante.Text = Fila.Item("cRepresentanteLegal")
 
                 blnNuevo = False
+
             End If
         Catch ex As Exception
 
@@ -263,6 +267,8 @@ Public Class frmClientes
                 SQL &= "',''," & IIf(cbotipop.SelectedIndex = 0, 1, 0) & "," & nupordinario.Value & "," & nupsindicato.Value
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & cboplaza.SelectedValue & "," & nupflujo.Value
                 SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "'," & cboSindicato.SelectedValue & ""
+                SQL &= ",'" & txtIntrumento.Text & "','" & txtVolumen.Text & "','" & Format(dtConstitucion.Value, "yyyy/dd/MM") & "'"
+                SQL &= ",'" & txtRepresentante.Text & "','" & txtCargo.Text & "'"
             Else
                 'Actualizar
 
@@ -276,7 +282,8 @@ Public Class frmClientes
                 SQL &= "',''," & IIf(cbotipop.SelectedIndex = 0, 1, 0) & "," & nupordinario.Value & "," & nupsindicato.Value
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & cboplaza.SelectedValue & "," & nupflujo.Value
                 SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "'," & cboSindicato.SelectedValue & ""
-
+                SQL &= ",'" & txtIntrumento.Text & "','" & txtVolumen.Text & "','" & Format(dtConstitucion.Value, "yyyy/dd/MM") & "'"
+                SQL &= ",'" & txtRepresentante.Text & "','" & txtCargo.Text & "'"
 
 
 
@@ -446,4 +453,12 @@ Public Class frmClientes
 
         End Try
     End Sub
+
+    Private Sub cmdNotario_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNotario.Click
+        Dim frmN As New frmNotarioC
+        frmN.gIdEmpresa = gIdProveedor
+        frmN.ShowDialog()
+    End Sub
+
+   
 End Class

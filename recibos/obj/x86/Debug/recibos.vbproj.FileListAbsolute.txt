@@ -740,3 +740,4 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.xml
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.pdb
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotario.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotarioC.resources
