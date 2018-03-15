@@ -25,7 +25,6 @@ Public Class frmContratos
         Try
             If rwFilas Is Nothing = False Then
 
-
                 Dim Fila As DataRow = rwFilas(0)
                 'lblEmpresa.Text = "Empresa: " & Fila.Item("nombre")
                 lbldireccion.Text = "Direccion: " & Fila.Item("calle") & " " & Fila.Item("numero") & " " & Fila.Item("numeroint") & " " & Fila.Item("colonia") & " "
@@ -280,7 +279,7 @@ Public Class frmContratos
             SQL &= "c.calle +' NUMERO '+ c.numero +', COLONIA '+c.colonia+ ', '+  c.municipio  +', ' + es2.cEstado + ', C.P. '+ c.cp As cDireccionU, c.idEstado AS cEstadoU,"
             SQL &= "c.cInstrumentoPublico As cInstrumentoU, c.cVolumen As cVolumenU, c.dFechaConstitucion As dFechaConstitucionU, c.dFechaActa As dFechaActaU, c.cLugarRPP As cLugarRPPU,"
             SQL &= "c.cNotario As cNotarioU, c.cNotarioNumero As cNotarioNumeroU, c.cNotarioResidencia As cNotarioResidenciaU, c.cFolioMercantil As cFolioMercantilU  "
-            SQL &= "FROM empresa As e, clientes as c,  Cat_Estados As es, Cat_Estados As es2"
+            SQL &= "FROM empresa As e, clientes as c,  Cat_Estados As es, Cat_Estados As es2 "
             SQL &= "WHERE e.iIdEmpresa=" & cboempresas.SelectedValue
             SQL &= "AND c.iIdCliente =" & cboclientes.SelectedValue
             SQL &= "AND e.idEstado=es.iIdEstado"
@@ -307,8 +306,21 @@ Public Class frmContratos
                 Documento.Bookmarks.Item("cEstadoP").Range.Text = UCase(estado(0).Item("cEstado"))
                 Dim fec As String = dtpFirma.Value.ToLongDateString
                 Dim ArrCadena As String() = fec.Split(",")
+                Dim DIA As String = dtpFirma.Value.Day
+                Dim Año As String = dtpFirma.Value.Year
 
-                Documento.Bookmarks.Item("cFecha").Range.Text = ArrCadena(1).ToString.ToUpper
+                Dim dial As String = SpellNumber2(CStr(DIA))
+                Dim añol As String = SpellNumber2(CStr(Año))
+                If dial = "UN" Then
+                    dial = "PRIMERO"
+                End If
+
+                Dim meses As String() = ArrCadena(1).Split(" ")
+
+                Documento.Bookmarks.Item("cFecha").Range.Text = UCase(dial & " DE " & meses(3) & " DEL AÑO " & añol) ''ArrCadena(1).ToString.ToUpper
+
+
+                ''  Documento.Bookmarks.Item("cFecha").Range.Text = ArrCadena(1).ToString.ToUpper
                 Documento.Bookmarks.Item("cJurisdiccion").Range.Text = UCase(txtJurisdiccion.Text)
                 Documento.Bookmarks.Item("cLugarFirma").Range.Text = UCase(txtLugarFirma.Text)
 
