@@ -4,6 +4,7 @@ Imports Microsoft.Office.Interop
 Imports ClosedXML.Excel
 Imports System.IO
 Imports System.Text
+Imports System.Threading
 
 Public Class frmContratos
     Dim SQL As String
@@ -163,13 +164,14 @@ Public Class frmContratos
 
 
             SQL = " SELECT e.iIdEmpresa, e.nombrefiscal AS cNombreFiscalP, e.cRepresentanteP, e.RFC AS cRFCP, e.cCargoRepresentante AS cRepresentanteCargoP,"
-            SQL &= " e.calle + ' '+e.numero +' '+ e.municipio As cDireccionP, e.idEstado  AS cEstadoP,"
+            SQL &= "e.calle + ' NUMERO '+e.numero +', COLONIA '+e.colonia+ ', '+  e.municipio +', ' + es.cEstado + ', C.P. '+ e.cp As cDireccionP, e.idEstado AS cEstadoP,"
             SQL &= "c.iIdCliente, c.nombrefiscal AS cNombreFiscalU, c.cRepresentanteLegal AS cRepresentanteU , c.RFC AS cRFCU, c.cCargoRepresentante  AS cRepresentanteCargoU,"
-            SQL &= "c.calle +' '+ c.numero +' '+ c.municipio As cDireccionU, c.idEstado AS cEstadoU"
-            SQL &= "  FROM empresa As e, clientes as c "
+            SQL &= "c.calle +' NUMERO '+ c.numero +', COLONIA '+c.colonia+ ', '+  c.municipio  +', ' + es2.cEstado + ', C.P. '+ c.cp As cDireccionU, c.idEstado AS cEstadoU"
+            SQL &= "  FROM empresa As e, clientes as c,  Cat_Estados As es, Cat_Estados As es2 "
             SQL &= "WHERE e.iIdEmpresa=" & cboempresas.SelectedValue
             SQL &= "  AND c.iIdCliente =" & cboclientes.SelectedValue
-            
+            SQL &= "AND e.idEstado=es.iIdEstado"
+            SQL &= " AND c.idEstado=es2.iIdEstado"
 
             Dim rwEmpleado As DataRow() = nConsulta(SQL)
 
@@ -189,9 +191,20 @@ Public Class frmContratos
 
                 Documento.Bookmarks.Item("cEstadoP").Range.Text = UCase(estado(0).Item("cEstado"))
                 Dim fec As String = dtpFirma.Value.ToLongDateString
-                Dim ArrCadena As String() = fec.Split(",")
 
-                Documento.Bookmarks.Item("cFechaLetra").Range.Text = ArrCadena(1).ToString.ToUpper
+                Dim DIA As String = dtpFirma.Value.Day
+                Dim Año As String = dtpFirma.Value.Year
+
+                Dim dial As String = SpellNumber2(CStr(DIA))
+                Dim añol As String = SpellNumber2(CStr(Año))
+                If dial = "UN" Then
+                    dial = "PRIMERO"
+                End If
+
+                Dim ArrCadena As String() = fec.Split(",")
+                Dim meses As String() = ArrCadena(1).Split(" ")
+
+                Documento.Bookmarks.Item("cFechaLetra").Range.Text = UCase(dial & " DE " & meses(3) & " DEL AÑO " & añol) ''ArrCadena(1).ToString.ToUpper
                 Documento.Bookmarks.Item("cNombreFiscalU2").Range.Text = UCase(fEmpleado.Item("cNombreFiscalU"))
                 Documento.Bookmarks.Item("cNombreFiscalP2").Range.Text = UCase(fEmpleado.Item("cNombreFiscalP"))
 
@@ -221,7 +234,7 @@ Public Class frmContratos
 
 
 
-                
+
             End If
 
 
@@ -244,7 +257,7 @@ Public Class frmContratos
 
     End Sub
 
-   
+
     Private Sub cmdingreso_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdingreso.Click
         Dim MSWord As New Word.Application
         Dim Documento As Word.Document
@@ -260,16 +273,18 @@ Public Class frmContratos
 
 
             SQL = "SELECT e.iIdEmpresa, e.nombrefiscal AS cNombreFiscalP, e.cRepresentanteP, e.RFC AS cRFCP, e.cCargoRepresentante AS cCargoRepresentanteU,"
-            SQL &= "e.calle + ' '+e.numero +' '+ e.municipio As cDireccionP, e.idEstado  AS cEstadoP,"
+            SQL &= "e.calle + ' NUMERO '+e.numero +', COLONIA '+e.colonia+ ', '+  e.municipio +', ' + es.cEstado + ', C.P. '+ e.cp As cDireccionP, e.idEstado AS cEstadoP,"
             SQL &= "e.cInstrumentoPublico As cInstrumentoP, e.cVolumen As cVolumenP, e.dFechaConstitucion As dFechaConstitucionP, e.dFechaActa As dFechaActaP, e.cLugarRPP As cLugarRPPP,"
             SQL &= "e.cNotario As cNotarioP, e.cNotarioNumero As cNotarioNumeroP, e.cNotarioResidencia As cNotarioResidenciaP, e.cFolioMercantil As cFolioMercantilP,"
             SQL &= "c.iIdCliente, c.nombrefiscal AS cNombreFiscalU, c.cRepresentanteLegal AS cRepresentanteU , c.RFC AS cRFCU, c.cCargoRepresentante  AS cCargoRepresentanteP,"
-            SQL &= "c.calle +' '+ c.numero +' '+ c.municipio As cDireccionU, c.idEstado AS cEstadoU,"
+            SQL &= "c.calle +' NUMERO '+ c.numero +', COLONIA '+c.colonia+ ', '+  c.municipio  +', ' + es2.cEstado + ', C.P. '+ c.cp As cDireccionU, c.idEstado AS cEstadoU,"
             SQL &= "c.cInstrumentoPublico As cInstrumentoU, c.cVolumen As cVolumenU, c.dFechaConstitucion As dFechaConstitucionU, c.dFechaActa As dFechaActaU, c.cLugarRPP As cLugarRPPU,"
             SQL &= "c.cNotario As cNotarioU, c.cNotarioNumero As cNotarioNumeroU, c.cNotarioResidencia As cNotarioResidenciaU, c.cFolioMercantil As cFolioMercantilU  "
-            SQL &= "FROM empresa As e, clientes as c "
+            SQL &= "FROM empresa As e, clientes as c,  Cat_Estados As es, Cat_Estados As es2"
             SQL &= "WHERE e.iIdEmpresa=" & cboempresas.SelectedValue
             SQL &= "AND c.iIdCliente =" & cboclientes.SelectedValue
+            SQL &= "AND e.idEstado=es.iIdEstado"
+            SQL &= " AND c.idEstado=es2.iIdEstado"
 
 
             Dim rwEmpleado As DataRow() = nConsulta(SQL)
@@ -280,7 +295,7 @@ Public Class frmContratos
 
                 Documento.Bookmarks.Item("cNombreFiscalU").Range.Text = UCase(fEmpleado.Item("cNombreFiscalU"))
                 Documento.Bookmarks.Item("cNombreFiscalP").Range.Text = UCase(fEmpleado.Item("cNombreFiscalP"))
-              
+
 
                 Documento.Bookmarks.Item("cDireccionP").Range.Text = UCase(fEmpleado.Item("cDireccionP"))
                 Documento.Bookmarks.Item("cRFCU").Range.Text = UCase(fEmpleado.Item("cRFCU"))
@@ -297,7 +312,7 @@ Public Class frmContratos
                 Documento.Bookmarks.Item("cJurisdiccion").Range.Text = UCase(txtJurisdiccion.Text)
                 Documento.Bookmarks.Item("cLugarFirma").Range.Text = UCase(txtLugarFirma.Text)
 
-               
+
                 If File.Exists(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png") Then
 
                     Documento.Bookmarks.Item("cLogo").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png", LinkToFile:=True, SaveWithDocument:=True)
@@ -358,7 +373,7 @@ Public Class frmContratos
                     Documento.Close()
 
                 End If
-               
+
             End If
 
 
