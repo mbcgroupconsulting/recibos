@@ -1,4 +1,4 @@
-﻿Module mdoNumALet
+﻿Module mdoFechALet
 
     '*******************************************
     ' Convierte un número  del 1 al 9 en texto. *
@@ -7,7 +7,7 @@
     Dim Pointer2 As Integer = 0
     Private Function GetDigit(ByVal Digit)
         Select Case Val(Digit)
-            Case 1 : GetDigit = "Un"
+            Case 1 : GetDigit = ""
             Case 2 : GetDigit = "Dos"
             Case 3 : GetDigit = "Tres"
             Case 4 : GetDigit = "Cuatro"
@@ -173,19 +173,7 @@
         End If
 
 
-        'Select Case Pesos.Trim
-        '    Case ""
-        '        ''  Pesos = "Ningún Peso"
-        '    Case "One"
-        '        '' Pesos = "Un peso"
-        '        '    MsgBox("sopas")
-        '    Case "Un"
-        '        ''Pesos = "un peso"
-        '    Case "Un Ciento"
-        '        '' Pesos = "cien pesos"
-        '    Case Else
-        '        '' Pesos = Pesos.Replace("Un", "").Trim & " pesos"
-        'End Select
+
         SpellNumber2 = (Pesos).ToUpper
     End Function
 

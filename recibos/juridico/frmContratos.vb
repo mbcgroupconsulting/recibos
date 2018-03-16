@@ -194,8 +194,8 @@ Public Class frmContratos
                 Dim DIA As String = dtpFirma.Value.Day
                 Dim Año As String = dtpFirma.Value.Year
 
-                Dim dial As String = SpellNumber2(CStr(DIA))
-                Dim añol As String = SpellNumber2(CStr(Año))
+                Dim dial As String = SpellNumber3(CStr(DIA))
+                Dim añol As String = SpellNumber3(CStr(Año))
                 If dial = "UN" Then
                     dial = "PRIMERO"
                 End If
@@ -309,8 +309,8 @@ Public Class frmContratos
                 Dim DIA As String = dtpFirma.Value.Day
                 Dim Año As String = dtpFirma.Value.Year
 
-                Dim dial As String = SpellNumber2(CStr(DIA))
-                Dim añol As String = SpellNumber2(CStr(Año))
+                Dim dial As String = SpellNumber3(CStr(DIA))
+                Dim añol As String = SpellNumber3(CStr(Año))
                 If dial = "UN" Then
                     dial = "PRIMERO"
                 End If

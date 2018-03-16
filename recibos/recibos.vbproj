@@ -674,6 +674,7 @@
     <Compile Include="kiosko\frmExportarNominaTMM.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulos\mdoFechALet.vb" />
     <Compile Include="Modulos\mdoNumALet.vb" />
     <Compile Include="Modulos\GenPass.vb" />
     <Compile Include="Modulos\mdoFunciones.vb" />
