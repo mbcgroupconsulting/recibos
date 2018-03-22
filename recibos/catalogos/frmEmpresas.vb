@@ -367,7 +367,7 @@ Public Class frmEmpresas
    
   
     Private Sub cmdNotario_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNotario.Click
-        Dim frmN As New frmNotarioC
+        Dim frmN As New frmNotario
         frmN.gIdEmpresa = gIdEmpresa
         frmN.ShowDialog()
 
