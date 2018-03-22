@@ -419,7 +419,7 @@ Public Class frmImportarEmpleadosAlta
                         ''1 es de predeterminado
                         SQL &= ",'" & IIf(Trim(empleadofull.SubItems(8).Text) = "SOLTERO", 0, 1) & "'," & 1 & ",0" & "," & fkIdMetodoPago & ",'" & " " & "', 1, " & 1 & ", 1, 1,'" & 1 & "'"
 
-                        SQL &= "','" & cbEmpresasC.SelectedValue & "','" & Trim(empleadofull.SubItems(31).Text) & "','" & rpatronal & "'"
+                        SQL &= ",'" & cbEmpresasC.SelectedValue & "','" & Trim(empleadofull.SubItems(31).Text) & "','" & rpatronal & "'"
                         SQL &= "," & 0 & ", '" & " " & "'"
 
                         If nExecute(SQL) = False Then

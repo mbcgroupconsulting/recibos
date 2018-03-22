@@ -980,7 +980,8 @@ Public Class frmPrincipal
 
     End Sub
 
-    Private Sub ImportarFlujosConceptosToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ImportarFlujosConceptosToolStripMenuItem.Click
+
+    Private Sub ImportarFlujosConceptosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ImportarFlujosConceptosToolStripMenuItem.Click
         SQL = "select * from usuarios where idUsuario = " & idUsuario
         Dim rwFilas As DataRow() = nConsulta(SQL)
         Dim Forma As New frmImportarConceptosFlujo
@@ -1168,18 +1169,29 @@ Public Class frmPrincipal
         End Try
     End Sub
 
+<<<<<<< HEAD
     Private Sub ControlTesoreriaToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles ControlTesoreriaToolStripMenuItem1.Click
         'Verificar si se tienen permisos
         SQL = "select * from usuarios where idUsuario = " & idUsuario
         Dim rwFilas As DataRow() = nConsulta(SQL)
         Dim Forma As New frmcontrol
+=======
+    Private Sub ContratToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ContratToolStripMenuItem.Click
+        SQL = "select * from usuarios where idUsuario = " & idUsuario
+        Dim rwFilas As DataRow() = nConsulta(SQL)
+        Dim Forma As New frmContratos
+>>>>>>> mejoras
 
         Try
             If rwFilas Is Nothing = False Then
 
 
                 Dim Fila As DataRow = rwFilas(0)
+<<<<<<< HEAD
                 If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5" Or Fila.Item("fkIdPerfil") = "8" Or Fila.Item("Nombre") = "Petrus") Then
+=======
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "6") Then
+>>>>>>> mejoras
 
                     Forma.ShowDialog()
                 Else
@@ -1192,4 +1204,11 @@ Public Class frmPrincipal
 
         End Try
     End Sub
+<<<<<<< HEAD
+=======
+
+   
+    
+  
+>>>>>>> mejoras
 End Class

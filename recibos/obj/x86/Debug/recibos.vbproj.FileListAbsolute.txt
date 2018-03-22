@@ -610,6 +610,9 @@ C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.vbproj.
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmSubirInfoBancosConciliacion.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmMostrarInfoBancosConciliacion.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmConciliacionAreas.resources
+C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAnexarFacturaConciliacion.resources
+C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAnexarGastosConciliacion.resources
+C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmCargoManual.resources
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.exe.config
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.pdb
@@ -631,6 +634,9 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmTipoEmpresa.resource
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmUsuarioCliente.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmComisiones.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.conciliacion.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAnexarFacturaConciliacion.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAnexarGastosConciliacion.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmCargoManual.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmconcilia.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmConciliacionAreas.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmHojasNomina.resources
@@ -691,6 +697,7 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAgregarConceptos.res
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmImportarConceptosFlujo.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmMostrarflujoconcepto.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmReporteConceptoJuridico.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmContratos.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmJuridico.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAgregarContabilidadk.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAgregarImss.resources
@@ -732,13 +739,13 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbproj.GenerateResource
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.xml
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.pdb
-C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAnexarFacturaConciliacion.resources
-C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAnexarGastosConciliacion.resources
-C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmCargoManual.resources
+<<<<<<< HEAD
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAsignarCliente.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAsignarEmpresa.resources
-D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmCargoManual.resources
-D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAnexarFacturaConciliacion.resources
-D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAnexarGastosConciliacion.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAsignarCliente.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAsignarEmpresa.resources
+=======
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotario.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotarioC.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
+>>>>>>> mejoras

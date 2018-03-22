@@ -24,13 +24,6 @@ Partial Class frmEmpresas
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmEmpresas))
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.cmdlista = New System.Windows.Forms.Button()
-        Me.cmdsucursal = New System.Windows.Forms.Button()
-        Me.cmdcancelar = New System.Windows.Forms.Button()
-        Me.cmdbuscar = New System.Windows.Forms.Button()
-        Me.cmdnuevo = New System.Windows.Forms.Button()
-        Me.cmdsalir = New System.Windows.Forms.Button()
-        Me.cmdguardar = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -67,6 +60,16 @@ Partial Class frmEmpresas
         Me.txtlocalidad = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.pnlEmpresa = New System.Windows.Forms.Panel()
+        Me.dtConstitucion = New System.Windows.Forms.DateTimePicker()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.txtVolumen = New System.Windows.Forms.TextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.txtIntrumento = New System.Windows.Forms.TextBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.txtObjetoSocialP = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.txtRepresentanteP = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
         Me.txtfactor = New System.Windows.Forms.TextBox()
         Me.txtfraccion = New System.Windows.Forms.TextBox()
         Me.cbonivel = New System.Windows.Forms.ComboBox()
@@ -76,10 +79,16 @@ Partial Class frmEmpresas
         Me.cbomatriz = New System.Windows.Forms.ComboBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.txtpatronal = New System.Windows.Forms.TextBox()
-        Me.txtRepresentanteP = New System.Windows.Forms.TextBox()
-        Me.Label20 = New System.Windows.Forms.Label()
-        Me.txtObjetoSocialP = New System.Windows.Forms.TextBox()
-        Me.Label24 = New System.Windows.Forms.Label()
+        Me.cmdNotario = New System.Windows.Forms.Button()
+        Me.cmdlista = New System.Windows.Forms.Button()
+        Me.cmdsucursal = New System.Windows.Forms.Button()
+        Me.cmdcancelar = New System.Windows.Forms.Button()
+        Me.cmdbuscar = New System.Windows.Forms.Button()
+        Me.cmdnuevo = New System.Windows.Forms.Button()
+        Me.cmdsalir = New System.Windows.Forms.Button()
+        Me.cmdguardar = New System.Windows.Forms.Button()
+        Me.txtCargo = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.pnlEmpresa.SuspendLayout()
         Me.SuspendLayout()
@@ -88,6 +97,7 @@ Partial Class frmEmpresas
         '
         Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.cmdNotario)
         Me.Panel1.Controls.Add(Me.cmdlista)
         Me.Panel1.Controls.Add(Me.cmdsucursal)
         Me.Panel1.Controls.Add(Me.cmdcancelar)
@@ -95,96 +105,10 @@ Partial Class frmEmpresas
         Me.Panel1.Controls.Add(Me.cmdnuevo)
         Me.Panel1.Controls.Add(Me.cmdsalir)
         Me.Panel1.Controls.Add(Me.cmdguardar)
-        Me.Panel1.Location = New System.Drawing.Point(698, 59)
+        Me.Panel1.Location = New System.Drawing.Point(698, 12)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(105, 539)
+        Me.Panel1.Size = New System.Drawing.Size(105, 658)
         Me.Panel1.TabIndex = 37
-        '
-        'cmdlista
-        '
-        Me.cmdlista.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.cmdlista.Image = CType(resources.GetObject("cmdlista.Image"), System.Drawing.Image)
-        Me.cmdlista.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdlista.Location = New System.Drawing.Point(9, 378)
-        Me.cmdlista.Name = "cmdlista"
-        Me.cmdlista.Size = New System.Drawing.Size(87, 72)
-        Me.cmdlista.TabIndex = 40
-        Me.cmdlista.Text = "Empresas"
-        Me.cmdlista.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdlista.UseVisualStyleBackColor = True
-        '
-        'cmdsucursal
-        '
-        Me.cmdsucursal.Image = CType(resources.GetObject("cmdsucursal.Image"), System.Drawing.Image)
-        Me.cmdsucursal.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdsucursal.Location = New System.Drawing.Point(9, 300)
-        Me.cmdsucursal.Name = "cmdsucursal"
-        Me.cmdsucursal.Size = New System.Drawing.Size(87, 72)
-        Me.cmdsucursal.TabIndex = 39
-        Me.cmdsucursal.Text = "Sucursal"
-        Me.cmdsucursal.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdsucursal.UseVisualStyleBackColor = True
-        '
-        'cmdcancelar
-        '
-        Me.cmdcancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdcancelar.Image = CType(resources.GetObject("cmdcancelar.Image"), System.Drawing.Image)
-        Me.cmdcancelar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdcancelar.Location = New System.Drawing.Point(7, 149)
-        Me.cmdcancelar.Name = "cmdcancelar"
-        Me.cmdcancelar.Size = New System.Drawing.Size(87, 72)
-        Me.cmdcancelar.TabIndex = 38
-        Me.cmdcancelar.Text = "Cancelar"
-        Me.cmdcancelar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdcancelar.UseVisualStyleBackColor = True
-        '
-        'cmdbuscar
-        '
-        Me.cmdbuscar.Image = CType(resources.GetObject("cmdbuscar.Image"), System.Drawing.Image)
-        Me.cmdbuscar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdbuscar.Location = New System.Drawing.Point(7, 224)
-        Me.cmdbuscar.Name = "cmdbuscar"
-        Me.cmdbuscar.Size = New System.Drawing.Size(87, 72)
-        Me.cmdbuscar.TabIndex = 36
-        Me.cmdbuscar.Text = "Buscar"
-        Me.cmdbuscar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdbuscar.UseVisualStyleBackColor = True
-        '
-        'cmdnuevo
-        '
-        Me.cmdnuevo.Image = CType(resources.GetObject("cmdnuevo.Image"), System.Drawing.Image)
-        Me.cmdnuevo.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdnuevo.Location = New System.Drawing.Point(7, 2)
-        Me.cmdnuevo.Name = "cmdnuevo"
-        Me.cmdnuevo.Size = New System.Drawing.Size(87, 72)
-        Me.cmdnuevo.TabIndex = 33
-        Me.cmdnuevo.Text = "Nuevo"
-        Me.cmdnuevo.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdnuevo.UseVisualStyleBackColor = True
-        '
-        'cmdsalir
-        '
-        Me.cmdsalir.Image = CType(resources.GetObject("cmdsalir.Image"), System.Drawing.Image)
-        Me.cmdsalir.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdsalir.Location = New System.Drawing.Point(9, 456)
-        Me.cmdsalir.Name = "cmdsalir"
-        Me.cmdsalir.Size = New System.Drawing.Size(87, 72)
-        Me.cmdsalir.TabIndex = 37
-        Me.cmdsalir.Text = "Salir"
-        Me.cmdsalir.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdsalir.UseVisualStyleBackColor = True
-        '
-        'cmdguardar
-        '
-        Me.cmdguardar.Image = CType(resources.GetObject("cmdguardar.Image"), System.Drawing.Image)
-        Me.cmdguardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdguardar.Location = New System.Drawing.Point(7, 75)
-        Me.cmdguardar.Name = "cmdguardar"
-        Me.cmdguardar.Size = New System.Drawing.Size(87, 72)
-        Me.cmdguardar.TabIndex = 34
-        Me.cmdguardar.Text = "Guardar"
-        Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdguardar.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -477,6 +401,14 @@ Partial Class frmEmpresas
         'pnlEmpresa
         '
         Me.pnlEmpresa.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlEmpresa.Controls.Add(Me.txtCargo)
+        Me.pnlEmpresa.Controls.Add(Me.Label32)
+        Me.pnlEmpresa.Controls.Add(Me.dtConstitucion)
+        Me.pnlEmpresa.Controls.Add(Me.Label27)
+        Me.pnlEmpresa.Controls.Add(Me.txtVolumen)
+        Me.pnlEmpresa.Controls.Add(Me.Label26)
+        Me.pnlEmpresa.Controls.Add(Me.txtIntrumento)
+        Me.pnlEmpresa.Controls.Add(Me.Label25)
         Me.pnlEmpresa.Controls.Add(Me.txtObjetoSocialP)
         Me.pnlEmpresa.Controls.Add(Me.Label24)
         Me.pnlEmpresa.Controls.Add(Me.txtRepresentanteP)
@@ -528,8 +460,89 @@ Partial Class frmEmpresas
         Me.pnlEmpresa.Enabled = False
         Me.pnlEmpresa.Location = New System.Drawing.Point(3, 19)
         Me.pnlEmpresa.Name = "pnlEmpresa"
-        Me.pnlEmpresa.Size = New System.Drawing.Size(689, 667)
+        Me.pnlEmpresa.Size = New System.Drawing.Size(689, 706)
         Me.pnlEmpresa.TabIndex = 38
+        '
+        'dtConstitucion
+        '
+        Me.dtConstitucion.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtConstitucion.Location = New System.Drawing.Point(575, 654)
+        Me.dtConstitucion.Name = "dtConstitucion"
+        Me.dtConstitucion.Size = New System.Drawing.Size(96, 27)
+        Me.dtConstitucion.TabIndex = 55
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(479, 657)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(94, 19)
+        Me.Label27.TabIndex = 54
+        Me.Label27.Text = "Constitución:"
+        '
+        'txtVolumen
+        '
+        Me.txtVolumen.Location = New System.Drawing.Point(365, 654)
+        Me.txtVolumen.Name = "txtVolumen"
+        Me.txtVolumen.Size = New System.Drawing.Size(108, 27)
+        Me.txtVolumen.TabIndex = 53
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(298, 658)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(69, 19)
+        Me.Label26.TabIndex = 52
+        Me.Label26.Text = "Volumen:"
+        '
+        'txtIntrumento
+        '
+        Me.txtIntrumento.Location = New System.Drawing.Point(151, 654)
+        Me.txtIntrumento.Name = "txtIntrumento"
+        Me.txtIntrumento.Size = New System.Drawing.Size(146, 27)
+        Me.txtIntrumento.TabIndex = 51
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(14, 657)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(142, 19)
+        Me.Label25.TabIndex = 50
+        Me.Label25.Text = "Instrumento Publico:"
+        '
+        'txtObjetoSocialP
+        '
+        Me.txtObjetoSocialP.Location = New System.Drawing.Point(130, 621)
+        Me.txtObjetoSocialP.Name = "txtObjetoSocialP"
+        Me.txtObjetoSocialP.Size = New System.Drawing.Size(544, 27)
+        Me.txtObjetoSocialP.TabIndex = 49
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(34, 624)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(99, 19)
+        Me.Label24.TabIndex = 48
+        Me.Label24.Text = "Objeto Social:"
+        '
+        'txtRepresentanteP
+        '
+        Me.txtRepresentanteP.Location = New System.Drawing.Point(156, 584)
+        Me.txtRepresentanteP.Name = "txtRepresentanteP"
+        Me.txtRepresentanteP.Size = New System.Drawing.Size(263, 27)
+        Me.txtRepresentanteP.TabIndex = 47
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(-6, 587)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(162, 19)
+        Me.Label20.TabIndex = 46
+        Me.Label20.Text = "Representante Patrona:"
         '
         'txtfactor
         '
@@ -607,42 +620,126 @@ Partial Class frmEmpresas
         Me.txtpatronal.Size = New System.Drawing.Size(216, 27)
         Me.txtpatronal.TabIndex = 16
         '
-        'txtRepresentanteP
+        'cmdNotario
         '
-        Me.txtRepresentanteP.Location = New System.Drawing.Point(151, 584)
-        Me.txtRepresentanteP.Name = "txtRepresentanteP"
-        Me.txtRepresentanteP.Size = New System.Drawing.Size(523, 27)
-        Me.txtRepresentanteP.TabIndex = 47
+        Me.cmdNotario.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cmdNotario.Image = Global.recibos.My.Resources.Resources.bloggif_5aa81d204bc8d
+        Me.cmdNotario.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdNotario.Location = New System.Drawing.Point(11, 453)
+        Me.cmdNotario.Name = "cmdNotario"
+        Me.cmdNotario.Size = New System.Drawing.Size(87, 72)
+        Me.cmdNotario.TabIndex = 41
+        Me.cmdNotario.Text = "Notario"
+        Me.cmdNotario.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdNotario.UseVisualStyleBackColor = True
         '
-        'Label20
+        'cmdlista
         '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(-6, 587)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(162, 19)
-        Me.Label20.TabIndex = 46
-        Me.Label20.Text = "Representante Patrona:"
+        Me.cmdlista.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cmdlista.Image = CType(resources.GetObject("cmdlista.Image"), System.Drawing.Image)
+        Me.cmdlista.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdlista.Location = New System.Drawing.Point(11, 376)
+        Me.cmdlista.Name = "cmdlista"
+        Me.cmdlista.Size = New System.Drawing.Size(87, 72)
+        Me.cmdlista.TabIndex = 40
+        Me.cmdlista.Text = "Empresas"
+        Me.cmdlista.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdlista.UseVisualStyleBackColor = True
         '
-        'txtObjetoSocialP
+        'cmdsucursal
         '
-        Me.txtObjetoSocialP.Location = New System.Drawing.Point(130, 621)
-        Me.txtObjetoSocialP.Name = "txtObjetoSocialP"
-        Me.txtObjetoSocialP.Size = New System.Drawing.Size(544, 27)
-        Me.txtObjetoSocialP.TabIndex = 49
+        Me.cmdsucursal.Image = CType(resources.GetObject("cmdsucursal.Image"), System.Drawing.Image)
+        Me.cmdsucursal.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdsucursal.Location = New System.Drawing.Point(9, 300)
+        Me.cmdsucursal.Name = "cmdsucursal"
+        Me.cmdsucursal.Size = New System.Drawing.Size(87, 72)
+        Me.cmdsucursal.TabIndex = 39
+        Me.cmdsucursal.Text = "Sucursal"
+        Me.cmdsucursal.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdsucursal.UseVisualStyleBackColor = True
         '
-        'Label24
+        'cmdcancelar
         '
-        Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(34, 624)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(99, 19)
-        Me.Label24.TabIndex = 48
-        Me.Label24.Text = "Objeto Social:"
+        Me.cmdcancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdcancelar.Image = CType(resources.GetObject("cmdcancelar.Image"), System.Drawing.Image)
+        Me.cmdcancelar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdcancelar.Location = New System.Drawing.Point(7, 149)
+        Me.cmdcancelar.Name = "cmdcancelar"
+        Me.cmdcancelar.Size = New System.Drawing.Size(87, 72)
+        Me.cmdcancelar.TabIndex = 38
+        Me.cmdcancelar.Text = "Cancelar"
+        Me.cmdcancelar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdcancelar.UseVisualStyleBackColor = True
+        '
+        'cmdbuscar
+        '
+        Me.cmdbuscar.Image = CType(resources.GetObject("cmdbuscar.Image"), System.Drawing.Image)
+        Me.cmdbuscar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdbuscar.Location = New System.Drawing.Point(7, 224)
+        Me.cmdbuscar.Name = "cmdbuscar"
+        Me.cmdbuscar.Size = New System.Drawing.Size(87, 72)
+        Me.cmdbuscar.TabIndex = 36
+        Me.cmdbuscar.Text = "Buscar"
+        Me.cmdbuscar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdbuscar.UseVisualStyleBackColor = True
+        '
+        'cmdnuevo
+        '
+        Me.cmdnuevo.Image = CType(resources.GetObject("cmdnuevo.Image"), System.Drawing.Image)
+        Me.cmdnuevo.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdnuevo.Location = New System.Drawing.Point(7, 2)
+        Me.cmdnuevo.Name = "cmdnuevo"
+        Me.cmdnuevo.Size = New System.Drawing.Size(87, 72)
+        Me.cmdnuevo.TabIndex = 33
+        Me.cmdnuevo.Text = "Nuevo"
+        Me.cmdnuevo.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdnuevo.UseVisualStyleBackColor = True
+        '
+        'cmdsalir
+        '
+        Me.cmdsalir.Image = CType(resources.GetObject("cmdsalir.Image"), System.Drawing.Image)
+        Me.cmdsalir.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdsalir.Location = New System.Drawing.Point(11, 579)
+        Me.cmdsalir.Name = "cmdsalir"
+        Me.cmdsalir.Size = New System.Drawing.Size(87, 72)
+        Me.cmdsalir.TabIndex = 37
+        Me.cmdsalir.Text = "Salir"
+        Me.cmdsalir.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdsalir.UseVisualStyleBackColor = True
+        '
+        'cmdguardar
+        '
+        Me.cmdguardar.Image = CType(resources.GetObject("cmdguardar.Image"), System.Drawing.Image)
+        Me.cmdguardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdguardar.Location = New System.Drawing.Point(7, 75)
+        Me.cmdguardar.Name = "cmdguardar"
+        Me.cmdguardar.Size = New System.Drawing.Size(87, 72)
+        Me.cmdguardar.TabIndex = 34
+        Me.cmdguardar.Text = "Guardar"
+        Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdguardar.UseVisualStyleBackColor = True
+        '
+        'txtCargo
+        '
+        Me.txtCargo.Location = New System.Drawing.Point(474, 586)
+        Me.txtCargo.Name = "txtCargo"
+        Me.txtCargo.Size = New System.Drawing.Size(201, 27)
+        Me.txtCargo.TabIndex = 68
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(420, 587)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(51, 19)
+        Me.Label32.TabIndex = 67
+        Me.Label32.Text = "Cargo:"
         '
         'frmEmpresas
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(812, 698)
+        Me.AutoScroll = True
+        Me.ClientSize = New System.Drawing.Size(812, 734)
         Me.Controls.Add(Me.pnlEmpresa)
         Me.Controls.Add(Me.Panel1)
         Me.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -713,4 +810,13 @@ Partial Class frmEmpresas
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents txtObjetoSocialP As System.Windows.Forms.TextBox
     Friend WithEvents Label24 As System.Windows.Forms.Label
+    Friend WithEvents Label27 As System.Windows.Forms.Label
+    Friend WithEvents txtVolumen As System.Windows.Forms.TextBox
+    Friend WithEvents Label26 As System.Windows.Forms.Label
+    Friend WithEvents txtIntrumento As System.Windows.Forms.TextBox
+    Friend WithEvents Label25 As System.Windows.Forms.Label
+    Friend WithEvents cmdNotario As System.Windows.Forms.Button
+    Friend WithEvents dtConstitucion As System.Windows.Forms.DateTimePicker
+    Friend WithEvents txtCargo As System.Windows.Forms.TextBox
+    Friend WithEvents Label32 As System.Windows.Forms.Label
 End Class

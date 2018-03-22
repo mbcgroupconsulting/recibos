@@ -253,7 +253,7 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cLugarPrestacion3").Range.Text = fEmpleado.Item("cLugarPrestacion")
                     Documento.Bookmarks.Item("cRFCP").Range.Text = fEmpleado.Item("cRFCP")
                     Documento.Bookmarks.Item("cRFCP2").Range.Text = fEmpleado.Item("cRFCP")
-                    If IsDBNull(fEmpleado.Item("cRepresentanteP")) = False Or IsDBNull(fEmpleado.Item("cObjetoSocialP")) Then
+                    If IsDBNull(fEmpleado.Item("cRepresentanteP")) = False Or IsDBNull(fEmpleado.Item("cObjetoSocialP")) = False Then
                         Documento.Bookmarks.Item("cRepresentanteP").Range.Text = fEmpleado.Item("cRepresentanteP")
                         Documento.Bookmarks.Item("cRepresentanteP2").Range.Text = fEmpleado.Item("cRepresentanteP")
                         Documento.Bookmarks.Item("cObjetoSocialP").Range.Text = fEmpleado.Item("cObjetoSocialP")
@@ -289,25 +289,25 @@ Public Class frmJuridico
 
                         Dim cJornada As DataRow() = nConsulta("SELECT * FROM Cat_TipoJornadaAlta where iIdTipoJornadaAlta=" & fEmpleado.Item("cJornada"))
 
-                        ''If cJornada Is Nothing = False Then
-                        Documento.Bookmarks.Item("cSalarioPeriodoTipo").Range.Text = cJornada(0).Item("Descripcion")
-                        Dim periodo As Integer
-                        Select Case cJornada(0).Item("iIdTipoJornadaAlta")
-                            Case 1
-                                periodo = 1
-                            Case 2
-                                periodo = 7
-                            Case 3
-                                periodo = 14
-                            Case 4
-                                periodo = 15
-                            Case 5
-                                periodo = 30
-                            Case 6
-                                periodo = 60
-                            Case Else
-                                periodo = 1
-                        End Select
+                    ''If cJornada Is Nothing = False Then
+                    Documento.Bookmarks.Item("cSalarioPeriodoTipo").Range.Text = cJornada(0).Item("Descripcion")
+                    Dim periodo As Integer
+                    Select Case cJornada(0).Item("iIdTipoJornadaAlta")
+                        Case 1
+                            periodo = 1
+                        Case 2
+                            periodo = 7
+                        Case 3
+                            periodo = 14
+                        Case 4
+                            periodo = 15
+                        Case 5
+                            periodo = 30
+                        Case 6
+                            periodo = 60
+                        Case Else
+                            periodo = 1
+                    End Select
                         Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = CStr(periodo * fEmpleado.Item("fSueldoBase"))
                         Documento.Bookmarks.Item("cSalarioPeriodoLetra").Range.Text = SpellNumber(CStr(periodo * fEmpleado.Item("fSueldoBase")))
 
