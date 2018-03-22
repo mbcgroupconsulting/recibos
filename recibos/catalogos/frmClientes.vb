@@ -53,6 +53,9 @@ Public Class frmClientes
         cmdguardar.Enabled = pnlProveedores.Enabled
         cmdcancelar.Enabled = pnlProveedores.Enabled
         cmdbuscar.Enabled = Not pnlProveedores.Enabled
+
+        cmdNotario.Enabled = pnlProveedores.Enabled
+
     End Sub
 
     Private Sub tsbNuevo_Click(sender As System.Object, e As System.EventArgs)
@@ -73,6 +76,8 @@ Public Class frmClientes
         cbotipop.SelectedIndex = 0
         cmdguardar.Enabled = False
         cmdcancelar.Enabled = False
+
+        cmdNotario.Enabled = False
     End Sub
 
     Private Sub MostrarPlazas()
@@ -327,6 +332,7 @@ Public Class frmClientes
         Else
             nupsindicato.Enabled = True
         End If
+
     End Sub
 
     Private Sub Label12_Click(sender As System.Object, e As System.EventArgs) Handles Label12.Click
