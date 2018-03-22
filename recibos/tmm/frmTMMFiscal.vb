@@ -123,6 +123,9 @@
                     item.SubItems.Add("" & tbRegistros.Rows(x + 4).Item(37).ToString())
                     item.SubItems.Add("" & tbRegistros.Rows(x + 4).Item(38).ToString())
                     item.SubItems.Add("" & tbRegistros.Rows(x + 4).Item(39).ToString())
+                    item.SubItems.Add("" & tbRegistros.Rows(x + 4).Item(40).ToString())
+                    item.SubItems.Add("" & tbRegistros.Rows(x + 4).Item(41).ToString())
+
                 Next
 
             End If
@@ -168,7 +171,17 @@
                 Dim totalp As Double
                 Dim totald As Double
 
+                Dim incapacidad As Double
 
+                Dim imss As Double
+                Dim infonavit2 As Double
+                Dim pension2 As Double
+                Dim prestamo2 As Double
+                Dim fonacot2 As Double
+                Dim cuotasindical As Double
+                Dim prestamo As Double
+                Dim diferenciabimestreanterior As Double
+                Dim ajusteinfonavit As Double
 
 
                 pgbProgreso.Minimum = 0
@@ -243,9 +256,24 @@
                     fila.Item("bonoxbuque") = "0"
                     fila.Item("bonoespecial") = "0"
                     fila.Item("tpercepciones") = Math.Round(CDbl(Trim(producto.SubItems(29).Text)), 2).ToString("######0.00")
-                    fila.Item("tdeducciones") = Math.Round(CDbl(Trim(producto.SubItems(31).Text)) + CDbl(Trim(producto.SubItems(32).Text)) + CDbl(Trim(producto.SubItems(33).Text)) + CDbl(Trim(producto.SubItems(34).Text)) + CDbl(Trim(producto.SubItems(35).Text)) + CDbl(IIf(Trim(producto.SubItems(36).Text) = "", 0, Trim(producto.SubItems(36).Text))) + CDbl(IIf(Trim(producto.SubItems(37).Text) = "", 0, Trim(producto.SubItems(37).Text))) + CDbl(IIf(Trim(producto.SubItems(38).Text) = "", 0, Trim(producto.SubItems(38).Text))), 2).ToString("#######.00")
+                    fila.Item("tpercepciones") = Math.Round(CDbl(Trim(producto.SubItems(29).Text)), 2).ToString("######0.00")
+                    incapacidad = CDbl(Trim(producto.SubItems(31).Text))
+                    isr = CDbl(Trim(producto.SubItems(32).Text))
+                    imss = CDbl(Trim(producto.SubItems(33).Text))
+                    infonavit2 = CDbl(Trim(producto.SubItems(34).Text))
+                    diferenciabimestreanterior = CDbl(IIf(Trim(producto.SubItems(35).Text) = "", 0, Trim(producto.SubItems(35).Text)))
+                    ajusteinfonavit = CDbl(IIf(Trim(producto.SubItems(36).Text) = "", 0, Trim(producto.SubItems(36).Text)))
+                    cuotasindical = CDbl(IIf(Trim(producto.SubItems(37).Text) = "", 0, Trim(producto.SubItems(37).Text)))
+                    fonacot2 = CDbl(IIf(Trim(producto.SubItems(38).Text) = "", 0, Trim(producto.SubItems(38).Text)))
+                    pension2 = CDbl(IIf(Trim(producto.SubItems(39).Text) = "", 0, Trim(producto.SubItems(39).Text)))
+                    prestamo2 = CDbl(IIf(Trim(producto.SubItems(40).Text) = "", 0, Trim(producto.SubItems(40).Text)))
 
-                    fila.Item("neto") = Math.Round(CDbl(Trim(producto.SubItems(39).Text)), 2).ToString("######0.00")
+
+                    fila.Item("tdeducciones") = Math.Round(incapacidad + isr + imss + infonavit2 + diferenciabimestreanterior + ajusteinfonavit + pension2 + prestamo2 + fonacot2 + prestamo2, 2).ToString("#######.00")
+
+                    fila.Item("neto") = Math.Round(CDbl(Trim(producto.SubItems(41).Text)), 2).ToString("######0.00")
+
+                    'dsReporte.Tables("Tabla").Rows.Add(fila)
 
 
                     fiscaltmm.dsReporte.Tables("Tabla").Rows.Add(fila)
@@ -353,13 +381,31 @@
                     infonavit.Item("monto") = Math.Round(CDbl(Trim(producto.SubItems(34).Text)), 2).ToString("######0.00")
                     fiscaltmm.dsReporte.Tables("Deducciones").Rows.Add(infonavit)
 
+                    'deferencia bimestre anterior infonavit
+
+                    Dim diferenciainfonavit As DataRow = fiscaltmm.dsReporte.Tables("Deducciones").NewRow
+                    diferenciainfonavit.Item("numtrabajador") = Trim(producto.SubItems(0).Text)
+                    diferenciainfonavit.Item("dias") = Trim(producto.SubItems(14).Text)
+                    diferenciainfonavit.Item("concepto") = "Credito infonavit"
+                    diferenciainfonavit.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(35).Text) = "", "0.00", Trim(producto.SubItems(35).Text))), 2).ToString("######0.00")
+                    fiscaltmm.dsReporte.Tables("Deducciones").Rows.Add(diferenciainfonavit)
+
+                    'ajuste infonavit
+
+                    Dim ajusteinfonavit2 As DataRow = fiscaltmm.dsReporte.Tables("Deducciones").NewRow
+                    ajusteinfonavit2.Item("numtrabajador") = Trim(producto.SubItems(0).Text)
+                    ajusteinfonavit2.Item("dias") = Trim(producto.SubItems(14).Text)
+                    ajusteinfonavit2.Item("concepto") = "Credito infonavit"
+                    ajusteinfonavit2.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(36).Text) = "", "0.00", Trim(producto.SubItems(36).Text))), 2).ToString("######0.00")
+                    fiscaltmm.dsReporte.Tables("Deducciones").Rows.Add(ajusteinfonavit2)
+
                     'Cuota sindical
 
                     Dim sindical As DataRow = fiscaltmm.dsReporte.Tables("Deducciones").NewRow
                     sindical.Item("numtrabajador") = Trim(producto.SubItems(0).Text)
                     sindical.Item("dias") = Trim(producto.SubItems(14).Text)
                     sindical.Item("concepto") = "Cuota sindical"
-                    sindical.Item("monto") = Math.Round(CDbl(Trim(producto.SubItems(35).Text)), 2).ToString("######0.00")
+                    sindical.Item("monto") = Math.Round(CDbl(Trim(producto.SubItems(37).Text)), 2).ToString("######0.00")
                     fiscaltmm.dsReporte.Tables("Deducciones").Rows.Add(sindical)
 
                     'Pension alimenticia
@@ -368,17 +414,17 @@
                     pension.Item("numtrabajador") = Trim(producto.SubItems(0).Text)
                     pension.Item("dias") = Trim(producto.SubItems(14).Text)
                     pension.Item("concepto") = "Pensión Alimenticia"
-                    pension.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(37).Text) = "", 0, Trim(producto.SubItems(37).Text))), 2).ToString("######0.00")
+                    pension.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(38).Text) = "", 0, Trim(producto.SubItems(37).Text))), 2).ToString("######0.00")
                     fiscaltmm.dsReporte.Tables("Deducciones").Rows.Add(pension)
 
                     'Prestamo
 
-                    Dim prestamo As DataRow = fiscaltmm.dsReporte.Tables("Deducciones").NewRow
-                    prestamo.Item("numtrabajador") = Trim(producto.SubItems(0).Text)
-                    prestamo.Item("dias") = Trim(producto.SubItems(14).Text)
-                    prestamo.Item("concepto") = "Préstamo"
-                    prestamo.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(38).Text) = "", 0, Trim(producto.SubItems(38).Text))), 2).ToString("######0.00")
-                    fiscaltmm.dsReporte.Tables("Deducciones").Rows.Add(prestamo)
+                    Dim prestamocon As DataRow = fiscaltmm.dsReporte.Tables("Deducciones").NewRow
+                    prestamocon.Item("numtrabajador") = Trim(producto.SubItems(0).Text)
+                    prestamocon.Item("dias") = Trim(producto.SubItems(14).Text)
+                    prestamocon.Item("concepto") = "Préstamo"
+                    prestamocon.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(39).Text) = "", 0, Trim(producto.SubItems(38).Text))), 2).ToString("######0.00")
+                    fiscaltmm.dsReporte.Tables("Deducciones").Rows.Add(prestamocon)
 
                     'Fonacot
 
@@ -386,8 +432,10 @@
                     fonacot.Item("numtrabajador") = Trim(producto.SubItems(0).Text)
                     fonacot.Item("dias") = Trim(producto.SubItems(14).Text)
                     fonacot.Item("concepto") = "Fonacot"
-                    fonacot.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(36).Text) = "", 0, Trim(producto.SubItems(36).Text))), 2).ToString("######0.00")
+                    fonacot.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(40).Text) = "", 0, Trim(producto.SubItems(36).Text))), 2).ToString("######0.00")
                     fiscaltmm.dsReporte.Tables("Deducciones").Rows.Add(fonacot)
+
+
 
 
 

@@ -415,19 +415,41 @@ Public Class frmConciliacionAreas
                                                 producto.BackColor = Color.Yellow
                                             End If
                                         Else
-                                            'producto.BackColor = Color.Red
-                                            producto.SubItems(8).Text = "No existe esta factura en la base de facturación"
-                                            'producto.SubItems.Add("No existe esta factura en la base de facturación")
-                                            producto.SubItems(11).Text = "3"
-                                            'producto.SubItems.Add("3")
-                                            producto.BackColor = Color.Red
+                                            'Aqui va lo del prestamo
+
+                                            If InStr(Trim(producto.SubItems(4).Text).ToUpper, "PRESTAMO") > 0 Then
+                                                producto.SubItems(8).Text = "PRESTAMO"
+                                                'producto.SubItems.Add("NOMINA")
+                                                producto.SubItems(11).Text = "1"
+                                                'producto.SubItems.Add("1")
+                                                producto.BackColor = Color.Green
+
+                                            ElseIf InStr(Trim(producto.SubItems(4).Text).ToUpper, "PRÉSTAMO") > 0 Then
+                                                producto.SubItems(8).Text = "NOMINA"
+                                                'producto.SubItems.Add("NOMINA")
+                                                producto.SubItems(11).Text = "1"
+                                                'producto.SubItems.Add("1")
+                                                producto.BackColor = Color.Green
+                                            Else
+                                                'producto.BackColor = Color.Red
+                                                producto.SubItems(8).Text = "No existe esta factura en la base de facturación"
+                                                'producto.SubItems.Add("No existe esta factura en la base de facturación")
+                                                producto.SubItems(11).Text = "3"
+                                                'producto.SubItems.Add("3")
+                                                producto.BackColor = Color.Red
+                                            End If
+
+
+
+                                            
+
                                         End If
 
                                     Else
-                                        producto.SubItems(8).Text = "//"
-                                        'producto.SubItems.Add("//")
-                                        producto.SubItems(11).Text = "3"
-                                        'producto.SubItems.Add("3")
+                                            producto.SubItems(8).Text = "//"
+                                            'producto.SubItems.Add("//")
+                                            producto.SubItems(11).Text = "3"
+                                            'producto.SubItems.Add("3")
                                     End If
                                     'MessageBox.Show("esta dentro del rango", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
@@ -852,6 +874,7 @@ Public Class frmConciliacionAreas
         Dim fkiIdFactura1 As String
         Dim fkiIdFactura2 As String
         Dim fkiIdFactura3 As String
+        Dim cadena As String
 
         pnlProgreso.Visible = True
         pnlCatalogo.Enabled = False
@@ -866,7 +889,16 @@ Public Class frmConciliacionAreas
 
             TotalLista = lsvLista.Items.Count
 
-            Dim resultado As Integer = MessageBox.Show("Solo se guardaran los registros seleccionados y en color verde, el registro guardado sera ligado al usuario. ¿Desea continuar?", "Pregunta", MessageBoxButtons.YesNo)
+            If rdbTodos.Checked Then
+                cadena = "Todos"
+            ElseIf rdbAbonos.Checked Then
+                cadena = "solo Abonos"
+            ElseIf rdbCargos.Checked Then
+                cadena = "solo Cargos"
+            End If
+
+
+            Dim resultado As Integer = MessageBox.Show("Los datos a guardar son " & cadena & ". Solo se guardaran los registros seleccionados y en color verde, el registro guardado sera ligado al usuario. ¿Desea continuar?", "Pregunta", MessageBoxButtons.YesNo)
             If resultado = DialogResult.Yes Then
                 'Buscamos en pagos
                 SQL = "Select * from usuarios where idUsuario = " & idUsuario
@@ -903,46 +935,76 @@ Public Class frmConciliacionAreas
                             fkiIdFactura1 = ids(1)
                             fkiIdFactura2 = ids(2)
 
-                        ElseIf ids.Length = 4 Then
+                        ElseIf ids.Length >= 4 Then
                             fkiIdFactura0 = ids(0)
                             fkiIdFactura1 = ids(1)
                             fkiIdFactura2 = ids(2)
                             fkiIdFactura3 = ids(3)
                         End If
 
-                        SQL = "update conciliacion set  fkIdUsuario2=" & idUsuario
-                        SQL &= ",cUsuario2='" & nombresistema
-                        SQL &= "',cDatosFactura='" & producto.SubItems(8).Text
-                        SQL &= "',fkiIdFactura=" & fkiIdFactura0
-                        SQL &= ",fkiIdFactura2=" & fkiIdFactura1
-                        SQL &= ",fkiIdFactura3=" & fkiIdFactura2
-                        SQL &= ",fkiIdFactura4=" & fkiIdFactura3
-                        SQL &= ",iEstatus2=2"
-                        SQL &= " where iIdConciliacion=" & producto.Tag
-                        'If producto.SubItems(5).Text <> "0.00" And producto.SubItems(8).Tag <> "" Then
-                        '    SQL = "update conciliacion set  fkiIdUsuario2=" & idUsuario
-                        '    SQL &= ",cUsuario2=" & nombresistema
-                        '    SQL &= ",cDatosFactura=" & producto.SubItems(8).Text
-                        '    SQL &= " where iIdConciliacion=" & producto.Tag
 
-                        'Else
-                        '    SQL = "update conciliacion set  fkiIdUsuario2=" & idUsuario
-                        '    SQL &= ",cUsuario2=" & nombresistema
-                        '    SQL &= ",cDatosFactura=" & producto.SubItems(8).Text
-                        '    SQL &= ",fkiIdFactura=" & iif(producto.SubItems(8).Tag="",0,producto.SubItems(8).Tag 
-                        'End If
+                        If rdbTodos.Checked Then
+                            SQL = "update conciliacion set  fkIdUsuario2=" & idUsuario
+                            SQL &= ",cUsuario2='" & nombresistema
+                            SQL &= "',cDatosFactura='" & producto.SubItems(8).Text
+                            SQL &= "',fkiIdFactura=" & fkiIdFactura0
+                            SQL &= ",fkiIdFactura2=" & fkiIdFactura1
+                            SQL &= ",fkiIdFactura3=" & fkiIdFactura2
+                            SQL &= ",fkiIdFactura4=" & fkiIdFactura3
+                            SQL &= ",iEstatus2=2"
+                            SQL &= " where iIdConciliacion=" & producto.Tag
 
-                        If nExecute(SQL) = False Then
-                            MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(4).Text) & " Cargo:" & Trim(producto.SubItems(5).Text) & " Abono:" & Trim(producto.SubItems(6).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                            Exit Sub
+                            If nExecute(SQL) = False Then
+                                MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(4).Text) & " Cargo:" & Trim(producto.SubItems(5).Text) & " Abono:" & Trim(producto.SubItems(6).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                Exit Sub
+                            End If
+
+                            producto.SubItems(10).Text = nombresistema
+                        ElseIf rdbAbonos.Checked And producto.SubItems(6).Text <> "0.00" Then
+                            SQL = "update conciliacion set  fkIdUsuario2=" & idUsuario
+                            SQL &= ",cUsuario2='" & nombresistema
+                            SQL &= "',cDatosFactura='" & producto.SubItems(8).Text
+                            SQL &= "',fkiIdFactura=" & fkiIdFactura0
+                            SQL &= ",fkiIdFactura2=" & fkiIdFactura1
+                            SQL &= ",fkiIdFactura3=" & fkiIdFactura2
+                            SQL &= ",fkiIdFactura4=" & fkiIdFactura3
+                            SQL &= ",iEstatus2=2"
+                            SQL &= " where iIdConciliacion=" & producto.Tag
+
+                            If nExecute(SQL) = False Then
+                                MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(4).Text) & " Cargo:" & Trim(producto.SubItems(5).Text) & " Abono:" & Trim(producto.SubItems(6).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                Exit Sub
+                            End If
+
+                            producto.SubItems(10).Text = nombresistema
+                        ElseIf rdbCargos.Checked And producto.SubItems(5).Text <> "0.00" Then
+                            SQL = "update conciliacion set  fkIdUsuario2=" & idUsuario
+                            SQL &= ",cUsuario2='" & nombresistema
+                            SQL &= "',cDatosFactura='" & producto.SubItems(8).Text
+                            SQL &= "',fkiIdFactura=" & fkiIdFactura0
+                            SQL &= ",fkiIdFactura2=" & fkiIdFactura1
+                            SQL &= ",fkiIdFactura3=" & fkiIdFactura2
+                            SQL &= ",fkiIdFactura4=" & fkiIdFactura3
+                            SQL &= ",iEstatus2=2"
+                            SQL &= " where iIdConciliacion=" & producto.Tag
+
+                            If nExecute(SQL) = False Then
+                                MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(4).Text) & " Cargo:" & Trim(producto.SubItems(5).Text) & " Abono:" & Trim(producto.SubItems(6).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                Exit Sub
+                            End If
+
+                            producto.SubItems(10).Text = nombresistema
                         End If
 
-                        producto.SubItems(10).Text = nombresistema
+                        
 
                     End If
                 Next
                 pnlProgreso.Visible = False
                 pnlCatalogo.Enabled = True
+
+                tsbCancelar_Click(sender, e)
+
                 MessageBox.Show("Datos guardados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
             'For Each producto As ListViewItem In lsvLista.CheckedItems

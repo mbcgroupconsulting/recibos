@@ -47,9 +47,6 @@ Partial Class frmConciliacionAreas
         Me.lsvLista = New System.Windows.Forms.ListView()
         Me.lblRuta = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.pnlProgreso = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.tsbNuevo = New System.Windows.Forms.ToolStripButton()
         Me.tsbImportar = New System.Windows.Forms.ToolStripButton()
         Me.tsbConciliar = New System.Windows.Forms.ToolStripButton()
@@ -57,18 +54,26 @@ Partial Class frmConciliacionAreas
         Me.tsbProcesar = New System.Windows.Forms.ToolStripButton()
         Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         Me.tsbreportes = New System.Windows.Forms.ToolStripButton()
+        Me.pnlProgreso = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
+        Me.grbGuardar = New System.Windows.Forms.GroupBox()
+        Me.rdbCargos = New System.Windows.Forms.RadioButton()
+        Me.rdbAbonos = New System.Windows.Forms.RadioButton()
+        Me.rdbTodos = New System.Windows.Forms.RadioButton()
         Me.pnlCatalogo.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.Nudrango, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.pnlProgreso.SuspendLayout()
+        Me.grbGuardar.SuspendLayout()
         Me.SuspendLayout()
         '
         'cmdCerrar
         '
         Me.cmdCerrar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdCerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cmdCerrar.Location = New System.Drawing.Point(916, 567)
+        Me.cmdCerrar.Location = New System.Drawing.Point(1092, 567)
         Me.cmdCerrar.Name = "cmdCerrar"
         Me.cmdCerrar.Padding = New System.Windows.Forms.Padding(0, 0, 10, 0)
         Me.cmdCerrar.Size = New System.Drawing.Size(104, 43)
@@ -83,6 +88,7 @@ Partial Class frmConciliacionAreas
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlCatalogo.Controls.Add(Me.grbGuardar)
         Me.pnlCatalogo.Controls.Add(Me.txtidempresa)
         Me.pnlCatalogo.Controls.Add(Me.Label15)
         Me.pnlCatalogo.Controls.Add(Me.txtcomision)
@@ -102,7 +108,7 @@ Partial Class frmConciliacionAreas
         Me.pnlCatalogo.Controls.Add(Me.lsvLista)
         Me.pnlCatalogo.Location = New System.Drawing.Point(0, 60)
         Me.pnlCatalogo.Name = "pnlCatalogo"
-        Me.pnlCatalogo.Size = New System.Drawing.Size(1032, 501)
+        Me.pnlCatalogo.Size = New System.Drawing.Size(1208, 501)
         Me.pnlCatalogo.TabIndex = 42
         '
         'txtidempresa
@@ -299,7 +305,7 @@ Partial Class frmConciliacionAreas
         Me.lsvLista.Location = New System.Drawing.Point(1, 142)
         Me.lsvLista.MultiSelect = False
         Me.lsvLista.Name = "lsvLista"
-        Me.lsvLista.Size = New System.Drawing.Size(1024, 352)
+        Me.lsvLista.Size = New System.Drawing.Size(1200, 352)
         Me.lsvLista.TabIndex = 2
         Me.lsvLista.UseCompatibleStateImageBehavior = False
         Me.lsvLista.View = System.Windows.Forms.View.Details
@@ -320,36 +326,9 @@ Partial Class frmConciliacionAreas
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbImportar, Me.tsbConciliar, Me.tsbGuardar, Me.tsbProcesar, Me.tsbCancelar, Me.tsbreportes})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(1032, 54)
+        Me.ToolStrip1.Size = New System.Drawing.Size(1208, 54)
         Me.ToolStrip1.TabIndex = 40
         Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'pnlProgreso
-        '
-        Me.pnlProgreso.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.pnlProgreso.Controls.Add(Me.Label2)
-        Me.pnlProgreso.Controls.Add(Me.pgbProgreso)
-        Me.pnlProgreso.Location = New System.Drawing.Point(292, 320)
-        Me.pnlProgreso.Name = "pnlProgreso"
-        Me.pnlProgreso.Size = New System.Drawing.Size(449, 84)
-        Me.pnlProgreso.TabIndex = 44
-        Me.pnlProgreso.Visible = False
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(154, 55)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(145, 19)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Procesando registros"
-        '
-        'pgbProgreso
-        '
-        Me.pgbProgreso.Location = New System.Drawing.Point(17, 12)
-        Me.pgbProgreso.Name = "pgbProgreso"
-        Me.pgbProgreso.Size = New System.Drawing.Size(413, 30)
-        Me.pgbProgreso.TabIndex = 0
         '
         'tsbNuevo
         '
@@ -426,10 +405,81 @@ Partial Class frmConciliacionAreas
         Me.tsbreportes.Text = "Reportes"
         Me.tsbreportes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
+        'pnlProgreso
+        '
+        Me.pnlProgreso.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.pnlProgreso.Controls.Add(Me.Label2)
+        Me.pnlProgreso.Controls.Add(Me.pgbProgreso)
+        Me.pnlProgreso.Location = New System.Drawing.Point(380, 320)
+        Me.pnlProgreso.Name = "pnlProgreso"
+        Me.pnlProgreso.Size = New System.Drawing.Size(449, 84)
+        Me.pnlProgreso.TabIndex = 44
+        Me.pnlProgreso.Visible = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(154, 55)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(145, 19)
+        Me.Label2.TabIndex = 1
+        Me.Label2.Text = "Procesando registros"
+        '
+        'pgbProgreso
+        '
+        Me.pgbProgreso.Location = New System.Drawing.Point(17, 12)
+        Me.pgbProgreso.Name = "pgbProgreso"
+        Me.pgbProgreso.Size = New System.Drawing.Size(413, 30)
+        Me.pgbProgreso.TabIndex = 0
+        '
+        'grbGuardar
+        '
+        Me.grbGuardar.Controls.Add(Me.rdbTodos)
+        Me.grbGuardar.Controls.Add(Me.rdbAbonos)
+        Me.grbGuardar.Controls.Add(Me.rdbCargos)
+        Me.grbGuardar.Location = New System.Drawing.Point(931, 41)
+        Me.grbGuardar.Name = "grbGuardar"
+        Me.grbGuardar.Size = New System.Drawing.Size(197, 95)
+        Me.grbGuardar.TabIndex = 58
+        Me.grbGuardar.TabStop = False
+        Me.grbGuardar.Text = "Datos a conciliar y guardar"
+        '
+        'rdbCargos
+        '
+        Me.rdbCargos.AutoSize = True
+        Me.rdbCargos.Location = New System.Drawing.Point(15, 20)
+        Me.rdbCargos.Name = "rdbCargos"
+        Me.rdbCargos.Size = New System.Drawing.Size(72, 23)
+        Me.rdbCargos.TabIndex = 0
+        Me.rdbCargos.Text = "Cargos"
+        Me.rdbCargos.UseVisualStyleBackColor = True
+        '
+        'rdbAbonos
+        '
+        Me.rdbAbonos.AutoSize = True
+        Me.rdbAbonos.Location = New System.Drawing.Point(15, 42)
+        Me.rdbAbonos.Name = "rdbAbonos"
+        Me.rdbAbonos.Size = New System.Drawing.Size(75, 23)
+        Me.rdbAbonos.TabIndex = 1
+        Me.rdbAbonos.Text = "Abonos"
+        Me.rdbAbonos.UseVisualStyleBackColor = True
+        '
+        'rdbTodos
+        '
+        Me.rdbTodos.AutoSize = True
+        Me.rdbTodos.Checked = True
+        Me.rdbTodos.Location = New System.Drawing.Point(15, 66)
+        Me.rdbTodos.Name = "rdbTodos"
+        Me.rdbTodos.Size = New System.Drawing.Size(65, 23)
+        Me.rdbTodos.TabIndex = 2
+        Me.rdbTodos.TabStop = True
+        Me.rdbTodos.Text = "Todos"
+        Me.rdbTodos.UseVisualStyleBackColor = True
+        '
         'frmConciliacionAreas
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(1032, 613)
+        Me.ClientSize = New System.Drawing.Size(1208, 613)
         Me.Controls.Add(Me.pnlProgreso)
         Me.Controls.Add(Me.cmdCerrar)
         Me.Controls.Add(Me.pnlCatalogo)
@@ -448,6 +498,8 @@ Partial Class frmConciliacionAreas
         Me.ToolStrip1.PerformLayout()
         Me.pnlProgreso.ResumeLayout(False)
         Me.pnlProgreso.PerformLayout()
+        Me.grbGuardar.ResumeLayout(False)
+        Me.grbGuardar.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -486,4 +538,8 @@ Partial Class frmConciliacionAreas
     Friend WithEvents pnlProgreso As System.Windows.Forms.Panel
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents pgbProgreso As System.Windows.Forms.ProgressBar
+    Friend WithEvents grbGuardar As System.Windows.Forms.GroupBox
+    Friend WithEvents rdbTodos As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbAbonos As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbCargos As System.Windows.Forms.RadioButton
 End Class

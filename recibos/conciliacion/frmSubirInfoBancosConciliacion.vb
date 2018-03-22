@@ -230,6 +230,8 @@ Public Class frmSubirInfoBancosConciliacion
     Private Sub tsbGuardar_Click(sender As System.Object, e As System.EventArgs) Handles tsbGuardar.Click
         Dim SQL As String, nombresistema As String = ""
         Dim Guardar As String
+        Dim Nopreguntar As String
+        Dim iSubidos, iOmitidos, iTotal As Integer
 
         Try
             If lsvLista.CheckedItems.Count > 0 Then
@@ -261,7 +263,12 @@ Public Class frmSubirInfoBancosConciliacion
                     nombresistema = Fila.Item("nombre")
                 End If
 
+                iSubidos = 0
+                iOmitidos = 0
+                iTotal = 0
+                MessageBox.Show("No se subieran registros que ya hayan sido guardados con anterioridad", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 For Each producto As ListViewItem In lsvLista.CheckedItems
+                    iTotal = iTotal + 1
                     Guardar = "1"
                     idConciliacion = ""
                     'validar si existe el movimiento en la fecha
@@ -269,25 +276,28 @@ Public Class frmSubirInfoBancosConciliacion
                     SQL = "select * from conciliacion where fkiIdBanco=" & cbobanco.SelectedValue
                     SQL &= " and fkiIdEmpresa=" & cboempresa.SelectedValue
                     SQL &= " and dFechaMovimiento='" & CDate(producto.SubItems(CInt(NudFecha.Value)).Text).ToShortDateString
-                    SQL &= "' and fCargo=" & IIf(producto.SubItems(CInt(NudCargo.Value)).Text = "", "0", producto.SubItems(CInt(NudCargo.Value)).Text)
-                    SQL &= " and fAbono=" & IIf(producto.SubItems(CInt(NudAbono.Value)).Text = "", "0", producto.SubItems(CInt(NudAbono.Value)).Text)
-                    SQL &= " and fSaldo=" & IIf(producto.SubItems(CInt(NudSaldo.Value)).Text = "", "0", producto.SubItems(CInt(NudSaldo.Value)).Text)
+                    SQL &= "' and fCargo=" & Math.Round(Double.Parse(IIf(producto.SubItems(CInt(NudCargo.Value)).Text = "", "0", producto.SubItems(CInt(NudCargo.Value)).Text)), 2)
+                    SQL &= " and fAbono=" & Math.Round(Double.Parse(IIf(producto.SubItems(CInt(NudAbono.Value)).Text = "", "0", producto.SubItems(CInt(NudAbono.Value)).Text)), 2)
+                    SQL &= " and fSaldo=" & Math.Round(Double.Parse(IIf(producto.SubItems(CInt(NudSaldo.Value)).Text = "", "0", producto.SubItems(CInt(NudSaldo.Value)).Text)), 2)
 
                     Dim rwEncontrar As DataRow() = nConsulta(SQL)
 
                     If rwEncontrar Is Nothing = False Then
                         'Verificar si el dato ya tiene un gasto o factura asociada
                         If rwEncontrar(0)("iEstatus2") = "2" Then
-                            MessageBox.Show("El siguiente registro ya se encuentra guardado en la base de datos. Y ya fue conciliado. Fecha:" & producto.SubItems(CInt(NudFecha.Value)).Text & " Cargo:" & producto.SubItems(CInt(NudCargo.Value)).Text & " Abono:" & producto.SubItems(CInt(NudAbono.Value)).Text & " Saldo:" & producto.SubItems(CInt(NudSaldo.Value)).Text & ". El proceso omitira este registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                            'MessageBox.Show("El siguiente registro ya se encuentra guardado en la base de datos. Y ya fue conciliado. Fecha:" & producto.SubItems(CInt(NudFecha.Value)).Text & " Cargo:" & producto.SubItems(CInt(NudCargo.Value)).Text & " Abono:" & producto.SubItems(CInt(NudAbono.Value)).Text & " Saldo:" & producto.SubItems(CInt(NudSaldo.Value)).Text & ". El proceso omitira este registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                             Guardar = "2"
+                            iOmitidos = iOmitidos + 1
                         Else
-                            Dim resultado As Integer = MessageBox.Show("El siguiente registro ya se encuentra guardado en la base de datos. Fecha:" & producto.SubItems(CInt(NudFecha.Value)).Text & " Cargo:" & producto.SubItems(CInt(NudCargo.Value)).Text & " Abono:" & producto.SubItems(CInt(NudAbono.Value)).Text & " Saldo:" & producto.SubItems(CInt(NudSaldo.Value)).Text & " ¿Deseas sobreescribirlo?", "Pregunta", MessageBoxButtons.YesNo)
-                            If resultado = DialogResult.Yes Then
-                                Guardar = "3"
-                                idConciliacion = rwEncontrar(0)("iIdConciliacion")
-                            Else
-                                Guardar = "2"
-                            End If
+                            Guardar = "2"
+                            iOmitidos = iOmitidos + 1
+                            'Dim resultado As Integer = MessageBox.Show("El siguiente registro ya se encuentra guardado en la base de datos. Fecha:" & producto.SubItems(CInt(NudFecha.Value)).Text & " Cargo:" & producto.SubItems(CInt(NudCargo.Value)).Text & " Abono:" & producto.SubItems(CInt(NudAbono.Value)).Text & " Saldo:" & producto.SubItems(CInt(NudSaldo.Value)).Text & " ¿Deseas sobreescribirlo?", "Pregunta", MessageBoxButtons.YesNo)
+                            'If resultado = DialogResult.Yes Then
+                            '    Guardar = "3"
+                            '    idConciliacion = rwEncontrar(0)("iIdConciliacion")
+                            'Else
+                            '    Guardar = "2"
+                            'End If
 
                         End If
 
@@ -299,15 +309,15 @@ Public Class frmSubirInfoBancosConciliacion
 
                     If Guardar = "1" Then
                         'Insertamos nuevo
-
+                        iSubidos = iSubidos + 1
                         SQL = "EXEC setconciliacionInsertar  0," & cbobanco.SelectedValue & "," & cboempresa.SelectedValue
                         SQL &= ",'" & CDate(producto.SubItems(CInt(NudFecha.Value)).Text).ToShortDateString
                         SQL &= "'," & CDate(producto.SubItems(CInt(NudFecha.Value)).Text).Year
                         SQL &= "," & CDate(producto.SubItems(CInt(NudFecha.Value)).Text).Month
                         SQL &= ",'" & producto.SubItems(CInt(NudConcepto.Value)).Text
-                        SQL &= "'," & IIf(producto.SubItems(CInt(NudCargo.Value)).Text = "", "0", producto.SubItems(CInt(NudCargo.Value)).Text)
-                        SQL &= "," & IIf(producto.SubItems(CInt(NudAbono.Value)).Text = "", "0", producto.SubItems(CInt(NudAbono.Value)).Text)
-                        SQL &= "," & IIf(producto.SubItems(CInt(NudSaldo.Value)).Text = "", "0", producto.SubItems(CInt(NudSaldo.Value)).Text)
+                        SQL &= "'," & Math.Round(Double.Parse(IIf(producto.SubItems(CInt(NudCargo.Value)).Text = "", "0", producto.SubItems(CInt(NudCargo.Value)).Text)), 2)
+                        SQL &= "," & Math.Round(Double.Parse(IIf(producto.SubItems(CInt(NudAbono.Value)).Text = "", "0", producto.SubItems(CInt(NudAbono.Value)).Text)), 2)
+                        SQL &= "," & Math.Round(Double.Parse(IIf(producto.SubItems(CInt(NudSaldo.Value)).Text = "", "0", producto.SubItems(CInt(NudSaldo.Value)).Text)), 2)
                         SQL &= ",'','',0,0,0,0,''," & idUsuario
                         SQL &= ",'" & nombresistema
                         SQL &= "','" & DateTime.Now.ToString.Substring(0, 20)
@@ -335,9 +345,9 @@ Public Class frmSubirInfoBancosConciliacion
                         SQL &= "'," & CDate(producto.SubItems(CInt(NudFecha.Value)).Text).Year
                         SQL &= "," & CDate(producto.SubItems(CInt(NudFecha.Value)).Text).Month
                         SQL &= ",'" & producto.SubItems(CInt(NudConcepto.Value)).Text
-                        SQL &= "'," & IIf(producto.SubItems(CInt(NudCargo.Value)).Text = "", "0", producto.SubItems(CInt(NudCargo.Value)).Text)
-                        SQL &= "," & IIf(producto.SubItems(CInt(NudAbono.Value)).Text = "", "0", producto.SubItems(CInt(NudAbono.Value)).Text)
-                        SQL &= "," & IIf(producto.SubItems(CInt(NudSaldo.Value)).Text = "", "0", producto.SubItems(CInt(NudSaldo.Value)).Text)
+                        SQL &= "'," & Math.Round(Double.Parse(IIf(producto.SubItems(CInt(NudCargo.Value)).Text = "", "0", producto.SubItems(CInt(NudCargo.Value)).Text)), 2)
+                        SQL &= "," & Math.Round(Double.Parse(IIf(producto.SubItems(CInt(NudAbono.Value)).Text = "", "0", producto.SubItems(CInt(NudAbono.Value)).Text)), 2)
+                        SQL &= "," & Math.Round(Double.Parse(IIf(producto.SubItems(CInt(NudSaldo.Value)).Text = "", "0", producto.SubItems(CInt(NudSaldo.Value)).Text)), 2)
                         SQL &= ",'','',0,0,0,0,''," & idUsuario
                         SQL &= ",'" & nombresistema
                         SQL &= "','" & DateTime.Now.ToString.Substring(0, 20)
@@ -356,7 +366,7 @@ Public Class frmSubirInfoBancosConciliacion
                 Next
                 tsbCancelar_Click(sender, e)
                 pnlProgreso.Visible = False
-                MessageBox.Show("Proceso terminado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Proceso terminado. Se subieron: " & iSubidos & " registros. Se omitieron:" & iOmitidos & " registros. De un total de " & iTotal & " registros", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             Else
 

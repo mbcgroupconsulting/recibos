@@ -196,31 +196,70 @@
     End Sub
 
     Private Sub lsvLista_ItemActivate(sender As Object, e As EventArgs) Handles lsvLista.ItemActivate
-        Dim id As Long
-        Dim idperiodo As Long
-        Dim nombre As String
-        Dim sql As String
-        If lsvLista.SelectedItems.Count > 0 Then
-            id = lsvLista.SelectedItems(0).Tag
-
-            Dim Forma As New frmPeriodos
-            Forma.gIEmpresa = id
-            If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
-                idperiodo = Forma.gIPeriodo
-                nombre = Forma.gNombrePeriodo
-                Dim Forma2 As New frmcontpaqnominas2
-                Forma2.gIdEmpresa = id
-                Forma2.gIdTipoPeriodo = idperiodo
-                Forma2.gNombrePeriodo = nombre
-                Forma2.ShowDialog()
+        
+        
 
 
+        Try
+            Dim id As Long
+            Dim idperiodo As Long
+            Dim nombre As String
+            Dim sql As String
+            If lsvLista.SelectedItems.Count > 0 Then
+                id = lsvLista.SelectedItems(0).Tag
+                sql = "select * from usuarios where idUsuario = " & idUsuario
+                Dim rwFilas As DataRow() = nConsulta(sql)
 
+                If rwFilas Is Nothing = False Then
+
+
+                    Dim Fila As DataRow = rwFilas(0)
+                    If (Fila.Item("fkIdPerfil") = "1") Then
+
+                        Dim Forma As New frmPeriodos
+                        Forma.gIEmpresa = id
+                        If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
+                            idperiodo = Forma.gIPeriodo
+                            nombre = Forma.gNombrePeriodo
+                            Dim Forma2 As New frmcontpaqnominas2
+                            Forma2.gIdEmpresa = id
+                            Forma2.gIdTipoPeriodo = idperiodo
+                            Forma2.gNombrePeriodo = nombre
+                            Forma2.ShowDialog()
+
+
+
+                        End If
+
+
+
+                    Else
+
+                        If id = 180 Or id = 184 Or id = 181 Or id = 182 Or id = 183 Or id = 179 Or id = 178 Or id = 121 Then
+                            MessageBox.Show("No tiene permisos para trabajar con esta empresa, consulte al administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                        Else
+                            Dim Forma As New frmPeriodos
+                            Forma.gIEmpresa = id
+                            If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
+                                idperiodo = Forma.gIPeriodo
+                                nombre = Forma.gNombrePeriodo
+                                Dim Forma2 As New frmcontpaqnominas2
+                                Forma2.gIdEmpresa = id
+                                Forma2.gIdTipoPeriodo = idperiodo
+                                Forma2.gNombrePeriodo = nombre
+                                Forma2.ShowDialog()
+                            End If
+                        End If
+                    End If
+                End If
             End If
 
 
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
 
-        End If
     End Sub
 
     Private Sub tsbGuardar_Click(sender As Object, e As EventArgs) Handles tsbGuardar.Click

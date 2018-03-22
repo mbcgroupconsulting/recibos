@@ -302,6 +302,18 @@
     <Compile Include="contpaq\frmAguinaldo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="contpaq\frmAsignarCliente.Designer.vb">
+      <DependentUpon>frmAsignarCliente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="contpaq\frmAsignarCliente.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="contpaq\frmAsignarEmpresa.Designer.vb">
+      <DependentUpon>frmAsignarEmpresa.vb</DependentUpon>
+    </Compile>
+    <Compile Include="contpaq\frmAsignarEmpresa.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="contpaq\frmbanamex.Designer.vb">
       <DependentUpon>frmbanamex.vb</DependentUpon>
     </Compile>
@@ -996,6 +1008,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="contpaq\frmAguinaldo.resx">
       <DependentUpon>frmAguinaldo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="contpaq\frmAsignarCliente.resx">
+      <DependentUpon>frmAsignarCliente.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="contpaq\frmAsignarEmpresa.resx">
+      <DependentUpon>frmAsignarEmpresa.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="contpaq\frmbanamex.resx">
       <DependentUpon>frmbanamex.vb</DependentUpon>

@@ -50,6 +50,7 @@ Partial Class frmlista
         Me.Controls.Add(Me.lsvLista)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "frmlista"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Lista de coincidencias"
         Me.ResumeLayout(False)
 
