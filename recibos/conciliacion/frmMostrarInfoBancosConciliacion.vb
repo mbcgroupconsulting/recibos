@@ -188,7 +188,7 @@ Public Class frmMostrarInfoBancosConciliacion
                         hoja.Cell(filaExcel, 8).Value = Fila.Item("fSaldo")
                         hoja.Cell(filaExcel, 9).Value = Fila.Item("cDatosfactura")
                         hoja.Cell(filaExcel, 10).Value = Fila.Item("cUsuario")
-                        hoja.Cell(filaExcel, 10).Value = Fila.Item("cUsuarioC")
+                        hoja.Cell(filaExcel, 10).Value = Fila.Item("cUsuario2")
 
 
 

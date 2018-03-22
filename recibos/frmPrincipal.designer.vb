@@ -75,6 +75,8 @@ Partial Class frmPrincipal
         Me.ASIMILADOSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FacturacionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ControlTesoreriaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ControlTesoreriaToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FondeoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NominaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.JuridicoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ImportarFlujosConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -85,6 +87,7 @@ Partial Class frmPrincipal
         Me.SubirDatosBancoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MostrarDatosBancoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConciliarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Conciliar10ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GastosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ImportarGastosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MostrarGastosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -95,7 +98,6 @@ Partial Class frmPrincipal
         Me.AgregarDatosJuridicoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Conciliar10ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlBar.SuspendLayout()
         Me.MenuInicio.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -239,13 +241,13 @@ Partial Class frmPrincipal
         Me.MenuInicio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContpaqToolStripMenuItem, Me.ImssToolStripMenuItem, Me.FlujoBToolStripMenuItem, Me.FlujoCToolStripMenuItem, Me.AltaNominasToolStripMenuItem, Me.CatalogosToolStripMenuItem, Me.PlaneaciónToolStripMenuItem, Me.FacturacionToolStripMenuItem, Me.ControlTesoreriaToolStripMenuItem, Me.NominaToolStripMenuItem, Me.JuridicoToolStripMenuItem, Me.ComisionesToolStripMenuItem, Me.ConciliacionToolStripMenuItem, Me.GastosToolStripMenuItem, Me.KioskoClientesToolStripMenuItem, Me.mnuSalir})
         Me.MenuInicio.Name = "MenuInicio"
         Me.MenuInicio.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuInicio.Size = New System.Drawing.Size(206, 634)
+        Me.MenuInicio.Size = New System.Drawing.Size(203, 634)
         '
         'ContpaqToolStripMenuItem
         '
         Me.ContpaqToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerEmpresasToolStripMenuItem})
         Me.ContpaqToolStripMenuItem.Name = "ContpaqToolStripMenuItem"
-        Me.ContpaqToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.ContpaqToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.ContpaqToolStripMenuItem.Text = "Contpaq"
         '
         'VerEmpresasToolStripMenuItem
@@ -258,7 +260,7 @@ Partial Class frmPrincipal
         '
         Me.ImssToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerEmpresasToolStripMenuItem1})
         Me.ImssToolStripMenuItem.Name = "ImssToolStripMenuItem"
-        Me.ImssToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.ImssToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.ImssToolStripMenuItem.Text = "Imss"
         '
         'VerEmpresasToolStripMenuItem1
@@ -271,7 +273,7 @@ Partial Class frmPrincipal
         '
         Me.FlujoBToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.SubirAControlTesoreriaToolStripMenuItem})
         Me.FlujoBToolStripMenuItem.Name = "FlujoBToolStripMenuItem"
-        Me.FlujoBToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.FlujoBToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.FlujoBToolStripMenuItem.Text = "Flujo B"
         '
         'ToolStripMenuItem1
@@ -290,7 +292,7 @@ Partial Class frmPrincipal
         '
         Me.FlujoCToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AsociarComisiónClienteFlujoCToolStripMenuItem, Me.CalcularFlujoCToolStripMenuItem, Me.DescargarReporteToolStripMenuItem, Me.AsociarComisiónClienteFlujoNominaToolStripMenuItem, Me.GuardarCalculoManualToolStripMenuItem})
         Me.FlujoCToolStripMenuItem.Name = "FlujoCToolStripMenuItem"
-        Me.FlujoCToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.FlujoCToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.FlujoCToolStripMenuItem.Text = "Flujo C"
         '
         'AsociarComisiónClienteFlujoCToolStripMenuItem
@@ -327,7 +329,7 @@ Partial Class frmPrincipal
         '
         Me.AltaNominasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MostrarEmpleadosToolStripMenuItem, Me.ImportarToolStripMenuItem})
         Me.AltaNominasToolStripMenuItem.Name = "AltaNominasToolStripMenuItem"
-        Me.AltaNominasToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.AltaNominasToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.AltaNominasToolStripMenuItem.Text = "Alta nominas"
         '
         'MostrarEmpleadosToolStripMenuItem
@@ -346,7 +348,7 @@ Partial Class frmPrincipal
         '
         Me.CatalogosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClientesToolStripMenuItem, Me.EmpresasToolStripMenuItem, Me.TipoEmpresasToolStripMenuItem, Me.PromotoresToolStripMenuItem, Me.ClientePromotorToolStripMenuItem})
         Me.CatalogosToolStripMenuItem.Name = "CatalogosToolStripMenuItem"
-        Me.CatalogosToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.CatalogosToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.CatalogosToolStripMenuItem.Text = "Catalogos"
         '
         'ClientesToolStripMenuItem
@@ -383,7 +385,7 @@ Partial Class frmPrincipal
         '
         Me.PlaneaciónToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SAToolStripMenuItem, Me.ASIMILADOSToolStripMenuItem})
         Me.PlaneaciónToolStripMenuItem.Name = "PlaneaciónToolStripMenuItem"
-        Me.PlaneaciónToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.PlaneaciónToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.PlaneaciónToolStripMenuItem.Text = "Planeación"
         '
         'SAToolStripMenuItem
@@ -401,26 +403,39 @@ Partial Class frmPrincipal
         'FacturacionToolStripMenuItem
         '
         Me.FacturacionToolStripMenuItem.Name = "FacturacionToolStripMenuItem"
-        Me.FacturacionToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.FacturacionToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.FacturacionToolStripMenuItem.Text = "Facturacion"
         '
         'ControlTesoreriaToolStripMenuItem
         '
+        Me.ControlTesoreriaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ControlTesoreriaToolStripMenuItem1, Me.FondeoToolStripMenuItem})
         Me.ControlTesoreriaToolStripMenuItem.Name = "ControlTesoreriaToolStripMenuItem"
-        Me.ControlTesoreriaToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
-        Me.ControlTesoreriaToolStripMenuItem.Text = "Control tesoreria"
+        Me.ControlTesoreriaToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
+        Me.ControlTesoreriaToolStripMenuItem.Text = "Tesoreria"
+        '
+        'ControlTesoreriaToolStripMenuItem1
+        '
+        Me.ControlTesoreriaToolStripMenuItem1.Name = "ControlTesoreriaToolStripMenuItem1"
+        Me.ControlTesoreriaToolStripMenuItem1.Size = New System.Drawing.Size(189, 24)
+        Me.ControlTesoreriaToolStripMenuItem1.Text = "Control tesoreria"
+        '
+        'FondeoToolStripMenuItem
+        '
+        Me.FondeoToolStripMenuItem.Name = "FondeoToolStripMenuItem"
+        Me.FondeoToolStripMenuItem.Size = New System.Drawing.Size(189, 24)
+        Me.FondeoToolStripMenuItem.Text = "Fondeo"
         '
         'NominaToolStripMenuItem
         '
         Me.NominaToolStripMenuItem.Name = "NominaToolStripMenuItem"
-        Me.NominaToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.NominaToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.NominaToolStripMenuItem.Text = "Nomina"
         '
         'JuridicoToolStripMenuItem
         '
         Me.JuridicoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ImportarFlujosConceptosToolStripMenuItem, Me.MostrarFlujosConceptosToolStripMenuItem, Me.ReportesFlujosConceptosToolStripMenuItem})
         Me.JuridicoToolStripMenuItem.Name = "JuridicoToolStripMenuItem"
-        Me.JuridicoToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.JuridicoToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.JuridicoToolStripMenuItem.Text = "Juridico"
         '
         'ImportarFlujosConceptosToolStripMenuItem
@@ -444,14 +459,14 @@ Partial Class frmPrincipal
         'ComisionesToolStripMenuItem
         '
         Me.ComisionesToolStripMenuItem.Name = "ComisionesToolStripMenuItem"
-        Me.ComisionesToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.ComisionesToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.ComisionesToolStripMenuItem.Text = "Comisiones"
         '
         'ConciliacionToolStripMenuItem
         '
         Me.ConciliacionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SubirDatosBancoToolStripMenuItem, Me.MostrarDatosBancoToolStripMenuItem, Me.ConciliarToolStripMenuItem, Me.Conciliar10ToolStripMenuItem})
         Me.ConciliacionToolStripMenuItem.Name = "ConciliacionToolStripMenuItem"
-        Me.ConciliacionToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.ConciliacionToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.ConciliacionToolStripMenuItem.Text = "Conciliacion"
         '
         'SubirDatosBancoToolStripMenuItem
@@ -472,11 +487,17 @@ Partial Class frmPrincipal
         Me.ConciliarToolStripMenuItem.Size = New System.Drawing.Size(215, 24)
         Me.ConciliarToolStripMenuItem.Text = "Conciliar"
         '
+        'Conciliar10ToolStripMenuItem
+        '
+        Me.Conciliar10ToolStripMenuItem.Name = "Conciliar10ToolStripMenuItem"
+        Me.Conciliar10ToolStripMenuItem.Size = New System.Drawing.Size(215, 24)
+        Me.Conciliar10ToolStripMenuItem.Text = "Conciliar 1.0"
+        '
         'GastosToolStripMenuItem
         '
         Me.GastosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ImportarGastosToolStripMenuItem, Me.MostrarGastosToolStripMenuItem})
         Me.GastosToolStripMenuItem.Name = "GastosToolStripMenuItem"
-        Me.GastosToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.GastosToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.GastosToolStripMenuItem.Text = "Gastos"
         '
         'ImportarGastosToolStripMenuItem
@@ -495,7 +516,7 @@ Partial Class frmPrincipal
         '
         Me.KioskoClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AsociarClientesEmpresasToolStripMenuItem, Me.AgregarDatoContabilidadToolStripMenuItem, Me.AgregarDatosNominasToolStripMenuItem, Me.AgregarDatosJuridicoToolStripMenuItem})
         Me.KioskoClientesToolStripMenuItem.Name = "KioskoClientesToolStripMenuItem"
-        Me.KioskoClientesToolStripMenuItem.Size = New System.Drawing.Size(205, 38)
+        Me.KioskoClientesToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.KioskoClientesToolStripMenuItem.Text = "Kiosko Clientes"
         '
         'AsociarClientesEmpresasToolStripMenuItem
@@ -527,7 +548,7 @@ Partial Class frmPrincipal
         Me.mnuSalir.Image = CType(resources.GetObject("mnuSalir.Image"), System.Drawing.Image)
         Me.mnuSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.mnuSalir.Name = "mnuSalir"
-        Me.mnuSalir.Size = New System.Drawing.Size(205, 38)
+        Me.mnuSalir.Size = New System.Drawing.Size(202, 38)
         Me.mnuSalir.Text = "Salir del sistema"
         '
         'PictureBox1
@@ -540,12 +561,6 @@ Partial Class frmPrincipal
         Me.PictureBox1.TabIndex = 4
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Visible = False
-        '
-        'Conciliar10ToolStripMenuItem
-        '
-        Me.Conciliar10ToolStripMenuItem.Name = "Conciliar10ToolStripMenuItem"
-        Me.Conciliar10ToolStripMenuItem.Size = New System.Drawing.Size(215, 24)
-        Me.Conciliar10ToolStripMenuItem.Text = "Conciliar 1.0"
         '
         'frmPrincipal
         '
@@ -623,4 +638,6 @@ Partial Class frmPrincipal
     Friend WithEvents MostrarDatosBancoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ConciliarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Conciliar10ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ControlTesoreriaToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents FondeoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

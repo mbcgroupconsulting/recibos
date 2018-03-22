@@ -27,6 +27,7 @@ Partial Class frmcontpaqnominas2
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.chkAguinaldo = New System.Windows.Forms.CheckBox()
         Me.chkgrupo = New System.Windows.Forms.CheckBox()
         Me.chkinter = New System.Windows.Forms.CheckBox()
         Me.cbobancos = New System.Windows.Forms.ComboBox()
@@ -54,7 +55,10 @@ Partial Class frmcontpaqnominas2
         Me.tsbLayout = New System.Windows.Forms.ToolStripButton()
         Me.tsbIEmpleados = New System.Windows.Forms.ToolStripButton()
         Me.tsbAguinaldo = New System.Windows.Forms.ToolStripButton()
-        Me.chkAguinaldo = New System.Windows.Forms.CheckBox()
+        Me.tsbCliente = New System.Windows.Forms.ToolStripButton()
+        Me.tsbEmpresa = New System.Windows.Forms.ToolStripButton()
+        Me.lblCliente = New System.Windows.Forms.Label()
+        Me.lblEmpresa = New System.Windows.Forms.Label()
         Me.pnlProgreso.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         CType(Me.dtgDatos, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -66,7 +70,7 @@ Partial Class frmcontpaqnominas2
         Me.pnlProgreso.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.pnlProgreso.Controls.Add(Me.Label2)
         Me.pnlProgreso.Controls.Add(Me.pgbProgreso)
-        Me.pnlProgreso.Location = New System.Drawing.Point(361, 249)
+        Me.pnlProgreso.Location = New System.Drawing.Point(524, 249)
         Me.pnlProgreso.Name = "pnlProgreso"
         Me.pnlProgreso.Size = New System.Drawing.Size(449, 84)
         Me.pnlProgreso.TabIndex = 30
@@ -114,8 +118,20 @@ Partial Class frmcontpaqnominas2
         Me.pnlCatalogo.Controls.Add(Me.cboperiodo)
         Me.pnlCatalogo.Location = New System.Drawing.Point(0, 76)
         Me.pnlCatalogo.Name = "pnlCatalogo"
-        Me.pnlCatalogo.Size = New System.Drawing.Size(1170, 431)
+        Me.pnlCatalogo.Size = New System.Drawing.Size(1497, 390)
         Me.pnlCatalogo.TabIndex = 29
+        '
+        'chkAguinaldo
+        '
+        Me.chkAguinaldo.AutoSize = True
+        Me.chkAguinaldo.BackColor = System.Drawing.Color.Transparent
+        Me.chkAguinaldo.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkAguinaldo.Location = New System.Drawing.Point(212, 36)
+        Me.chkAguinaldo.Name = "chkAguinaldo"
+        Me.chkAguinaldo.Size = New System.Drawing.Size(120, 22)
+        Me.chkAguinaldo.TabIndex = 20
+        Me.chkAguinaldo.Text = "Solo Aguinaldo"
+        Me.chkAguinaldo.UseVisualStyleBackColor = False
         '
         'chkgrupo
         '
@@ -263,7 +279,7 @@ Partial Class frmcontpaqnominas2
         Me.dtgDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgDatos.Location = New System.Drawing.Point(1, 65)
         Me.dtgDatos.Name = "dtgDatos"
-        Me.dtgDatos.Size = New System.Drawing.Size(1162, 359)
+        Me.dtgDatos.Size = New System.Drawing.Size(1489, 307)
         Me.dtgDatos.TabIndex = 6
         '
         'cmdverdatos
@@ -297,10 +313,10 @@ Partial Class frmcontpaqnominas2
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbDatos, Me.tsbEmpleados, Me.tsbPeriodos, Me.tsbpuestos, Me.tsbdeptos, Me.tsbImportar, Me.tsbLayout, Me.tsbIEmpleados, Me.tsbAguinaldo})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbDatos, Me.tsbEmpleados, Me.tsbPeriodos, Me.tsbpuestos, Me.tsbdeptos, Me.tsbImportar, Me.tsbLayout, Me.tsbIEmpleados, Me.tsbAguinaldo, Me.tsbCliente, Me.tsbEmpresa})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(1170, 54)
+        Me.ToolStrip1.Size = New System.Drawing.Size(1497, 54)
         Me.ToolStrip1.TabIndex = 28
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -388,22 +404,50 @@ Partial Class frmcontpaqnominas2
         Me.tsbAguinaldo.Text = "Aguinaldo"
         Me.tsbAguinaldo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
-        'chkAguinaldo
+        'tsbCliente
         '
-        Me.chkAguinaldo.AutoSize = True
-        Me.chkAguinaldo.BackColor = System.Drawing.Color.Transparent
-        Me.chkAguinaldo.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkAguinaldo.Location = New System.Drawing.Point(212, 36)
-        Me.chkAguinaldo.Name = "chkAguinaldo"
-        Me.chkAguinaldo.Size = New System.Drawing.Size(120, 22)
-        Me.chkAguinaldo.TabIndex = 20
-        Me.chkAguinaldo.Text = "Solo Aguinaldo"
-        Me.chkAguinaldo.UseVisualStyleBackColor = False
+        Me.tsbCliente.Image = CType(resources.GetObject("tsbCliente.Image"), System.Drawing.Image)
+        Me.tsbCliente.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbCliente.Name = "tsbCliente"
+        Me.tsbCliente.Size = New System.Drawing.Size(99, 51)
+        Me.tsbCliente.Text = "Cliente asignado"
+        Me.tsbCliente.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'tsbEmpresa
+        '
+        Me.tsbEmpresa.Image = CType(resources.GetObject("tsbEmpresa.Image"), System.Drawing.Image)
+        Me.tsbEmpresa.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbEmpresa.Name = "tsbEmpresa"
+        Me.tsbEmpresa.Size = New System.Drawing.Size(106, 51)
+        Me.tsbEmpresa.Text = "Empresa asignada"
+        Me.tsbEmpresa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'lblCliente
+        '
+        Me.lblCliente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblCliente.AutoSize = True
+        Me.lblCliente.Location = New System.Drawing.Point(12, 480)
+        Me.lblCliente.Name = "lblCliente"
+        Me.lblCliente.Size = New System.Drawing.Size(53, 19)
+        Me.lblCliente.TabIndex = 31
+        Me.lblCliente.Text = "cliente"
+        '
+        'lblEmpresa
+        '
+        Me.lblEmpresa.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblEmpresa.AutoSize = True
+        Me.lblEmpresa.Location = New System.Drawing.Point(14, 505)
+        Me.lblEmpresa.Name = "lblEmpresa"
+        Me.lblEmpresa.Size = New System.Drawing.Size(65, 19)
+        Me.lblEmpresa.TabIndex = 32
+        Me.lblEmpresa.Text = "empresa"
         '
         'frmcontpaqnominas2
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(1170, 533)
+        Me.ClientSize = New System.Drawing.Size(1497, 533)
+        Me.Controls.Add(Me.lblEmpresa)
+        Me.Controls.Add(Me.lblCliente)
         Me.Controls.Add(Me.pnlProgreso)
         Me.Controls.Add(Me.pnlCatalogo)
         Me.Controls.Add(Me.ToolStrip1)
@@ -456,4 +500,8 @@ Partial Class frmcontpaqnominas2
     Friend WithEvents tsbIEmpleados As ToolStripButton
     Friend WithEvents tsbAguinaldo As ToolStripButton
     Friend WithEvents chkAguinaldo As CheckBox
+    Friend WithEvents tsbCliente As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tsbEmpresa As System.Windows.Forms.ToolStripButton
+    Friend WithEvents lblCliente As System.Windows.Forms.Label
+    Friend WithEvents lblEmpresa As System.Windows.Forms.Label
 End Class

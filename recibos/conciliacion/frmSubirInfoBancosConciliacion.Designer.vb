@@ -323,6 +323,7 @@ Partial Class frmSubirInfoBancosConciliacion
         Me.tsbImportar.Size = New System.Drawing.Size(99, 51)
         Me.tsbImportar.Text = "Importar archivo"
         Me.tsbImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.tsbImportar.Visible = False
         '
         'tsbGuardar
         '

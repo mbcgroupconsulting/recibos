@@ -4284,4 +4284,8 @@ Public Class frmcontpaqnominas
     Private Sub tsbLayout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbLayout.Click
 
     End Sub
+
+    Private Sub dtgDatos_CellMouseUp(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dtgDatos.CellMouseUp
+
+    End Sub
 End Class

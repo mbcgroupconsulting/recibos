@@ -463,30 +463,7 @@ Public Class frmPrincipal
         End Try
     End Sub
 
-    Private Sub ControlTesoreriaToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ControlTesoreriaToolStripMenuItem.Click
-        'Verificar si se tienen permisos
-        SQL = "select * from usuarios where idUsuario = " & idUsuario
-        Dim rwFilas As DataRow() = nConsulta(SQL)
-        Dim Forma As New frmcontrol
-
-        Try
-            If rwFilas Is Nothing = False Then
-
-
-                Dim Fila As DataRow = rwFilas(0)
-                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5" Or Fila.Item("fkIdPerfil") = "8" Or Fila.Item("Nombre") = "Petrus") Then
-
-                    Forma.ShowDialog()
-                Else
-                    MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-
-                End If
-            End If
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
+  
 
     Private Sub ImportarGastosToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ImportarGastosToolStripMenuItem.Click
         SQL = "select * from usuarios where idUsuario = " & idUsuario
@@ -551,7 +528,7 @@ Public Class frmPrincipal
 
 
                 Dim Fila As DataRow = rwFilas(0)
-                If (Fila.Item("fkIdPerfil") = "1") Then
+                If (Fila.Item("fkIdPerfil") = "1") Or (Fila.Item("fkIdPerfil") = "5") Then
 
                     Forma.ShowDialog()
                 Else
@@ -1178,6 +1155,31 @@ Public Class frmPrincipal
 
                 Dim Fila As DataRow = rwFilas(0)
                 If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5") Then
+
+                    Forma.ShowDialog()
+                Else
+                    MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub ControlTesoreriaToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles ControlTesoreriaToolStripMenuItem1.Click
+        'Verificar si se tienen permisos
+        SQL = "select * from usuarios where idUsuario = " & idUsuario
+        Dim rwFilas As DataRow() = nConsulta(SQL)
+        Dim Forma As New frmcontrol
+
+        Try
+            If rwFilas Is Nothing = False Then
+
+
+                Dim Fila As DataRow = rwFilas(0)
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5" Or Fila.Item("fkIdPerfil") = "8" Or Fila.Item("Nombre") = "Petrus") Then
 
                     Forma.ShowDialog()
                 Else

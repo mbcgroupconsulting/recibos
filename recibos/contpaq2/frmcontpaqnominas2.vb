@@ -10,6 +10,9 @@ Public Class frmcontpaqnominas2
     Dim nombre As String
     Dim cargado As Boolean = False
     Dim diasperiodo As Integer
+    Dim gIdEmpresaAsignada As String
+    Dim gIdClienteAsignada As String
+    Dim gdFechaFin As String
 
     Public Sub New()
         InitializeComponent()
@@ -19,6 +22,9 @@ Public Class frmcontpaqnominas2
             Dim sql As String
             cargarperiodos()
             cargarbancosasociados()
+
+            BuscarEmpresaAsignada()
+            BuscarClienteAsignado()
 
             sql = "select * from empresac where iidEmpresac = " & gIdEmpresa
             Dim rwEmpresaC As DataRow() = nConsulta(sql)
@@ -40,6 +46,39 @@ Public Class frmcontpaqnominas2
 
     End Sub
 
+    Private Sub BuscarEmpresaAsignada()
+        Try
+            Dim sql As String = "select * from IntEmpresaEmpresaContpaq inner join empresa on fkiIdEmpresa=iIdEmpresa where fkIdEmpresaC=" & gIdEmpresa
+            Dim rwEmpresa As DataRow() = nConsulta(sql)
+            If rwEmpresa Is Nothing = False Then
+                lblEmpresa.Text = "Empresa Asignada: " & rwEmpresa(0)("nombre")
+                gIdEmpresaAsignada = rwEmpresa(0)("fkiIdEmpresa").ToString
+            Else
+                lblEmpresa.Text = "No existe empresa asignada, favor de realizar la asignación"
+                gIdEmpresaAsignada = "0"
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BuscarClienteAsignado()
+        Try
+            Dim sql As String = "select * from IntClienteEmpresaContpaq inner join clientes on fkIdCliente= iIdCliente where fkIdEmpresaC=" & gIdEmpresa
+            Dim rwCliente As DataRow() = nConsulta(sql)
+            If rwCliente Is Nothing = False Then
+                lblCliente.Text = "Cliente Asignado: " & rwCliente(0)("nombre") & " - Tipo porcentaje: " & IIf(rwCliente(0)("iTipoPor") = "1", "Sueldo Ordinario", "Sueldo Neto + Sindicato") & " - Porcentaje Neto: " & rwCliente(0)("porcentaje") & "% - Porcentaje sindicato: " & rwCliente(0)("porsindicato") & "%"
+                gIdClienteAsignada = rwCliente(0)("fkIdCliente").ToString
+            Else
+                lblCliente.Text = "No existe cliente asignado, favor de realizar la asignación"
+                gIdClienteAsignada = "0"
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+
+        End Try
+        
+    End Sub
 
     Private Sub cargarbancosasociados()
         Dim sql As String
@@ -54,8 +93,10 @@ Public Class frmcontpaqnominas2
         'Verificar si se tienen permisos
         Dim sql As String
         Try
-            sql = "Select * from periodos where fkiIdTipoPeriodo=" & gIdTipoPeriodo & " and fkiIdEmpresa=" & gIdEmpresa & "order by iEjercicio,iNumeroPeriodo"
+            sql = "Select (Convert(varchar, dFechaInicio,103) + '-' + Convert(varchar, dFechaFin,103)) as dFechaInicio,iIdPeriodo,dFechaFin "
+            sql &= "from periodos where fkiIdTipoPeriodo=" & gIdTipoPeriodo & " and fkiIdEmpresa=" & gIdEmpresa & " order by iEjercicio,iNumeroPeriodo"
             nCargaCBO(cboperiodo, sql, "dFechainicio", "iIdPeriodo")
+
         Catch ex As Exception
 
         End Try
@@ -814,7 +855,8 @@ Public Class frmcontpaqnominas2
                             sql &= ",''"
                             'clabe2
                             sql &= ",''"
-
+                            'SindicatoExtra
+                            sql &= ",0"
                             If nExecute(sql) = False Then
                                 MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                                 'pnlProgreso.Visible = False
@@ -956,7 +998,9 @@ Public Class frmcontpaqnominas2
             dsPeriodo.Tables("Tabla").Columns.Add("Imss")
             dsPeriodo.Tables("Tabla").Columns.Add("Subsidiado")
             dsPeriodo.Tables("Tabla").Columns.Add("Costo_social")
-            dsPeriodo.Tables("Tabla").Columns.Add("Comision")
+            dsPeriodo.Tables("Tabla").Columns.Add("Costo_social2")
+            dsPeriodo.Tables("Tabla").Columns.Add("Comision_SA")
+            dsPeriodo.Tables("Tabla").Columns.Add("Comision_Sindicato")
             dsPeriodo.Tables("Tabla").Columns.Add("Subtotal")
             dsPeriodo.Tables("Tabla").Columns.Add("Iva")
             dsPeriodo.Tables("Tabla").Columns.Add("Total")
@@ -979,14 +1023,18 @@ Public Class frmcontpaqnominas2
             dsSASindicato.Tables("Tabla").Columns.Add("imss")
             dsSASindicato.Tables("Tabla").Columns.Add("subsidiado")
             dsSASindicato.Tables("Tabla").Columns.Add("costosocial")
+            dsSASindicato.Tables("Tabla").Columns.Add("costosocial2")
             dsSASindicato.Tables("Tabla").Columns.Add("ISPT")
             dsSASindicato.Tables("Tabla").Columns.Add("departamento")
 
             'verificamos que no sea una nomina ya guardada como final
+            'fImporteSin1 = Extra Sindicato
+            'fImporteSa1 = Costos Social 2
+            'fimporteSin2 = Comsion Sindicato
             sql = "select fkiIdempleado,cCuenta,(cApellidoP + ' ' + cApellidoM + ' ' + empleadosC.cNombre) as nombre,"
             sql &= " NominaSindicato.fSueldoOrd ,fNeto,fDescuento,fPrestamo,fSindicato,fSueldoNeto,"
             sql &= " fRentencionIMSS,fRetenciones,fCostoSocial,fComision,fSubtotal,fIVA,fTotal,cDepartamento as departamento,fInfonavit,fIncremento"
-            sql &= " ,fPrimaSA,fPrimaSin,fAguinaldoSA,fAguinaldoSin,fImporteSin1"
+            sql &= " ,fPrimaSA,fPrimaSin,fAguinaldoSA,fAguinaldoSin,fImporteSin1,fImporteSa1,fImporteSin2"
             sql &= " from NominaSindicato"
             sql &= " inner join empleadosC on NominaSindicato.fkiIdempleado= empleadosC.iIdEmpleadoC"
             sql &= " inner join departamentos on empleadosC.fkiIdDepartamento= departamentos.iIdDepartamento "
@@ -1025,7 +1073,9 @@ Public Class frmcontpaqnominas2
                     fila.Item("Imss") = rwNominaGuardadaFinal(x)("fRentencionIMSS").ToString
                     fila.Item("Subsidiado") = rwNominaGuardadaFinal(x)("fRetenciones").ToString
                     fila.Item("Costo_social") = rwNominaGuardadaFinal(x)("fCostoSocial").ToString
-                    fila.Item("Comision") = rwNominaGuardadaFinal(x)("fComision").ToString
+                    fila.Item("Costo_social2") = rwNominaGuardadaFinal(x)("fImporteSA1").ToString
+                    fila.Item("Comision_SA") = rwNominaGuardadaFinal(x)("fComision").ToString
+                    fila.Item("Comision_Sindicato") = rwNominaGuardadaFinal(x)("fImporteSin2").ToString
                     fila.Item("Subtotal") = rwNominaGuardadaFinal(x)("fSubtotal").ToString
                     fila.Item("Iva") = rwNominaGuardadaFinal(x)("fIVA").ToString
                     fila.Item("Total") = rwNominaGuardadaFinal(x)("fTotal").ToString
@@ -1128,19 +1178,26 @@ Public Class frmcontpaqnominas2
                 'costosocial
                 dtgDatos.Columns(22).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                 dtgDatos.Columns(22).ReadOnly = True
-                'comision
+
+                'costosocial2 
                 dtgDatos.Columns(23).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                 dtgDatos.Columns(23).ReadOnly = True
-                'subtotal
+                'comisionSA
                 dtgDatos.Columns(24).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                 dtgDatos.Columns(24).ReadOnly = True
-                'iva
+                'comision Sindicato
                 dtgDatos.Columns(25).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                 dtgDatos.Columns(25).ReadOnly = True
-
-                'total
+                'subtotal
                 dtgDatos.Columns(26).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                 dtgDatos.Columns(26).ReadOnly = True
+                'iva
+                dtgDatos.Columns(27).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                dtgDatos.Columns(27).ReadOnly = True
+
+                'total
+                dtgDatos.Columns(28).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                dtgDatos.Columns(28).ReadOnly = True
 
                 Dim sindicato, primasin, totalsindicato, ExtraSindicato As Double
 
@@ -1283,12 +1340,73 @@ Public Class frmcontpaqnominas2
                                 fila.Item("subsidiado") = SubsidioSA
 
 
+                                'Costo Social
+
                                 fCostoSA = 0
-                                If dt.Columns.IndexOf("fCosto") <> -1 Then
-                                    If (Not (row("fCosto") Is DBNull.Value)) Then
-                                        fCostoSA = IIf(Trim(row("fCosto")) = "", "0.00", Trim(row("fCosto")))
+
+                                If dt.Columns.IndexOf("Invalidez y Vida") <> -1 Then
+                                    If (Not (row("Invalidez y Vida") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("Invalidez y Vida")) = "", "0.00", Trim(row("Invalidez y Vida")))
                                     End If
                                 End If
+
+
+                                If dt.Columns.IndexOf("Cesantia y Vejez") <> -1 Then
+                                    If (Not (row("Cesantia y Vejez") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("Cesantia y Vejez")) = "", "0.00", Trim(row("Cesantia y Vejez")))
+                                    End If
+                                End If
+
+
+                                If dt.Columns.IndexOf("Enf. y Mat. Patron") <> -1 Then
+                                    If (Not (row("Enf. y Mat. Patron") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("Enf. y Mat. Patron")) = "", "0.00", Trim(row("Enf. y Mat. Patron")))
+                                    End If
+                                End If
+                                If dt.Columns.IndexOf("2% Fondo retiro SAR (8)") <> -1 Then
+                                    If (Not (row("2% Fondo retiro SAR (8)") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("2% Fondo retiro SAR (8)")) = "", "0.00", Trim(row("2% Fondo retiro SAR (8)")))
+                                    End If
+                                End If
+
+                                If dt.Columns.IndexOf("2% Impuesto estatal") <> -1 Then
+                                    If (Not (row("2% Impuesto estatal") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("2% Impuesto estatal")) = "", "0.00", Trim(row("2% Impuesto estatal")))
+                                    End If
+                                End If
+
+                                If dt.Columns.IndexOf("Riesgo de trabajo (9)") <> -1 Then
+                                    If (Not (row("Riesgo de trabajo (9)") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("Riesgo de trabajo (9)")) = "", "0.00", Trim(row("Riesgo de trabajo (9)")))
+                                    End If
+                                End If
+
+                                'If dt.Columns.IndexOf("I.M.S.S. empresa") <> -1 Then
+                                '    If (Not (row("I.M.S.S. empresa") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("I.M.S.S. empresa")) = "", "0.00", Trim(row("I.M.S.S. empresa")))
+                                '    End If
+                                'End If
+
+                                If dt.Columns.IndexOf("Infonavit empresa") <> -1 Then
+                                    If (Not (row("Infonavit empresa") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("Infonavit empresa")) = "", "0.00", Trim(row("Infonavit empresa")))
+                                    End If
+                                End If
+
+                                If dt.Columns.IndexOf("Guarderia I.M.S.S. (7)") <> -1 Then
+                                    If (Not (row("Guarderia I.M.S.S. (7)") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("Guarderia I.M.S.S. (7)")) = "", "0.00", Trim(row("Guarderia I.M.S.S. (7)")))
+                                    End If
+                                End If
+
+                               
+
+
+                                'If dt.Columns.IndexOf("fCosto") <> -1 Then
+                                '    If (Not (row("fCosto") Is DBNull.Value)) Then
+                                '        fCostoSA = IIf(Trim(row("fCosto")) = "", "0.00", Trim(row("fCosto")))
+                                '    End If
+                                'End If
 
 
                                 fila.Item("costosocial") = fCostoSA
@@ -1418,12 +1536,73 @@ Public Class frmcontpaqnominas2
                                 fila.Item("subsidiado") = SubsidioSA
 
 
+                                'Costo Social
+
                                 fCostoSA = 0
-                                If dt.Columns.IndexOf("fCosto") <> -1 Then
-                                    If (Not (row("fCosto") Is DBNull.Value)) Then
-                                        fCostoSA = IIf(Trim(row("fCosto")) = "", "0.00", Trim(row("fCosto")))
+
+                                If dt.Columns.IndexOf("Invalidez y Vida") <> -1 Then
+                                    If (Not (row("Invalidez y Vida") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("Invalidez y Vida")) = "", "0.00", Trim(row("Invalidez y Vida")))
                                     End If
                                 End If
+
+
+                                If dt.Columns.IndexOf("Cesantia y Vejez") <> -1 Then
+                                    If (Not (row("Cesantia y Vejez") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("Cesantia y Vejez")) = "", "0.00", Trim(row("Cesantia y Vejez")))
+                                    End If
+                                End If
+
+
+                                If dt.Columns.IndexOf("Enf. y Mat. Patron") <> -1 Then
+                                    If (Not (row("Enf. y Mat. Patron") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("Enf. y Mat. Patron")) = "", "0.00", Trim(row("Enf. y Mat. Patron")))
+                                    End If
+                                End If
+                                If dt.Columns.IndexOf("2% Fondo retiro SAR (8)") <> -1 Then
+                                    If (Not (row("2% Fondo retiro SAR (8)") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("2% Fondo retiro SAR (8)")) = "", "0.00", Trim(row("2% Fondo retiro SAR (8)")))
+                                    End If
+                                End If
+
+                                If dt.Columns.IndexOf("2% Impuesto estatal") <> -1 Then
+                                    If (Not (row("2% Impuesto estatal") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("2% Impuesto estatal")) = "", "0.00", Trim(row("2% Impuesto estatal")))
+                                    End If
+                                End If
+
+                                If dt.Columns.IndexOf("Riesgo de trabajo (9)") <> -1 Then
+                                    If (Not (row("Riesgo de trabajo (9)") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("Riesgo de trabajo (9)")) = "", "0.00", Trim(row("Riesgo de trabajo (9)")))
+                                    End If
+                                End If
+
+                                'If dt.Columns.IndexOf("I.M.S.S. empresa") <> -1 Then
+                                '    If (Not (row("I.M.S.S. empresa") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("I.M.S.S. empresa")) = "", "0.00", Trim(row("I.M.S.S. empresa")))
+                                '    End If
+                                'End If
+
+                                If dt.Columns.IndexOf("Infonavit empresa") <> -1 Then
+                                    If (Not (row("Infonavit empresa") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("Infonavit empresa")) = "", "0.00", Trim(row("Infonavit empresa")))
+                                    End If
+                                End If
+
+                                If dt.Columns.IndexOf("Guarderia I.M.S.S. (7)") <> -1 Then
+                                    If (Not (row("Guarderia I.M.S.S. (7)") Is DBNull.Value)) Then
+                                        fCostoSA = fCostoSA + IIf(Trim(row("Guarderia I.M.S.S. (7)")) = "", "0.00", Trim(row("Guarderia I.M.S.S. (7)")))
+                                    End If
+                                End If
+
+
+
+
+                                'If dt.Columns.IndexOf("fCosto") <> -1 Then
+                                '    If (Not (row("fCosto") Is DBNull.Value)) Then
+                                '        fCostoSA = IIf(Trim(row("fCosto")) = "", "0.00", Trim(row("fCosto")))
+                                '    End If
+                                'End If
 
 
                                 fila.Item("costosocial") = fCostoSA
@@ -1502,7 +1681,9 @@ Public Class frmcontpaqnominas2
                                         fila.Item("Imss") = "0.00"
                                         fila.Item("Subsidiado") = "0.00"
                                         fila.Item("Costo_social") = "0.00"
-                                        fila.Item("Comision") = "0.00"
+                                        fila.Item("Costo_social2") = "0.00"
+                                        fila.Item("Comision_SA") = "0.00"
+                                        fila.Item("Comision_Sindicato") = "0.00"
                                         fila.Item("Subtotal") = "0.00"
                                         fila.Item("Iva") = "0.00"
                                         fila.Item("Total") = "0.00"
@@ -1563,7 +1744,9 @@ Public Class frmcontpaqnominas2
                                         fila.Item("Imss") = dsSASindicato.Tables("Tabla").Rows(x)("imss").ToString
                                         fila.Item("Subsidiado") = resultado.ToString("###,###,###,##0.00")
                                         fila.Item("Costo_social") = rwNominaGuardada(z)("fCostoSocial").ToString
-                                        fila.Item("Comision") = "0.00"
+                                        fila.Item("Costo_social2") = "0.00"
+                                        fila.Item("Comision_SA") = "0.00"
+                                        fila.Item("Comision_Sindicato") = "0.00"
                                         fila.Item("Subtotal") = "0.00"
                                         fila.Item("Iva") = "0.00"
                                         fila.Item("Total") = "0.00"
@@ -1638,7 +1821,9 @@ Public Class frmcontpaqnominas2
                                     fila.Item("Imss") = "0.00"
                                     fila.Item("Subsidiado") = "0.00"
                                     fila.Item("Costo_social") = "0.00"
-                                    fila.Item("Comision") = "0.00"
+                                    fila.Item("Costo_social2") = "0.00"
+                                    fila.Item("Comision_SA") = "0.00"
+                                    fila.Item("Comision_Sindicato") = "0.00"
                                     fila.Item("Subtotal") = "0.00"
                                     fila.Item("Iva") = "0.00"
                                     fila.Item("Total") = "0.00"
@@ -1752,7 +1937,9 @@ Public Class frmcontpaqnominas2
                                     fila.Item("Imss") = dsSASindicato.Tables("Tabla").Rows(x)("imss").ToString
                                     fila.Item("Subsidiado") = resultado.ToString("###,###,###,##0.00")
                                     fila.Item("Costo_social") = dsSASindicato.Tables("Tabla").Rows(x)("costosocial").ToString
-                                    fila.Item("Comision") = "0.00"
+                                    fila.Item("Costo_social2") = "0.00"
+                                    fila.Item("Comision_SA") = "0.00"
+                                    fila.Item("Comision_Sindicato") = "0.00"
                                     fila.Item("Subtotal") = "0.00"
                                     fila.Item("Iva") = "0.00"
                                     fila.Item("Total") = "0.00"
@@ -1849,7 +2036,9 @@ Public Class frmcontpaqnominas2
                                 fila.Item("Imss") = "0.00"
                                 fila.Item("Subsidiado") = "0.00"
                                 fila.Item("Costo_social") = "0.00"
-                                fila.Item("Comision") = "0.00"
+                                fila.Item("Costo_social2") = "0.00"
+                                fila.Item("Comision_SA") = "0.00"
+                                fila.Item("Comision_Sindicato") = "0.00"
                                 fila.Item("Subtotal") = "0.00"
                                 fila.Item("Iva") = "0.00"
                                 fila.Item("Total") = "0.00"
@@ -1958,7 +2147,9 @@ Public Class frmcontpaqnominas2
                                 fila.Item("Imss") = dsSASindicato.Tables("Tabla").Rows(x)("imss").ToString
                                 fila.Item("Subsidiado") = resultado.ToString("###,###,###,##0.00")
                                 fila.Item("Costo_social") = dsSASindicato.Tables("Tabla").Rows(x)("costosocial").ToString
-                                fila.Item("Comision") = "0.00"
+                                fila.Item("Costo_social2") = "0.00"
+                                fila.Item("Comision_SA") = "0.00"
+                                fila.Item("Comision_Sindicato") = "0.00"
                                 fila.Item("Subtotal") = "0.00"
                                 fila.Item("Iva") = "0.00"
                                 fila.Item("Total") = "0.00"
@@ -2072,19 +2263,26 @@ Public Class frmcontpaqnominas2
                     'costosocial
                     dtgDatos.Columns(22).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                     dtgDatos.Columns(22).ReadOnly = True
-                    'comision
+
+                    'costosocial2 
                     dtgDatos.Columns(23).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                     dtgDatos.Columns(23).ReadOnly = True
-                    'subtotal
+                    'comisionSA
                     dtgDatos.Columns(24).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                     dtgDatos.Columns(24).ReadOnly = True
-                    'iva
+                    'comision Sindicato
                     dtgDatos.Columns(25).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                     dtgDatos.Columns(25).ReadOnly = True
-
-                    'total
+                    'subtotal
                     dtgDatos.Columns(26).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                     dtgDatos.Columns(26).ReadOnly = True
+                    'iva
+                    dtgDatos.Columns(27).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    dtgDatos.Columns(27).ReadOnly = True
+
+                    'total
+                    dtgDatos.Columns(28).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    dtgDatos.Columns(28).ReadOnly = True
 
 
 
@@ -2211,7 +2409,9 @@ Public Class frmcontpaqnominas2
                             fila.Item("Imss") = dsSASindicato.Tables("Tabla").Rows(x)("imss").ToString
                             fila.Item("Subsidiado") = resultado.ToString("###,###,###,##0.00")
                             fila.Item("Costo_social") = dsSASindicato.Tables("Tabla").Rows(x)("costosocial").ToString
-                            fila.Item("Comision") = "0.00"
+                            fila.Item("Costo_social2") = "0.00"
+                            fila.Item("Comision_SA") = "0.00"
+                            fila.Item("Comision_Sindicato") = "0.00"
                             fila.Item("Subtotal") = "0.00"
                             fila.Item("Iva") = "0.00"
                             fila.Item("Total") = "0.00"
@@ -2315,19 +2515,26 @@ Public Class frmcontpaqnominas2
                         'costosocial
                         dtgDatos.Columns(22).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                         dtgDatos.Columns(22).ReadOnly = True
-                        'comision
+
+                        'costosocial2 
                         dtgDatos.Columns(23).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                         dtgDatos.Columns(23).ReadOnly = True
-                        'subtotal
+                        'comisionSA
                         dtgDatos.Columns(24).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                         dtgDatos.Columns(24).ReadOnly = True
-                        'iva
+                        'comision Sindicato
                         dtgDatos.Columns(25).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                         dtgDatos.Columns(25).ReadOnly = True
-
-                        'total
+                        'subtotal
                         dtgDatos.Columns(26).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                         dtgDatos.Columns(26).ReadOnly = True
+                        'iva
+                        dtgDatos.Columns(27).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                        dtgDatos.Columns(27).ReadOnly = True
+
+                        'total
+                        dtgDatos.Columns(28).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                        dtgDatos.Columns(28).ReadOnly = True
 
 
 
@@ -2352,7 +2559,7 @@ Public Class frmcontpaqnominas2
 
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message, "Error")
         End Try
 
     End Sub
@@ -2396,31 +2603,31 @@ Public Class frmcontpaqnominas2
                     'idempleado
                     sql &= "," & dtgDatos.Rows(x).Cells(3).Value
                     'sueldoordinario
-                    sql &= "," & dtgDatos.Rows(x).Cells(7).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(7).Value.ToString.Replace(",", "")
                     'neto
-                    sql &= "," & dtgDatos.Rows(x).Cells(8).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(8).Value.ToString.Replace(",", "")
                     'descuento
-                    sql &= "," & dtgDatos.Rows(x).Cells(12).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(12).Value.ToString.Replace(",", "")
                     'Prestamo
-                    sql &= "," & dtgDatos.Rows(x).Cells(13).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(13).Value.ToString.Replace(",", "")
                     'sindicato
                     sql &= ",0"
                     'sueldo neto
                     sql &= ",0"
                     'retencion imss
-                    sql &= ",0.00"
+                    sql &= "," & dtgDatos.Rows(x).Cells(20).Value.ToString.Replace(",", "")
                     'retenciones
-                    sql &= ",0.00"
+                    sql &= "," & dtgDatos.Rows(x).Cells(21).Value.ToString.Replace(",", "")
                     'costosocial
-                    sql &= "," & dtgDatos.Rows(x).Cells(22).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(22).Value.ToString.Replace(",", "")
                     'comision
-                    sql &= ",0.00"
+                    sql &= "," & dtgDatos.Rows(x).Cells(24).Value.ToString.Replace(",", "")
                     'subtotal
-                    sql &= ",0.00"
+                    sql &= "," & dtgDatos.Rows(x).Cells(26).Value.ToString.Replace(",", "")
                     'IVA
-                    sql &= ",0.00"
+                    sql &= "," & dtgDatos.Rows(x).Cells(27).Value.ToString.Replace(",", "")
                     'total
-                    sql &= ",0.00"
+                    sql &= "," & dtgDatos.Rows(x).Cells(28).Value.ToString.Replace(",", "")
                     'iestatus
                     sql &= ",1"
                     'estatusnomina
@@ -2428,21 +2635,21 @@ Public Class frmcontpaqnominas2
                     'cuenta
                     sql &= ",'" & dtgDatos.Rows(x).Cells(4).Value & "'"
                     'infonavit
-                    sql &= "," & dtgDatos.Rows(x).Cells(9).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(9).Value.ToString.Replace(",", "")
                     'departamento
                     sql &= ",'" & dtgDatos.Rows(x).Cells(5).Value & "'"
                     'incremento
                     sql &= ",0.00"
                     'Prima SA
-                    sql &= "," & dtgDatos.Rows(x).Cells(10).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(10).Value.ToString.Replace(",", "")
                     'Prima Sindicato
-                    sql &= "," & dtgDatos.Rows(x).Cells(15).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(15).Value.ToString.Replace(",", "")
 
                     'fAguinaldoSA
-                    sql &= "," & dtgDatos.Rows(x).Cells(11).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(11).Value.ToString.Replace(",", "")
 
                     'fAguinaldoSin
-                    sql &= "," & dtgDatos.Rows(x).Cells(16).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(16).Value.ToString.Replace(",", "")
                     'fVacacionesSA
                     sql &= ",0.00"
                     'fVacacionesSin
@@ -2460,13 +2667,13 @@ Public Class frmcontpaqnominas2
                     'fPrimaAntSin2
                     sql &= ",0.00"
                     'fImporteSA1
-                    sql &= ",0.00"
+                    sql &= "," & dtgDatos.Rows(x).Cells(23).Value.ToString.Replace(",", "")
                     'fImporteSin1
-                    sql &= "," & dtgDatos.Rows(x).Cells(17).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(17).Value.ToString.Replace(",", "")
                     'fImporteSA2
                     sql &= ",0.00"
                     'fImporteSin2
-                    sql &= ",0.00"
+                    sql &= "," & dtgDatos.Rows(x).Cells(25).Value.ToString.Replace(",", "")
                     'fImporteSA3
                     sql &= ",0.00"
                     'fImporteSin3
@@ -2523,6 +2730,7 @@ Public Class frmcontpaqnominas2
 
 
         Dim sueldoord, neto, infonavit, descuento, prestamo, sindicato, primasin, totalsindicato, netopagar, primasa, aguinaldosa, aguinaldosin, Extra As Double
+        Dim imss, costosocial1, costosocial2, comisionSA, comisionSindicato, subtotal, iva As Double
         Try
             For x As Integer = 0 To dtgDatos.Rows.Count - 1
                 If chkAguinaldo.Checked Then
@@ -2621,6 +2829,54 @@ Public Class frmcontpaqnominas2
 
                         dtgDatos.Rows(x).Cells(19).Value = Math.Round(netopagar, 2).ToString("##0.00")
 
+                        'Calculamos comisiones
+
+                        sql = "select * from IntClienteEmpresaContpaq where fkIdEmpresaC=" & gIdEmpresa
+
+                        Dim rwClienteEmpresaContpaq As DataRow() = nConsulta(sql)
+
+                        If rwClienteEmpresaContpaq Is Nothing = False Then
+                            sql = "select * from clientes where iIdCliente=" & rwClienteEmpresaContpaq(0)("fkIdCliente")
+
+                            Dim rwCliente As DataRow() = nConsulta(sql)
+                            If rwCliente Is Nothing = False Then
+
+                                If rwCliente(0)("iTipoPor") = "0" Then
+                                    dtgDatos.Rows(x).Cells(24).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
+                                    dtgDatos.Rows(x).Cells(25).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(18).Value) * (Double.Parse(rwCliente(0)("porsindicato").ToString()) / 100), 2).ToString("#,###,##0.00")
+                                Else
+                                    dtgDatos.Rows(x).Cells(24).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
+                                    dtgDatos.Rows(x).Cells(25).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(18).Value) * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
+
+                                End If
+
+
+                            End If
+
+                        Else
+                            'No existe relación
+                        End If
+
+                        'Calculo subtotal = neto a pagar + imss + costo social + costo social 2 + comision sa + comision sindicato 
+                        netopagar = Double.Parse(IIf(dtgDatos.Rows(x).Cells(19).Value = "", "0", dtgDatos.Rows(x).Cells(19).Value))
+                        imss = Double.Parse(IIf(dtgDatos.Rows(x).Cells(20).Value = "", "0", dtgDatos.Rows(x).Cells(20).Value))
+                        costosocial1 = Double.Parse(IIf(dtgDatos.Rows(x).Cells(22).Value = "", "0", dtgDatos.Rows(x).Cells(22).Value))
+                        costosocial2 = Double.Parse(IIf(dtgDatos.Rows(x).Cells(23).Value = "", "0", dtgDatos.Rows(x).Cells(23).Value))
+                        comisionSA = Double.Parse(IIf(dtgDatos.Rows(x).Cells(24).Value = "", "0", dtgDatos.Rows(x).Cells(24).Value))
+                        comisionSindicato = Double.Parse(IIf(dtgDatos.Rows(x).Cells(25).Value = "", "0", dtgDatos.Rows(x).Cells(25).Value))
+                        subtotal = netopagar + imss + costosocial1 + costosocial2 + comisionSA + comisionSindicato
+                        dtgDatos.Rows(x).Cells(26).Value = Math.Round(subtotal, 2).ToString("#,###,##0.00")
+
+                        'Calculo IVA
+                        iva = Math.Round(subtotal * 0.16, 2)
+
+                        dtgDatos.Rows(x).Cells(27).Value = iva.ToString("#,###,##0.00")
+
+
+                        'Calculo total
+
+                        dtgDatos.Rows(x).Cells(28).Value = Math.Round(subtotal + iva, 2).ToString("#,###,##0.00")
+
                     End If
                 End If
 
@@ -2636,6 +2892,7 @@ Public Class frmcontpaqnominas2
 
     Private Sub cmdguardarfinal_Click(sender As Object, e As EventArgs) Handles cmdguardarfinal.Click
         Try
+            Dim SueldoSA, Infonavit, Pension, Imss, ComisionSA, ComisionSindicato, CostoSocial As Double
             Dim sql As String
             sql = "select fkiIdempleado,cCuenta,(cApellidoP + ' ' + cApellidoM + ' ' + empleadosC.cNombre) as nombre,"
             sql &= " NominaSindicato.fSueldoOrd ,fNeto,fDescuento,fSindicato,fSueldoNeto,"
@@ -2662,6 +2919,13 @@ Public Class frmcontpaqnominas2
                     'pnlProgreso.Visible = False
                     Exit Sub
                 End If
+                SueldoSA = 0
+                Infonavit = 0
+                Pension = 0
+                Imss = 0
+                ComisionSA = 0
+                ComisionSindicato = 0
+                CostoSocial = 0
 
                 For x As Integer = 0 To dtgDatos.Rows.Count - 1
                     sql = "EXEC [setNominaSindicatoInsertar] 0"
@@ -2672,31 +2936,36 @@ Public Class frmcontpaqnominas2
                     'idempleado
                     sql &= "," & dtgDatos.Rows(x).Cells(3).Value
                     'sueldoordinario
-                    sql &= "," & dtgDatos.Rows(x).Cells(7).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(7).Value.ToString.Replace(",", "")
                     'neto
-                    sql &= "," & dtgDatos.Rows(x).Cells(8).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(8).Value.ToString.Replace(",", "")
+
+                    SueldoSA = SueldoSA + Double.Parse(dtgDatos.Rows(x).Cells(8).Value.ToString.Replace(",", ""))
                     'descuento
-                    sql &= "," & dtgDatos.Rows(x).Cells(12).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(12).Value.ToString.Replace(",", "")
                     'Prestamo
-                    sql &= "," & dtgDatos.Rows(x).Cells(13).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(13).Value.ToString.Replace(",", "")
                     'sindicato
-                    sql &= "," & dtgDatos.Rows(x).Cells(14).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(14).Value.ToString.Replace(",", "")
                     'sueldo neto
-                    sql &= "," & dtgDatos.Rows(x).Cells(19).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(19).Value.ToString.Replace(",", "")
                     'retencion imss
-                    sql &= "," & dtgDatos.Rows(x).Cells(20).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(20).Value.ToString.Replace(",", "")
+                    Imss = Imss + Double.Parse(dtgDatos.Rows(x).Cells(20).Value.ToString.Replace(",", ""))
                     'retenciones
-                    sql &= "," & dtgDatos.Rows(x).Cells(21).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(21).Value.ToString.Replace(",", "")
                     'costosocial
-                    sql &= "," & dtgDatos.Rows(x).Cells(22).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(22).Value.ToString.Replace(",", "")
+                    CostoSocial = CostoSocial + Double.Parse(dtgDatos.Rows(x).Cells(22).Value.ToString.Replace(",", ""))
                     'comision
-                    sql &= "," & dtgDatos.Rows(x).Cells(23).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(24).Value.ToString.Replace(",", "")
+                    ComisionSA = ComisionSA + Double.Parse(dtgDatos.Rows(x).Cells(24).Value.ToString.Replace(",", ""))
                     'subtotal
-                    sql &= "," & dtgDatos.Rows(x).Cells(24).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(26).Value.ToString.Replace(",", "")
                     'IVA
-                    sql &= "," & dtgDatos.Rows(x).Cells(25).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(27).Value.ToString.Replace(",", "")
                     'total
-                    sql &= "," & dtgDatos.Rows(x).Cells(26).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(28).Value.ToString.Replace(",", "")
                     'iestatus
                     sql &= ",1"
                     'estatusnomina
@@ -2704,21 +2973,22 @@ Public Class frmcontpaqnominas2
                     'cuenta
                     sql &= ",'" & dtgDatos.Rows(x).Cells(4).Value & "'"
                     'infonavit
-                    sql &= "," & dtgDatos.Rows(x).Cells(9).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(9).Value.ToString.Replace(",", "")
+                    Infonavit = Infonavit + Double.Parse(dtgDatos.Rows(x).Cells(9).Value.ToString.Replace(",", ""))
                     'departamento
                     sql &= ",'" & dtgDatos.Rows(x).Cells(5).Value & "'"
                     'incremento
                     sql &= ",0.00"
                     'Prima SA
-                    sql &= "," & dtgDatos.Rows(x).Cells(10).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(10).Value.ToString.Replace(",", "")
                     'Prima Sindicato
-                    sql &= "," & dtgDatos.Rows(x).Cells(15).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(15).Value.ToString.Replace(",", "")
 
                     'fAguinaldoSA
-                    sql &= "," & dtgDatos.Rows(x).Cells(11).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(11).Value.ToString.Replace(",", "")
 
                     'fAguinaldoSin
-                    sql &= "," & dtgDatos.Rows(x).Cells(16).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(16).Value.ToString.Replace(",", "")
                     'fVacacionesSA
                     sql &= ",0.00"
                     'fVacacionesSin
@@ -2736,13 +3006,14 @@ Public Class frmcontpaqnominas2
                     'fPrimaAntSin2
                     sql &= ",0.00"
                     'fImporteSA1
-                    sql &= ",0.00"
+                    sql &= "," & dtgDatos.Rows(x).Cells(23).Value.ToString.Replace(",", "")
                     'fImporteSin1
-                    sql &= "," & dtgDatos.Rows(x).Cells(17).Value
+                    sql &= "," & dtgDatos.Rows(x).Cells(17).Value.ToString.Replace(",", "")
                     'fImporteSA2
                     sql &= ",0.00"
                     'fImporteSin2
-                    sql &= ",0.00"
+                    sql &= "," & dtgDatos.Rows(x).Cells(25).Value.ToString.Replace(",", "")
+                    ComisionSindicato = ComisionSindicato + Double.Parse(dtgDatos.Rows(x).Cells(25).Value.ToString.Replace(",", ""))
                     'fImporteSA3
                     sql &= ",0.00"
                     'fImporteSin3
@@ -2814,9 +3085,48 @@ Public Class frmcontpaqnominas2
 
                 MessageBox.Show("Datos guardados y marcados como final", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+                'Insertar fondeo
+
+                MessageBox.Show("Se generara el fondeo de la nomina, para lo cual se le pediaran algunos datos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                'insertar el fondeo y preguntar el estatus del pago, asi como tabmien si va a agregar los importes del banco donde se hizo el deposito
+                ' y los bancos donde quiere el fondeo
+
+
+
+
+
+                sql = "EXEC setFondeoPatronaInsertar 0"
+                sql &= "," & gIdClienteAsignada
+                sql &= "," & gIdEmpresaAsignada
+                sql &= "," & cboperiodo.SelectedValue
+                sql &= "," & SueldoSA
+                sql &= "," & Infonavit
+                sql &= "," & Pension
+                sql &= "," & Imss
+                sql &= "," & ComisionSA
+                sql &= "," & ComisionSindicato
+                sql &= "," & CostoSocial
+                sql &= ",1" 'iEstatusNomina pagado,pendiente, financiamiento
+                sql &= ",1" 'iTipoNomina Sa + Sindicato u otra
+                sql &= ",'" & Date.Parse(gdFechaFin).ToShortDateString & "'"
+                sql &= ",0" 'Id en caso de que sea subida al kiosko de martin
+                sql &= ",1" 'iEstatus as general
+                sql &= ",0" 'IEstatusFondeo  -Se refiere a que si ya esta fondeado o no
+
+
+                If nExecute(sql) = False Then
+                    MessageBox.Show("Ocurrio un error insertar el fondeo", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    'pnlProgreso.Visible = False
+                    Exit Sub
+                End If
+
+                'preguntamos si ya tiene los datos de los bancos
+
+
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
 
     End Sub
@@ -2825,6 +3135,9 @@ Public Class frmcontpaqnominas2
         Try
             dtgDatos.DataSource = ""
             dtgDatos.Columns.Clear()
+            Dim x As Integer = InStr(cboperiodo.Text, "-")
+            gdFechaFin = cboperiodo.Text.Substring(x)
+
         Catch ex As Exception
 
         End Try
@@ -2998,7 +3311,7 @@ Public Class frmcontpaqnominas2
                 hoja.Column("B").Width = 13
                 hoja.Column("C").Width = 30
                 hoja.Column("D").Width = 30
-                hoja.Column("E").Width = 30
+                hoja.Column("E").Width = 13
                 hoja.Column("F").Width = 13
                 hoja.Column("G").Width = 13
                 hoja.Column("H").Width = 13
@@ -3010,11 +3323,11 @@ Public Class frmcontpaqnominas2
                 hoja.Column("N").Width = 13
                 hoja.Column("O").Width = 13
                 hoja.Column("P").Width = 13
-                hoja.Column("Q").Width = 35
-                hoja.Column("R").Width = 35
+                hoja.Column("Q").Width = 13
+                hoja.Column("R").Width = 13
                 hoja.Column("S").Width = 13
-                hoja.Column("T").Width = 40
-                hoja.Column("U").Width = 15
+                hoja.Column("T").Width = 13
+                hoja.Column("U").Width = 13
 
                 hoja.Cell(2, 2).Value = "Fecha:" & Date.Now.ToShortDateString & " " & Date.Now.ToShortTimeString
                 hoja.Cell(3, 2).Value = "Resumen de nomina"
@@ -3022,15 +3335,18 @@ Public Class frmcontpaqnominas2
                 'hoja.Cell(3, 2).Value = ":"
                 'hoja.Cell(3, 3).Value = ""
 
-                hoja.Range(4, 2, 4, 17).Style.Font.FontSize = 10
-                hoja.Range(4, 2, 4, 17).Style.Font.SetBold(True)
-                hoja.Range(4, 2, 4, 17).Style.Alignment.WrapText = True
-                hoja.Range(4, 2, 4, 17).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
-                hoja.Range(4, 1, 4, 17).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                hoja.Range(4, 2, 4, 24).Style.Font.FontSize = 10
+                hoja.Range(4, 2, 4, 24).Style.Font.SetBold(True)
+                hoja.Range(4, 2, 4, 24).Style.Alignment.WrapText = True
+                hoja.Range(4, 2, 4, 24).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                hoja.Range(4, 1, 4, 24).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
                 'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
-                hoja.Range(4, 2, 4, 17).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
-                hoja.Range(4, 2, 4, 17).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
+                hoja.Range(4, 2, 4, 24).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
+                hoja.Range(4, 2, 4, 24).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
 
+                hoja.Range(5, 5, 1000, 24).Style.NumberFormat.NumberFormatId = 4
+
+                'Format = ("$ #,###,##0.00")
                 'hoja.Cell(4, 1).Value = "Num"
                 hoja.Cell(4, 2).Value = "Consecutivo"
                 hoja.Cell(4, 3).Value = "Departamento"
@@ -3048,6 +3364,13 @@ Public Class frmcontpaqnominas2
                 hoja.Cell(4, 15).Value = "Aguinaldo_Sin"
                 hoja.Cell(4, 16).Value = "Extra"
                 hoja.Cell(4, 17).Value = "Neto a pagar"
+                hoja.Cell(4, 18).Value = "Imss"
+                hoja.Cell(4, 19).Value = "Costo Social"
+                hoja.Cell(4, 20).Value = "Comisión SA"
+                hoja.Cell(4, 21).Value = "Comisión Sindicato"
+                hoja.Cell(4, 22).Value = "Subtotal"
+                hoja.Cell(4, 23).Value = "IVA"
+                hoja.Cell(4, 24).Value = "Total"
 
                 filaExcel = 5
                 contadorfacturas = 1
@@ -3079,7 +3402,7 @@ Public Class frmcontpaqnominas2
                     If rwImss Is Nothing = False Then
 
                         hoja.Cell(filaExcel + x, 9).Value = rwImss(0)("fImporteTotal").ToString
-
+                        hoja.Cell(filaExcel + x, 18).Value = rwImss(0)("fImporteTotal").ToString
 
                     End If
 
@@ -3101,6 +3424,19 @@ Public Class frmcontpaqnominas2
                     hoja.Cell(filaExcel + x, 16).Value = dtgDatos.Rows(x).Cells(17).Value
                     'Neto a pagar
                     hoja.Cell(filaExcel + x, 17).Value = dtgDatos.Rows(x).Cells(19).Value
+
+                    'Costo Social
+                    hoja.Cell(filaExcel + x, 19).Value = dtgDatos.Rows(x).Cells(22).Value
+                    'Comision Sa
+                    hoja.Cell(filaExcel + x, 20).Value = dtgDatos.Rows(x).Cells(24).Value
+                    'Comision Sindicato
+                    hoja.Cell(filaExcel + x, 21).Value = dtgDatos.Rows(x).Cells(25).Value
+                    'Subtotal
+                    hoja.Cell(filaExcel + x, 22).Value = dtgDatos.Rows(x).Cells(26).Value
+                    'IVA
+                    hoja.Cell(filaExcel + x, 23).Value = dtgDatos.Rows(x).Cells(27).Value
+                    'Total
+                    hoja.Cell(filaExcel + x, 24).Value = dtgDatos.Rows(x).Cells(28).Value
 
                 Next
 
@@ -5026,6 +5362,38 @@ Public Class frmcontpaqnominas2
 
         Catch ex As Exception
 
+        End Try
+    End Sub
+
+   
+    Private Sub tsbCliente_Click(sender As System.Object, e As System.EventArgs) Handles tsbCliente.Click
+        Try
+            Dim Forma As New frmAsignarCliente
+            Forma.gidEmpresa = gIdEmpresa
+            If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
+                'Refrescar la información
+
+
+                BuscarClienteAsignado()
+
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub tsbEmpresa_Click(sender As System.Object, e As System.EventArgs) Handles tsbEmpresa.Click
+        Try
+            Dim Forma As New frmAsignarEmpresa
+            Forma.gidEmpresa = gIdEmpresa
+            If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
+                'Refrescar la información
+
+                BuscarEmpresaAsignada()
+
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
 End Class
