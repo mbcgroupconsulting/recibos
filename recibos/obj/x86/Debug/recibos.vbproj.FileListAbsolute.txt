@@ -738,3 +738,7 @@ C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmCarg
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAsignarCliente.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAsignarEmpresa.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmCargoManual.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAnexarFacturaConciliacion.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAnexarGastosConciliacion.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAsignarCliente.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAsignarEmpresa.resources
