@@ -737,3 +737,4 @@ C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAnex
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmCargoManual.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAsignarCliente.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAsignarEmpresa.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmCargoManual.resources
