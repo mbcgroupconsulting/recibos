@@ -742,16 +742,12 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.xml
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.pdb
 <<<<<<< HEAD
-<<<<<<< HEAD
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAsignarCliente.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAsignarEmpresa.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAsignarCliente.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAsignarEmpresa.resources
 =======
-D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotario.resources
-D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotarioC.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
 >>>>>>> mejoras
 >>>>>>> my-temporary-work2
-=======
 >>>>>>> backup
