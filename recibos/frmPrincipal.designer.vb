@@ -242,11 +242,11 @@ Partial Class frmPrincipal
         Me.MenuInicio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContpaqToolStripMenuItem, Me.ImssToolStripMenuItem, Me.FlujoBToolStripMenuItem, Me.FlujoCToolStripMenuItem, Me.AltaNominasToolStripMenuItem, Me.CatalogosToolStripMenuItem, Me.PlaneaciónToolStripMenuItem, Me.FacturacionToolStripMenuItem, Me.ControlTesoreriaToolStripMenuItem, Me.NominaToolStripMenuItem, Me.JuridicoToolStripMenuItem, Me.ComisionesToolStripMenuItem, Me.ConciliacionToolStripMenuItem, Me.GastosToolStripMenuItem, Me.KioskoClientesToolStripMenuItem, Me.mnuSalir})
         Me.MenuInicio.Name = "MenuInicio"
         Me.MenuInicio.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-<<<<<<< HEAD
+
         Me.MenuInicio.Size = New System.Drawing.Size(203, 634)
-=======
-        Me.MenuInicio.Size = New System.Drawing.Size(206, 612)
->>>>>>> mejoras
+
+        ''   Me.MenuInicio.Size = New System.Drawing.Size(206, 612)
+
         '
         'ContpaqToolStripMenuItem
         '
@@ -648,11 +648,10 @@ Partial Class frmPrincipal
     Friend WithEvents MostrarDatosBancoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ConciliarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Conciliar10ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-<<<<<<< HEAD
     Friend WithEvents ControlTesoreriaToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents FondeoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-=======
+
     Friend WithEvents ContratToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ImportarFlujosConceptosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
->>>>>>> mejoras
+
 End Class

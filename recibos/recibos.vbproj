@@ -1145,6 +1145,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPrincipal.resx">
       <DependentUpon>frmPrincipal.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRecibosFiscalVia.resx">
       <DependentUpon>frmRecibosFiscalVia.vb</DependentUpon>
