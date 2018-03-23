@@ -619,6 +619,8 @@ D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.pdb
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.xml
 D:\Escritorio\Team\recibos\recibos\bin\Debug\ClosedXML.dll
 D:\Escritorio\Team\recibos\recibos\bin\Debug\ClosedXML.xml
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotarioC.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotario.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmBuscarDepartamento.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmDepartamentoAlta.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmBuscarPuesto.resources
@@ -739,5 +741,3 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbproj.GenerateResource
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.xml
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.pdb
-D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotario.resources
-D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotarioC.resources
