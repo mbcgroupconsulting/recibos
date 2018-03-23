@@ -749,3 +749,4 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotario.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotarioC.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
 >>>>>>> mejoras
+>>>>>>> my-temporary-work2

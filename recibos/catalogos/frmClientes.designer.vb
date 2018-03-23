@@ -24,6 +24,9 @@ Partial Class frmClientes
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmClientes))
         Me.pnlProveedores = New System.Windows.Forms.Panel()
+        Me.txtCargo = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.txtRepresentante = New System.Windows.Forms.TextBox()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.dtConstitucion = New System.Windows.Forms.DateTimePicker()
         Me.Label28 = New System.Windows.Forms.Label()
@@ -94,9 +97,6 @@ Partial Class frmClientes
         Me.cmdnuevo = New System.Windows.Forms.Button()
         Me.cmdsalir = New System.Windows.Forms.Button()
         Me.cmdguardar = New System.Windows.Forms.Button()
-        Me.txtRepresentante = New System.Windows.Forms.TextBox()
-        Me.txtCargo = New System.Windows.Forms.TextBox()
-        Me.Label32 = New System.Windows.Forms.Label()
         Me.pnlProveedores.SuspendLayout()
         CType(Me.nupflujo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nupsindicato, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -107,6 +107,7 @@ Partial Class frmClientes
         'pnlProveedores
         '
         Me.pnlProveedores.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlProveedores.Controls.Add(Me.Label13)
         Me.pnlProveedores.Controls.Add(Me.txtCargo)
         Me.pnlProveedores.Controls.Add(Me.Label32)
         Me.pnlProveedores.Controls.Add(Me.txtRepresentante)
@@ -159,7 +160,6 @@ Partial Class frmClientes
         Me.pnlProveedores.Controls.Add(Me.txtcalle)
         Me.pnlProveedores.Controls.Add(Me.txtnombre2)
         Me.pnlProveedores.Controls.Add(Me.txtnombre)
-        Me.pnlProveedores.Controls.Add(Me.Label13)
         Me.pnlProveedores.Controls.Add(Me.Label11)
         Me.pnlProveedores.Controls.Add(Me.Label10)
         Me.pnlProveedores.Controls.Add(Me.Label9)
@@ -176,6 +176,29 @@ Partial Class frmClientes
         Me.pnlProveedores.Name = "pnlProveedores"
         Me.pnlProveedores.Size = New System.Drawing.Size(689, 700)
         Me.pnlProveedores.TabIndex = 0
+        '
+        'txtCargo
+        '
+        Me.txtCargo.Location = New System.Drawing.Point(424, 618)
+        Me.txtCargo.Name = "txtCargo"
+        Me.txtCargo.Size = New System.Drawing.Size(251, 27)
+        Me.txtCargo.TabIndex = 66
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(368, 624)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(51, 19)
+        Me.Label32.TabIndex = 65
+        Me.Label32.Text = "Cargo:"
+        '
+        'txtRepresentante
+        '
+        Me.txtRepresentante.Location = New System.Drawing.Point(129, 618)
+        Me.txtRepresentante.Name = "txtRepresentante"
+        Me.txtRepresentante.Size = New System.Drawing.Size(234, 27)
+        Me.txtRepresentante.TabIndex = 64
         '
         'Label31
         '
@@ -799,29 +822,6 @@ Partial Class frmClientes
         Me.cmdguardar.Text = "Guardar"
         Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdguardar.UseVisualStyleBackColor = True
-        '
-        'txtRepresentante
-        '
-        Me.txtRepresentante.Location = New System.Drawing.Point(129, 618)
-        Me.txtRepresentante.Name = "txtRepresentante"
-        Me.txtRepresentante.Size = New System.Drawing.Size(234, 27)
-        Me.txtRepresentante.TabIndex = 64
-        '
-        'txtCargo
-        '
-        Me.txtCargo.Location = New System.Drawing.Point(424, 618)
-        Me.txtCargo.Name = "txtCargo"
-        Me.txtCargo.Size = New System.Drawing.Size(251, 27)
-        Me.txtCargo.TabIndex = 66
-        '
-        'Label32
-        '
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(368, 624)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(51, 19)
-        Me.Label32.TabIndex = 65
-        Me.Label32.Text = "Cargo:"
         '
         'frmClientes
         '
