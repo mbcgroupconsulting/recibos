@@ -55,33 +55,63 @@
 
 
                 For Each producto As ListViewItem In lsvLista.CheckedItems
+                    '
+                    If IIf(Trim(producto.SubItems(4).Text) = "", "0", Trim(producto.SubItems(4).Text)) > 0 Or (IIf(Trim(producto.SubItems(8).Text) = "", "0", Trim(producto.SubItems(8).Text)) > 0 And IIf(Trim(producto.SubItems(9).Text) = "", "0", Trim(producto.SubItems(9).Text)) > 0) Or (IIf(Trim(producto.SubItems(8).Text) = "", "0", Trim(producto.SubItems(8).Text)) > 0 And IIf(Trim(producto.SubItems(10).Text) = "", "0", Trim(producto.SubItems(10).Text)) > 0) Then
+                        SQL = "update empleadosC set "
+                        If IIf(Trim(producto.SubItems(4).Text) = "", "0", Trim(producto.SubItems(4).Text)) > 0 Then
+                            SQL &= " fSueldoOrd=" & Math.Round(Double.Parse(IIf(Trim(producto.SubItems(4).Text) = "", "0", Trim(producto.SubItems(4).Text))), 2) & ","
+                        End If
 
-                    'Insertar nuevo
-                    SQL = "EXEC setincidenciasInsertar 0," & giEmpresa
-                    SQL &= "," & giPeriodo
-                    SQL &= "," & Trim(producto.SubItems(1).Text)
-                    SQL &= "," & IIf(Trim(producto.SubItems(3).Text) = "", "0", Trim(producto.SubItems(3).Text))
-                    SQL &= ",'" & Date.Now.ToShortDateString() & "'"
-                    SQL &= ",1,'Faltas'"
+                        SQL &= "fkiIdBanco=" & IIf(Trim(producto.SubItems(8).Text) = "", "0", Trim(producto.SubItems(8).Text))
+                        SQL &= ",Numcuenta='" & IIf(Trim(producto.SubItems(9).Text) = "", "0", Trim(producto.SubItems(9).Text)) & "'"
+                        SQL &= ",Clabe='" & IIf(Trim(producto.SubItems(10).Text) = "", "0", Trim(producto.SubItems(10).Text)) & "'"
 
+                        SQL &= ",fkiIdBanco2=" & IIf(Trim(producto.SubItems(8).Text) = "", "0", Trim(producto.SubItems(8).Text))
+                        SQL &= ",cuenta2='" & IIf(Trim(producto.SubItems(9).Text) = "", "0", Trim(producto.SubItems(9).Text)) & "'"
+                        SQL &= ",clabe2='" & IIf(Trim(producto.SubItems(10).Text) = "", "0", Trim(producto.SubItems(10).Text)) & "'"
 
-                    If nExecute(SQL) = False Then
-                        MessageBox.Show("Error en el registro al insertar Incidencia con los siguiente datos: id empleado:" & Trim(producto.SubItems(1).Text) & " Num dias:" & Trim(producto.SubItems(2).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                        pnlProgreso.Visible = False
-                        Exit Sub
+                        SQL &= " where iIdEmpleadoC=" & Trim(producto.SubItems(1).Text)
 
+                        If nExecute(SQL) = False Then
+                            MessageBox.Show("Error en el registro al insertar Sueldo ordinario con los siguiente datos: Empleado:" & Trim(producto.SubItems(3).Text) & " Sueldo:" & Trim(producto.SubItems(4).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                            pnlProgreso.Visible = False
+                            Exit Sub
+
+                        End If
                     End If
 
-                    If (IIf(producto.SubItems(4).Text = "", 0, Double.Parse(Trim(producto.SubItems(4).Text).ToString())) > 0) Then
-                        SQL = "EXEC setPrestamoInsertar 0," & IIf(Trim(producto.SubItems(4).Text) = "", "0", Trim(producto.SubItems(4).Text))
+                    'Insertar nuevo
+
+                    If IIf(Trim(producto.SubItems(5).Text) = "", "0", Trim(producto.SubItems(5).Text)) > 0 Then
+
+                        SQL = "EXEC setincidenciasInsertar 0," & giEmpresa
+                        SQL &= "," & giPeriodo
+                        SQL &= "," & Trim(producto.SubItems(1).Text)
                         SQL &= "," & IIf(Trim(producto.SubItems(5).Text) = "", "0", Trim(producto.SubItems(5).Text))
+                        SQL &= ",'" & Date.Now.ToShortDateString() & "'"
+                        SQL &= ",1,'Faltas'"
+
+
+                        If nExecute(SQL) = False Then
+                            MessageBox.Show("Error en el registro al insertar Incidencia con los siguiente datos: Empleado:" & Trim(producto.SubItems(3).Text) & " Num dias:" & Trim(producto.SubItems(5).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                            pnlProgreso.Visible = False
+                            Exit Sub
+
+                        End If
+
+                    End If
+                    
+
+                    If (IIf(producto.SubItems(6).Text = "", 0, Double.Parse(Trim(producto.SubItems(6).Text).ToString())) > 0) Then
+                        SQL = "EXEC setPrestamoInsertar 0," & IIf(Trim(producto.SubItems(6).Text) = "", "0", Trim(producto.SubItems(6).Text))
+                        SQL &= "," & IIf(Trim(producto.SubItems(7).Text) = "", "0", Trim(producto.SubItems(7).Text))
                         SQL &= ",'" & Date.Now.ToShortDateString() & "'"
                         SQL &= ",'" & Date.Now.ToShortDateString() & "'"
                         SQL &= ",1"
                         SQL &= "," & Trim(producto.SubItems(1).Text)
 
                         If nExecute(SQL) = False Then
-                            MessageBox.Show("Error en el registro al insertar prestamo con los siguiente datos: id empleado:" & Trim(producto.SubItems(1).Text) & " Num dias:" & Trim(producto.SubItems(2).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                            MessageBox.Show("Error en el registro al insertar prestamo con los siguiente datos: Empleado:" & Trim(producto.SubItems(3).Text) & " Prestamo:" & Trim(producto.SubItems(6).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                             pnlProgreso.Visible = False
                             Exit Sub
 
@@ -165,19 +195,32 @@
                 lsvLista.Columns.Add("Id_Empleado")
                 lsvLista.Columns(1).Width = 90
                 lsvLista.Columns(1).TextAlign = 1
+                lsvLista.Columns.Add("RFC")
+                lsvLista.Columns(2).Width = 90
+                lsvLista.Columns(2).TextAlign = 1
                 lsvLista.Columns.Add("Nombre empleado")
-                lsvLista.Columns(2).Width = 200
-                lsvLista.Columns.Add("Dias Descuento")
-                lsvLista.Columns(3).Width = 130
-                lsvLista.Columns(3).TextAlign = 1
-                lsvLista.Columns.Add("Prestamo Total")
-                lsvLista.Columns(4).Width = 130
+                lsvLista.Columns(3).Width = 200
+                lsvLista.Columns.Add("Salario Ordinario")
+                lsvLista.Columns(4).Width = 150
                 lsvLista.Columns(4).TextAlign = 1
-                lsvLista.Columns.Add("Descuento x Nomina")
+                lsvLista.Columns.Add("Dias Descuento")
                 lsvLista.Columns(5).Width = 130
                 lsvLista.Columns(5).TextAlign = 1
-
-
+                lsvLista.Columns.Add("Prestamo Total")
+                lsvLista.Columns(6).Width = 130
+                lsvLista.Columns(6).TextAlign = 1
+                lsvLista.Columns.Add("Descuento x Nomina")
+                lsvLista.Columns(7).Width = 130
+                lsvLista.Columns(7).TextAlign = 1
+                lsvLista.Columns.Add("Id Banco")
+                lsvLista.Columns(8).Width = 130
+                lsvLista.Columns(8).TextAlign = 1
+                lsvLista.Columns.Add("Num cuenta")
+                lsvLista.Columns(9).Width = 130
+                lsvLista.Columns(9).TextAlign = 1
+                lsvLista.Columns.Add("Cable Interbancaria")
+                lsvLista.Columns(10).Width = 130
+                lsvLista.Columns(10).TextAlign = 1
 
                 Dim item As ListViewItem
                 For x = 0 To tbRegistros.Rows.Count - 1

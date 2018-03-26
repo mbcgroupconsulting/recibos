@@ -414,7 +414,7 @@
                     pension.Item("numtrabajador") = Trim(producto.SubItems(0).Text)
                     pension.Item("dias") = Trim(producto.SubItems(14).Text)
                     pension.Item("concepto") = "Pensión Alimenticia"
-                    pension.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(38).Text) = "", 0, Trim(producto.SubItems(37).Text))), 2).ToString("######0.00")
+                    pension.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(38).Text) = "", 0, Trim(producto.SubItems(38).Text))), 2).ToString("######0.00")
                     fiscaltmm.dsReporte.Tables("Deducciones").Rows.Add(pension)
 
                     'Prestamo
@@ -423,7 +423,7 @@
                     prestamocon.Item("numtrabajador") = Trim(producto.SubItems(0).Text)
                     prestamocon.Item("dias") = Trim(producto.SubItems(14).Text)
                     prestamocon.Item("concepto") = "Préstamo"
-                    prestamocon.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(39).Text) = "", 0, Trim(producto.SubItems(38).Text))), 2).ToString("######0.00")
+                    prestamocon.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(39).Text) = "", 0, Trim(producto.SubItems(39).Text))), 2).ToString("######0.00")
                     fiscaltmm.dsReporte.Tables("Deducciones").Rows.Add(prestamocon)
 
                     'Fonacot
@@ -432,7 +432,7 @@
                     fonacot.Item("numtrabajador") = Trim(producto.SubItems(0).Text)
                     fonacot.Item("dias") = Trim(producto.SubItems(14).Text)
                     fonacot.Item("concepto") = "Fonacot"
-                    fonacot.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(40).Text) = "", 0, Trim(producto.SubItems(36).Text))), 2).ToString("######0.00")
+                    fonacot.Item("monto") = Math.Round(CDbl(IIf(Trim(producto.SubItems(40).Text) = "", 0, Trim(producto.SubItems(40).Text))), 2).ToString("######0.00")
                     fiscaltmm.dsReporte.Tables("Deducciones").Rows.Add(fonacot)
 
 
@@ -459,7 +459,7 @@
             End If
             pnlCatalogo.Enabled = True
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
 
 

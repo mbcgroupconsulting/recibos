@@ -2761,13 +2761,14 @@ Public Class frmcontpaqnominas2
 
                     If rwDatosBanco Is Nothing = False Then
 
-                        If Double.Parse(rwDatosBanco(0)("fsueldoOrd")) > 0 Then
+                        'If Double.Parse(rwDatosBanco(0)("fsueldoOrd")) > 0 Then
+                        If Double.Parse(IIf(dtgDatos.Rows(x).Cells(7).Value = "", "0", dtgDatos.Rows(x).Cells(7).Value)) > 0 Then
                             BanSueldoOrd = True
 
                             'verificar el periodo para saber si queda entre el rango de fecha
 
-                            sueldodiario = Double.Parse(rwDatosBanco(0)("fsueldoOrd")) / diasperiodo
-
+                            'sueldodiario = Double.Parse(rwDatosBanco(0)("fsueldoOrd")) / diasperiodo
+                            sueldodiario = Double.Parse(IIf(dtgDatos.Rows(x).Cells(7).Value = "", "0", dtgDatos.Rows(x).Cells(7).Value)) / diasperiodo
                             sql = "select * from periodos where iIdPeriodo= " & cboperiodo.SelectedValue
                             Dim rwPeriodo As DataRow() = nConsulta(sql)
 
@@ -2855,6 +2856,8 @@ Public Class frmcontpaqnominas2
 
                         Else
                             'No existe relación
+
+                            MessageBox.Show("No existe un cliente asignado para el calculo de la comisión. Asigne al cliente y vuelva a calcular la nomina", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         End If
 
                         'Calculo subtotal = neto a pagar + imss + costo social + costo social 2 + comision sa + comision sindicato 
@@ -2892,7 +2895,19 @@ Public Class frmcontpaqnominas2
 
     Private Sub cmdguardarfinal_Click(sender As Object, e As EventArgs) Handles cmdguardarfinal.Click
         Try
-            Dim SueldoSA, Infonavit, Pension, Imss, ComisionSA, ComisionSindicato, CostoSocial As Double
+
+            If gIdEmpresaAsignada = 0 Then
+                MessageBox.Show("No existe una  Empresa asignada para la generación del fondeo. Asigne a la empresa y vuelva a guardar la nomina como final", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                Exit Sub
+            End If
+
+            If gIdClienteAsignada = 0 Then
+                MessageBox.Show("No existe un cliente asignado para el calculo de la comisión. Asigne al cliente, vuelva a calcular la nomina y despues guardela como final", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                Exit Sub
+            End If
+
+            Dim SueldoSA, Sindicato, Infonavit, Pension, Imss, ComisionSA, ComisionSindicato, CostoSocial As Double
+            Dim IdEstatusNominas As Integer
             Dim sql As String
             sql = "select fkiIdempleado,cCuenta,(cApellidoP + ' ' + cApellidoM + ' ' + empleadosC.cNombre) as nombre,"
             sql &= " NominaSindicato.fSueldoOrd ,fNeto,fDescuento,fSindicato,fSueldoNeto,"
@@ -2920,6 +2935,7 @@ Public Class frmcontpaqnominas2
                     Exit Sub
                 End If
                 SueldoSA = 0
+                Sindicato = 0
                 Infonavit = 0
                 Pension = 0
                 Imss = 0
@@ -2947,6 +2963,9 @@ Public Class frmcontpaqnominas2
                     sql &= "," & dtgDatos.Rows(x).Cells(13).Value.ToString.Replace(",", "")
                     'sindicato
                     sql &= "," & dtgDatos.Rows(x).Cells(14).Value.ToString.Replace(",", "")
+
+                    Sindicato = Sindicato + Double.Parse(dtgDatos.Rows(x).Cells(14).Value.ToString.Replace(",", ""))
+
                     'sueldo neto
                     sql &= "," & dtgDatos.Rows(x).Cells(19).Value.ToString.Replace(",", "")
                     'retencion imss
@@ -2983,12 +3002,14 @@ Public Class frmcontpaqnominas2
                     sql &= "," & dtgDatos.Rows(x).Cells(10).Value.ToString.Replace(",", "")
                     'Prima Sindicato
                     sql &= "," & dtgDatos.Rows(x).Cells(15).Value.ToString.Replace(",", "")
+                    Sindicato = Sindicato + Double.Parse(dtgDatos.Rows(x).Cells(15).Value.ToString.Replace(",", ""))
 
                     'fAguinaldoSA
                     sql &= "," & dtgDatos.Rows(x).Cells(11).Value.ToString.Replace(",", "")
 
                     'fAguinaldoSin
                     sql &= "," & dtgDatos.Rows(x).Cells(16).Value.ToString.Replace(",", "")
+                    Sindicato = Sindicato + Double.Parse(dtgDatos.Rows(x).Cells(16).Value.ToString.Replace(",", ""))
                     'fVacacionesSA
                     sql &= ",0.00"
                     'fVacacionesSin
@@ -3007,8 +3028,9 @@ Public Class frmcontpaqnominas2
                     sql &= ",0.00"
                     'fImporteSA1
                     sql &= "," & dtgDatos.Rows(x).Cells(23).Value.ToString.Replace(",", "")
-                    'fImporteSin1
+                    'fImporteSin1 Extra Sindicato
                     sql &= "," & dtgDatos.Rows(x).Cells(17).Value.ToString.Replace(",", "")
+                    Sindicato = Sindicato + Double.Parse(dtgDatos.Rows(x).Cells(17).Value.ToString.Replace(",", ""))
                     'fImporteSA2
                     sql &= ",0.00"
                     'fImporteSin2
@@ -3029,7 +3051,7 @@ Public Class frmcontpaqnominas2
                         Exit Sub
                     End If
 
-                    sql = "update empleadosC set fSueldoOrd=" & dtgDatos.Rows(x).Cells(7).Value & ", fCosto =" & dtgDatos.Rows(x).Cells(22).Value
+                    sql = "update empleadosC set fSueldoOrd=" & dtgDatos.Rows(x).Cells(7).Value '& ", fCosto =" & dtgDatos.Rows(x).Cells(22).Value
                     sql &= " where iIdEmpleadoC = " & dtgDatos.Rows(x).Cells(3).Value
 
                     If nExecute(sql) = False Then
@@ -3093,21 +3115,34 @@ Public Class frmcontpaqnominas2
                 ' y los bancos donde quiere el fondeo
 
 
+                'Dim resultado As Integer = MessageBox.Show("¿Editar solo colores?", "Pregunta", MessageBoxButtons.YesNo)
+                'If resultado = DialogResult.Yes Then
+                '    EditarColores(lsvLista.SelectedItems(0).Tag)
+                'ElseIf resultado = DialogResult.No Then
+                '    EditarFactura(lsvLista.SelectedItems(0).Tag)
+                'End If
 
+                Dim Forma As New frmEstatusNomina
+                If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
+                    IdEstatusNominas = Forma.gIdEstatusNomina
 
+                Else
+                    IdEstatusNominas = 0
+                End If
 
                 sql = "EXEC setFondeoPatronaInsertar 0"
                 sql &= "," & gIdClienteAsignada
                 sql &= "," & gIdEmpresaAsignada
                 sql &= "," & cboperiodo.SelectedValue
                 sql &= "," & SueldoSA
+                sql &= "," & Sindicato
                 sql &= "," & Infonavit
                 sql &= "," & Pension
                 sql &= "," & Imss
                 sql &= "," & ComisionSA
                 sql &= "," & ComisionSindicato
                 sql &= "," & CostoSocial
-                sql &= ",1" 'iEstatusNomina pagado,pendiente, financiamiento
+                sql &= "," & IdEstatusNominas  'iEstatusNomina pendiente, pagado, financiamiento
                 sql &= ",1" 'iTipoNomina Sa + Sindicato u otra
                 sql &= ",'" & Date.Parse(gdFechaFin).ToShortDateString & "'"
                 sql &= ",0" 'Id en caso de que sea subida al kiosko de martin
@@ -3120,7 +3155,7 @@ Public Class frmcontpaqnominas2
                     'pnlProgreso.Visible = False
                     Exit Sub
                 End If
-
+                MessageBox.Show("Fondeo guardado correctamente. Si necesita ver el fondeo lo puede hacer en la opción: Menú --> Tesoreria --> Fondeo", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 'preguntamos si ya tiene los datos de los bancos
 
 
@@ -3508,8 +3543,13 @@ Public Class frmcontpaqnominas2
                 hoja.Column("A").Width = 30
                 hoja.Column("B").Width = 30
                 hoja.Column("C").Width = 30
-                hoja.Column("D").Width = 30
-                hoja.Column("E").Width = 30
+                hoja.Column("D").Width = 25
+                hoja.Column("E").Width = 25
+                hoja.Column("F").Width = 25
+                hoja.Column("G").Width = 25
+                hoja.Column("H").Width = 25
+                hoja.Column("I").Width = 25
+                hoja.Column("J").Width = 25
 
 
                 'hoja.Cell(2, 2).Value = "Fecha:"
@@ -3518,23 +3558,26 @@ Public Class frmcontpaqnominas2
                 'hoja.Cell(3, 2).Value = ":"
                 'hoja.Cell(3, 3).Value = ""
 
-                hoja.Range(1, 1, 1, 5).Style.Font.FontSize = 10
-                hoja.Range(1, 1, 1, 5).Style.Font.SetBold(True)
-                hoja.Range(1, 1, 1, 5).Style.Alignment.WrapText = True
-                hoja.Range(1, 1, 1, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
-                hoja.Range(1, 1, 1, 5).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                hoja.Range(1, 1, 1, 10).Style.Font.FontSize = 10
+                hoja.Range(1, 1, 1, 10).Style.Font.SetBold(True)
+                hoja.Range(1, 1, 1, 10).Style.Alignment.WrapText = True
+                hoja.Range(1, 1, 1, 10).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                hoja.Range(1, 1, 1, 10).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
                 'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
-                hoja.Range(1, 1, 1, 5).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
-                hoja.Range(1, 1, 1, 5).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
+                hoja.Range(1, 1, 1, 10).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
+                hoja.Range(1, 1, 1, 10).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
 
 
                 hoja.Cell(1, 1).Value = "Id Empleado"
-                hoja.Cell(1, 2).Value = "Nombre"
-                hoja.Cell(1, 3).Value = "Dias Descuento"
-                hoja.Cell(1, 4).Value = "Prestamo Total"
-                hoja.Cell(1, 5).Value = "Descuento x Nomina"
-
-
+                hoja.Cell(1, 2).Value = "RFC"
+                hoja.Cell(1, 3).Value = "Nombre"
+                hoja.Cell(1, 4).Value = "Sueldo Ordinario"
+                hoja.Cell(1, 5).Value = "Dias Descuento"
+                hoja.Cell(1, 6).Value = "Prestamo Total"
+                hoja.Cell(1, 7).Value = "Descuento x Nomina"
+                hoja.Cell(1, 8).Value = "ID Banco"
+                hoja.Cell(1, 9).Value = "Num Cuenta"
+                hoja.Cell(1, 10).Value = "Clabe Interbancaria"
 
                 filaExcel = 1
 
@@ -3547,8 +3590,16 @@ Public Class frmcontpaqnominas2
 
 
                     hoja.Cell(filaExcel, 1).Value = dtgDatos.Rows(x).Cells(3).Value
+                    'Buscamos el RFC del cliente
+                    sql = "select * from empleadosC where iIdEmpleadoC=" & dtgDatos.Rows(x).Cells(3).Value
+                    Dim rwEmpleado As DataRow() = nConsulta(sql)
 
-                    hoja.Cell(filaExcel, 2).Value = dtgDatos.Rows(x).Cells(6).Value
+                    If rwEmpleado Is Nothing = False Then
+                        hoja.Cell(filaExcel, 2).Value = rwEmpleado(0)("cRFC")
+
+                    End If
+
+                    hoja.Cell(filaExcel, 3).Value = dtgDatos.Rows(x).Cells(6).Value
                     'hoja.Cell(filaExcel, 3).Style.NumberFormat.SetFormat("###,###,##0.#0")
                     'hoja.Cell(filaExcel, 4).Value = Format(CType(Fila.Item("iva"), Decimal), "###,###,##0.#0")
                     'hoja.Cell(filaExcel, 5).Style.NumberFormat.SetFormat("###,###,##0.#0")

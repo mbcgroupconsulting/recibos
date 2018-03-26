@@ -350,6 +350,12 @@
     <Compile Include="contpaq\frmEmpresasC.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="contpaq\frmEstatusNomina.Designer.vb">
+      <DependentUpon>frmEstatusNomina.vb</DependentUpon>
+    </Compile>
+    <Compile Include="contpaq\frmEstatusNomina.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="contpaq\frmIncidencia.Designer.vb">
       <DependentUpon>frmIncidencia.vb</DependentUpon>
     </Compile>
@@ -1032,6 +1038,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="contpaq\frmEmpresasC.resx">
       <DependentUpon>frmEmpresasC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="contpaq\frmEstatusNomina.resx">
+      <DependentUpon>frmEstatusNomina.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="contpaq\frmIncidencia.resx">
       <DependentUpon>frmIncidencia.vb</DependentUpon>
