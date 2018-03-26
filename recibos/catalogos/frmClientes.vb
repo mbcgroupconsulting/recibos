@@ -1,4 +1,5 @@
-﻿Imports System.Text.RegularExpressions
+﻿
+Imports System.Text.RegularExpressions
 Imports ClosedXML.Excel
 
 Public Class frmClientes
@@ -53,15 +54,20 @@ Public Class frmClientes
         cmdguardar.Enabled = pnlProveedores.Enabled
         cmdcancelar.Enabled = pnlProveedores.Enabled
         cmdbuscar.Enabled = Not pnlProveedores.Enabled
+
+        cmdNotario.Enabled = pnlProveedores.Enabled
+
+
+
     End Sub
 
-    Private Sub tsbNuevo_Click(sender As System.Object, e As System.EventArgs)
+    Private Sub tsbNuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
 
 
     End Sub
 
-    Private Sub frmProveedores_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub frmProveedores_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         MostrarEstados()
         MostrarPlazas()
         MostrarPromotores()
@@ -73,6 +79,9 @@ Public Class frmClientes
         cbotipop.SelectedIndex = 0
         cmdguardar.Enabled = False
         cmdcancelar.Enabled = False
+
+        cmdNotario.Enabled = False
+
     End Sub
 
     Private Sub MostrarPlazas()
@@ -101,37 +110,37 @@ Public Class frmClientes
         nCargaCBO(cboSindicato, SQL, "cNombre", "iIdSindicato")
     End Sub
 
-    Private Sub txtcp_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtcp.KeyPress
+    Private Sub txtcp_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtcp.KeyPress
         SoloNumero.NumeroDec(e, sender)
     End Sub
 
-    Private Sub txtcp_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtcp.TextChanged
+    Private Sub txtcp_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtcp.TextChanged
 
     End Sub
 
-    Private Sub txtnumero_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtnumero.KeyPress
+    Private Sub txtnumero_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtnumero.KeyPress
 
     End Sub
 
-    Private Sub txtnumero_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtnumero.TextChanged
+    Private Sub txtnumero_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtnumero.TextChanged
 
     End Sub
 
-    Private Sub txttelefono_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txttelefono.KeyPress
+    Private Sub txttelefono_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txttelefono.KeyPress
         SoloNumero.NumeroDec(e, sender)
     End Sub
 
-    Private Sub txttelefono2_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txttelefono2.KeyPress
+    Private Sub txttelefono2_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txttelefono2.KeyPress
         SoloNumero.NumeroDec(e, sender)
     End Sub
 
-    
 
-    Private Sub tsbGuardar_Click(sender As System.Object, e As System.EventArgs)
+
+    Private Sub tsbGuardar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
     End Sub
 
-    Private Sub tsbBuscar_Click(sender As System.Object, e As System.EventArgs)
+    Private Sub tsbBuscar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
 
     End Sub
@@ -171,29 +180,31 @@ Public Class frmClientes
                 cbopromotor2.SelectedValue = IIf(aID(1) = "", 0, aID(1))
                 cbopromotor3.SelectedValue = IIf(aID(2) = "", 0, aID(2))
 
-                cboSindicato.SelectedValue = IIf(Fila.Item("fkiIdSindicato") = 0, -1, cboSindicato.SelectedValue)
+                cboSindicato.SelectedValue = IIf(Fila.Item("fkiIdSindicato") = -1, 0, cboSindicato.SelectedValue)
 
-
-
+                txtIntrumento.Text = Fila.Item("cInstrumentoPublico")
+                txtVolumen.Text = Fila.Item("cVolumen")
+                dtConstitucion.Value = Fila.Item("dFechaConstitucion")
+                txtCargo.Text = Fila.Item("cCargoRepresentante")
+                txtRepresentante.Text = Fila.Item("cRepresentanteLegal")
 
                 blnNuevo = False
+
             End If
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub pnlProveedores_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlProveedores.Paint
 
-    End Sub
 
-    Private Sub cmdnuevo_Click(sender As System.Object, e As System.EventArgs) Handles cmdnuevo.Click
+    Private Sub cmdnuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdnuevo.Click
         pnlProveedores.Enabled = True
         blnNuevo = True
         cbostatus.Focus()
     End Sub
 
-    Private Sub cmdguardar_Click(sender As System.Object, e As System.EventArgs) Handles cmdguardar.Click
+    Private Sub cmdguardar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdguardar.Click
         Dim SQL As String, Mensaje As String = ""
         Try
             'Validar
@@ -236,7 +247,7 @@ Public Class frmClientes
                     Me.txtemail.Focus()
                 End If
             End If
-            
+
             If cbostatus.SelectedIndex = -1 And Mensaje = "" Then
                 Mensaje = "Indique el estatus del proveedor"
             End If
@@ -263,6 +274,8 @@ Public Class frmClientes
                 SQL &= "',''," & IIf(cbotipop.SelectedIndex = 0, 1, 0) & "," & nupordinario.Value & "," & nupsindicato.Value
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & cboplaza.SelectedValue & "," & nupflujo.Value
                 SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "'," & cboSindicato.SelectedValue & ""
+                SQL &= ",'" & txtIntrumento.Text & "','" & txtVolumen.Text & "','" & Format(dtConstitucion.Value, "yyyy/dd/MM") & "'"
+                SQL &= ",'" & txtRepresentante.Text & "','" & txtCargo.Text & "'"
             Else
                 'Actualizar
 
@@ -276,7 +289,8 @@ Public Class frmClientes
                 SQL &= "',''," & IIf(cbotipop.SelectedIndex = 0, 1, 0) & "," & nupordinario.Value & "," & nupsindicato.Value
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & cboplaza.SelectedValue & "," & nupflujo.Value
                 SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "'," & cboSindicato.SelectedValue & ""
-
+                SQL &= ",'" & txtIntrumento.Text & "','" & txtVolumen.Text & "','" & Format(dtConstitucion.Value, "yyyy/dd/MM") & "'"
+                SQL &= ",'" & txtRepresentante.Text & "','" & txtCargo.Text & "'"
 
 
 
@@ -292,12 +306,12 @@ Public Class frmClientes
         End Try
     End Sub
 
-    Private Sub cmdcancelar_Click(sender As System.Object, e As System.EventArgs) Handles cmdcancelar.Click
+    Private Sub cmdcancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdcancelar.Click
         pnlProveedores.Enabled = False
         Limpiar(pnlProveedores)
     End Sub
 
-    Private Sub cmdbuscar_Click(sender As System.Object, e As System.EventArgs) Handles cmdbuscar.Click
+    Private Sub cmdbuscar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdbuscar.Click
         Dim Forma As New frmBuscarCliente
         If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
             gIdProveedor = Forma.gIdProveedor
@@ -306,27 +320,28 @@ Public Class frmClientes
         End If
     End Sub
 
-    Private Sub cmdsalir_Click(sender As System.Object, e As System.EventArgs) Handles cmdsalir.Click
+    Private Sub cmdsalir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdsalir.Click
         Me.Close()
     End Sub
 
-    Private Sub Label15_Click(sender As System.Object, e As System.EventArgs) Handles Label15.Click
+    Private Sub Label15_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label15.Click
 
     End Sub
 
-    Private Sub cbotipop_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cbotipop.SelectedIndexChanged
+    Private Sub cbotipop_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbotipop.SelectedIndexChanged
         If cbotipop.SelectedIndex = 0 Then
             nupsindicato.Enabled = False
         Else
             nupsindicato.Enabled = True
         End If
-    End Sub
-
-    Private Sub Label12_Click(sender As System.Object, e As System.EventArgs) Handles Label12.Click
 
     End Sub
 
-    Private Sub cmdlista_Click(sender As Object, e As EventArgs) Handles cmdlista.Click
+    Private Sub Label12_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label12.Click
+
+    End Sub
+
+    Private Sub cmdlista_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdlista.Click
         Dim filaExcel As Integer = 5
         Dim dialogo As New SaveFileDialog()
         Dim idtipo As Integer
@@ -417,7 +432,7 @@ Public Class frmClientes
         End If
     End Sub
 
-    Private Sub cmdusuario_Click(sender As Object, e As EventArgs) Handles cmdusuario.Click
+    Private Sub cmdusuario_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdusuario.Click
         SQL = "select * from usuarios where idUsuario = " & idUsuario
         Dim rwFilas As DataRow() = nConsulta(SQL)
         Dim Forma As New frmUsuarioCliente
@@ -446,4 +461,12 @@ Public Class frmClientes
 
         End Try
     End Sub
+
+    Private Sub cmdNotario_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNotario.Click
+        Dim frmN As New frmNotarioC
+        frmN.gIdEmpresa = gIdProveedor
+        frmN.ShowDialog()
+    End Sub
+
+
 End Class

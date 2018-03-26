@@ -417,8 +417,10 @@ Public Class frmImportarEmpleadosAlta
                         SQL &= "','" & " " & "','" & " " & "'," & 0 & "," & IIf(Trim(empleadofull.SubItems(6).Text) = "", 0, Trim(empleadofull.SubItems(6).Text)) & "," & 0 ''depto- y puesto +
                         ''   abiriEmpresasC()
                         ''1 es de predeterminado
-                        SQL &= ",'" & IIf(Trim(empleadofull.SubItems(8).Text) = "SOLTERO", 0, 1) & "'," & 1 & ",0" & "," & fkIdMetodoPago & ",'" & " " & "', 1, " & 1 & ", 1, 1,'" & 1 & "','" & cbEmpresasC.SelectedValue & "','" & Trim(empleadofull.SubItems(31).Text) & "','" & rpatronal & "'"
+                        SQL &= ",'" & IIf(Trim(empleadofull.SubItems(8).Text) = "SOLTERO", 0, 1) & "'," & 1 & ",0" & "," & fkIdMetodoPago & ",'" & " " & "', 1, " & 1 & ", 1, 1,'" & 1 & "'"
 
+                        SQL &= ",'" & cbEmpresasC.SelectedValue & "','" & Trim(empleadofull.SubItems(31).Text) & "','" & rpatronal & "'"
+                        SQL &= "," & 0 & ", '" & " " & "'"
 
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Error en el registro con los siguiente datos:   Empleado:  " & Trim(empleado.SubItems(3).Text), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)

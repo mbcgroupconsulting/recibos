@@ -24,6 +24,16 @@ Partial Class frmClientes
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmClientes))
         Me.pnlProveedores = New System.Windows.Forms.Panel()
+        Me.txtCargo = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.txtRepresentante = New System.Windows.Forms.TextBox()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.dtConstitucion = New System.Windows.Forms.DateTimePicker()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.txtVolumen = New System.Windows.Forms.TextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.txtIntrumento = New System.Windows.Forms.TextBox()
+        Me.Label30 = New System.Windows.Forms.Label()
         Me.cboSindicato = New System.Windows.Forms.ComboBox()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.cboplaza = New System.Windows.Forms.ComboBox()
@@ -79,6 +89,7 @@ Partial Class frmClientes
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.cmdNotario = New System.Windows.Forms.Button()
         Me.cmdusuario = New System.Windows.Forms.Button()
         Me.cmdlista = New System.Windows.Forms.Button()
         Me.cmdcancelar = New System.Windows.Forms.Button()
@@ -96,6 +107,17 @@ Partial Class frmClientes
         'pnlProveedores
         '
         Me.pnlProveedores.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlProveedores.Controls.Add(Me.Label13)
+        Me.pnlProveedores.Controls.Add(Me.txtCargo)
+        Me.pnlProveedores.Controls.Add(Me.Label32)
+        Me.pnlProveedores.Controls.Add(Me.txtRepresentante)
+        Me.pnlProveedores.Controls.Add(Me.Label31)
+        Me.pnlProveedores.Controls.Add(Me.dtConstitucion)
+        Me.pnlProveedores.Controls.Add(Me.Label28)
+        Me.pnlProveedores.Controls.Add(Me.txtVolumen)
+        Me.pnlProveedores.Controls.Add(Me.Label29)
+        Me.pnlProveedores.Controls.Add(Me.txtIntrumento)
+        Me.pnlProveedores.Controls.Add(Me.Label30)
         Me.pnlProveedores.Controls.Add(Me.cboSindicato)
         Me.pnlProveedores.Controls.Add(Me.Label27)
         Me.pnlProveedores.Controls.Add(Me.cboplaza)
@@ -138,7 +160,6 @@ Partial Class frmClientes
         Me.pnlProveedores.Controls.Add(Me.txtcalle)
         Me.pnlProveedores.Controls.Add(Me.txtnombre2)
         Me.pnlProveedores.Controls.Add(Me.txtnombre)
-        Me.pnlProveedores.Controls.Add(Me.Label13)
         Me.pnlProveedores.Controls.Add(Me.Label11)
         Me.pnlProveedores.Controls.Add(Me.Label10)
         Me.pnlProveedores.Controls.Add(Me.Label9)
@@ -153,14 +174,95 @@ Partial Class frmClientes
         Me.pnlProveedores.Enabled = False
         Me.pnlProveedores.Location = New System.Drawing.Point(6, 9)
         Me.pnlProveedores.Name = "pnlProveedores"
-        Me.pnlProveedores.Size = New System.Drawing.Size(689, 652)
+        Me.pnlProveedores.Size = New System.Drawing.Size(689, 700)
         Me.pnlProveedores.TabIndex = 0
+        '
+        'txtCargo
+        '
+        Me.txtCargo.Location = New System.Drawing.Point(424, 618)
+        Me.txtCargo.Name = "txtCargo"
+        Me.txtCargo.Size = New System.Drawing.Size(251, 27)
+        Me.txtCargo.TabIndex = 66
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(368, 624)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(51, 19)
+        Me.Label32.TabIndex = 65
+        Me.Label32.Text = "Cargo:"
+        '
+        'txtRepresentante
+        '
+        Me.txtRepresentante.Location = New System.Drawing.Point(129, 618)
+        Me.txtRepresentante.Name = "txtRepresentante"
+        Me.txtRepresentante.Size = New System.Drawing.Size(234, 27)
+        Me.txtRepresentante.TabIndex = 64
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(21, 619)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(108, 19)
+        Me.Label31.TabIndex = 63
+        Me.Label31.Text = "Representante:"
+        '
+        'dtConstitucion
+        '
+        Me.dtConstitucion.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtConstitucion.Location = New System.Drawing.Point(576, 654)
+        Me.dtConstitucion.Name = "dtConstitucion"
+        Me.dtConstitucion.Size = New System.Drawing.Size(96, 27)
+        Me.dtConstitucion.TabIndex = 62
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(480, 657)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(94, 19)
+        Me.Label28.TabIndex = 61
+        Me.Label28.Text = "Constitución:"
+        '
+        'txtVolumen
+        '
+        Me.txtVolumen.Location = New System.Drawing.Point(366, 654)
+        Me.txtVolumen.Name = "txtVolumen"
+        Me.txtVolumen.Size = New System.Drawing.Size(108, 27)
+        Me.txtVolumen.TabIndex = 60
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Location = New System.Drawing.Point(299, 658)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(69, 19)
+        Me.Label29.TabIndex = 59
+        Me.Label29.Text = "Volumen:"
+        '
+        'txtIntrumento
+        '
+        Me.txtIntrumento.Location = New System.Drawing.Point(152, 654)
+        Me.txtIntrumento.Name = "txtIntrumento"
+        Me.txtIntrumento.Size = New System.Drawing.Size(146, 27)
+        Me.txtIntrumento.TabIndex = 58
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(15, 657)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(142, 19)
+        Me.Label30.TabIndex = 57
+        Me.Label30.Text = "Instrumento Publico:"
         '
         'cboSindicato
         '
         Me.cboSindicato.FormattingEnabled = True
         Me.cboSindicato.Items.AddRange(New Object() {"Seleccione  Sindicato"})
-        Me.cboSindicato.Location = New System.Drawing.Point(129, 613)
+        Me.cboSindicato.Location = New System.Drawing.Point(131, 585)
         Me.cboSindicato.Name = "cboSindicato"
         Me.cboSindicato.Size = New System.Drawing.Size(544, 27)
         Me.cboSindicato.TabIndex = 53
@@ -168,7 +270,7 @@ Partial Class frmClientes
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(55, 613)
+        Me.Label27.Location = New System.Drawing.Point(57, 585)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(72, 19)
         Me.Label27.TabIndex = 52
@@ -194,7 +296,7 @@ Partial Class frmClientes
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(58, 583)
+        Me.Label25.Location = New System.Drawing.Point(346, 552)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(72, 19)
         Me.Label25.TabIndex = 49
@@ -212,9 +314,9 @@ Partial Class frmClientes
         'cbopromotor3
         '
         Me.cbopromotor3.FormattingEnabled = True
-        Me.cbopromotor3.Location = New System.Drawing.Point(130, 580)
+        Me.cbopromotor3.Location = New System.Drawing.Point(424, 549)
         Me.cbopromotor3.Name = "cbopromotor3"
-        Me.cbopromotor3.Size = New System.Drawing.Size(543, 27)
+        Me.cbopromotor3.Size = New System.Drawing.Size(249, 27)
         Me.cbopromotor3.TabIndex = 47
         '
         'cbopromotor2
@@ -222,7 +324,7 @@ Partial Class frmClientes
         Me.cbopromotor2.FormattingEnabled = True
         Me.cbopromotor2.Location = New System.Drawing.Point(130, 547)
         Me.cbopromotor2.Name = "cbopromotor2"
-        Me.cbopromotor2.Size = New System.Drawing.Size(543, 27)
+        Me.cbopromotor2.Size = New System.Drawing.Size(216, 27)
         Me.cbopromotor2.TabIndex = 46
         '
         'cbopromotor
@@ -230,7 +332,7 @@ Partial Class frmClientes
         Me.cbopromotor.FormattingEnabled = True
         Me.cbopromotor.Location = New System.Drawing.Point(131, 514)
         Me.cbopromotor.Name = "cbopromotor"
-        Me.cbopromotor.Size = New System.Drawing.Size(543, 27)
+        Me.cbopromotor.Size = New System.Drawing.Size(540, 27)
         Me.cbopromotor.TabIndex = 45
         '
         'Label23
@@ -608,6 +710,7 @@ Partial Class frmClientes
         '
         Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.cmdNotario)
         Me.Panel1.Controls.Add(Me.cmdusuario)
         Me.Panel1.Controls.Add(Me.cmdlista)
         Me.Panel1.Controls.Add(Me.cmdcancelar)
@@ -615,17 +718,30 @@ Partial Class frmClientes
         Me.Panel1.Controls.Add(Me.cmdnuevo)
         Me.Panel1.Controls.Add(Me.cmdsalir)
         Me.Panel1.Controls.Add(Me.cmdguardar)
-        Me.Panel1.Location = New System.Drawing.Point(701, 24)
+        Me.Panel1.Location = New System.Drawing.Point(701, 50)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(105, 571)
+        Me.Panel1.Size = New System.Drawing.Size(105, 643)
         Me.Panel1.TabIndex = 36
+        '
+        'cmdNotario
+        '
+        Me.cmdNotario.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cmdNotario.Image = Global.recibos.My.Resources.Resources.bloggif_5aa81d204bc8d
+        Me.cmdNotario.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdNotario.Location = New System.Drawing.Point(7, 454)
+        Me.cmdNotario.Name = "cmdNotario"
+        Me.cmdNotario.Size = New System.Drawing.Size(87, 72)
+        Me.cmdNotario.TabIndex = 42
+        Me.cmdNotario.Text = "Notario"
+        Me.cmdNotario.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdNotario.UseVisualStyleBackColor = True
         '
         'cmdusuario
         '
         Me.cmdusuario.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.cmdusuario.Image = CType(resources.GetObject("cmdusuario.Image"), System.Drawing.Image)
         Me.cmdusuario.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdusuario.Location = New System.Drawing.Point(7, 375)
+        Me.cmdusuario.Location = New System.Drawing.Point(7, 376)
         Me.cmdusuario.Name = "cmdusuario"
         Me.cmdusuario.Size = New System.Drawing.Size(87, 72)
         Me.cmdusuario.TabIndex = 39
@@ -638,7 +754,7 @@ Partial Class frmClientes
         Me.cmdlista.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.cmdlista.Image = CType(resources.GetObject("cmdlista.Image"), System.Drawing.Image)
         Me.cmdlista.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdlista.Location = New System.Drawing.Point(7, 300)
+        Me.cmdlista.Location = New System.Drawing.Point(7, 301)
         Me.cmdlista.Name = "cmdlista"
         Me.cmdlista.Size = New System.Drawing.Size(87, 72)
         Me.cmdlista.TabIndex = 38
@@ -651,7 +767,7 @@ Partial Class frmClientes
         Me.cmdcancelar.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.cmdcancelar.Image = CType(resources.GetObject("cmdcancelar.Image"), System.Drawing.Image)
         Me.cmdcancelar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdcancelar.Location = New System.Drawing.Point(7, 149)
+        Me.cmdcancelar.Location = New System.Drawing.Point(7, 150)
         Me.cmdcancelar.Name = "cmdcancelar"
         Me.cmdcancelar.Size = New System.Drawing.Size(87, 72)
         Me.cmdcancelar.TabIndex = 37
@@ -687,7 +803,7 @@ Partial Class frmClientes
         '
         Me.cmdsalir.Image = CType(resources.GetObject("cmdsalir.Image"), System.Drawing.Image)
         Me.cmdsalir.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdsalir.Location = New System.Drawing.Point(7, 450)
+        Me.cmdsalir.Location = New System.Drawing.Point(3, 563)
         Me.cmdsalir.Name = "cmdsalir"
         Me.cmdsalir.Size = New System.Drawing.Size(87, 72)
         Me.cmdsalir.TabIndex = 37
@@ -710,7 +826,8 @@ Partial Class frmClientes
         'frmClientes
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(811, 673)
+        Me.AutoScroll = True
+        Me.ClientSize = New System.Drawing.Size(811, 724)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.pnlProveedores)
         Me.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -790,4 +907,15 @@ Partial Class frmClientes
     Friend WithEvents cmdusuario As Button
     Friend WithEvents cboSindicato As System.Windows.Forms.ComboBox
     Friend WithEvents Label27 As System.Windows.Forms.Label
+    Friend WithEvents dtConstitucion As System.Windows.Forms.DateTimePicker
+    Friend WithEvents Label28 As System.Windows.Forms.Label
+    Friend WithEvents txtVolumen As System.Windows.Forms.TextBox
+    Friend WithEvents Label29 As System.Windows.Forms.Label
+    Friend WithEvents txtIntrumento As System.Windows.Forms.TextBox
+    Friend WithEvents Label30 As System.Windows.Forms.Label
+    Friend WithEvents cmdNotario As System.Windows.Forms.Button
+    Friend WithEvents Label31 As System.Windows.Forms.Label
+    Friend WithEvents txtCargo As System.Windows.Forms.TextBox
+    Friend WithEvents Label32 As System.Windows.Forms.Label
+    Friend WithEvents txtRepresentante As System.Windows.Forms.TextBox
 End Class

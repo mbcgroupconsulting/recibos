@@ -980,7 +980,8 @@ Public Class frmPrincipal
 
     End Sub
 
-    Private Sub ImportarFlujosConceptosToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ImportarFlujosConceptosToolStripMenuItem.Click
+
+    Private Sub ImportarFlujosConceptosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ImportarFlujosConceptosToolStripMenuItem.Click
         SQL = "select * from usuarios where idUsuario = " & idUsuario
         Dim rwFilas As DataRow() = nConsulta(SQL)
         Dim Forma As New frmImportarConceptosFlujo
@@ -1168,7 +1169,8 @@ Public Class frmPrincipal
         End Try
     End Sub
 
-    Private Sub ControlTesoreriaToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles ControlTesoreriaToolStripMenuItem1.Click
+
+    Private Sub ControlTesoreriaToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ControlTesoreriaToolStripMenuItem1.Click
         'Verificar si se tienen permisos
         SQL = "select * from usuarios where idUsuario = " & idUsuario
         Dim rwFilas As DataRow() = nConsulta(SQL)
@@ -1192,4 +1194,32 @@ Public Class frmPrincipal
 
         End Try
     End Sub
+
+    Private Sub ContratToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ContratToolStripMenuItem.Click
+        SQL = "select * from usuarios where idUsuario = " & idUsuario
+        Dim rwFilas As DataRow() = nConsulta(SQL)
+        Dim Forma As New frmContratos
+
+        Try
+            If rwFilas Is Nothing = False Then
+
+
+                Dim Fila As DataRow = rwFilas(0)
+
+
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "6") Then
+
+
+                    Forma.ShowDialog()
+                Else
+                    MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
 End Class

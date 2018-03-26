@@ -615,7 +615,9 @@ Public Class frmAltaEmpleadoNew
                 SQL &= "'," & IIf(txtfactor.Text = "", 0, txtfactor.Text) & ",'" & cbojornada.SelectedValue & "','" & txtcorreo.Text ''JORNADA
                 SQL &= "','" & txthorario.Text & "','" & txthoras.Text & "','" & " " & "','" & txtdescanso.Text & "','" & txtFechapago.Text
                 SQL &= "','" & txtFormaPago.Text & "','" & txtlugarpago.Text & "'," & 0 & "," & cbopuesto.SelectedValue & "," & cbodepartamento.SelectedValue ''depto
-                SQL &= ",'" & cboedocivil.SelectedIndex & "'," & cboTipoContrato.SelectedValue & ",0" & "," & cbometodopago.SelectedValue & ",'" & txtlugarpago.Text & "', 1, " & cboEdoNac.SelectedValue & ", 1, 1,'" & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "','" & cbEmpresasC.SelectedValue & "','" & txtlugarfirma.Text & "','" & txtRegistroPatronal.Text & "'"
+                SQL &= ",'" & cboedocivil.SelectedIndex & "'," & cboTipoContrato.SelectedValue & ",0" & "," & cbometodopago.SelectedValue & ",'" & txtlugarpago.Text & "', 1, " & cboEdoNac.SelectedValue & ", 1, 1,'" & IIf(cbostatus.SelectedIndex = 0, 1, 0)
+
+                SQL &= "','" & cbEmpresasC.SelectedValue & "','" & txtlugarfirma.Text & "','" & txtRegistroPatronal.Text & "'"
                 SQL &= "," & cboTipoContratoJuridico.SelectedIndex & ",'" & txtPuestoJuridico.Text & "'"
 
             Else
@@ -641,7 +643,8 @@ Public Class frmAltaEmpleadoNew
                 SQL &= "'," & IIf(txtfactor.Text = "", 0, txtfactor.Text) & ",'" & cbojornada.SelectedValue & "','" & txtcorreo.Text ''JORNADA
                 SQL &= "','" & txthorario.Text & "','" & txthoras.Text & "','" & " " & "','" & txtdescanso.Text & "','" & txtFechapago.Text
                 SQL &= "','" & txtFormaPago.Text & "','" & txtlugarpago.Text & "'," & 0 & "," & cbopuesto.SelectedValue & "," & cbodepartamento.SelectedValue ''depto
-                SQL &= ",'" & cboedocivil.SelectedIndex & "'," & cboTipoContrato.SelectedValue & ",0" & "," & cbometodopago.SelectedValue & ",'" & txtlugarpago.Text & "', 1, " & cboEdoNac.SelectedValue & ", 1, 1,'" & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "','" & cbEmpresasC.SelectedValue & "','" & txtlugarfirma.Text & "','" & txtRegistroPatronal.Text & "'"
+                SQL &= ",'" & cboedocivil.SelectedIndex & "'," & cboTipoContrato.SelectedValue & ",0" & "," & cbometodopago.SelectedValue & ",'" & txtlugarpago.Text & "', 1, " & cboEdoNac.SelectedValue & ", 1, 1,'" & IIf(cbostatus.SelectedIndex = 0, 1, 0)
+                SQL &= "','" & cbEmpresasC.SelectedValue & "','" & txtlugarfirma.Text & "','" & txtRegistroPatronal.Text & "'"
                 SQL &= "," & cboTipoContratoJuridico.SelectedIndex & ",'" & txtPuestoJuridico.Text & "'"
 
             End If
