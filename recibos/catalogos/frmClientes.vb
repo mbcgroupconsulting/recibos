@@ -273,7 +273,7 @@ Public Class frmClientes
                 SQL &= "','" & txttelefono2.Text & "','" & txtcontacto.Text & "','" & txtemail.Text
                 SQL &= "',''," & IIf(cbotipop.SelectedIndex = 0, 1, 0) & "," & nupordinario.Value & "," & nupsindicato.Value
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & cboplaza.SelectedValue & "," & nupflujo.Value
-                SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "'," & cboSindicato.SelectedValue & ""
+                SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "','" & cboSindicato.SelectedValue & "'"
                 SQL &= ",'" & txtIntrumento.Text & "','" & txtVolumen.Text & "','" & Format(dtConstitucion.Value, "yyyy/dd/MM") & "'"
                 SQL &= ",'" & txtRepresentante.Text & "','" & txtCargo.Text & "'"
             Else
@@ -288,7 +288,7 @@ Public Class frmClientes
                 SQL &= "','" & txttelefono2.Text & "','" & txtcontacto.Text & "','" & txtemail.Text
                 SQL &= "',''," & IIf(cbotipop.SelectedIndex = 0, 1, 0) & "," & nupordinario.Value & "," & nupsindicato.Value
                 SQL &= "," & IIf(cbostatus.SelectedIndex = 0, 1, 0) & "," & cboplaza.SelectedValue & "," & nupflujo.Value
-                SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "'," & cboSindicato.SelectedValue & ""
+                SQL &= ",'" & txtactividad.Text & "'," & cbotipocliente.SelectedIndex & ",'" & cbopromotor.SelectedValue & "," & cbopromotor2.SelectedValue & "," & cbopromotor3.SelectedValue & "','" & cboSindicato.SelectedValue & "' "
                 SQL &= ",'" & txtIntrumento.Text & "','" & txtVolumen.Text & "','" & Format(dtConstitucion.Value, "yyyy/dd/MM") & "'"
                 SQL &= ",'" & txtRepresentante.Text & "','" & txtCargo.Text & "'"
 
