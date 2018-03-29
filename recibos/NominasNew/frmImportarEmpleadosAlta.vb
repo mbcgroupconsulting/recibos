@@ -411,15 +411,16 @@ Public Class frmImportarEmpleadosAlta
                         SQL &= "','" & " " & "','" & " " & "'," & 1 & ",'" & " " ''cp2
                         SQL &= "','" & dFechaPatrona & "','" & dFechaTerminoContrato & "','" & dFechaSindicato & "','" & dFechaAntiguedad
                         ''COMILLA
-                        SQL &= "'," & 0 & "," & Trim(empleadofull.SubItems(22).Text) & ",'" & 1 & "'," & IIf(Trim(empleadofull.SubItems(12).Text) = "A", 0, 1) & ",'" & Trim(empleadofull.SubItems(23).Text) & "','" & factor ''switch
+                        SQL &= "'," & 0 & "," & Trim(empleadofull.SubItems(22).Text) & ",'" & Trim(empleadofull.SubItems(24).Text) & "'," & IIf(Trim(empleadofull.SubItems(12).Text) = "A", 0, 1) & ",'" & Trim(empleadofull.SubItems(23).Text) & "','" & factor ''switch
                         SQL &= "'," & IIf(Trim(empleadofull.SubItems(24).Text) = "", 0, Trim(empleadofull.SubItems(24).Text)) & ",'" & number & "','" & Trim(empleadofull.SubItems(36).Text) ''JORNADA
                         SQL &= "','" & Trim(empleadofull.SubItems(37).Text) & "','" & Trim(empleadofull.SubItems(38).Text) & "','" & " " & "','" & Trim(empleadofull.SubItems(39).Text) & "','" & " " ''fecha de pago
                         SQL &= "','" & " " & "','" & " " & "'," & 0 & "," & IIf(Trim(empleadofull.SubItems(6).Text) = "", 0, Trim(empleadofull.SubItems(6).Text)) & "," & 0 ''depto- y puesto +
                         ''   abiriEmpresasC()
                         ''1 es de predeterminado
-                        SQL &= ",'" & IIf(Trim(empleadofull.SubItems(8).Text) = "SOLTERO", 0, 1) & "'," & 1 & ",0" & "," & fkIdMetodoPago & ",'" & " " & "', 1, " & 1 & ", 1, 1,'" & 1 & "'"
+                        SQL &= ",'" & IIf(Trim(empleadofull.SubItems(8).Text) = "SOLTERO", 0, 1) & "'," & 1 & ",0" & "," & fkIdMetodoPago & ",'" & Trim(empleadofull.SubItems(31).Text) & "', 1, " & 1 & ", 1, 1,'" & 1 & "'"
 
-                        SQL &= ",'" & cbEmpresasC.SelectedValue & "','" & Trim(empleadofull.SubItems(31).Text) & "','" & rpatronal & "'"
+                        ''LUGAR PRESTACION DE
+                        SQL &= ",'" & cbEmpresasC.SelectedValue & "','" & " " & "','" & rpatronal & "'"
                         SQL &= "," & 0 & ", '" & " " & "'"
 
                         If nExecute(SQL) = False Then
