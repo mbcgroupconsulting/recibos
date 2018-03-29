@@ -108,8 +108,8 @@ Partial Class frmImportarEmpleadosAlta
         Me.tsbNuevo.Image = Global.recibos.My.Resources.Resources._1361007999_document_new
         Me.tsbNuevo.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbNuevo.Name = "tsbNuevo"
-        Me.tsbNuevo.Size = New System.Drawing.Size(82, 51)
-        Me.tsbNuevo.Text = "Agregar Flujo"
+        Me.tsbNuevo.Size = New System.Drawing.Size(80, 51)
+        Me.tsbNuevo.Text = "Agregar Lista"
         Me.tsbNuevo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'tsbImportar
@@ -130,7 +130,7 @@ Partial Class frmImportarEmpleadosAlta
         Me.tsbGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbGuardar.Name = "tsbGuardar"
         Me.tsbGuardar.Size = New System.Drawing.Size(90, 51)
-        Me.tsbGuardar.Text = "Importar flujo"
+        Me.tsbGuardar.Text = "Guardar"
         Me.tsbGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'tsbCancelar
