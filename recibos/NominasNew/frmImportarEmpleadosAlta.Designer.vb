@@ -38,6 +38,7 @@ Partial Class frmImportarEmpleadosAlta
         Me.chkAll = New System.Windows.Forms.CheckBox()
         Me.lsvLista = New System.Windows.Forms.ListView()
         Me.cbEmpresasC = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.pnlProgreso.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
@@ -203,15 +204,25 @@ Partial Class frmImportarEmpleadosAlta
         '
         Me.cbEmpresasC.FormattingEnabled = True
         Me.cbEmpresasC.Items.AddRange(New Object() {"Soltero", "Casado"})
-        Me.cbEmpresasC.Location = New System.Drawing.Point(378, 12)
+        Me.cbEmpresasC.Location = New System.Drawing.Point(438, 12)
         Me.cbEmpresasC.Name = "cbEmpresasC"
-        Me.cbEmpresasC.Size = New System.Drawing.Size(642, 27)
+        Me.cbEmpresasC.Size = New System.Drawing.Size(606, 27)
         Me.cbEmpresasC.TabIndex = 218
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(344, 15)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(82, 19)
+        Me.Label1.TabIndex = 219
+        Me.Label1.Text = "Empresa C:"
         '
         'frmImportarEmpleadosAlta
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1056, 533)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.cbEmpresasC)
         Me.Controls.Add(Me.lblRuta)
         Me.Controls.Add(Me.cmdCerrar)
@@ -249,4 +260,5 @@ Partial Class frmImportarEmpleadosAlta
     Friend WithEvents chkAll As CheckBox
     Friend WithEvents lsvLista As ListView
     Friend WithEvents cbEmpresasC As System.Windows.Forms.ComboBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class

@@ -338,7 +338,8 @@ Public Class frmContratos
                     IsDBNull(fEmpleado.Item("cNotarioP")) = False And IsDBNull(fEmpleado.Item("cNotarioU")) = False And
                     IsDBNull(fEmpleado.Item("cNotarioNumeroP")) = False And IsDBNull(fEmpleado.Item("cNotarioNumeroU")) = False And
                     IsDBNull(fEmpleado.Item("cNotarioResidenciaP")) = False And IsDBNull(fEmpleado.Item("cNotarioResidenciaU")) = False And
-                    IsDBNull(fEmpleado.Item("cFolioMercantilP")) = False And IsDBNull(fEmpleado.Item("cFolioMercantilU")) = False Then
+                    IsDBNull(fEmpleado.Item("cFechaActa")) = False And IsDBNull(fEmpleado.Item("cFechaActaU")) = False And
+                    IsDBNull(fEmpleado.Item("cLugarRPPP")) = False And IsDBNull(fEmpleado.Item("cLugarRPPu")) = False Then
 
                     Documento.Bookmarks.Item("cRepresentanteP").Range.Text = UCase(fEmpleado.Item("cRepresentanteP"))
                     Documento.Bookmarks.Item("cRepresentanteU").Range.Text = UCase(fEmpleado.Item("cRepresentanteU"))
@@ -376,6 +377,10 @@ Public Class frmContratos
                     Documento.Bookmarks.Item("cFolioMercantilP").Range.Text = UCase(fEmpleado.Item("cFolioMercantilP"))
                     Documento.Bookmarks.Item("cFolioMercantilU").Range.Text = UCase(fEmpleado.Item("cFolioMercantilU"))
 
+                    Documento.Bookmarks.Item("cFechaActa").Range.Text = UCase(fEmpleado.Item("dFechaActaP"))
+                    Documento.Bookmarks.Item("cFechaActaU").Range.Text = UCase(fEmpleado.Item("dFechaActaU"))
+                    Documento.Bookmarks.Item("cLugarRPPP").Range.Text = UCase(fEmpleado.Item("cLugarRPPP"))
+                    Documento.Bookmarks.Item("cLugarRPPU").Range.Text = UCase(fEmpleado.Item("cLugarRPPU"))
                     Documento.Save()
                     MSWord.Visible = True
 
