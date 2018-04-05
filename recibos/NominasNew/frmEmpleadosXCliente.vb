@@ -229,7 +229,7 @@ Public Class frmEmpleadosXCliente
             lsvLista.Columns(31).Width = 100
             lsvLista.Columns.Add("Lugar Prestacion")
             lsvLista.Columns(32).Width = 300
-            lsvLista.Columns.Add("Duracion Contrato")
+            lsvLista.Columns.Add("Termino de contrato")
             lsvLista.Columns(33).Width = 100
             lsvLista.Columns.Add("Tipo Jornada")
             lsvLista.Columns(34).Width = 100
@@ -310,7 +310,8 @@ Public Class frmEmpleadosXCliente
                     item.SubItems.Add("" & Fila.Item("cCP"))
                     item.SubItems.Add("" & Fila.Item("dFechaAntiguedad"))
                     item.SubItems.Add("" & Fila.Item("cCalleNumero") & "" & Fila.Item("cCiudadP"))
-                    item.SubItems.Add("" & Fila.Item("cDuracionContrato").ToString)
+                    ''item.SubItems.Add("" & Fila.Item("cDuracionContrato").ToString)
+                    item.SubItems.Add("" & Fila.Item("dFechaTerminoContrato").ToString)
                     SQL = "select * from Cat_TipoJornadaAlta where iIdTipoJornadaAlta=" & Fila.Item("cJornada")
                     Dim jornada As DataRow() = nConsulta(SQL)
 
@@ -907,7 +908,7 @@ Public Class frmEmpleadosXCliente
                 hoja.Cell(1, 31).Value = ("CP")
                 hoja.Cell(1, 32).Value = ("Fecha antiguedad")
                 hoja.Cell(1, 33).Value = ("Lugar Prestacion")
-                hoja.Cell(1, 34).Value = ("Duracion Contrato")
+                hoja.Cell(1, 34).Value = ("Termino de contrato")
                 hoja.Cell(1, 35).Value = ("Tipo Jornada")
                 hoja.Cell(1, 36).Value = ("Salario Real")
                 hoja.Cell(1, 37).Value = ("Comentarios")
