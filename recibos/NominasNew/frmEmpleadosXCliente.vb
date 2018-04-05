@@ -976,13 +976,16 @@ Public Class frmEmpleadosXCliente
 
                 Next
 
+                SQL = "select * from empresa where iIdEmpresa = " & cboempresas.SelectedValue
+                Dim e As DataRow() = nConsulta(SQL)
+                Dim c As DataRow() = nConsulta("select * from clientes where iIdCliente =" & cboclientes.SelectedValue)
 
             Dim moment As Date = Date.Now()
             Dim month As Integer = moment.Month
             Dim year As Integer = moment.Year
             dialogo.DefaultExt = "*.xlsx"
-            dialogo.FileName = "Empleados Excel " & Format(moment.Date, "yyyy dd MMMM")
-            dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
+                dialogo.FileName = "Empleados Excel de " & e(0).Item("nombre").ToString & " " & "--" & " " & c(0).Item("nombre").ToString
+                dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
             dialogo.ShowDialog()
             libro.SaveAs(dialogo.FileName)
          
