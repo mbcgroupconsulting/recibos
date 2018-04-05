@@ -310,7 +310,7 @@ Public Class frmEmpleadosXCliente
                     item.SubItems.Add("" & Fila.Item("cCP"))
                     item.SubItems.Add("" & Fila.Item("dFechaAntiguedad"))
                     item.SubItems.Add("" & Fila.Item("cCalleNumero") & "" & Fila.Item("cCiudadP"))
-                    item.SubItems.Add("" & Fila.Item("cDuracionContrato"))
+                    item.SubItems.Add("" & Fila.Item("cDuracionContrato").ToString)
                     SQL = "select * from Cat_TipoJornadaAlta where iIdTipoJornadaAlta=" & Fila.Item("cJornada")
                     Dim jornada As DataRow() = nConsulta(SQL)
 
