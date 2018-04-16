@@ -37,13 +37,17 @@ Partial Class frmAgregarImss
         Me.cmdarchivo = New System.Windows.Forms.Button()
         Me.cmdBorrarArchivo = New System.Windows.Forms.Button()
         Me.lsvArchivo = New System.Windows.Forms.ListView()
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmdborrarfactura = New System.Windows.Forms.Button()
         Me.cmdagregar = New System.Windows.Forms.Button()
         Me.lsvLista = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cboclientes = New System.Windows.Forms.ComboBox()
         Me.Label23 = New System.Windows.Forms.Label()
+        Me.cboDocumento = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.pnlProveedores.SuspendLayout()
         Me.SuspendLayout()
@@ -126,6 +130,8 @@ Partial Class frmAgregarImss
         'pnlProveedores
         '
         Me.pnlProveedores.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlProveedores.Controls.Add(Me.Label3)
+        Me.pnlProveedores.Controls.Add(Me.cboDocumento)
         Me.pnlProveedores.Controls.Add(Me.cbomes)
         Me.pnlProveedores.Controls.Add(Me.cboanio)
         Me.pnlProveedores.Controls.Add(Me.Label2)
@@ -201,9 +207,9 @@ Partial Class frmAgregarImss
         'lsvArchivo
         '
         Me.lsvArchivo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lsvArchivo.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader2})
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lsvArchivo.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
         Me.lsvArchivo.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvArchivo.FullRowSelect = True
         Me.lsvArchivo.GridLines = True
@@ -211,15 +217,25 @@ Partial Class frmAgregarImss
         Me.lsvArchivo.Location = New System.Drawing.Point(73, 313)
         Me.lsvArchivo.MultiSelect = False
         Me.lsvArchivo.Name = "lsvArchivo"
-        Me.lsvArchivo.Size = New System.Drawing.Size(542, 193)
+        Me.lsvArchivo.Size = New System.Drawing.Size(496, 193)
         Me.lsvArchivo.TabIndex = 92
         Me.lsvArchivo.UseCompatibleStateImageBehavior = False
         Me.lsvArchivo.View = System.Windows.Forms.View.Details
         '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "Documento"
+        Me.ColumnHeader4.Width = 150
+        '
         'ColumnHeader2
         '
         Me.ColumnHeader2.Text = "Archivo"
-        Me.ColumnHeader2.Width = 600
+        Me.ColumnHeader2.Width = 300
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Area"
+        Me.ColumnHeader3.Width = 100
         '
         'cmdborrarfactura
         '
@@ -243,8 +259,8 @@ Partial Class frmAgregarImss
         'lsvLista
         '
         Me.lsvLista.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lsvLista.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
         Me.lsvLista.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvLista.FullRowSelect = True
@@ -279,6 +295,23 @@ Partial Class frmAgregarImss
         Me.Label23.Size = New System.Drawing.Size(66, 19)
         Me.Label23.TabIndex = 49
         Me.Label23.Text = "Clientes:"
+        '
+        'cboDocumento
+        '
+        Me.cboDocumento.FormattingEnabled = True
+        Me.cboDocumento.Location = New System.Drawing.Point(373, 282)
+        Me.cboDocumento.Name = "cboDocumento"
+        Me.cboDocumento.Size = New System.Drawing.Size(196, 27)
+        Me.cboDocumento.TabIndex = 100
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(231, 285)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(139, 19)
+        Me.Label3.TabIndex = 101
+        Me.Label3.Text = "Tipo de Documento:"
         '
         'frmAgregarImss
         '
@@ -318,4 +351,8 @@ Partial Class frmAgregarImss
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents cboclientes As ComboBox
     Friend WithEvents Label23 As Label
+    Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
+    Private WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents cboDocumento As System.Windows.Forms.ComboBox
+    Friend WithEvents Label3 As System.Windows.Forms.Label
 End Class

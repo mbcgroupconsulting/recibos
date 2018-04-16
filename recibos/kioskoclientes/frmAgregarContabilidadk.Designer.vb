@@ -44,6 +44,10 @@ Partial Class frmAgregarContabilidadk
         Me.cmdnuevo = New System.Windows.Forms.Button()
         Me.cmdsalir = New System.Windows.Forms.Button()
         Me.cmdguardar = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.cboDocumento = New System.Windows.Forms.ComboBox()
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.pnlProveedores.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -51,6 +55,8 @@ Partial Class frmAgregarContabilidadk
         'pnlProveedores
         '
         Me.pnlProveedores.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlProveedores.Controls.Add(Me.Label3)
+        Me.pnlProveedores.Controls.Add(Me.cboDocumento)
         Me.pnlProveedores.Controls.Add(Me.cbomes)
         Me.pnlProveedores.Controls.Add(Me.cboanio)
         Me.pnlProveedores.Controls.Add(Me.Label2)
@@ -126,9 +132,9 @@ Partial Class frmAgregarContabilidadk
         'lsvArchivo
         '
         Me.lsvArchivo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lsvArchivo.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader2})
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lsvArchivo.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
         Me.lsvArchivo.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvArchivo.FullRowSelect = True
         Me.lsvArchivo.GridLines = True
@@ -144,7 +150,7 @@ Partial Class frmAgregarContabilidadk
         'ColumnHeader2
         '
         Me.ColumnHeader2.Text = "Archivo"
-        Me.ColumnHeader2.Width = 600
+        Me.ColumnHeader2.Width = 300
         '
         'cmdborrarfactura
         '
@@ -167,8 +173,8 @@ Partial Class frmAgregarContabilidadk
         'lsvLista
         '
         Me.lsvLista.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lsvLista.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
         Me.lsvLista.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvLista.FullRowSelect = True
@@ -279,6 +285,33 @@ Partial Class frmAgregarContabilidadk
         Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdguardar.UseVisualStyleBackColor = True
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(204, 285)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(139, 19)
+        Me.Label3.TabIndex = 103
+        Me.Label3.Text = "Tipo de Documento:"
+        '
+        'cboDocumento
+        '
+        Me.cboDocumento.FormattingEnabled = True
+        Me.cboDocumento.Location = New System.Drawing.Point(346, 282)
+        Me.cboDocumento.Name = "cboDocumento"
+        Me.cboDocumento.Size = New System.Drawing.Size(196, 27)
+        Me.cboDocumento.TabIndex = 102
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Area"
+        Me.ColumnHeader3.Width = 100
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "Documento"
+        Me.ColumnHeader4.Width = 150
+        '
         'frmAgregarContabilidadk
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -317,4 +350,8 @@ Partial Class frmAgregarContabilidadk
     Friend WithEvents cmdnuevo As Button
     Friend WithEvents cmdsalir As Button
     Friend WithEvents cmdguardar As Button
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents cboDocumento As System.Windows.Forms.ComboBox
+    Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
 End Class

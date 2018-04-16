@@ -385,13 +385,14 @@ Public Class frmImportarEmpleadosAlta
                             cliente = 1
                         End If
                         Dim dFechaNac, dFechaCap, dFechaPatrona, dFechaTerminoContrato, dFechaSindicato, dFechaAntiguedad As String
+                        ''   Dim _fecha As String
 
-                        dFechaNac = Trim(empleadofull.SubItems(18).Text) ''Format(Trim(empleadofull.SubItems(18).Text), "yyyy/dd/MM")
-                        dFechaCap = (Trim(empleadofull.SubItems(43).Text))
+                        dFechaNac = (Trim(empleadofull.SubItems(18).Text)) ''Format(Trim(empleadofull.SubItems(18).Text), "yyyy/dd/MM")
+                        dFechaCap = Date.Parse(Trim(empleadofull.SubItems(43).Text.ToString))
                         dFechaPatrona = (Trim(empleadofull.SubItems(13).Text))
                         dFechaTerminoContrato = ((Trim(empleadofull.SubItems(44).Text))) ''No asignado
                         dFechaSindicato = (Trim(empleadofull.SubItems(14).Text))
-                        dFechaAntiguedad = Trim(empleadofull.SubItems(30).Text)
+                        dFechaAntiguedad = (Trim(empleadofull.SubItems(30).Text))
 
 
 
@@ -463,6 +464,8 @@ Public Class frmImportarEmpleadosAlta
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)
+            pnlProgreso.Visible = False
+            pnlCatalogo.Visible = True
         End Try
     End Sub
 
