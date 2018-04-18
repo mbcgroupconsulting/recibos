@@ -30,7 +30,9 @@ Partial Class frmAgregarNominaK
         Me.cmdsalir = New System.Windows.Forms.Button()
         Me.cmdguardar = New System.Windows.Forms.Button()
         Me.pnlProveedores = New System.Windows.Forms.Panel()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.cbomes = New System.Windows.Forms.ComboBox()
+        Me.cboDocumento = New System.Windows.Forms.ComboBox()
         Me.cboanio = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -38,16 +40,14 @@ Partial Class frmAgregarNominaK
         Me.cmdBorrarArchivo = New System.Windows.Forms.Button()
         Me.lsvArchivo = New System.Windows.Forms.ListView()
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmdborrarfactura = New System.Windows.Forms.Button()
         Me.cmdagregar = New System.Windows.Forms.Button()
         Me.lsvLista = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cboclientes = New System.Windows.Forms.ComboBox()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.cboDocumento = New System.Windows.Forms.ComboBox()
-        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Panel1.SuspendLayout()
         Me.pnlProveedores.SuspendLayout()
         Me.SuspendLayout()
@@ -150,6 +150,15 @@ Partial Class frmAgregarNominaK
         Me.pnlProveedores.Size = New System.Drawing.Size(629, 513)
         Me.pnlProveedores.TabIndex = 70
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(210, 285)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(139, 19)
+        Me.Label3.TabIndex = 103
+        Me.Label3.Text = "Tipo de Documento:"
+        '
         'cbomes
         '
         Me.cbomes.FormattingEnabled = True
@@ -158,6 +167,14 @@ Partial Class frmAgregarNominaK
         Me.cbomes.Name = "cbomes"
         Me.cbomes.Size = New System.Drawing.Size(121, 27)
         Me.cbomes.TabIndex = 99
+        '
+        'cboDocumento
+        '
+        Me.cboDocumento.FormattingEnabled = True
+        Me.cboDocumento.Location = New System.Drawing.Point(352, 282)
+        Me.cboDocumento.Name = "cboDocumento"
+        Me.cboDocumento.Size = New System.Drawing.Size(263, 27)
+        Me.cboDocumento.TabIndex = 102
         '
         'cboanio
         '
@@ -227,6 +244,17 @@ Partial Class frmAgregarNominaK
         Me.ColumnHeader2.Text = "Archivo"
         Me.ColumnHeader2.Width = 300
         '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "Area"
+        Me.ColumnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ColumnHeader4.Width = 100
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Documento"
+        Me.ColumnHeader3.Width = 150
+        '
         'cmdborrarfactura
         '
         Me.cmdborrarfactura.Location = New System.Drawing.Point(235, 42)
@@ -285,34 +313,6 @@ Partial Class frmAgregarNominaK
         Me.Label23.Size = New System.Drawing.Size(66, 19)
         Me.Label23.TabIndex = 49
         Me.Label23.Text = "Clientes:"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(210, 285)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(139, 19)
-        Me.Label3.TabIndex = 103
-        Me.Label3.Text = "Tipo de Documento:"
-        '
-        'cboDocumento
-        '
-        Me.cboDocumento.FormattingEnabled = True
-        Me.cboDocumento.Location = New System.Drawing.Point(352, 282)
-        Me.cboDocumento.Name = "cboDocumento"
-        Me.cboDocumento.Size = New System.Drawing.Size(196, 27)
-        Me.cboDocumento.TabIndex = 102
-        '
-        'ColumnHeader3
-        '
-        Me.ColumnHeader3.Text = "Documento"
-        Me.ColumnHeader3.Width = 150
-        '
-        'ColumnHeader4
-        '
-        Me.ColumnHeader4.Text = "Area"
-        Me.ColumnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader4.Width = 100
         '
         'frmAgregarNominaK
         '

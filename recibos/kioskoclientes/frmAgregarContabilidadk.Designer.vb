@@ -24,6 +24,8 @@ Partial Class frmAgregarContabilidadk
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAgregarContabilidadk))
         Me.pnlProveedores = New System.Windows.Forms.Panel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.cboDocumento = New System.Windows.Forms.ComboBox()
         Me.cbomes = New System.Windows.Forms.ComboBox()
         Me.cboanio = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -32,6 +34,8 @@ Partial Class frmAgregarContabilidadk
         Me.cmdBorrarArchivo = New System.Windows.Forms.Button()
         Me.lsvArchivo = New System.Windows.Forms.ListView()
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmdborrarfactura = New System.Windows.Forms.Button()
         Me.cmdagregar = New System.Windows.Forms.Button()
         Me.lsvLista = New System.Windows.Forms.ListView()
@@ -44,10 +48,6 @@ Partial Class frmAgregarContabilidadk
         Me.cmdnuevo = New System.Windows.Forms.Button()
         Me.cmdsalir = New System.Windows.Forms.Button()
         Me.cmdguardar = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.cboDocumento = New System.Windows.Forms.ComboBox()
-        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.pnlProveedores.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -74,6 +74,23 @@ Partial Class frmAgregarContabilidadk
         Me.pnlProveedores.Name = "pnlProveedores"
         Me.pnlProveedores.Size = New System.Drawing.Size(629, 513)
         Me.pnlProveedores.TabIndex = 66
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(204, 285)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(139, 19)
+        Me.Label3.TabIndex = 103
+        Me.Label3.Text = "Tipo de Documento:"
+        '
+        'cboDocumento
+        '
+        Me.cboDocumento.FormattingEnabled = True
+        Me.cboDocumento.Location = New System.Drawing.Point(346, 282)
+        Me.cboDocumento.Name = "cboDocumento"
+        Me.cboDocumento.Size = New System.Drawing.Size(269, 27)
+        Me.cboDocumento.TabIndex = 102
         '
         'cbomes
         '
@@ -151,6 +168,16 @@ Partial Class frmAgregarContabilidadk
         '
         Me.ColumnHeader2.Text = "Archivo"
         Me.ColumnHeader2.Width = 300
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Area"
+        Me.ColumnHeader3.Width = 100
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "Documento"
+        Me.ColumnHeader4.Width = 150
         '
         'cmdborrarfactura
         '
@@ -284,33 +311,6 @@ Partial Class frmAgregarContabilidadk
         Me.cmdguardar.Text = "Guardar"
         Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdguardar.UseVisualStyleBackColor = True
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(204, 285)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(139, 19)
-        Me.Label3.TabIndex = 103
-        Me.Label3.Text = "Tipo de Documento:"
-        '
-        'cboDocumento
-        '
-        Me.cboDocumento.FormattingEnabled = True
-        Me.cboDocumento.Location = New System.Drawing.Point(346, 282)
-        Me.cboDocumento.Name = "cboDocumento"
-        Me.cboDocumento.Size = New System.Drawing.Size(196, 27)
-        Me.cboDocumento.TabIndex = 102
-        '
-        'ColumnHeader3
-        '
-        Me.ColumnHeader3.Text = "Area"
-        Me.ColumnHeader3.Width = 100
-        '
-        'ColumnHeader4
-        '
-        Me.ColumnHeader4.Text = "Documento"
-        Me.ColumnHeader4.Width = 150
         '
         'frmAgregarContabilidadk
         '

@@ -30,6 +30,8 @@ Partial Class frmAgregarImss
         Me.cmdsalir = New System.Windows.Forms.Button()
         Me.cmdguardar = New System.Windows.Forms.Button()
         Me.pnlProveedores = New System.Windows.Forms.Panel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.cboDocumento = New System.Windows.Forms.ComboBox()
         Me.cbomes = New System.Windows.Forms.ComboBox()
         Me.cboanio = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -37,17 +39,15 @@ Partial Class frmAgregarImss
         Me.cmdarchivo = New System.Windows.Forms.Button()
         Me.cmdBorrarArchivo = New System.Windows.Forms.Button()
         Me.lsvArchivo = New System.Windows.Forms.ListView()
-        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmdborrarfactura = New System.Windows.Forms.Button()
         Me.cmdagregar = New System.Windows.Forms.Button()
         Me.lsvLista = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cboclientes = New System.Windows.Forms.ComboBox()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.cboDocumento = New System.Windows.Forms.ComboBox()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.pnlProveedores.SuspendLayout()
         Me.SuspendLayout()
@@ -150,6 +150,23 @@ Partial Class frmAgregarImss
         Me.pnlProveedores.Size = New System.Drawing.Size(629, 513)
         Me.pnlProveedores.TabIndex = 68
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(231, 285)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(139, 19)
+        Me.Label3.TabIndex = 101
+        Me.Label3.Text = "Tipo de Documento:"
+        '
+        'cboDocumento
+        '
+        Me.cboDocumento.FormattingEnabled = True
+        Me.cboDocumento.Location = New System.Drawing.Point(373, 282)
+        Me.cboDocumento.Name = "cboDocumento"
+        Me.cboDocumento.Size = New System.Drawing.Size(242, 27)
+        Me.cboDocumento.TabIndex = 100
+        '
         'cbomes
         '
         Me.cbomes.FormattingEnabled = True
@@ -217,15 +234,10 @@ Partial Class frmAgregarImss
         Me.lsvArchivo.Location = New System.Drawing.Point(73, 313)
         Me.lsvArchivo.MultiSelect = False
         Me.lsvArchivo.Name = "lsvArchivo"
-        Me.lsvArchivo.Size = New System.Drawing.Size(496, 193)
+        Me.lsvArchivo.Size = New System.Drawing.Size(542, 193)
         Me.lsvArchivo.TabIndex = 92
         Me.lsvArchivo.UseCompatibleStateImageBehavior = False
         Me.lsvArchivo.View = System.Windows.Forms.View.Details
-        '
-        'ColumnHeader4
-        '
-        Me.ColumnHeader4.Text = "Documento"
-        Me.ColumnHeader4.Width = 150
         '
         'ColumnHeader2
         '
@@ -236,6 +248,11 @@ Partial Class frmAgregarImss
         '
         Me.ColumnHeader3.Text = "Area"
         Me.ColumnHeader3.Width = 100
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "Documento"
+        Me.ColumnHeader4.Width = 150
         '
         'cmdborrarfactura
         '
@@ -295,23 +312,6 @@ Partial Class frmAgregarImss
         Me.Label23.Size = New System.Drawing.Size(66, 19)
         Me.Label23.TabIndex = 49
         Me.Label23.Text = "Clientes:"
-        '
-        'cboDocumento
-        '
-        Me.cboDocumento.FormattingEnabled = True
-        Me.cboDocumento.Location = New System.Drawing.Point(373, 282)
-        Me.cboDocumento.Name = "cboDocumento"
-        Me.cboDocumento.Size = New System.Drawing.Size(196, 27)
-        Me.cboDocumento.TabIndex = 100
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(231, 285)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(139, 19)
-        Me.Label3.TabIndex = 101
-        Me.Label3.Text = "Tipo de Documento:"
         '
         'frmAgregarImss
         '

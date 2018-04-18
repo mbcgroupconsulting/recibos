@@ -62,6 +62,9 @@
                     For Each archivo As ListViewItem In lsvArchivo.Items
 
                         nombrearchivocompleto = cboanio.Text & "-" & cbomes.SelectedIndex + 1 & "-" & datos(0).Tag & "-" & Gen_Psw(15, True) & "-" & archivo.Tag.Replace(" ", "-")
+
+                        Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where Documentos='" & archivo.SubItems(2).Text & "'")
+
                         SQL = "EXEC setInfoKioskoInsertar 0," & cboanio.Text & "," & cbomes.SelectedIndex + 1
                         SQL &= "," & 20
                         SQL &= ",'" & Date.Now.ToShortDateString() & "','" & Date.Now.ToShortDateString()
@@ -72,7 +75,7 @@
                         SQL &= "," & usuario
                         SQL &= ",'" & nombrearchivocompleto
                         SQL &= "'"
-                        SQL &= "," & cboDocumento.SelectedValue
+                        SQL &= "," & doc(0).Item("iIdDocumentos")
 
 
                             FileCopy(archivo.SubItems(0).Text, "C:\Temp\" & nombrearchivocompleto)
@@ -281,7 +284,7 @@
         'Verificar si se tienen permisos
         Try
             SQL = "Select Documentos,iIdDocumentos from Documentos where iEstatus=1 and cArea=2 order by iIdDocumentos  "
-            nCargaCBO(cboDocumento, SQL, "Documentos", "iIdDocumentos")
+            nCargaCBO(cboDocumento, SQL, Trim("Documentos"), "iIdDocumentos")
         Catch ex As Exception
         End Try
     End Sub
@@ -296,4 +299,6 @@
     Private Sub cboclientes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboclientes.SelectedIndexChanged
         lsvLista.Items.Clear()
     End Sub
+
+  
 End Class
