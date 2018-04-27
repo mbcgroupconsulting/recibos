@@ -244,7 +244,7 @@
                         .CheckFileExists = True
                         If .ShowDialog = Windows.Forms.DialogResult.OK Then
 
-                            SQL = "SELECT * FROM Documentos where cArea=3 and iIdDocumentos=" & cboDocumento.SelectedValue
+                            SQL = "SELECT * FROM Documentos where cArea=1 and iIdDocumentos=" & cboDocumento.SelectedValue
                             Dim doc As DataRow() = nConsulta(SQL)
 
 
