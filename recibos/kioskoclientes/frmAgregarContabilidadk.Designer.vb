@@ -78,7 +78,7 @@ Partial Class frmAgregarContabilidadk
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(204, 285)
+        Me.Label3.Location = New System.Drawing.Point(198, 285)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(139, 19)
         Me.Label3.TabIndex = 103
@@ -87,9 +87,9 @@ Partial Class frmAgregarContabilidadk
         'cboDocumento
         '
         Me.cboDocumento.FormattingEnabled = True
-        Me.cboDocumento.Location = New System.Drawing.Point(346, 282)
+        Me.cboDocumento.Location = New System.Drawing.Point(340, 282)
         Me.cboDocumento.Name = "cboDocumento"
-        Me.cboDocumento.Size = New System.Drawing.Size(269, 27)
+        Me.cboDocumento.Size = New System.Drawing.Size(275, 27)
         Me.cboDocumento.TabIndex = 102
         '
         'cbomes

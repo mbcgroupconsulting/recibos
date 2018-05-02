@@ -153,7 +153,7 @@ Partial Class frmAgregarImss
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(231, 285)
+        Me.Label3.Location = New System.Drawing.Point(194, 285)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(139, 19)
         Me.Label3.TabIndex = 101
@@ -162,9 +162,9 @@ Partial Class frmAgregarImss
         'cboDocumento
         '
         Me.cboDocumento.FormattingEnabled = True
-        Me.cboDocumento.Location = New System.Drawing.Point(373, 282)
+        Me.cboDocumento.Location = New System.Drawing.Point(332, 280)
         Me.cboDocumento.Name = "cboDocumento"
-        Me.cboDocumento.Size = New System.Drawing.Size(242, 27)
+        Me.cboDocumento.Size = New System.Drawing.Size(279, 27)
         Me.cboDocumento.TabIndex = 100
         '
         'cbomes

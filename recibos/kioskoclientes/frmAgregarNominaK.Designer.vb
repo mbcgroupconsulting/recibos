@@ -153,7 +153,7 @@ Partial Class frmAgregarNominaK
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(210, 285)
+        Me.Label3.Location = New System.Drawing.Point(199, 285)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(139, 19)
         Me.Label3.TabIndex = 103
@@ -171,9 +171,9 @@ Partial Class frmAgregarNominaK
         'cboDocumento
         '
         Me.cboDocumento.FormattingEnabled = True
-        Me.cboDocumento.Location = New System.Drawing.Point(352, 282)
+        Me.cboDocumento.Location = New System.Drawing.Point(341, 282)
         Me.cboDocumento.Name = "cboDocumento"
-        Me.cboDocumento.Size = New System.Drawing.Size(263, 27)
+        Me.cboDocumento.Size = New System.Drawing.Size(274, 27)
         Me.cboDocumento.TabIndex = 102
         '
         'cboanio

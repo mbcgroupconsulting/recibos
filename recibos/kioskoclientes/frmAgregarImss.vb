@@ -187,6 +187,8 @@
 
             'End If
 
+            'validarTMM()
+
         Catch ex As Exception
 
         End Try
@@ -283,7 +285,17 @@
     Private Sub MostrarDocumentos()
         'Verificar si se tienen permisos
         Try
-            SQL = "Select Documentos,iIdDocumentos from Documentos where iEstatus=1 and cArea=2 order by iIdDocumentos  "
+            SQL = "Select Documentos,iIdDocumentos from Documentos where iEstatus=1 and cArea=2 "
+
+            'If (cboclientes.SelectedIndex = "191" Or
+            '   cboclientes.SelectedIndex = "290" Or
+            '   cboclientes.SelectedIndex = "132" Or
+            '   cboclientes.SelectedIndex = "420") Then
+
+            '    SQL &= "AND iTMM=1  order by iIdDocumentos"
+            'Else
+            '    SQL &= "AND iTMM=0  order by iIdDocumentos"
+            'End If
             nCargaCBO(cboDocumento, SQL, Trim("Documentos"), "iIdDocumentos")
         Catch ex As Exception
         End Try
@@ -300,5 +312,20 @@
         lsvLista.Items.Clear()
     End Sub
 
-  
+    'Public Sub validarTMM()
+    '    SQL = "Select Documentos,iIdDocumentos from Documentos where iEstatus=1 and cArea=2 "
+
+    '    If (cboclientes.SelectedIndex = "191" Or
+    '       cboclientes.SelectedIndex = "290" Or
+    '       cboclientes.SelectedIndex = "132" Or
+    '       cboclientes.SelectedIndex = "420" Or
+    '       cboclientes.SelectedIndex = "469") Then
+
+    '        SQL &= "AND iTMM=1  order by iIdDocumentos"
+    '    Else
+    '        SQL &= "AND iTMM=0  order by iIdDocumentos"
+    '    End If
+    '    nCargaCBO(cboDocumento, SQL, Trim("Documentos"), "iIdDocumentos")
+
+    'End Sub
 End Class
