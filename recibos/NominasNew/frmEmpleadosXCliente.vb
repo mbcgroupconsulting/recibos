@@ -1003,4 +1003,10 @@ Public Class frmEmpleadosXCliente
     End Sub
 
 
+    Private Sub chkAll_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkAll.CheckedChanged
+        For Each item As ListViewItem In lsvLista.Items
+            item.Checked = chkAll.Checked
+        Next
+        chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
+    End Sub
 End Class

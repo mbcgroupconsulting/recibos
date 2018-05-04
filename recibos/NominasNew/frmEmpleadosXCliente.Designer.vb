@@ -42,6 +42,7 @@ Partial Class frmEmpleadosXCliente
         Me.Label3 = New System.Windows.Forms.Label()
         Me.cmdexcel = New System.Windows.Forms.Button()
         Me.btnExport = New System.Windows.Forms.Button()
+        Me.chkAll = New System.Windows.Forms.CheckBox()
         Me.pnlVentana.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -51,6 +52,7 @@ Partial Class frmEmpleadosXCliente
         Me.pnlVentana.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlVentana.Controls.Add(Me.chkAll)
         Me.pnlVentana.Controls.Add(Me.btnDepto)
         Me.pnlVentana.Controls.Add(Me.btnPuestoN)
         Me.pnlVentana.Controls.Add(Me.txtCodigo)
@@ -148,7 +150,7 @@ Partial Class frmEmpleadosXCliente
         Me.lsvLista.Location = New System.Drawing.Point(5, 150)
         Me.lsvLista.MultiSelect = False
         Me.lsvLista.Name = "lsvLista"
-        Me.lsvLista.Size = New System.Drawing.Size(1004, 304)
+        Me.lsvLista.Size = New System.Drawing.Size(1004, 266)
         Me.lsvLista.TabIndex = 19
         Me.lsvLista.UseCompatibleStateImageBehavior = False
         Me.lsvLista.View = System.Windows.Forms.View.Details
@@ -253,6 +255,18 @@ Partial Class frmEmpleadosXCliente
         Me.btnExport.Text = "Exportar CONTPAQ"
         Me.btnExport.UseVisualStyleBackColor = True
         '
+        'chkAll
+        '
+        Me.chkAll.AutoSize = True
+        Me.chkAll.BackColor = System.Drawing.Color.Transparent
+        Me.chkAll.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkAll.Location = New System.Drawing.Point(8, 125)
+        Me.chkAll.Name = "chkAll"
+        Me.chkAll.Size = New System.Drawing.Size(107, 22)
+        Me.chkAll.TabIndex = 25
+        Me.chkAll.Text = "Marcar todos"
+        Me.chkAll.UseVisualStyleBackColor = False
+        '
         'frmEmpleadosXCliente
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -296,4 +310,5 @@ Partial Class frmEmpleadosXCliente
     Friend WithEvents btnPuestoN As System.Windows.Forms.Button
     Friend WithEvents btnDepto As System.Windows.Forms.Button
     Friend WithEvents btnExport As System.Windows.Forms.Button
+    Friend WithEvents chkAll As System.Windows.Forms.CheckBox
 End Class
