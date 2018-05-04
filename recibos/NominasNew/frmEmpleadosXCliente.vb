@@ -578,6 +578,7 @@ Public Class frmEmpleadosXCliente
             Dim x As Integer
             Dim s As String = ""
 
+         
             Dim dialogo As New SaveFileDialog()
             Dim sRenglon As String = Nothing
             Dim strStreamW As Stream = Nothing
@@ -1003,4 +1004,10 @@ Public Class frmEmpleadosXCliente
     End Sub
 
 
+    Private Sub chkAll_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkAll.CheckedChanged
+        For Each item As ListViewItem In lsvLista.Items
+            item.Checked = chkAll.Checked
+        Next
+        chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
+    End Sub
 End Class
