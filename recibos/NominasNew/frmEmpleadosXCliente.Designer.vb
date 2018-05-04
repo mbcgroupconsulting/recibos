@@ -42,7 +42,6 @@ Partial Class frmEmpleadosXCliente
         Me.Label3 = New System.Windows.Forms.Label()
         Me.cmdexcel = New System.Windows.Forms.Button()
         Me.btnExport = New System.Windows.Forms.Button()
-        Me.chkAll = New System.Windows.Forms.CheckBox()
         Me.pnlVentana.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -52,7 +51,6 @@ Partial Class frmEmpleadosXCliente
         Me.pnlVentana.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.pnlVentana.Controls.Add(Me.chkAll)
         Me.pnlVentana.Controls.Add(Me.btnDepto)
         Me.pnlVentana.Controls.Add(Me.btnPuestoN)
         Me.pnlVentana.Controls.Add(Me.txtCodigo)
@@ -68,7 +66,7 @@ Partial Class frmEmpleadosXCliente
         Me.pnlVentana.Controls.Add(Me.Label1)
         Me.pnlVentana.Location = New System.Drawing.Point(5, 6)
         Me.pnlVentana.Name = "pnlVentana"
-        Me.pnlVentana.Size = New System.Drawing.Size(1103, 412)
+        Me.pnlVentana.Size = New System.Drawing.Size(1012, 434)
         Me.pnlVentana.TabIndex = 12
         '
         'btnDepto
@@ -147,10 +145,10 @@ Partial Class frmEmpleadosXCliente
         Me.lsvLista.FullRowSelect = True
         Me.lsvLista.GridLines = True
         Me.lsvLista.HideSelection = False
-        Me.lsvLista.Location = New System.Drawing.Point(5, 148)
+        Me.lsvLista.Location = New System.Drawing.Point(5, 150)
         Me.lsvLista.MultiSelect = False
         Me.lsvLista.Name = "lsvLista"
-        Me.lsvLista.Size = New System.Drawing.Size(1095, 211)
+        Me.lsvLista.Size = New System.Drawing.Size(1004, 304)
         Me.lsvLista.TabIndex = 19
         Me.lsvLista.UseCompatibleStateImageBehavior = False
         Me.lsvLista.View = System.Windows.Forms.View.Details
@@ -218,26 +216,27 @@ Partial Class frmEmpleadosXCliente
         '
         'cbosucursales
         '
-        Me.cbosucursales.Cursor = System.Windows.Forms.Cursors.Arrow
         Me.cbosucursales.FormattingEnabled = True
-        Me.cbosucursales.Location = New System.Drawing.Point(96, 496)
+        Me.cbosucursales.Location = New System.Drawing.Point(122, 446)
         Me.cbosucursales.Name = "cbosucursales"
         Me.cbosucursales.Size = New System.Drawing.Size(330, 26)
         Me.cbosucursales.TabIndex = 15
+        Me.cbosucursales.Visible = False
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(23, 499)
+        Me.Label3.Location = New System.Drawing.Point(49, 449)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(77, 18)
         Me.Label3.TabIndex = 14
         Me.Label3.Text = "Sucursales:"
+        Me.Label3.Visible = False
         '
         'cmdexcel
         '
         Me.cmdexcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdexcel.Location = New System.Drawing.Point(993, 495)
+        Me.cmdexcel.Location = New System.Drawing.Point(902, 446)
         Me.cmdexcel.Name = "cmdexcel"
         Me.cmdexcel.Size = New System.Drawing.Size(112, 26)
         Me.cmdexcel.TabIndex = 24
@@ -247,30 +246,17 @@ Partial Class frmEmpleadosXCliente
         'btnExport
         '
         Me.btnExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExport.Location = New System.Drawing.Point(842, 496)
+        Me.btnExport.Location = New System.Drawing.Point(751, 447)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(145, 24)
         Me.btnExport.TabIndex = 25
         Me.btnExport.Text = "Exportar CONTPAQ"
-        Me.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         Me.btnExport.UseVisualStyleBackColor = True
-        '
-        'chkAll
-        '
-        Me.chkAll.AutoSize = True
-        Me.chkAll.BackColor = System.Drawing.Color.Transparent
-        Me.chkAll.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkAll.Location = New System.Drawing.Point(5, 125)
-        Me.chkAll.Name = "chkAll"
-        Me.chkAll.Size = New System.Drawing.Size(107, 22)
-        Me.chkAll.TabIndex = 25
-        Me.chkAll.Text = "Marcar todos"
-        Me.chkAll.UseVisualStyleBackColor = False
         '
         'frmEmpleadosXCliente
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(1112, 533)
+        Me.ClientSize = New System.Drawing.Size(1021, 484)
         Me.Controls.Add(Me.btnExport)
         Me.Controls.Add(Me.cmdexcel)
         Me.Controls.Add(Me.pnlVentana)
@@ -310,5 +296,4 @@ Partial Class frmEmpleadosXCliente
     Friend WithEvents btnPuestoN As System.Windows.Forms.Button
     Friend WithEvents btnDepto As System.Windows.Forms.Button
     Friend WithEvents btnExport As System.Windows.Forms.Button
-    Friend WithEvents chkAll As System.Windows.Forms.CheckBox
 End Class
