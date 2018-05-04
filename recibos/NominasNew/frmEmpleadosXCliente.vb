@@ -701,7 +701,7 @@ Public Class frmEmpleadosXCliente
 
     End Sub
 
-   
+
 
 
 
@@ -852,27 +852,27 @@ Public Class frmEmpleadosXCliente
     Public Sub ImportarExcel()
         Try
 
-        
-        Dim filaExcel As Integer = 2
-        Dim dialogo As New SaveFileDialog()
-        If lsvLista.CheckedItems.Count > 0 Then
 
-            Dim libro As New ClosedXML.Excel.XLWorkbook
-            Dim hoja As IXLWorksheet = libro.Worksheets.Add("Flujo")
-            hoja.Column("A").Width = 20
-            hoja.Column("B").Width = 15
-            hoja.Column("C").Width = 15
-            hoja.Column("D").Width = 12
-            hoja.Column("E").Width = 12
-            hoja.Column("F").Width = 25
-            hoja.Column("G").Width = 15
-            hoja.Column("H").Width = 15
-            hoja.Column("I").Width = 25
-            hoja.Column("J").Width = 15
-            hoja.Column("K").Width = 15
-            hoja.Column("L").Width = 15
-            hoja.Column("M").Width = 15
-            hoja.Column("N").Width = 50
+            Dim filaExcel As Integer = 2
+            Dim dialogo As New SaveFileDialog()
+            If lsvLista.CheckedItems.Count > 0 Then
+
+                Dim libro As New ClosedXML.Excel.XLWorkbook
+                Dim hoja As IXLWorksheet = libro.Worksheets.Add("Flujo")
+                hoja.Column("A").Width = 20
+                hoja.Column("B").Width = 15
+                hoja.Column("C").Width = 15
+                hoja.Column("D").Width = 12
+                hoja.Column("E").Width = 12
+                hoja.Column("F").Width = 25
+                hoja.Column("G").Width = 15
+                hoja.Column("H").Width = 15
+                hoja.Column("I").Width = 25
+                hoja.Column("J").Width = 15
+                hoja.Column("K").Width = 15
+                hoja.Column("L").Width = 15
+                hoja.Column("M").Width = 15
+                hoja.Column("N").Width = 50
                 hoja.Column("O").Width = 12
 
                 hoja.Cell(1, 1).Value = ("Codigo")
@@ -923,7 +923,7 @@ Public Class frmEmpleadosXCliente
                 hoja.Range(1, 1, 1, 41).Style.Alignment.WrapText = True
                 hoja.Range(1, 1, 1, 41).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
                 hoja.Range(1, 1, 1, 41).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
-            'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
+                'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
                 hoja.Range(1, 1, 1, 41).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
                 hoja.Range(1, 1, 1, 41).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
 
@@ -981,16 +981,16 @@ Public Class frmEmpleadosXCliente
                 Dim e As DataRow() = nConsulta(SQL)
                 Dim c As DataRow() = nConsulta("select * from clientes where iIdCliente =" & cboclientes.SelectedValue)
 
-            Dim moment As Date = Date.Now()
-            Dim month As Integer = moment.Month
-            Dim year As Integer = moment.Year
-            dialogo.DefaultExt = "*.xlsx"
+                Dim moment As Date = Date.Now()
+                Dim month As Integer = moment.Month
+                Dim year As Integer = moment.Year
+                dialogo.DefaultExt = "*.xlsx"
                 dialogo.FileName = "Empleados Excel de " & e(0).Item("nombre").ToString & " " & "--" & " " & c(0).Item("nombre").ToString
                 dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
-            dialogo.ShowDialog()
-            libro.SaveAs(dialogo.FileName)
-         
-            MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                dialogo.ShowDialog()
+                libro.SaveAs(dialogo.FileName)
+
+                MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
 
 
@@ -1003,4 +1003,10 @@ Public Class frmEmpleadosXCliente
     End Sub
 
 
+    Private Sub chkAll_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkAll.CheckedChanged
+        For Each item As ListViewItem In lsvLista.Items
+            item.Checked = chkAll.Checked
+        Next
+        chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
+    End Sub
 End Class

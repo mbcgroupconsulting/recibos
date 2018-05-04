@@ -542,7 +542,7 @@ Public Class frmAltaEmpleadoNew
                 Mensaje = "Indique estado de presentaciôn de servicios"
             End If
 
-            If txtcorreo.Text.Trim.Length > 0 And Mensaje = "" Then
+            If txtcorreo.Text.Trim.Length > -1 And Mensaje = "" Then
                 If Not Regex.IsMatch(txtcorreo.Text, "^([\w-]+\.)*?[\w-]+@[\w-]+\.([\w-]+\.)*?[\w]+$") Then
                     Mensaje = "El email no tiene una forma correcta de correo electrónico (usuario@dominio.com)."
                     Me.txtcorreo.Focus()

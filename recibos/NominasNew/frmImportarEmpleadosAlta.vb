@@ -452,6 +452,7 @@ Public Class frmImportarEmpleadosAlta
 
                     MessageBox.Show(t.ToString() & "  Proceso terminado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
+                    pnlProgreso.Visible = False
                     MessageBox.Show("No se guardo ninguna dato, revise y vuelva a intentarlo ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
 
@@ -509,4 +510,6 @@ Public Class frmImportarEmpleadosAlta
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information)
     End Sub
+
+
 End Class
