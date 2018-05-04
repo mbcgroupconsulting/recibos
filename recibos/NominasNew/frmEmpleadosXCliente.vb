@@ -366,7 +366,7 @@ Public Class frmEmpleadosXCliente
             If txtCodigo.Text = "" Then
                 MessageBox.Show("Escriba el codigo del empleado en la caja de texto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
-                SQL = "select * from empleados "
+                SQL = "select * from empleadosAlta "
                 SQL &= " where (fkiIdCliente=" & cboclientes.SelectedValue & " and fkiIdEmpresa=" & cboempresas.SelectedValue & " AND cCodigoEmpleado =" & txtCodigo.Text & ")"
 
                 SQL &= " order by cCodigoEmpleado,cNombre,cApellidoP,cApellidoM "

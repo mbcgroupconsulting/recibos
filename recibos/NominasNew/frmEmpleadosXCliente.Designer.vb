@@ -23,6 +23,7 @@ Partial Class frmEmpleadosXCliente
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.pnlVentana = New System.Windows.Forms.Panel()
+        Me.chkAll = New System.Windows.Forms.CheckBox()
         Me.btnDepto = New System.Windows.Forms.Button()
         Me.btnPuestoN = New System.Windows.Forms.Button()
         Me.txtCodigo = New System.Windows.Forms.TextBox()
@@ -42,7 +43,6 @@ Partial Class frmEmpleadosXCliente
         Me.Label3 = New System.Windows.Forms.Label()
         Me.cmdexcel = New System.Windows.Forms.Button()
         Me.btnExport = New System.Windows.Forms.Button()
-        Me.chkAll = New System.Windows.Forms.CheckBox()
         Me.pnlVentana.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -70,6 +70,18 @@ Partial Class frmEmpleadosXCliente
         Me.pnlVentana.Name = "pnlVentana"
         Me.pnlVentana.Size = New System.Drawing.Size(1012, 434)
         Me.pnlVentana.TabIndex = 12
+        '
+        'chkAll
+        '
+        Me.chkAll.AutoSize = True
+        Me.chkAll.BackColor = System.Drawing.Color.Transparent
+        Me.chkAll.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkAll.Location = New System.Drawing.Point(8, 125)
+        Me.chkAll.Name = "chkAll"
+        Me.chkAll.Size = New System.Drawing.Size(107, 22)
+        Me.chkAll.TabIndex = 25
+        Me.chkAll.Text = "Marcar todos"
+        Me.chkAll.UseVisualStyleBackColor = False
         '
         'btnDepto
         '
@@ -254,18 +266,6 @@ Partial Class frmEmpleadosXCliente
         Me.btnExport.TabIndex = 25
         Me.btnExport.Text = "Exportar CONTPAQ"
         Me.btnExport.UseVisualStyleBackColor = True
-        '
-        'chkAll
-        '
-        Me.chkAll.AutoSize = True
-        Me.chkAll.BackColor = System.Drawing.Color.Transparent
-        Me.chkAll.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkAll.Location = New System.Drawing.Point(8, 125)
-        Me.chkAll.Name = "chkAll"
-        Me.chkAll.Size = New System.Drawing.Size(107, 22)
-        Me.chkAll.TabIndex = 25
-        Me.chkAll.Text = "Marcar todos"
-        Me.chkAll.UseVisualStyleBackColor = False
         '
         'frmEmpleadosXCliente
         '
