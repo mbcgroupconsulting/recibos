@@ -6,16 +6,26 @@
         cmdguardar.Enabled = False
         cmdcancelar.Enabled = False
         MostrarEmpresa()
+        MostrarDocumentos()
     End Sub
     Private Sub MostrarEmpresa()
         'Verificar si se tienen permisos
         Try
             Sql = "Select nombre,iIdEmpresa from empresa where iEstatus=1 order by nombre  "
-            nCargaCBO(cboempresa, Sql, "nombre", "iIdEmpresa")
+            nCargaCBO(cboempresa, SQL, "nombre", "iIdEmpresa")
         Catch ex As Exception
         End Try
     End Sub
-    Private Sub cmdnuevo_Click(sender As Object, e As EventArgs) Handles cmdnuevo.Click
+    Private Sub MostrarDocumentos()
+        'Verificar si se tienen permisos
+        Try
+            SQL = "Select Documentos,iIdDocumentos from Documentos where iEstatus=1 and cArea=1 order by iIdDocumentos  "
+            nCargaCBO(cboDocumento, SQL, Trim("Documentos"), "iIdDocumentos")
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub cmdnuevo_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdnuevo.Click
         pnlProveedores.Enabled = True
         'MostrarCliente2()
 
@@ -65,6 +75,7 @@
 
                 For Each renglon As ListViewItem In lsvLista.Items
                     For Each archivo As ListViewItem In lsvArchivo.Items
+                        Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where Documentos='" & archivo.SubItems(2).Text & "'")
 
                         nombrearchivocompleto = cboanio.Text & "-" & cbomes.SelectedIndex + 1 & "-" & renglon.Tag & "-" & Gen_Psw(15, True) & "-" & archivo.Tag.Replace(" ", "-")
                         SQL = "EXEC setInfoKioskoInsertar 0," & cboanio.Text & "," & cbomes.SelectedIndex + 1
@@ -77,10 +88,11 @@
                         SQL &= "," & usuario
                         SQL &= ",'" & nombrearchivocompleto
                         SQL &= "'"
+                        SQL &= "," & doc(0).Item("iIdDocumentos")
 
                         FileCopy(archivo.SubItems(0).Text, "C:\Temp\" & nombrearchivocompleto)
 
-                        My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
+                        '' My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
 
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Ocurrio un error," & SQL, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -220,22 +232,40 @@
         Dim item As ListViewItem
         Dim Alter As Boolean = False
         Try
+            If cboDocumento.SelectedValue <> Nothing Then
+
+                Dim valor As ListViewItem = lsvArchivo.FindItemWithText(cboDocumento.Text)
+                If valor Is Nothing Then
 
 
-            With dialogo
-                .Title = "Búsqueda de archivos."
-                .Filter = "Archivos pdf (pdf)|*.pdf;"
-                .CheckFileExists = True
-                If .ShowDialog = Windows.Forms.DialogResult.OK Then
+                    With dialogo
+                        .Title = "Búsqueda de archivos."
+                        .Filter = "Archivos pdf (pdf)|*.pdf;"
+                        .CheckFileExists = True
+                        If .ShowDialog = Windows.Forms.DialogResult.OK Then
 
-                    item = lsvArchivo.Items.Add(.FileName)
-                    item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
+                            SQL = "SELECT * FROM Documentos where cArea=1 and iIdDocumentos=" & cboDocumento.SelectedValue
+                            Dim doc As DataRow() = nConsulta(SQL)
 
-                    item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
-                    Alter = Not Alter
+
+                            item = lsvArchivo.Items.Add(.FileName)
+                            item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
+                            item.SubItems.Add("Contabilidad")
+                            item.SubItems.Add(doc(0).Item("Documentos"))
+                            item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
+                            Alter = Not Alter
+
+                        End If
+                    End With
+                Else
+
+                    MessageBox.Show("Escoja otro tipo de documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 End If
-            End With
+            Else
+                MessageBox.Show("Seleccione el tipo de documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            End If
 
         Catch ex As Exception
 

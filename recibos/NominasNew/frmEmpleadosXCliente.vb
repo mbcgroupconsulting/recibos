@@ -229,7 +229,7 @@ Public Class frmEmpleadosXCliente
             lsvLista.Columns(31).Width = 100
             lsvLista.Columns.Add("Lugar Prestacion")
             lsvLista.Columns(32).Width = 300
-            lsvLista.Columns.Add("Duracion Contrato")
+            lsvLista.Columns.Add("Termino de contrato")
             lsvLista.Columns(33).Width = 100
             lsvLista.Columns.Add("Tipo Jornada")
             lsvLista.Columns(34).Width = 100
@@ -310,7 +310,8 @@ Public Class frmEmpleadosXCliente
                     item.SubItems.Add("" & Fila.Item("cCP"))
                     item.SubItems.Add("" & Fila.Item("dFechaAntiguedad"))
                     item.SubItems.Add("" & Fila.Item("cCalleNumero") & "" & Fila.Item("cCiudadP"))
-                    item.SubItems.Add("" & Fila.Item("cDuracionContrato"))
+                    ''item.SubItems.Add("" & Fila.Item("cDuracionContrato").ToString)
+                    item.SubItems.Add("" & Fila.Item("dFechaTerminoContrato").ToString)
                     SQL = "select * from Cat_TipoJornadaAlta where iIdTipoJornadaAlta=" & Fila.Item("cJornada")
                     Dim jornada As DataRow() = nConsulta(SQL)
 
@@ -365,7 +366,7 @@ Public Class frmEmpleadosXCliente
             If txtCodigo.Text = "" Then
                 MessageBox.Show("Escriba el codigo del empleado en la caja de texto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
-                SQL = "select * from empleados "
+                SQL = "select * from empleadosAlta "
                 SQL &= " where (fkiIdCliente=" & cboclientes.SelectedValue & " and fkiIdEmpresa=" & cboempresas.SelectedValue & " AND cCodigoEmpleado =" & txtCodigo.Text & ")"
 
                 SQL &= " order by cCodigoEmpleado,cNombre,cApellidoP,cApellidoM "
@@ -700,236 +701,300 @@ Public Class frmEmpleadosXCliente
 
     End Sub
 
-    'Public Sub exportarTXT()
-
-    '    Dim dialogo As New SaveFileDialog()
-    '    Dim sRenglon As String = Nothing
-    '    Dim strStreamW As Stream = Nothing
-    '    Dim strStreamWriter As StreamWriter = Nothing
-    '    Dim ContenidoArchivo As String = Nothing
-    '    Dim validar As Boolean
-    '    Dim numcuenta As String
-    '    Dim nombre As String
-    '    Dim PathArchivo As String
-    '    Dim contador As Integer
-    '    Dim sql As String
-
-
-    '    dialogo.DefaultExt = "*.txt"
-    '    dialogo.FileName = "Layout Bancomer"
-    '    dialogo.Filter = "Archivos de texto (*.txt)|*.txt"
-    '    dialogo.ShowDialog()
-    '    PathArchivo = ""
-    '    PathArchivo = dialogo.FileName
-
-    '    If PathArchivo <> "" Then
-    '        strStreamW = File.Create(PathArchivo) ' lo creamos
-    '        strStreamWriter = New StreamWriter(strStreamW, System.Text.Encoding.Default) ' tipo de codificacion para escritura
-
-    '        contador = 1
-    '        sRenglon = ""
-
-
-    '        sRenglon = contador.ToString("000000000")
-    '        sRenglon &= "                "
-    '        sRenglon &= "99"
-
-    '        'BANCO RECEPTOR 
-
-    '        numcuenta = ""
-
-    '        sql = "select * from EmpleadosC where iIdEmpleadoC = " & lsvLista.Rows(x).Cells(2).Value
-    '        Dim rwDatosCuenta As DataRow() = nConsulta(sql)
-
-    '        If rwDatosCuenta Is Nothing = False Then
-    '            If chkSindicato.Checked Then
-    '                numcuenta = IIf(rwDatosCuenta(0)("cuenta2") = "", "0000000000", rwDatosCuenta(0)("cuenta2"))
-    '            Else
-    '                numcuenta = dtgDatos.Rows(x).Cells(3).Value
-    '            End If
-    '        End If
-
-
-    '        'numcuenta = dtgDatos.Rows(x).Cells(3).Value
-
-    '        For y As Integer = numcuenta.Length To 19
-    '            numcuenta &= " "
-    '        Next
-    '        sRenglon &= numcuenta
-    '        'Neto SA 
-    '        If chkSindicato.Checked Then
-    '            sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(14).Value) * 100).ToString("000000000000000")
-    '        Else
-    '            sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(7).Value) * 100).ToString("000000000000000")
-    '        End If
-
-
-    '        nombre = dtgDatos.Rows(x).Cells(5).Value
-    '        If nombre.Length < 41 Then
-    '            For y As Integer = nombre.Length To 39
-    '                nombre &= " "
-    '            Next
-
-    '        Else
-    '            nombre = nombre.Substring(0, 40)
-    '        End If
-
-    '        nombre = RemoverBasura(nombre)
-    '        sRenglon &= nombre
-    '        sRenglon &= "001"
-    '        sRenglon &= "001"
-
-
-    '        strStreamWriter.WriteLine(sRenglon)
-    '        contador = contador + 1
-    '    End If
-
-
-    '                        Next
-    '    'escribimos en el archivo
-
-
-
-    '    strStreamWriter.Close() ' cerramos
-
-    '    MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-
-
-
-    'End Sub
 
 
 
 
     Private Sub cmdexcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdexcel.Click
 
+
+        ImportarExcel()
+        'Try
+
+        '    Dim filaExcel As Integer = 5
+        '    Dim dialogo As New SaveFileDialog()
+        '    Dim idtipo As Integer
+        '    Dim Alter As Boolean = False
+        '    '' Dim tiempo As TimeSpan = fin - inicio 
+        '    Dim sumatoria As Double
+
+        '    If lsvLista.CheckedItems.Count <> 0 Then
+        '        For x = 0 To lsvLista.CheckedItems.Count - 1
+
+        '            SQL = "select * from empleadosAlta where iIdEmpleadoAlta= " & lsvLista.CheckedItems(x).Tag
+        '            sumatoria = 0
+
+        '            Dim rwDatos As DataRow() = nConsulta(SQL)
+        '            If rwDatos Is Nothing = False Then
+
+        '                Dim libro As New ClosedXML.Excel.XLWorkbook
+        '                Dim hoja As IXLWorksheet = libro.Worksheets.Add("Flujo")
+        '                hoja.Column("A").Width = 20
+        '                hoja.Column("B").Width = 15
+        '                hoja.Column("C").Width = 15
+        '                hoja.Column("D").Width = 12
+        '                hoja.Column("E").Width = 12
+        '                hoja.Column("F").Width = 25
+        '                hoja.Column("G").Width = 15
+        '                hoja.Column("H").Width = 15
+        '                hoja.Column("I").Width = 25
+        '                hoja.Column("J").Width = 15
+        '                hoja.Column("K").Width = 15
+        '                hoja.Column("L").Width = 15
+        '                hoja.Column("M").Width = 15
+        '                hoja.Column("N").Width = 50
+        '                hoja.Column("O").Width = 12
+
+        '                hoja.Range(1, 1, 1, 15).Style.Font.FontSize = 10
+        '                hoja.Range(1, 1, 1, 15).Style.Font.SetBold(True)
+        '                hoja.Range(1, 1, 1, 15).Style.Alignment.WrapText = True
+        '                hoja.Range(1, 1, 1, 15).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+        '                hoja.Range(1, 1, 1, 15).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+        '                'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
+        '                hoja.Range(1, 1, 1, 15).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
+        '                hoja.Range(1, 1, 1, 15).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
+
+        '                'hoja.Cell(4, 1).Value = "Num"
+
+        '                'hoja.Cell(1, 1).Value = "IdFacturaConcepto"
+        '                'hoja.Cell(1, 2).Value = "Mov. Flujo"
+        '                'hoja.Cell(1, 3).Value = "Mes"
+        '                'hoja.Cell(1, 4).Value = "Fecha"
+        '                'hoja.Cell(1, 5).Value = "Id Cliente"
+        '                'hoja.Cell(1, 6).Value = "Cliente"
+        '                'hoja.Cell(1, 7).Value = "Mov"
+        '                'hoja.Cell(1, 8).Value = "Id Pagadora"
+        '                'hoja.Cell(1, 9).Value = "Pagadora"
+        '                'hoja.Cell(1, 10).Value = "Importe"
+        '                'hoja.Cell(1, 11).Value = "IVA"
+        '                'hoja.Cell(1, 12).Value = "Total"
+        '                'hoja.Cell(1, 13).Value = "Clave Sat"
+        '                'hoja.Cell(1, 14).Value = "Concepto"
+        '                'hoja.Cell(1, 15).Value = "Num Factura"
+
+
+        '                filaExcel = 1
+        '                For Each Fila In rwDatos
+        '                    filaExcel = filaExcel + 1
+
+        '                    hoja.Cell(filaExcel, 1).Value = Fila.Item("iIdFacturaConcepto")
+        '                    hoja.Cell(filaExcel, 2).Value = Fila.Item("NumeroFlujo")
+        '                    hoja.Cell(filaExcel, 3).Value = MonthName(Date.Parse(Fila.Item("FechaFlujo")).Month)
+        '                    hoja.Cell(filaExcel, 4).Value = Fila.Item("FechaFlujo")
+        '                    hoja.Cell(filaExcel, 5).Value = ""
+        '                    hoja.Cell(filaExcel, 6).Value = Fila.Item("Cliente")
+        '                    hoja.Cell(filaExcel, 7).Value = Fila.Item("Tipo")
+        '                    hoja.Cell(filaExcel, 8).Value = ""
+        '                    hoja.Cell(filaExcel, 9).Value = Fila.Item("Prestadora")
+        '                    hoja.Cell(filaExcel, 10).Value = Format(CType(Fila.Item("subtotal"), Decimal), "###,###,##0.#0")
+        '                    hoja.Cell(filaExcel, 11).Value = Format(CType(Fila.Item("iva"), Decimal), "###,###,##0.#0")
+        '                    hoja.Cell(filaExcel, 12).Value = Format(CType(Fila.Item("total"), Decimal), "###,###,##0.#0")
+        '                    hoja.Cell(filaExcel, 13).Value = Fila.Item("ClaveSat")
+        '                    hoja.Cell(filaExcel, 14).Value = Fila.Item("Concepto")
+
+
+
+
+
+        '                    'If Fila.Item("fkiIdFactura").ToString = "0" Then
+        '                    '    hoja.Cell(filaExcel, 15).Value = ""
+        '                    'Else
+        '                    '    'Buscamos el numero de factura
+        '                    '    SQL = "select * from facturas where "
+        '                    '    SQL &= "iIdFactura=" & Fila.Item("fkiIdFactura").ToString
+
+
+        '                    '    Dim rwNumFactura As DataRow() = nConsulta(SQL)
+        '                    '    If rwNumFactura Is Nothing = False Then
+        '                    '        hoja.Cell(filaExcel, 15).Value = rwNumFactura(0)("numfactura").ToString
+
+        '                    '    End If
+
+        '                    'End If
+
+
+        '                    hoja.Range(2, 9, 1500, 11).Style.NumberFormat.SetFormat("###,###,##0.#0")
+
+
+
+        '                Next
+
+        '                dialogo.DefaultExt = "*.xlsx"
+        '                dialogo.FileName = "Empleados"
+        '                dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
+        '                dialogo.ShowDialog()
+        '                libro.SaveAs(dialogo.FileName)
+        '                'libro.SaveAs("c:\temp\control.xlsx")
+        '                'libro.SaveAs(dialogo.FileName)
+        '                'apExcel.Quit()
+        '                libro = Nothing
+        '                MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        '            Else
+        '                MessageBox.Show("No se encontraron datos en ese rango de fecha", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        '            End If
+        '        Next
+
+
+        '    End If
+
+
+
+
+
+
+        'Catch ex As Exception
+
+        'End Try
+
+    End Sub
+
+    Public Sub ImportarExcel()
         Try
-            Dim filaExcel As Integer = 5
+
+
+            Dim filaExcel As Integer = 2
             Dim dialogo As New SaveFileDialog()
-            Dim idtipo As Integer
-            Dim Alter As Boolean = False
-            '' Dim tiempo As TimeSpan = fin - inicio 
-            Dim sumatoria As Double
-            If lsvLista.CheckedItems.Count <> 0 Then
-                For x = 0 To lsvLista.CheckedItems.Count - 1
+            If lsvLista.CheckedItems.Count > 0 Then
 
-                    SQL = "select * from empleadosAlta where iIdEmpleadoAlta= " & lsvLista.CheckedItems(x).Tag
-                    sumatoria = 0
+                Dim libro As New ClosedXML.Excel.XLWorkbook
+                Dim hoja As IXLWorksheet = libro.Worksheets.Add("Flujo")
+                hoja.Column("A").Width = 20
+                hoja.Column("B").Width = 15
+                hoja.Column("C").Width = 15
+                hoja.Column("D").Width = 12
+                hoja.Column("E").Width = 12
+                hoja.Column("F").Width = 25
+                hoja.Column("G").Width = 15
+                hoja.Column("H").Width = 15
+                hoja.Column("I").Width = 25
+                hoja.Column("J").Width = 15
+                hoja.Column("K").Width = 15
+                hoja.Column("L").Width = 15
+                hoja.Column("M").Width = 15
+                hoja.Column("N").Width = 50
+                hoja.Column("O").Width = 12
 
-                    Dim rwDatos As DataRow() = nConsulta(SQL)
-                    If rwDatos Is Nothing = False Then
-
-                        Dim libro As New ClosedXML.Excel.XLWorkbook
-                        Dim hoja As IXLWorksheet = libro.Worksheets.Add("Flujo")
-                        hoja.Column("A").Width = 20
-                        hoja.Column("B").Width = 15
-                        hoja.Column("C").Width = 15
-                        hoja.Column("D").Width = 12
-                        hoja.Column("E").Width = 12
-                        hoja.Column("F").Width = 25
-                        hoja.Column("G").Width = 15
-                        hoja.Column("H").Width = 15
-                        hoja.Column("I").Width = 25
-                        hoja.Column("J").Width = 15
-                        hoja.Column("K").Width = 15
-                        hoja.Column("L").Width = 15
-                        hoja.Column("M").Width = 15
-                        hoja.Column("N").Width = 50
-                        hoja.Column("O").Width = 12
-
-                        hoja.Range(1, 1, 1, 15).Style.Font.FontSize = 10
-                        hoja.Range(1, 1, 1, 15).Style.Font.SetBold(True)
-                        hoja.Range(1, 1, 1, 15).Style.Alignment.WrapText = True
-                        hoja.Range(1, 1, 1, 15).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
-                        hoja.Range(1, 1, 1, 15).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
-                        'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
-                        hoja.Range(1, 1, 1, 15).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
-                        hoja.Range(1, 1, 1, 15).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
-
-                        'hoja.Cell(4, 1).Value = "Num"
-
-                        hoja.Cell(1, 1).Value = "IdFacturaConcepto"
-                        hoja.Cell(1, 2).Value = "Mov. Flujo"
-                        hoja.Cell(1, 3).Value = "Mes"
-                        hoja.Cell(1, 4).Value = "Fecha"
-                        hoja.Cell(1, 5).Value = "Id Cliente"
-                        hoja.Cell(1, 6).Value = "Cliente"
-                        hoja.Cell(1, 7).Value = "Mov"
-                        hoja.Cell(1, 8).Value = "Id Pagadora"
-                        hoja.Cell(1, 9).Value = "Pagadora"
-                        hoja.Cell(1, 10).Value = "Importe"
-                        hoja.Cell(1, 11).Value = "IVA"
-                        hoja.Cell(1, 12).Value = "Total"
-                        hoja.Cell(1, 13).Value = "Clave Sat"
-                        hoja.Cell(1, 14).Value = "Concepto"
-                        hoja.Cell(1, 15).Value = "Num Factura"
-
-
-                        filaExcel = 1
-                        For Each Fila In rwDatos
-                            filaExcel = filaExcel + 1
-                            hoja.Cell(filaExcel, 1).Value = Fila.Item("iIdFacturaConcepto")
-                            hoja.Cell(filaExcel, 2).Value = Fila.Item("NumeroFlujo")
-                            hoja.Cell(filaExcel, 3).Value = MonthName(Date.Parse(Fila.Item("FechaFlujo")).Month)
-                            hoja.Cell(filaExcel, 4).Value = Fila.Item("FechaFlujo")
-                            hoja.Cell(filaExcel, 5).Value = ""
-                            hoja.Cell(filaExcel, 6).Value = Fila.Item("Cliente")
-                            hoja.Cell(filaExcel, 7).Value = Fila.Item("Tipo")
-                            hoja.Cell(filaExcel, 8).Value = ""
-                            hoja.Cell(filaExcel, 9).Value = Fila.Item("Prestadora")
-                            hoja.Cell(filaExcel, 10).Value = Format(CType(Fila.Item("subtotal"), Decimal), "###,###,##0.#0")
-                            hoja.Cell(filaExcel, 11).Value = Format(CType(Fila.Item("iva"), Decimal), "###,###,##0.#0")
-                            hoja.Cell(filaExcel, 12).Value = Format(CType(Fila.Item("total"), Decimal), "###,###,##0.#0")
-                            hoja.Cell(filaExcel, 13).Value = Fila.Item("ClaveSat")
-                            hoja.Cell(filaExcel, 14).Value = Fila.Item("Concepto")
-
-                            'If Fila.Item("fkiIdFactura").ToString = "0" Then
-                            '    hoja.Cell(filaExcel, 15).Value = ""
-                            'Else
-                            '    'Buscamos el numero de factura
-                            '    SQL = "select * from facturas where "
-                            '    SQL &= "iIdFactura=" & Fila.Item("fkiIdFactura").ToString
+                hoja.Cell(1, 1).Value = ("Codigo")
+                hoja.Cell(1, 2).Value = ("Nombre")
+                hoja.Cell(1, 3).Value = ("Apellido P")
+                hoja.Cell(1, 4).Value = ("Apellido M")
+                hoja.Cell(1, 5).Value = ("Edad")
+                hoja.Cell(1, 6).Value = ("Sexo")
+                hoja.Cell(1, 7).Value = ("Estado Civil")
+                hoja.Cell(1, 8).Value = ("Puesto")
+                hoja.Cell(1, 9).Value = ("Funciones")
+                hoja.Cell(1, 10).Value = ("Categoria")
+                hoja.Cell(1, 11).Value = ("Fecha Patrona")
+                hoja.Cell(1, 12).Value = ("Fecha Sindicato")
+                hoja.Cell(1, 13).Value = ("Integrar a")
+                hoja.Cell(1, 14).Value = ("Salario Diario")
+                hoja.Cell(1, 15).Value = ("SDI")
+                hoja.Cell(1, 16).Value = ("Fecha Nac.")
+                hoja.Cell(1, 17).Value = ("CURP")
+                hoja.Cell(1, 18).Value = ("RFC")
+                hoja.Cell(1, 19).Value = ("No IMSS")
+                hoja.Cell(1, 20).Value = ("Autorización P")
+                hoja.Cell(1, 21).Value = ("Credito Infonavit")
+                hoja.Cell(1, 22).Value = ("Tipo Factor")
+                hoja.Cell(1, 23).Value = ("Factor Desc.")
+                hoja.Cell(1, 24).Value = ("Numero cuenta")
+                hoja.Cell(1, 25).Value = ("Clabe")
+                hoja.Cell(1, 26).Value = ("Banco")
+                hoja.Cell(1, 27).Value = ("Nacionalidad")
+                hoja.Cell(1, 28).Value = ("Direccion")
+                hoja.Cell(1, 29).Value = ("Ciudad")
+                hoja.Cell(1, 30).Value = ("Estado")
+                hoja.Cell(1, 31).Value = ("CP")
+                hoja.Cell(1, 32).Value = ("Fecha antiguedad")
+                hoja.Cell(1, 33).Value = ("Lugar Prestacion")
+                hoja.Cell(1, 34).Value = ("Termino de contrato")
+                hoja.Cell(1, 35).Value = ("Tipo Jornada")
+                hoja.Cell(1, 36).Value = ("Salario Real")
+                hoja.Cell(1, 37).Value = ("Comentarios")
+                hoja.Cell(1, 38).Value = ("Correo")
+                hoja.Cell(1, 39).Value = ("Horario Labores")
+                hoja.Cell(1, 40).Value = ("Num horas jornada")
+                hoja.Cell(1, 41).Value = ("Dia descanso")
 
 
-                            '    Dim rwNumFactura As DataRow() = nConsulta(SQL)
-                            '    If rwNumFactura Is Nothing = False Then
-                            '        hoja.Cell(filaExcel, 15).Value = rwNumFactura(0)("numfactura").ToString
+                hoja.Range(1, 1, 1, 41).Style.Font.FontSize = 10
+                hoja.Range(1, 1, 1, 41).Style.Font.SetBold(True)
+                hoja.Range(1, 1, 1, 41).Style.Alignment.WrapText = True
+                hoja.Range(1, 1, 1, 41).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                hoja.Range(1, 1, 1, 41).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
+                hoja.Range(1, 1, 1, 41).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
+                hoja.Range(1, 1, 1, 41).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
 
-                            '    End If
-
-                            'End If
+                For Each dato As ListViewItem In lsvLista.CheckedItems
 
 
-                            hoja.Range(2, 9, 1500, 11).Style.NumberFormat.SetFormat("###,###,##0.#0")
+                    hoja.Cell(filaExcel, 1).Value = dato.SubItems(0).Text
+                    hoja.Cell(filaExcel, 2).Value = dato.SubItems(1).Text
+                    hoja.Cell(filaExcel, 3).Value = dato.SubItems(2).Text
+                    hoja.Cell(filaExcel, 4).Value = dato.SubItems(3).Text
+                    hoja.Cell(filaExcel, 5).Value = dato.SubItems(4).Text
+                    hoja.Cell(filaExcel, 6).Value = dato.SubItems(5).Text
+                    hoja.Cell(filaExcel, 7).Value = dato.SubItems(6).Text
+                    hoja.Cell(filaExcel, 8).Value = dato.SubItems(7).Text
+                    hoja.Cell(filaExcel, 9).Value = dato.SubItems(8).Text
+                    hoja.Cell(filaExcel, 10).Value = dato.SubItems(9).Text
+                    hoja.Cell(filaExcel, 11).Value = dato.SubItems(10).Text
+                    hoja.Cell(filaExcel, 12).Value = dato.SubItems(11).Text
+                    hoja.Cell(filaExcel, 13).Value = dato.SubItems(12).Text
+                    hoja.Cell(filaExcel, 14).Value = dato.SubItems(13).Text
+                    hoja.Cell(filaExcel, 15).Value = dato.SubItems(14).Text
+                    hoja.Cell(filaExcel, 16).Value = dato.SubItems(15).Text
+                    hoja.Cell(filaExcel, 17).Value = dato.SubItems(16).Text
+                    hoja.Cell(filaExcel, 18).Value = dato.SubItems(17).Text
+                    hoja.Cell(filaExcel, 19).Value = dato.SubItems(18).Text
+                    hoja.Cell(filaExcel, 20).Value = dato.SubItems(19).Text
+                    hoja.Cell(filaExcel, 21).Value = dato.SubItems(20).Text
+                    hoja.Cell(filaExcel, 22).Value = dato.SubItems(21).Text
+                    hoja.Cell(filaExcel, 23).Value = dato.SubItems(22).Text
+                    hoja.Cell(filaExcel, 24).Value = dato.SubItems(23).Text
+                    hoja.Cell(filaExcel, 25).Value = dato.SubItems(24).Text
+                    hoja.Cell(filaExcel, 26).Value = dato.SubItems(25).Text
+                    hoja.Cell(filaExcel, 27).Value = dato.SubItems(26).Text
+                    hoja.Cell(filaExcel, 28).Value = dato.SubItems(27).Text
+                    hoja.Cell(filaExcel, 29).Value = dato.SubItems(28).Text
+                    hoja.Cell(filaExcel, 30).Value = dato.SubItems(29).Text
+                    hoja.Cell(filaExcel, 31).Value = dato.SubItems(30).Text
+                    hoja.Cell(filaExcel, 32).Value = dato.SubItems(31).Text
+                    hoja.Cell(filaExcel, 33).Value = dato.SubItems(32).Text
+                    hoja.Cell(filaExcel, 34).Value = dato.SubItems(33).Text
+                    hoja.Cell(filaExcel, 35).Value = dato.SubItems(34).Text
+                    hoja.Cell(filaExcel, 36).Value = dato.SubItems(35).Text
+                    hoja.Cell(filaExcel, 37).Value = dato.SubItems(36).Text
+                    hoja.Cell(filaExcel, 38).Value = dato.SubItems(37).Text
+                    hoja.Cell(filaExcel, 39).Value = dato.SubItems(38).Text
+                    hoja.Cell(filaExcel, 40).Value = dato.SubItems(39).Text
+                    hoja.Cell(filaExcel, 41).Value = dato.SubItems(40).Text
 
 
+                    filaExcel = filaExcel + 1
 
-                        Next
-
-                        dialogo.DefaultExt = "*.xlsx"
-                        dialogo.FileName = "Flujo"
-                        dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
-                        dialogo.ShowDialog()
-                        libro.SaveAs(dialogo.FileName)
-                        'libro.SaveAs("c:\temp\control.xlsx")
-                        'libro.SaveAs(dialogo.FileName)
-                        'apExcel.Quit()
-                        libro = Nothing
-                        MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Else
-                        MessageBox.Show("No se encontraron datos en ese rango de fecha", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    End If
                 Next
+
+                SQL = "select * from empresa where iIdEmpresa = " & cboempresas.SelectedValue
+                Dim e As DataRow() = nConsulta(SQL)
+                Dim c As DataRow() = nConsulta("select * from clientes where iIdCliente =" & cboclientes.SelectedValue)
+
+                Dim moment As Date = Date.Now()
+                Dim month As Integer = moment.Month
+                Dim year As Integer = moment.Year
+                dialogo.DefaultExt = "*.xlsx"
+                dialogo.FileName = "Empleados Excel de " & e(0).Item("nombre").ToString & " " & "--" & " " & c(0).Item("nombre").ToString
+                dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
+                dialogo.ShowDialog()
+                libro.SaveAs(dialogo.FileName)
+
+                MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
 
 
             End If
-
-
-
-
-
 
         Catch ex As Exception
 
@@ -937,137 +1002,11 @@ Public Class frmEmpleadosXCliente
 
     End Sub
 
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Try
-            Dim filaExcel As Integer = 5
-            Dim dialogo As New SaveFileDialog()
-            Dim idtipo As Integer
-            Dim Alter As Boolean = False
-            '' Dim tiempo As TimeSpan = fin - inicio 
-            Dim sumatoria As Double
-            If lsvLista.CheckedItems.Count <> 0 Then
-                For x = 0 To lsvLista.CheckedItems.Count - 1
 
-                    SQL = "select * from empleadosAlta where iIdEmpleadoAlta= " & lsvLista.CheckedItems(x).Tag
-                    sumatoria = 0
-
-                    Dim rwDatos As DataRow() = nConsulta(SQL)
-                    If rwDatos Is Nothing = False Then
-
-                        Dim libro As New ClosedXML.Excel.XLWorkbook
-                        Dim hoja As IXLWorksheet = libro.Worksheets.Add("Flujo")
-                        hoja.Column("A").Width = 20
-                        hoja.Column("B").Width = 15
-                        hoja.Column("C").Width = 15
-                        hoja.Column("D").Width = 12
-                        hoja.Column("E").Width = 12
-                        hoja.Column("F").Width = 25
-                        hoja.Column("G").Width = 15
-                        hoja.Column("H").Width = 15
-                        hoja.Column("I").Width = 25
-                        hoja.Column("J").Width = 15
-                        hoja.Column("K").Width = 15
-                        hoja.Column("L").Width = 15
-                        hoja.Column("M").Width = 15
-                        hoja.Column("N").Width = 50
-                        hoja.Column("O").Width = 12
-
-                        hoja.Range(1, 1, 1, 15).Style.Font.FontSize = 10
-                        hoja.Range(1, 1, 1, 15).Style.Font.SetBold(True)
-                        hoja.Range(1, 1, 1, 15).Style.Alignment.WrapText = True
-                        hoja.Range(1, 1, 1, 15).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
-                        hoja.Range(1, 1, 1, 15).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
-                        'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
-                        hoja.Range(1, 1, 1, 15).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
-                        hoja.Range(1, 1, 1, 15).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
-
-                        'hoja.Cell(4, 1).Value = "Num"
-
-                        hoja.Cell(1, 1).Value = "IdFacturaConcepto"
-                        hoja.Cell(1, 2).Value = "Mov. Flujo"
-                        hoja.Cell(1, 3).Value = "Mes"
-                        hoja.Cell(1, 4).Value = "Fecha"
-                        hoja.Cell(1, 5).Value = "Id Cliente"
-                        hoja.Cell(1, 6).Value = "Cliente"
-                        hoja.Cell(1, 7).Value = "Mov"
-                        hoja.Cell(1, 8).Value = "Id Pagadora"
-                        hoja.Cell(1, 9).Value = "Pagadora"
-                        hoja.Cell(1, 10).Value = "Importe"
-                        hoja.Cell(1, 11).Value = "IVA"
-                        hoja.Cell(1, 12).Value = "Total"
-                        hoja.Cell(1, 13).Value = "Clave Sat"
-                        hoja.Cell(1, 14).Value = "Concepto"
-                        hoja.Cell(1, 15).Value = "Num Factura"
-
-
-                        filaExcel = 1
-                        For Each Fila In rwDatos
-                            filaExcel = filaExcel + 1
-                            hoja.Cell(filaExcel, 1).Value = Fila.Item("iIdFacturaConcepto")
-                            hoja.Cell(filaExcel, 2).Value = Fila.Item("NumeroFlujo")
-                            hoja.Cell(filaExcel, 3).Value = MonthName(Date.Parse(Fila.Item("FechaFlujo")).Month)
-                            hoja.Cell(filaExcel, 4).Value = Fila.Item("FechaFlujo")
-                            hoja.Cell(filaExcel, 5).Value = ""
-                            hoja.Cell(filaExcel, 6).Value = Fila.Item("Cliente")
-                            hoja.Cell(filaExcel, 7).Value = Fila.Item("Tipo")
-                            hoja.Cell(filaExcel, 8).Value = ""
-                            hoja.Cell(filaExcel, 9).Value = Fila.Item("Prestadora")
-                            hoja.Cell(filaExcel, 10).Value = Format(CType(Fila.Item("subtotal"), Decimal), "###,###,##0.#0")
-                            hoja.Cell(filaExcel, 11).Value = Format(CType(Fila.Item("iva"), Decimal), "###,###,##0.#0")
-                            hoja.Cell(filaExcel, 12).Value = Format(CType(Fila.Item("total"), Decimal), "###,###,##0.#0")
-                            hoja.Cell(filaExcel, 13).Value = Fila.Item("ClaveSat")
-                            hoja.Cell(filaExcel, 14).Value = Fila.Item("Concepto")
-
-                            'If Fila.Item("fkiIdFactura").ToString = "0" Then
-                            '    hoja.Cell(filaExcel, 15).Value = ""
-                            'Else
-                            '    'Buscamos el numero de factura
-                            '    SQL = "select * from facturas where "
-                            '    SQL &= "iIdFactura=" & Fila.Item("fkiIdFactura").ToString
-
-
-                            '    Dim rwNumFactura As DataRow() = nConsulta(SQL)
-                            '    If rwNumFactura Is Nothing = False Then
-                            '        hoja.Cell(filaExcel, 15).Value = rwNumFactura(0)("numfactura").ToString
-
-                            '    End If
-
-                            'End If
-
-
-                            hoja.Range(2, 9, 1500, 11).Style.NumberFormat.SetFormat("###,###,##0.#0")
-
-
-
-                        Next
-
-                        dialogo.DefaultExt = "*.xlsx"
-                        dialogo.FileName = "Flujo"
-                        dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
-                        dialogo.ShowDialog()
-                        libro.SaveAs(dialogo.FileName)
-                        'libro.SaveAs("c:\temp\control.xlsx")
-                        'libro.SaveAs(dialogo.FileName)
-                        'apExcel.Quit()
-                        libro = Nothing
-                        MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Else
-                        MessageBox.Show("No se encontraron datos en ese rango de fecha", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    End If
-                Next
-
-
-            End If
-
-
-
-
-
-
-        Catch ex As Exception
-
-        End Try
-
+    Private Sub chkAll_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkAll.CheckedChanged
+        For Each item As ListViewItem In lsvLista.Items
+            item.Checked = chkAll.Checked
+        Next
+        chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
     End Sub
 End Class

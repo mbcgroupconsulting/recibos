@@ -996,9 +996,7 @@ Public Class frmPrincipal
         End Try
     End Sub
 
-    Private Sub JuridicoToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles JuridicoToolStripMenuItem.Click
-
-    End Sub
+   
 
 
     Private Sub ImportarFlujosConceptosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ImportarFlujosConceptosToolStripMenuItem.Click

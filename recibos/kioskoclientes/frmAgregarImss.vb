@@ -2,6 +2,7 @@
     Dim SQL As String
     Dim blnNuevo As Boolean
     Dim gIdClienteEmpresa As String
+    Dim files As Integer
     Private Sub cmdnuevo_Click(sender As Object, e As EventArgs) Handles cmdnuevo.Click
         pnlProveedores.Enabled = True
         'MostrarCliente2()
@@ -61,20 +62,25 @@
                     For Each archivo As ListViewItem In lsvArchivo.Items
 
                         nombrearchivocompleto = cboanio.Text & "-" & cbomes.SelectedIndex + 1 & "-" & datos(0).Tag & "-" & Gen_Psw(15, True) & "-" & archivo.Tag.Replace(" ", "-")
+
+                        Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where Documentos='" & archivo.SubItems(2).Text & "'")
+
                         SQL = "EXEC setInfoKioskoInsertar 0," & cboanio.Text & "," & cbomes.SelectedIndex + 1
-                            SQL &= "," & 20
-                            SQL &= ",'" & Date.Now.ToShortDateString() & "','" & Date.Now.ToShortDateString()
-                            SQL &= "','" & nombresistema & "',''"
+                        SQL &= "," & 20
+                        SQL &= ",'" & Date.Now.ToShortDateString() & "','" & Date.Now.ToShortDateString()
+                        SQL &= "','" & nombresistema & "',''"
                         SQL &= "," & datos(0).Tag
                         SQL &= "," & cboclientes.SelectedValue
-                            SQL &= "," & idperfil
-                            SQL &= "," & usuario
-                            SQL &= ",'" & nombrearchivocompleto
-                            SQL &= "'"
+                        SQL &= "," & idperfil
+                        SQL &= "," & usuario
+                        SQL &= ",'" & nombrearchivocompleto
+                        SQL &= "'"
+                        SQL &= "," & doc(0).Item("iIdDocumentos")
+
 
                             FileCopy(archivo.SubItems(0).Text, "C:\Temp\" & nombrearchivocompleto)
 
-                            My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
+                        '' My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
 
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Ocurrio un error," & SQL, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -181,6 +187,8 @@
 
             'End If
 
+            'validarTMM()
+
         Catch ex As Exception
 
         End Try
@@ -190,29 +198,55 @@
         Dim dialogo As New OpenFileDialog()
         Dim item As ListViewItem
         Dim Alter As Boolean = False
+        Dim d As String
         Try
 
 
-            With dialogo
-                .Title = "Búsqueda de archivos."
-                .Filter = "Archivos pdf (pdf)|*.pdf;*.sua"
-                .CheckFileExists = True
-                If .ShowDialog = Windows.Forms.DialogResult.OK Then
+            If cboDocumento.SelectedValue <> Nothing Then
+                Dim valor As ListViewItem = lsvArchivo.FindItemWithText(cboDocumento.Text)
+                If valor Is Nothing Then
 
-                    item = lsvArchivo.Items.Add(.FileName)
-                    item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
+                    'If Duplicado(Trim(cboDocumento.SelectedItem)) = False Then
+                    With dialogo
+                        .Title = "Búsqueda de archivos."
+                        .Filter = "Archivos pdf (pdf)|*.pdf;*.sua"
+                        .CheckFileExists = True
+                        If .ShowDialog = Windows.Forms.DialogResult.OK Then
 
-                    item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
-                    Alter = Not Alter
+
+                            files = files + 1
+                            SQL = "SELECT * FROM Documentos where cArea=2 and iIdDocumentos=" & cboDocumento.SelectedValue
+                            Dim doc As DataRow() = nConsulta(SQL)
+
+
+                            item = lsvArchivo.Items.Add(.FileName)
+
+                            item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
+
+                            item.SubItems.Add("IMSS")
+                            item.SubItems.Add(doc(0).Item("Documentos"))
+
+                            item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
+                            Alter = Not Alter
+
+                        End If
+
+                    End With
+
+                Else
+                    MessageBox.Show("Escoja otro tipo de documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 End If
-            End With
+
+            Else
+                MessageBox.Show("Seleccione el tipo de documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
 
         Catch ex As Exception
 
         End Try
     End Sub
-
+   
     Private Sub cmdBorrarArchivo_Click(sender As Object, e As EventArgs) Handles cmdBorrarArchivo.Click
         Dim datos As ListView.SelectedListViewItemCollection = lsvArchivo.SelectedItems
         If datos.Count = 1 Then
@@ -222,6 +256,7 @@
             If resultado = DialogResult.Yes Then
 
                 datos(0).Remove()
+                files = files - 1
                 MessageBox.Show("Datos borrados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
 
@@ -235,6 +270,7 @@
         cmdguardar.Enabled = False
         cmdcancelar.Enabled = False
         MostrarClientes()
+        MostrarDocumentos()
     End Sub
 
     Private Sub MostrarClientes()
@@ -242,6 +278,25 @@
         Try
             SQL = "Select nombre,iIdCliente from clientes where iEstatus=1 order by nombre  "
             nCargaCBO(cboclientes, SQL, "nombre", "iIdCliente")
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub MostrarDocumentos()
+        'Verificar si se tienen permisos
+        Try
+            SQL = "Select Documentos,iIdDocumentos from Documentos where iEstatus=1 and cArea=2 "
+
+            'If (cboclientes.SelectedIndex = "191" Or
+            '   cboclientes.SelectedIndex = "290" Or
+            '   cboclientes.SelectedIndex = "132" Or
+            '   cboclientes.SelectedIndex = "420") Then
+
+            '    SQL &= "AND iTMM=1  order by iIdDocumentos"
+            'Else
+            '    SQL &= "AND iTMM=0  order by iIdDocumentos"
+            'End If
+            nCargaCBO(cboDocumento, SQL, Trim("Documentos"), "iIdDocumentos")
         Catch ex As Exception
         End Try
     End Sub
@@ -256,4 +311,21 @@
     Private Sub cboclientes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboclientes.SelectedIndexChanged
         lsvLista.Items.Clear()
     End Sub
+
+    'Public Sub validarTMM()
+    '    SQL = "Select Documentos,iIdDocumentos from Documentos where iEstatus=1 and cArea=2 "
+
+    '    If (cboclientes.SelectedIndex = "191" Or
+    '       cboclientes.SelectedIndex = "290" Or
+    '       cboclientes.SelectedIndex = "132" Or
+    '       cboclientes.SelectedIndex = "420" Or
+    '       cboclientes.SelectedIndex = "469") Then
+
+    '        SQL &= "AND iTMM=1  order by iIdDocumentos"
+    '    Else
+    '        SQL &= "AND iTMM=0  order by iIdDocumentos"
+    '    End If
+    '    nCargaCBO(cboDocumento, SQL, Trim("Documentos"), "iIdDocumentos")
+
+    'End Sub
 End Class

@@ -385,13 +385,14 @@ Public Class frmImportarEmpleadosAlta
                             cliente = 1
                         End If
                         Dim dFechaNac, dFechaCap, dFechaPatrona, dFechaTerminoContrato, dFechaSindicato, dFechaAntiguedad As String
+                        ''   Dim _fecha As String
 
-                        dFechaNac = Trim(empleadofull.SubItems(18).Text) ''Format(Trim(empleadofull.SubItems(18).Text), "yyyy/dd/MM")
-                        dFechaCap = (Trim(empleadofull.SubItems(43).Text))
-                        dFechaPatrona = (Trim(empleadofull.SubItems(13).Text))
-                        dFechaTerminoContrato = ((Trim(empleadofull.SubItems(44).Text))) ''No asignado
-                        dFechaSindicato = (Trim(empleadofull.SubItems(14).Text))
-                        dFechaAntiguedad = Trim(empleadofull.SubItems(30).Text)
+                        dFechaNac = Date.Parse(Trim(empleadofull.SubItems(18).Text.ToString)) ''Format(Trim(empleadofull.SubItems(18).Text), "yyyy/dd/MM")
+                        dFechaCap = Date.Parse(Trim(empleadofull.SubItems(43).Text.ToString))
+                        dFechaPatrona = Date.Parse(Trim(empleadofull.SubItems(13).Text.ToString))
+                        dFechaTerminoContrato = Date.Parse((Trim(empleadofull.SubItems(44).Text))) ''No asignado
+                        dFechaSindicato = Date.Parse(Trim(empleadofull.SubItems(14).Text))
+                        dFechaAntiguedad = Date.Parse(Trim(empleadofull.SubItems(30).Text))
 
 
 
@@ -411,15 +412,16 @@ Public Class frmImportarEmpleadosAlta
                         SQL &= "','" & " " & "','" & " " & "'," & 1 & ",'" & " " ''cp2
                         SQL &= "','" & dFechaPatrona & "','" & dFechaTerminoContrato & "','" & dFechaSindicato & "','" & dFechaAntiguedad
                         ''COMILLA
-                        SQL &= "'," & 0 & "," & Trim(empleadofull.SubItems(22).Text) & ",'" & 1 & "'," & IIf(Trim(empleadofull.SubItems(12).Text) = "A", 0, 1) & ",'" & Trim(empleadofull.SubItems(23).Text) & "','" & factor ''switch
+                        SQL &= "'," & 0 & "," & Trim(empleadofull.SubItems(22).Text) & ",'" & Trim(empleadofull.SubItems(24).Text) & "'," & IIf(Trim(empleadofull.SubItems(12).Text) = "A", 0, 1) & ",'" & Trim(empleadofull.SubItems(23).Text) & "','" & factor ''switch
                         SQL &= "'," & IIf(Trim(empleadofull.SubItems(24).Text) = "", 0, Trim(empleadofull.SubItems(24).Text)) & ",'" & number & "','" & Trim(empleadofull.SubItems(36).Text) ''JORNADA
                         SQL &= "','" & Trim(empleadofull.SubItems(37).Text) & "','" & Trim(empleadofull.SubItems(38).Text) & "','" & " " & "','" & Trim(empleadofull.SubItems(39).Text) & "','" & " " ''fecha de pago
                         SQL &= "','" & " " & "','" & " " & "'," & 0 & "," & IIf(Trim(empleadofull.SubItems(6).Text) = "", 0, Trim(empleadofull.SubItems(6).Text)) & "," & 0 ''depto- y puesto +
                         ''   abiriEmpresasC()
                         ''1 es de predeterminado
-                        SQL &= ",'" & IIf(Trim(empleadofull.SubItems(8).Text) = "SOLTERO", 0, 1) & "'," & 1 & ",0" & "," & fkIdMetodoPago & ",'" & " " & "', 1, " & 1 & ", 1, 1,'" & 1 & "'"
+                        SQL &= ",'" & IIf(Trim(empleadofull.SubItems(8).Text) = "SOLTERO", 0, 1) & "'," & 1 & ",0" & "," & fkIdMetodoPago & ",'" & Trim(empleadofull.SubItems(31).Text) & "', 1, " & 1 & ", 1, 1,'" & 1 & "'"
 
-                        SQL &= ",'" & cbEmpresasC.SelectedValue & "','" & Trim(empleadofull.SubItems(31).Text) & "','" & rpatronal & "'"
+                        ''LUGAR PRESTACION DE
+                        SQL &= ",'" & cbEmpresasC.SelectedValue & "','" & " " & "','" & rpatronal & "'"
                         SQL &= "," & 0 & ", '" & " " & "'"
 
                         If nExecute(SQL) = False Then
@@ -450,6 +452,7 @@ Public Class frmImportarEmpleadosAlta
 
                     MessageBox.Show(t.ToString() & "  Proceso terminado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
+                    pnlProgreso.Visible = False
                     MessageBox.Show("No se guardo ninguna dato, revise y vuelva a intentarlo ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
 
@@ -462,6 +465,8 @@ Public Class frmImportarEmpleadosAlta
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)
+            pnlProgreso.Visible = False
+            pnlCatalogo.Visible = True
         End Try
     End Sub
 
@@ -505,4 +510,6 @@ Public Class frmImportarEmpleadosAlta
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information)
     End Sub
+
+
 End Class

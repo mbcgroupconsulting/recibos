@@ -59,6 +59,7 @@
 
 
                     For Each archivo As ListViewItem In lsvArchivo.Items
+                        Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where Documentos='" & archivo.SubItems(2).Text & "'")
 
                         nombrearchivocompleto = cboanio.Text & "-" & cbomes.SelectedIndex + 1 & "-" & datos(0).Tag & "-" & Gen_Psw(15, True) & "-" & archivo.Tag.Replace(" ", "-")
                         SQL = "EXEC setInfoKioskoInsertar 0," & cboanio.Text & "," & cbomes.SelectedIndex + 1
@@ -71,10 +72,12 @@
                         SQL &= "," & usuario
                         SQL &= ",'" & nombrearchivocompleto
                         SQL &= "'"
+                        SQL &= "," & doc(0).Item("iIdDocumentos")
+
 
                         FileCopy(archivo.SubItems(0).Text, "C:\Temp\" & nombrearchivocompleto)
 
-                        My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
+                        ''My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
 
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Ocurrio un error," & SQL, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -161,6 +164,7 @@
         cmdguardar.Enabled = False
         cmdcancelar.Enabled = False
         MostrarClientes()
+        MostrarDocumentos()
     End Sub
 
     Private Sub MostrarClientes()
@@ -171,7 +175,14 @@
         Catch ex As Exception
         End Try
     End Sub
-
+    Private Sub MostrarDocumentos()
+        'Verificar si se tienen permisos
+        Try
+            SQL = "Select Documentos,iIdDocumentos from Documentos where iEstatus=1 and cArea=3 order by iIdDocumentos  "
+            nCargaCBO(cboDocumento, SQL, Trim("Documentos"), "iIdDocumentos")
+        Catch ex As Exception
+        End Try
+    End Sub
     Private Sub pnlProveedores_EnabledChanged(sender As Object, e As EventArgs) Handles pnlProveedores.EnabledChanged
         cmdnuevo.Enabled = Not pnlProveedores.Enabled
         cmdguardar.Enabled = pnlProveedores.Enabled
@@ -219,36 +230,53 @@
         Dim item As ListViewItem
         Dim Alter As Boolean = False
         Try
+            If cboDocumento.SelectedValue <> Nothing Then
+
+                Dim valor As ListViewItem = lsvArchivo.FindItemWithText(cboDocumento.Text)
+                If valor Is Nothing Then
+
+                    With dialogo
+                        .Multiselect = True
+                        .Title = "Búsqueda de archivos"
+                        .Filter = "Archivos comprimidos|*.zip;*.rar"
+                        .CheckFileExists = True
+                        If .ShowDialog = Windows.Forms.DialogResult.OK Then
 
 
-            With dialogo
-                .Multiselect = True
-                .Title = "Búsqueda de archivos"
-                .Filter = "Archivos comprimidos|*.zip;*.rar"
-                .CheckFileExists = True
-                If .ShowDialog = Windows.Forms.DialogResult.OK Then
+                            SQL = "SELECT * FROM Documentos where cArea=3 and iIdDocumentos=" & cboDocumento.SelectedValue
+                            Dim doc As DataRow() = nConsulta(SQL)
 
-                    Dim selectfiles() As String = .FileNames
+                            Dim selectfiles() As String = .FileNames
 
-                    For Each file In selectfiles
-                        item = lsvArchivo.Items.Add(file)
-                        item.Tag = System.IO.Path.GetFileNameWithoutExtension(file) & System.IO.Path.GetExtension(file)
-
-                        item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
-                        Alter = Not Alter
-                    Next
+                            For Each file In selectfiles
+                                item = lsvArchivo.Items.Add(file)
+                                item.Tag = System.IO.Path.GetFileNameWithoutExtension(file) & System.IO.Path.GetExtension(file)
+                                item.SubItems.Add("Nominas")
+                                item.SubItems.Add(doc(0).Item("Documentos"))
+                                item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
+                                Alter = Not Alter
+                            Next
 
 
 
-                    'item = lsvArchivo.Items.Add(.FileName)
-                    'item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
+                            'item = lsvArchivo.Items.Add(.FileName)
+                            'item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
 
-                    'item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
-                    'Alter = Not Alter
+                            'item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
+                            'Alter = Not Alter
+
+                        End If
+                    End With
+
+
+                Else
+                    MessageBox.Show("Escoja otro tipo de documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 End If
-            End With
+            Else
+                 MessageBox.Show("Seleccione el tipo de documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+            End If
         Catch ex As Exception
 
         End Try

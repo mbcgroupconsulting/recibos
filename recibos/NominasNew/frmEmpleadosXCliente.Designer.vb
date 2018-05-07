@@ -23,6 +23,7 @@ Partial Class frmEmpleadosXCliente
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.pnlVentana = New System.Windows.Forms.Panel()
+        Me.chkAll = New System.Windows.Forms.CheckBox()
         Me.btnDepto = New System.Windows.Forms.Button()
         Me.btnPuestoN = New System.Windows.Forms.Button()
         Me.txtCodigo = New System.Windows.Forms.TextBox()
@@ -49,8 +50,9 @@ Partial Class frmEmpleadosXCliente
         'pnlVentana
         '
         Me.pnlVentana.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlVentana.Controls.Add(Me.chkAll)
         Me.pnlVentana.Controls.Add(Me.btnDepto)
         Me.pnlVentana.Controls.Add(Me.btnPuestoN)
         Me.pnlVentana.Controls.Add(Me.txtCodigo)
@@ -66,8 +68,20 @@ Partial Class frmEmpleadosXCliente
         Me.pnlVentana.Controls.Add(Me.Label1)
         Me.pnlVentana.Location = New System.Drawing.Point(5, 6)
         Me.pnlVentana.Name = "pnlVentana"
-        Me.pnlVentana.Size = New System.Drawing.Size(1012, 414)
+        Me.pnlVentana.Size = New System.Drawing.Size(1012, 434)
         Me.pnlVentana.TabIndex = 12
+        '
+        'chkAll
+        '
+        Me.chkAll.AutoSize = True
+        Me.chkAll.BackColor = System.Drawing.Color.Transparent
+        Me.chkAll.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkAll.Location = New System.Drawing.Point(8, 125)
+        Me.chkAll.Name = "chkAll"
+        Me.chkAll.Size = New System.Drawing.Size(107, 22)
+        Me.chkAll.TabIndex = 25
+        Me.chkAll.Text = "Marcar todos"
+        Me.chkAll.UseVisualStyleBackColor = False
         '
         'btnDepto
         '
@@ -80,7 +94,7 @@ Partial Class frmEmpleadosXCliente
         '
         'btnPuestoN
         '
-        Me.btnPuestoN.Location = New System.Drawing.Point(841, 6)
+        Me.btnPuestoN.Location = New System.Drawing.Point(842, 10)
         Me.btnPuestoN.Name = "btnPuestoN"
         Me.btnPuestoN.Size = New System.Drawing.Size(131, 51)
         Me.btnPuestoN.TabIndex = 23
@@ -138,17 +152,17 @@ Partial Class frmEmpleadosXCliente
         'lsvLista
         '
         Me.lsvLista.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lsvLista.CheckBoxes = True
         Me.lsvLista.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvLista.FullRowSelect = True
         Me.lsvLista.GridLines = True
         Me.lsvLista.HideSelection = False
-        Me.lsvLista.Location = New System.Drawing.Point(5, 124)
+        Me.lsvLista.Location = New System.Drawing.Point(5, 150)
         Me.lsvLista.MultiSelect = False
         Me.lsvLista.Name = "lsvLista"
-        Me.lsvLista.Size = New System.Drawing.Size(1004, 287)
+        Me.lsvLista.Size = New System.Drawing.Size(1004, 266)
         Me.lsvLista.TabIndex = 19
         Me.lsvLista.UseCompatibleStateImageBehavior = False
         Me.lsvLista.View = System.Windows.Forms.View.Details
@@ -296,4 +310,5 @@ Partial Class frmEmpleadosXCliente
     Friend WithEvents btnPuestoN As System.Windows.Forms.Button
     Friend WithEvents btnDepto As System.Windows.Forms.Button
     Friend WithEvents btnExport As System.Windows.Forms.Button
+    Friend WithEvents chkAll As System.Windows.Forms.CheckBox
 End Class

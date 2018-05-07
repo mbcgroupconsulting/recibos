@@ -995,6 +995,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="catalogos\frmBuscarCliente.resx">
       <DependentUpon>frmBuscarCliente.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="catalogos\frmBuscarEmpresa.resx">
       <DependentUpon>frmBuscarEmpresa.vb</DependentUpon>
