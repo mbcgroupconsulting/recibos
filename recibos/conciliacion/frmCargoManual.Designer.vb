@@ -32,9 +32,9 @@ Partial Class frmCargoManual
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(12, 18)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(324, 13)
+        Me.Label1.Size = New System.Drawing.Size(359, 13)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Agrega el texto que quieres que aparezca en relación a este cargo:"
+        Me.Label1.Text = "Agrega el texto que quieres que aparezca en relación a este cargo/abono:"
         '
         'cmdAceptar
         '
@@ -62,7 +62,7 @@ Partial Class frmCargoManual
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "frmCargoManual"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Agregar texto al cargo"
+        Me.Text = "Agregar texto al cargo/abono"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

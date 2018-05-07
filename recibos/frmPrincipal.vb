@@ -301,6 +301,26 @@ Public Class frmPrincipal
 
                     Catch ex As Exception
                     End Try
+                Case "Bancomer nomina"
+                    SQL = "select * from usuarios where idUsuario = " & idUsuario
+                    Dim rwFilas As DataRow() = nConsulta(SQL)
+
+                    Try
+                        If rwFilas Is Nothing = False Then
+                            Dim forma As New frmComprobanteBancomer
+
+                            Dim Fila As DataRow = rwFilas(0)
+                            If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5") Then
+
+                                forma.ShowDialog()
+                            Else
+                                MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                            End If
+                        End If
+
+                    Catch ex As Exception
+                    End Try
             End Select
 
         Catch ex As Exception
@@ -528,7 +548,7 @@ Public Class frmPrincipal
 
 
                 Dim Fila As DataRow = rwFilas(0)
-                If (Fila.Item("fkIdPerfil") = "1") Or (Fila.Item("fkIdPerfil") = "5") Then
+                If (Fila.Item("fkIdPerfil") = "1") Or (Fila.Item("fkIdPerfil") = "5") Or (Fila.Item("fkIdPerfil") = "3") Then
 
                     Forma.ShowDialog()
                 Else

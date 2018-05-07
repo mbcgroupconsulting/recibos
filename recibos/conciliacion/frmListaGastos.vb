@@ -38,11 +38,11 @@ Public Class frmListaGastos
         Dim inicio As DateTime = dtpfechainicio.Value
         Dim fin As DateTime = dtpfechafin.Value
         Dim tiempo As TimeSpan = fin - inicio
-
+        SQL = ""
         lsvLista.Items.Clear()
         lsvLista.Clear()
         If (tiempo.Days >= 0) Then
-            If cboTipogastos.SelectedValue = 1 Or cboTipogastos.SelectedValue = 2 Or cboTipogastos.SelectedValue = 3 Then
+            If cboTipogastos.SelectedValue = 1 Or cboTipogastos.SelectedValue = 2 Or cboTipogastos.SelectedValue = 3 Or cboTipogastos.SelectedValue = 8 Then
                 If chktodas.Checked = False Then
                     SQL = "select * from gastos inner join empresa on fkiIdEmpresa= iIdEmpresa"
                     SQL &= " where gastos.iEstatus=1 "

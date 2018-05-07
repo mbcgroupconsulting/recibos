@@ -26,6 +26,8 @@ Public Class frmcontpaqnominas2
             BuscarEmpresaAsignada()
             BuscarClienteAsignado()
 
+            Me.dtgDatos.ContextMenuStrip = Me.cmenu
+
             sql = "select * from empresac where iidEmpresac = " & gIdEmpresa
             Dim rwEmpresaC As DataRow() = nConsulta(sql)
             If rwEmpresaC Is Nothing = False Then
@@ -567,6 +569,17 @@ Public Class frmcontpaqnominas2
                                             Exit Sub
 
                                         End If
+                                    Else
+                                        sql = "update empleadosC set fSueldoBase=" & rwEmpleadosC(x)("sueldodiario") & ",fSueldoIntegrado=" & rwEmpleadosC(x)("sueldointegrado")
+                                        sql &= " where iIdEmpleadoC=" & rwEmpleados(y)("iIdEmpleadoC").ToString
+
+                                        If nExecute(sql) = False Then
+                                            MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                            'pnlProgreso.Visible = False
+                                            Exit Sub
+
+                                        End If
+
                                     End If
 
 
@@ -1235,7 +1248,7 @@ Public Class frmcontpaqnominas2
                     'la nomina por sindicato ordenada por nombre y tipo de procedure
                     'pedir la nomina por sindicato
                     sql = "select iIdEmpleadoC,NumCuenta, (cApellidoP + ' ' + cApellidoM + ' ' + cNombre) as nombre, fkiIdEmpresa,fSueldoOrd,fCosto from empleadosC"
-                    sql &= " where empleadosC.iOrigen=2 and empleadosC.fkiIdClienteInter=0"
+                    sql &= " where empleadosC.iOrigen=2 and empleadosC.fkiIdClienteInter=-1"
                     sql &= " and empleadosC.fkiIdEmpresa =" & gIdEmpresa
                     sql &= " order by nombre"
 
@@ -1654,10 +1667,23 @@ Public Class frmcontpaqnominas2
 
                                 If dsSASindicato.Tables("Tabla").Rows(x)("idempleado").ToString = rwNominaGuardada(z)("fkiIdempleado").ToString Then
                                     Dim fila As DataRow = dsPeriodo.Tables("Tabla").NewRow
+                                    Dim InfoEmpleado As String
+                                    'buscamos info del trabajador
+
+                                    sql = "select * from InfoEmpleadoPeriodoContpaq where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idempleado").ToString
+                                    sql &= " and fkiIdPeriodo=" & cboperiodo.SelectedValue
+
+                                    Dim rwInfoEmpleado As DataRow() = nConsulta(sql)
+                                    If rwInfoEmpleado Is Nothing = False Then
+                                        InfoEmpleado = IIf(rwInfoEmpleado(0)("igualar0") = "1", "Igualar 0", "")
+                                    Else
+                                        InfoEmpleado = ""
+                                    End If
+
 
                                     If chkAguinaldo.Checked Then
                                         fila.Item("Consecutivo") = consecutivo
-                                        fila.Item("Info") = ""
+                                        fila.Item("Info") = InfoEmpleado
                                         fila.Item("Id_empleado") = dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
                                         fila.Item("Num_Cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
                                         fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper()
@@ -1697,7 +1723,7 @@ Public Class frmcontpaqnominas2
                                         consecutivo = consecutivo + 1
                                     Else
                                         fila.Item("Consecutivo") = consecutivo
-                                        fila.Item("Info") = ""
+                                        fila.Item("Info") = InfoEmpleado
                                         fila.Item("Id_empleado") = dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
                                         fila.Item("Num_Cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
                                         fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper()
@@ -1767,10 +1793,21 @@ Public Class frmcontpaqnominas2
 
                             If ban = 0 Then
                                 Dim fila As DataRow = dsPeriodo.Tables("Tabla").NewRow
+                                Dim InfoEmpleado As String
+                                'buscamos info del trabajador
 
+                                sql = "select * from InfoEmpleadoPeriodoContpaq where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
+                                sql &= " and fkiIdPeriodo=" & cboperiodo.SelectedValue
+
+                                Dim rwInfoEmpleado As DataRow() = nConsulta(sql)
+                                If rwInfoEmpleado Is Nothing = False Then
+                                    InfoEmpleado = IIf(rwInfoEmpleado(0)("igualar0") = "1", "Igualar 0", "")
+                                Else
+                                    InfoEmpleado = ""
+                                End If
                                 If chkAguinaldo.Checked Then
                                     fila.Item("Consecutivo") = consecutivo
-                                    fila.Item("Info") = ""
+                                    fila.Item("Info") = InfoEmpleado
                                     fila.Item("Id_empleado") = dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
                                     fila.Item("Num_Cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
                                     fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper()
@@ -1837,7 +1874,7 @@ Public Class frmcontpaqnominas2
                                     consecutivo = consecutivo + 1
                                 Else
                                     fila.Item("Consecutivo") = consecutivo
-                                    fila.Item("Info") = ""
+                                    fila.Item("Info") = InfoEmpleado
                                     fila.Item("Id_empleado") = dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
                                     fila.Item("Num_Cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
                                     fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper()
@@ -2293,7 +2330,7 @@ Public Class frmcontpaqnominas2
                 Else
                     'Buscamos los datos de sindicato solamente
                     sql = "select iIdEmpleadoC,NumCuenta, (cApellidoP + ' ' + cApellidoM + ' ' + cNombre) as nombre, fkiIdEmpresa,fSueldoOrd,fCosto from empleadosC"
-                    sql &= " where empleadosC.iOrigen=2 and empleadosC.iEstatus=1"
+                    sql &= " where empleadosC.iOrigen=2 and empleadosC.fkiIdClienteInter=-1"
                     sql &= " and empleadosC.fkiIdEmpresa =" & gIdEmpresa
                     sql &= " order by nombre"
 
@@ -2727,11 +2764,14 @@ Public Class frmcontpaqnominas2
         Dim dias As Integer
         Dim BanSueldoOrd As Boolean
         Dim BanPeriodo As Boolean
-
+        Dim bandera As Boolean
+        Dim Igualar0 As Boolean
 
         Dim sueldoord, neto, infonavit, descuento, prestamo, sindicato, primasin, totalsindicato, netopagar, primasa, aguinaldosa, aguinaldosin, Extra As Double
         Dim imss, costosocial1, costosocial2, comisionSA, comisionSindicato, subtotal, iva As Double
         Try
+            bandera = False
+
             For x As Integer = 0 To dtgDatos.Rows.Count - 1
                 If chkAguinaldo.Checked Then
                     aguinaldosa = dtgDatos.Rows(x).Cells(11).Value
@@ -2748,6 +2788,23 @@ Public Class frmcontpaqnominas2
                     prestamo = dtgDatos.Rows(x).Cells(13).Value
                     aguinaldosin = dtgDatos.Rows(x).Cells(16).Value
                     Extra = dtgDatos.Rows(x).Cells(17).Value
+
+                    'verificamos igualar a 0
+
+                    sql = "select * from InfoEmpleadoPeriodoContpaq where fkiIdEmpleado=" & dtgDatos.Rows(x).Cells(3).Value
+                    sql &= " and fkiIdPeriodo=" & cboperiodo.SelectedValue
+
+                    Dim rwInfoEmpleado As DataRow() = nConsulta(sql)
+                    If rwInfoEmpleado Is Nothing = False Then
+                        If rwInfoEmpleado(0)("igualar0") = "1" Then
+                            Igualar0 = True
+                        Else
+                            Igualar0 = False
+                        End If
+                    Else
+                        Igualar0 = False
+                    End If
+
 
 
                     'Verificamos la fecha para saber cuantos dias calcular
@@ -2778,17 +2835,27 @@ Public Class frmcontpaqnominas2
                                 Dim FechaFinal As Date = Date.Parse(rwPeriodo(0)("dFechaFin"))
                                 Dim FechaAntiguedad As Date = Date.Parse(rwDatosBanco(0)("dFechaAntiguedad"))
 
-                                If FechaBuscar.CompareTo(FechaInicial) >= 0 And FechaBuscar.CompareTo(FechaFinal) <= 0 Then
+                                If FechaBuscar.CompareTo(FechaInicial) > 0 And FechaBuscar.CompareTo(FechaFinal) <= 0 Then
                                     'Estamos dentro del rango 
                                     'Calculamos la prima
 
                                     dias = (DateDiff("y", FechaBuscar, FechaFinal)) + 1
+                                    If Igualar0 Then
+                                        sindicato = (sueldodiario * dias) - neto - infonavit - descuento - prestamo
+                                    Else
+                                        sindicato = (sueldodiario * dias) - neto - infonavit - descuento - prestamo + primasa + aguinaldosa
+                                    End If
 
-                                    sindicato = (sueldodiario * dias) - neto - infonavit - descuento - prestamo + primasa + aguinaldosa
                                     BanPeriodo = True
 
                                 ElseIf FechaBuscar.CompareTo(FechaInicial) <= 0 Then
-                                    sindicato = IIf(sueldoord - neto - infonavit - descuento - prestamo + primasa + aguinaldosa >= 0, sueldoord - neto - infonavit - descuento - prestamo + primasa + aguinaldosa, 0)
+                                    If Igualar0 Then
+                                        sindicato = IIf(sueldoord - neto - infonavit - descuento - prestamo >= 0, sueldoord - neto - infonavit - descuento - prestamo, 0)
+                                    Else
+                                        sindicato = IIf(sueldoord - neto - infonavit - descuento - prestamo + primasa + aguinaldosa >= 0, sueldoord - neto - infonavit - descuento - prestamo + primasa + aguinaldosa, 0)
+                                    End If
+
+
                                     BanPeriodo = False
 
                                 End If
@@ -2818,9 +2885,20 @@ Public Class frmcontpaqnominas2
 
                         If BanSueldoOrd Then
                             If BanPeriodo Then
-                                netopagar = (sueldodiario * dias) - infonavit - descuento - prestamo + primasa + primasin + aguinaldosa + aguinaldosin + Extra
+
+                                If Igualar0 Then
+                                    netopagar = (sueldodiario * dias) - infonavit - descuento - prestamo + primasin + aguinaldosin + Extra
+                                Else
+                                    netopagar = (sueldodiario * dias) - infonavit - descuento - prestamo + primasa + primasin + aguinaldosa + aguinaldosin + Extra
+                                End If
+
                             Else
-                                netopagar = IIf(sueldoord - infonavit - descuento - prestamo + primasa + primasin + aguinaldosa + aguinaldosin + Extra >= 0, sueldoord - infonavit - descuento - prestamo + primasa + primasin + aguinaldosa + aguinaldosin + Extra, 0)
+                                If Igualar0 Then
+                                    netopagar = IIf(sueldoord - infonavit - descuento - prestamo + primasin + aguinaldosin + Extra >= 0, sueldoord - infonavit - descuento - prestamo + primasin + aguinaldosin + Extra, 0)
+                                Else
+                                    netopagar = IIf(sueldoord - infonavit - descuento - prestamo + primasa + primasin + aguinaldosa + aguinaldosin + Extra >= 0, sueldoord - infonavit - descuento - prestamo + primasa + primasin + aguinaldosa + aguinaldosin + Extra, 0)
+                                End If
+
                             End If
                         Else
                             netopagar = neto
@@ -2831,6 +2909,8 @@ Public Class frmcontpaqnominas2
                         dtgDatos.Rows(x).Cells(19).Value = Math.Round(netopagar, 2).ToString("##0.00")
 
                         'Calculamos comisiones
+
+
 
                         sql = "select * from IntClienteEmpresaContpaq where fkIdEmpresaC=" & gIdEmpresa
 
@@ -2856,8 +2936,11 @@ Public Class frmcontpaqnominas2
 
                         Else
                             'No existe relación
+                            If bandera = False Then
+                                MessageBox.Show("No existe un cliente asignado para el calculo de la comisión. Asigne al cliente y vuelva a calcular la nomina", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                bandera = True
+                            End If
 
-                            MessageBox.Show("No existe un cliente asignado para el calculo de la comisión. Asigne al cliente y vuelva a calcular la nomina", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         End If
 
                         'Calculo subtotal = neto a pagar + imss + costo social + costo social 2 + comision sa + comision sindicato 
@@ -3288,6 +3371,8 @@ Public Class frmcontpaqnominas2
     Private Sub dtgDatos_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtgDatos.CellContentClick
         If e.RowIndex = -1 And e.ColumnIndex = 0 Then
             Return
+        Else
+            'dtgDatos.Rows(e.RowIndex).Selected = True
         End If
 
 
@@ -3737,11 +3822,16 @@ Public Class frmcontpaqnominas2
     End Sub
 
     Private Sub dtgDatos_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgDatos.ColumnHeaderMouseClick
-        Dim newColumn As DataGridViewColumn = dtgDatos.Columns(e.ColumnIndex)
+        Try
+            Dim newColumn As DataGridViewColumn = dtgDatos.Columns(e.ColumnIndex)
 
-        If e.ColumnIndex = 0 Then
-            dtgDatos.Columns(0).SortMode = DataGridViewColumnSortMode.NotSortable
-        End If
+            If e.ColumnIndex = 0 Then
+                dtgDatos.Columns(0).SortMode = DataGridViewColumnSortMode.NotSortable
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+        
 
     End Sub
 
@@ -3933,7 +4023,7 @@ Public Class frmcontpaqnominas2
 
                                         sRenglon &= nombre
                                         'naturaleza del archivo
-                                        sRenglon &= "07"
+                                        sRenglon &= "12"
                                         nombre = ""
                                         For x As Integer = 1 To 40
                                             nombre &= " "
@@ -4011,8 +4101,14 @@ Public Class frmcontpaqnominas2
 
 
                                                 'sRenglon &= (Long.Parse(IIf(dtgDatos.Rows(x).Cells(3).Value = "", "0", dtgDatos.Rows(x).Cells(3).Value))).ToString("00000000000000000000")
+                                                'Referencia Alfanumerica
+                                                nombre = "SUELDO"
 
-                                                nombre = (Long.Parse(contador)).ToString("0000000000000000000000000000000000000000")
+                                                For y As Integer = nombre.Length To 39
+                                                    nombre &= " "
+                                                Next
+
+                                                'nombre = (Long.Parse(contador)).ToString("0000000000000000000000000000000000000000")
 
 
                                                 'For y As Integer = nombre.Length To 39
@@ -4021,7 +4117,7 @@ Public Class frmcontpaqnominas2
                                                 sRenglon &= nombre
 
                                                 If rwDatosCuenta Is Nothing = False Then
-                                                    nombre = RemoverBasura(rwDatosCuenta(0)("cNombre").ToString() & "," & rwDatosCuenta(0)("cApellidoP").ToString() & "/" & rwDatosCuenta(0)("cApellidoM").ToString() & "@")
+                                                    nombre = RemoverBasura(rwDatosCuenta(0)("cNombre").ToString() & "," & rwDatosCuenta(0)("cApellidoP").ToString() & "/" & rwDatosCuenta(0)("cApellidoM").ToString()) '& "@")
 
                                                 End If
 
@@ -4047,7 +4143,8 @@ Public Class frmcontpaqnominas2
                                                 sRenglon &= nombre
 
 
-                                                nombre = "SUELDO"
+                                                'nombre = "SUELDO"
+                                                nombre = ""
                                                 For y As Integer = nombre.Length To 23
                                                     nombre &= " "
                                                 Next
@@ -5443,6 +5540,202 @@ Public Class frmcontpaqnominas2
                 BuscarEmpresaAsignada()
 
             End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub cmdGuardarSueldo_Click(sender As System.Object, e As System.EventArgs) Handles cmdGuardarSueldo.Click
+        Try
+
+            
+            Dim sql As String
+            
+            'sql = "EXEC getNominaXEmpresaXPeriodo " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1"
+
+            
+            For x As Integer = 0 To dtgDatos.Rows.Count - 1
+
+                sql = "update empleadosC set fSueldoOrd=" & dtgDatos.Rows(x).Cells(7).Value '& ", fCosto =" & dtgDatos.Rows(x).Cells(22).Value
+                sql &= " where iIdEmpleadoC = " & dtgDatos.Rows(x).Cells(3).Value
+
+                If nExecute(sql) = False Then
+                    MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    'pnlProgreso.Visible = False
+                    Exit Sub
+                End If
+
+            Next
+            MessageBox.Show("Datos guardados", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles Igualar0.Click
+        'MessageBox.Show("Primero")
+        Dim sql As String
+        Try
+            'insertamos el valor en la base, verificamos si existe para ese empleado en este peridodo
+            'si existe solo actualizamos
+            'si no insertamos
+            Dim iFila As DataGridViewRow = Me.dtgDatos.CurrentRow()
+
+            sql = "select * from InfoEmpleadoPeriodoContpaq where fkiIdEmpleado=" & iFila.Cells(3).Value
+            sql &= " and fkiIdPeriodo=" & cboperiodo.SelectedValue
+
+            Dim rwInfoEmpleado As DataRow() = nConsulta(sql)
+            If rwInfoEmpleado Is Nothing = False Then
+                'actualizamos
+                sql = "EXEC [setInfoEmpleadoPeriodoContpaqActualizar] " & rwInfoEmpleado(0)("iIdInfoEmpleadoPeriodo")
+                'periodo
+                sql &= "," & cboperiodo.SelectedValue
+                sql &= "," & iFila.Cells(3).Value
+                sql &= ",1"
+                iFila.Cells(2).Value = "Igualar a 0"
+            Else
+                sql = "EXEC [setInfoEmpleadoPeriodoContpaqInsertar] 0"
+                'periodo
+                sql &= "," & cboperiodo.SelectedValue
+                sql &= "," & iFila.Cells(3).Value
+                sql &= ",1"
+                iFila.Cells(2).Value = "Igualar a 0"
+            End If
+            If nExecute(sql) = False Then
+                MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                'pnlProgreso.Visible = False
+                Exit Sub
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ToolStripMenuItem2_Click(sender As System.Object, e As System.EventArgs)
+        Dim iFila As DataGridViewRow = Me.dtgDatos.CurrentRow()
+        MessageBox.Show(iFila.Cells(6).Value)
+
+    End Sub
+
+    Private Sub dtgDatos_CellMouseDown(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dtgDatos.CellMouseDown
+        'dtgDatos.Rows(e.RowIndex).Selected = True
+        Try
+            If e.RowIndex > -1 Then
+                dtgDatos.CurrentCell = dtgDatos.Rows(e.RowIndex).Cells(e.ColumnIndex)
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub DesactivarIgualarA0ToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles DesactivarIgualarA0ToolStripMenuItem.Click
+        Dim sql As String
+        Try
+            'insertamos el valor en la base, verificamos si existe para ese empleado en este peridodo
+            'si existe solo actualizamos
+            'si no insertamos
+            Dim iFila As DataGridViewRow = Me.dtgDatos.CurrentRow()
+
+            sql = "select * from InfoEmpleadoPeriodoContpaq where fkiIdEmpleado=" & iFila.Cells(3).Value
+            sql &= " and fkiIdPeriodo=" & cboperiodo.SelectedValue
+
+            Dim rwInfoEmpleado As DataRow() = nConsulta(sql)
+            If rwInfoEmpleado Is Nothing = False Then
+                'actualizamos
+                sql = "EXEC [setInfoEmpleadoPeriodoContpaqActualizar] " & rwInfoEmpleado(0)("iIdInfoEmpleadoPeriodo")
+                'periodo
+                sql &= "," & cboperiodo.SelectedValue
+                sql &= "," & iFila.Cells(3).Value
+                sql &= ",0"
+                iFila.Cells(2).Value = ""
+
+                If nExecute(sql) = False Then
+                    MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    'pnlProgreso.Visible = False
+                    Exit Sub
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    
+    Private Sub tsbExportarExcelEmpleado_Click(sender As System.Object, e As System.EventArgs) Handles tsbExportarExcelEmpleado.Click
+        Dim sql As String
+        Dim filaExcel As Integer = 5
+        Dim dialogo As New SaveFileDialog()
+        Try
+            sql = "select iIdEmpleadoC,(cApellidoP + ' ' + cApellidoM + ' ' + cNombre) as nombre, cRFC,cCurp,cImss,fSueldoBase, fSueldoIntegrado"
+            sql &= " from empleadosC where empleadosC.iOrigen=1 and empleadosC.fkiIdClienteInter=-1"
+            Sql &= " and empleadosC.fkiIdEmpresa =" & gIdEmpresa
+            Sql &= " order by nombre"
+            Dim rwEmpleadosEmpresa As DataRow() = nConsulta(sql)
+            If rwEmpleadosEmpresa Is Nothing = False Then
+                Dim libro As New ClosedXML.Excel.XLWorkbook
+                Dim hoja As IXLWorksheet = libro.Worksheets.Add("EMPLEADOS")
+                hoja.Column("A").Width = 25
+                hoja.Column("B").Width = 20
+                hoja.Column("C").Width = 20
+                hoja.Column("D").Width = 20
+                hoja.Column("E").Width = 20
+                hoja.Column("F").Width = 20
+                
+
+                hoja.Range(1, 1, 1, 6).Style.Font.FontSize = 10
+                hoja.Range(1, 1, 1, 6).Style.Font.SetBold(True)
+                hoja.Range(1, 1, 1, 6).Style.Alignment.WrapText = True
+                hoja.Range(1, 1, 1, 6).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                hoja.Range(1, 1, 1, 6).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
+                hoja.Range(1, 1, 1, 6).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
+                hoja.Range(1, 1, 1, 6).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
+                hoja.Range(2, 5, 1500, 6).Style.NumberFormat.NumberFormatId = 4
+                hoja.Range(2, 4, 1500, 4).Style.NumberFormat.NumberFormatId = 49
+                'hoja.Cell(4, 1).Value = "Num"
+
+                hoja.Cell(1, 1).Value = "NOMBRE"
+                hoja.Cell(1, 2).Value = "RFC"
+                hoja.Cell(1, 3).Value = "CURP"
+                hoja.Cell(1, 4).Value = "IMSS"
+                hoja.Cell(1, 5).Value = "SD"
+                hoja.Cell(1, 6).Value = "DI"
+                
+
+
+                filaExcel = 1
+                For Each Fila In rwEmpleadosEmpresa
+                    filaExcel = filaExcel + 1
+                    hoja.Cell(filaExcel, 1).Value = Fila.Item("nombre")
+                    hoja.Cell(filaExcel, 2).Value = Fila.Item("cRFC")
+                    hoja.Cell(filaExcel, 3).Value = Fila.Item("cCurp")
+                    'hoja.Cell(filaExcel, 4).Value = "IMSS"
+                    hoja.Cell(filaExcel, 4).Value = Fila.Item("cImss").ToString()
+                    hoja.Cell(filaExcel, 5).Value = Fila.Item("fSueldoBase")
+                    hoja.Cell(filaExcel, 6).Value = Fila.Item("fSueldoIntegrado")
+
+
+                Next
+
+                dialogo.DefaultExt = "*.xlsx"
+                dialogo.FileName = "Empleados"
+                dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
+                dialogo.ShowDialog()
+                libro.SaveAs(dialogo.FileName)
+                'libro.SaveAs("c:\temp\control.xlsx")
+                'libro.SaveAs(dialogo.FileName)
+                'apExcel.Quit()
+                libro = Nothing
+                MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            End If
+
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

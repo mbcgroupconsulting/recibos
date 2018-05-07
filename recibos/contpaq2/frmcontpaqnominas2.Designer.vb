@@ -22,11 +22,13 @@ Partial Class frmcontpaqnominas2
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmcontpaqnominas2))
         Me.pnlProgreso = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.cmdGuardarSueldo = New System.Windows.Forms.Button()
         Me.chkAguinaldo = New System.Windows.Forms.CheckBox()
         Me.chkgrupo = New System.Windows.Forms.CheckBox()
         Me.chkinter = New System.Windows.Forms.CheckBox()
@@ -57,12 +59,17 @@ Partial Class frmcontpaqnominas2
         Me.tsbAguinaldo = New System.Windows.Forms.ToolStripButton()
         Me.tsbCliente = New System.Windows.Forms.ToolStripButton()
         Me.tsbEmpresa = New System.Windows.Forms.ToolStripButton()
+        Me.tsbExportarExcelEmpleado = New System.Windows.Forms.ToolStripButton()
         Me.lblCliente = New System.Windows.Forms.Label()
         Me.lblEmpresa = New System.Windows.Forms.Label()
+        Me.cmenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.Igualar0 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DesactivarIgualarA0ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlProgreso.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         CType(Me.dtgDatos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
+        Me.cmenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlProgreso
@@ -98,6 +105,7 @@ Partial Class frmcontpaqnominas2
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlCatalogo.Controls.Add(Me.cmdGuardarSueldo)
         Me.pnlCatalogo.Controls.Add(Me.chkAguinaldo)
         Me.pnlCatalogo.Controls.Add(Me.chkgrupo)
         Me.pnlCatalogo.Controls.Add(Me.chkinter)
@@ -120,6 +128,16 @@ Partial Class frmcontpaqnominas2
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Size = New System.Drawing.Size(1497, 390)
         Me.pnlCatalogo.TabIndex = 29
+        '
+        'cmdGuardarSueldo
+        '
+        Me.cmdGuardarSueldo.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdGuardarSueldo.Location = New System.Drawing.Point(482, 3)
+        Me.cmdGuardarSueldo.Name = "cmdGuardarSueldo"
+        Me.cmdGuardarSueldo.Size = New System.Drawing.Size(132, 27)
+        Me.cmdGuardarSueldo.TabIndex = 21
+        Me.cmdGuardarSueldo.Text = "Guardar Sueldo Ord."
+        Me.cmdGuardarSueldo.UseVisualStyleBackColor = True
         '
         'chkAguinaldo
         '
@@ -192,7 +210,7 @@ Partial Class frmcontpaqnominas2
         'cmdreiniciar
         '
         Me.cmdreiniciar.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdreiniciar.Location = New System.Drawing.Point(986, 3)
+        Me.cmdreiniciar.Location = New System.Drawing.Point(1126, 3)
         Me.cmdreiniciar.Name = "cmdreiniciar"
         Me.cmdreiniciar.Size = New System.Drawing.Size(111, 27)
         Me.cmdreiniciar.TabIndex = 14
@@ -202,7 +220,7 @@ Partial Class frmcontpaqnominas2
         'cmdincidencias
         '
         Me.cmdincidencias.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdincidencias.Location = New System.Drawing.Point(869, 3)
+        Me.cmdincidencias.Location = New System.Drawing.Point(1009, 3)
         Me.cmdincidencias.Name = "cmdincidencias"
         Me.cmdincidencias.Size = New System.Drawing.Size(111, 27)
         Me.cmdincidencias.TabIndex = 13
@@ -212,7 +230,7 @@ Partial Class frmcontpaqnominas2
         'cmdexcel
         '
         Me.cmdexcel.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdexcel.Location = New System.Drawing.Point(770, 3)
+        Me.cmdexcel.Location = New System.Drawing.Point(910, 3)
         Me.cmdexcel.Name = "cmdexcel"
         Me.cmdexcel.Size = New System.Drawing.Size(93, 27)
         Me.cmdexcel.TabIndex = 12
@@ -232,7 +250,7 @@ Partial Class frmcontpaqnominas2
         'cmdreciboss
         '
         Me.cmdreciboss.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdreciboss.Location = New System.Drawing.Point(644, 3)
+        Me.cmdreciboss.Location = New System.Drawing.Point(784, 3)
         Me.cmdreciboss.Name = "cmdreciboss"
         Me.cmdreciboss.Size = New System.Drawing.Size(122, 27)
         Me.cmdreciboss.TabIndex = 10
@@ -242,7 +260,7 @@ Partial Class frmcontpaqnominas2
         'cmdguardarfinal
         '
         Me.cmdguardarfinal.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdguardarfinal.Location = New System.Drawing.Point(547, 3)
+        Me.cmdguardarfinal.Location = New System.Drawing.Point(687, 3)
         Me.cmdguardarfinal.Name = "cmdguardarfinal"
         Me.cmdguardarfinal.Size = New System.Drawing.Size(92, 27)
         Me.cmdguardarfinal.TabIndex = 9
@@ -252,7 +270,7 @@ Partial Class frmcontpaqnominas2
         'cmdguardarnomina
         '
         Me.cmdguardarnomina.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdguardarnomina.Location = New System.Drawing.Point(480, 3)
+        Me.cmdguardarnomina.Location = New System.Drawing.Point(620, 3)
         Me.cmdguardarnomina.Name = "cmdguardarnomina"
         Me.cmdguardarnomina.Size = New System.Drawing.Size(63, 27)
         Me.cmdguardarnomina.TabIndex = 8
@@ -313,7 +331,7 @@ Partial Class frmcontpaqnominas2
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbDatos, Me.tsbEmpleados, Me.tsbPeriodos, Me.tsbpuestos, Me.tsbdeptos, Me.tsbImportar, Me.tsbLayout, Me.tsbIEmpleados, Me.tsbAguinaldo, Me.tsbCliente, Me.tsbEmpresa})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbDatos, Me.tsbEmpleados, Me.tsbPeriodos, Me.tsbpuestos, Me.tsbdeptos, Me.tsbImportar, Me.tsbLayout, Me.tsbIEmpleados, Me.tsbAguinaldo, Me.tsbCliente, Me.tsbEmpresa, Me.tsbExportarExcelEmpleado})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1497, 54)
@@ -422,6 +440,15 @@ Partial Class frmcontpaqnominas2
         Me.tsbEmpresa.Text = "Empresa asignada"
         Me.tsbEmpresa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
+        'tsbExportarExcelEmpleado
+        '
+        Me.tsbExportarExcelEmpleado.Image = CType(resources.GetObject("tsbExportarExcelEmpleado.Image"), System.Drawing.Image)
+        Me.tsbExportarExcelEmpleado.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbExportarExcelEmpleado.Name = "tsbExportarExcelEmpleado"
+        Me.tsbExportarExcelEmpleado.Size = New System.Drawing.Size(115, 51)
+        Me.tsbExportarExcelEmpleado.Text = "Exportar Empleados"
+        Me.tsbExportarExcelEmpleado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
         'lblCliente
         '
         Me.lblCliente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -441,6 +468,24 @@ Partial Class frmcontpaqnominas2
         Me.lblEmpresa.Size = New System.Drawing.Size(65, 19)
         Me.lblEmpresa.TabIndex = 32
         Me.lblEmpresa.Text = "empresa"
+        '
+        'cmenu
+        '
+        Me.cmenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Igualar0, Me.DesactivarIgualarA0ToolStripMenuItem})
+        Me.cmenu.Name = "cmenu"
+        Me.cmenu.Size = New System.Drawing.Size(186, 48)
+        '
+        'Igualar0
+        '
+        Me.Igualar0.Name = "Igualar0"
+        Me.Igualar0.Size = New System.Drawing.Size(185, 22)
+        Me.Igualar0.Text = "Igualar a 0"
+        '
+        'DesactivarIgualarA0ToolStripMenuItem
+        '
+        Me.DesactivarIgualarA0ToolStripMenuItem.Name = "DesactivarIgualarA0ToolStripMenuItem"
+        Me.DesactivarIgualarA0ToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
+        Me.DesactivarIgualarA0ToolStripMenuItem.Text = "Desactivar igualar a 0"
         '
         'frmcontpaqnominas2
         '
@@ -463,6 +508,7 @@ Partial Class frmcontpaqnominas2
         CType(Me.dtgDatos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
+        Me.cmenu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -504,4 +550,9 @@ Partial Class frmcontpaqnominas2
     Friend WithEvents tsbEmpresa As System.Windows.Forms.ToolStripButton
     Friend WithEvents lblCliente As System.Windows.Forms.Label
     Friend WithEvents lblEmpresa As System.Windows.Forms.Label
+    Friend WithEvents cmdGuardarSueldo As System.Windows.Forms.Button
+    Friend WithEvents cmenu As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents Igualar0 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DesactivarIgualarA0ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsbExportarExcelEmpleado As System.Windows.Forms.ToolStripButton
 End Class

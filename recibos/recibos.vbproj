@@ -368,6 +368,12 @@
     <Compile Include="contpaq\frmEstatusNomina.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="contpaq\frmFiniquito.Designer.vb">
+      <DependentUpon>frmFiniquito.vb</DependentUpon>
+    </Compile>
+    <Compile Include="contpaq\frmFiniquito.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="contpaq\frmIncidencia.Designer.vb">
       <DependentUpon>frmIncidencia.vb</DependentUpon>
     </Compile>
@@ -720,6 +726,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="NominaComprobantes\frmComprobanteBancomer.Designer.vb">
+      <DependentUpon>frmComprobanteBancomer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NominaComprobantes\frmComprobanteBancomer.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="NominasNew\frmAltaEmpleadoNew.Designer.vb">
       <DependentUpon>frmAltaEmpleadoNew.vb</DependentUpon>
     </Compile>
@@ -797,6 +809,18 @@
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="reportes\comprobantebancomer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>comprobantebancomer.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="reportes\comprobantenominabancomer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>comprobantenominabancomer.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="reportes\recibosfiscalviaxurtep.vb">
       <DependentUpon>recibosfiscalviaxurtep.rpt</DependentUpon>
@@ -1068,6 +1092,9 @@
     <EmbeddedResource Include="contpaq\frmEstatusNomina.resx">
       <DependentUpon>frmEstatusNomina.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="contpaq\frmFiniquito.resx">
+      <DependentUpon>frmFiniquito.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="contpaq\frmIncidencia.resx">
       <DependentUpon>frmIncidencia.vb</DependentUpon>
     </EmbeddedResource>
@@ -1237,6 +1264,9 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="NominaComprobantes\frmComprobanteBancomer.resx">
+      <DependentUpon>frmComprobanteBancomer.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NominasNew\frmAltaEmpleadoNew.resx">
       <DependentUpon>frmAltaEmpleadoNew.vb</DependentUpon>
     </EmbeddedResource>
@@ -1276,6 +1306,14 @@
     <EmbeddedResource Include="reportes\asimiladostmm.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>asimiladostmm.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reportes\comprobantebancomer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>comprobantebancomer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reportes\comprobantenominabancomer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>comprobantenominabancomer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\recibosfiscalviaxurtep.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

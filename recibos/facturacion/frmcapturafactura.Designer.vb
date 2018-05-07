@@ -24,6 +24,8 @@ Partial Class frmcapturafactura
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmcapturafactura))
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.chkFlujoNom = New System.Windows.Forms.CheckBox()
+        Me.chkFlujoC = New System.Windows.Forms.CheckBox()
         Me.cmdDetFacturas = New System.Windows.Forms.Button()
         Me.txtnomina = New System.Windows.Forms.TextBox()
         Me.Label24 = New System.Windows.Forms.Label()
@@ -86,8 +88,6 @@ Partial Class frmcapturafactura
         Me.chkiva = New System.Windows.Forms.CheckBox()
         Me.chkPatrona = New System.Windows.Forms.CheckBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.chkFlujoC = New System.Windows.Forms.CheckBox()
-        Me.chkFlujoNom = New System.Windows.Forms.CheckBox()
         Me.pnlCatalogo.SuspendLayout()
         Me.pnlcolores.SuspendLayout()
         Me.pnlnota.SuspendLayout()
@@ -153,8 +153,32 @@ Partial Class frmcapturafactura
         Me.pnlCatalogo.Controls.Add(Me.chkActivo)
         Me.pnlCatalogo.Location = New System.Drawing.Point(0, 51)
         Me.pnlCatalogo.Name = "pnlCatalogo"
-        Me.pnlCatalogo.Size = New System.Drawing.Size(1319, 489)
+        Me.pnlCatalogo.Size = New System.Drawing.Size(796, 489)
         Me.pnlCatalogo.TabIndex = 21
+        '
+        'chkFlujoNom
+        '
+        Me.chkFlujoNom.AutoSize = True
+        Me.chkFlujoNom.BackColor = System.Drawing.Color.Transparent
+        Me.chkFlujoNom.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkFlujoNom.Location = New System.Drawing.Point(1051, 26)
+        Me.chkFlujoNom.Name = "chkFlujoNom"
+        Me.chkFlujoNom.Size = New System.Drawing.Size(91, 22)
+        Me.chkFlujoNom.TabIndex = 66
+        Me.chkFlujoNom.Text = "Flujo Nom"
+        Me.chkFlujoNom.UseVisualStyleBackColor = False
+        '
+        'chkFlujoC
+        '
+        Me.chkFlujoC.AutoSize = True
+        Me.chkFlujoC.BackColor = System.Drawing.Color.Transparent
+        Me.chkFlujoC.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkFlujoC.Location = New System.Drawing.Point(976, 26)
+        Me.chkFlujoC.Name = "chkFlujoC"
+        Me.chkFlujoC.Size = New System.Drawing.Size(69, 22)
+        Me.chkFlujoC.TabIndex = 65
+        Me.chkFlujoC.Text = "Flujo C"
+        Me.chkFlujoC.UseVisualStyleBackColor = False
         '
         'cmdDetFacturas
         '
@@ -457,7 +481,7 @@ Partial Class frmcapturafactura
         Me.lsvLista.Location = New System.Drawing.Point(15, 192)
         Me.lsvLista.MultiSelect = False
         Me.lsvLista.Name = "lsvLista"
-        Me.lsvLista.Size = New System.Drawing.Size(1302, 285)
+        Me.lsvLista.Size = New System.Drawing.Size(779, 285)
         Me.lsvLista.TabIndex = 34
         Me.lsvLista.UseCompatibleStateImageBehavior = False
         Me.lsvLista.View = System.Windows.Forms.View.Details
@@ -767,35 +791,11 @@ Partial Class frmcapturafactura
         Me.Panel1.Size = New System.Drawing.Size(274, 35)
         Me.Panel1.TabIndex = 59
         '
-        'chkFlujoC
-        '
-        Me.chkFlujoC.AutoSize = True
-        Me.chkFlujoC.BackColor = System.Drawing.Color.Transparent
-        Me.chkFlujoC.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkFlujoC.Location = New System.Drawing.Point(976, 26)
-        Me.chkFlujoC.Name = "chkFlujoC"
-        Me.chkFlujoC.Size = New System.Drawing.Size(69, 22)
-        Me.chkFlujoC.TabIndex = 65
-        Me.chkFlujoC.Text = "Flujo C"
-        Me.chkFlujoC.UseVisualStyleBackColor = False
-        '
-        'chkFlujoNom
-        '
-        Me.chkFlujoNom.AutoSize = True
-        Me.chkFlujoNom.BackColor = System.Drawing.Color.Transparent
-        Me.chkFlujoNom.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkFlujoNom.Location = New System.Drawing.Point(1051, 26)
-        Me.chkFlujoNom.Name = "chkFlujoNom"
-        Me.chkFlujoNom.Size = New System.Drawing.Size(91, 22)
-        Me.chkFlujoNom.TabIndex = 66
-        Me.chkFlujoNom.Text = "Flujo Nom"
-        Me.chkFlujoNom.UseVisualStyleBackColor = False
-        '
         'frmcapturafactura
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1319, 542)
+        Me.ClientSize = New System.Drawing.Size(796, 542)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.pnlCatalogo)

@@ -750,4 +750,21 @@ Public Class frmEmpleados
     '    'nCargaCBO(cboclientefiscal, SQL, "nombre", "iIdCliente")
     '    'cboclientefiscal.SelectedValue = gIdCliente
     'End Sub
+
+    Private Sub cmdfiniquito_Click(sender As System.Object, e As System.EventArgs) Handles cmdfiniquito.Click
+        If blnNuevo = False Then
+            Dim Forma As New frmPrestamoEmpleado
+            Forma.gIdEmpresa = gIdEmpresa
+            Forma.gIdEmpleado = gIdEmpleado
+            Forma.gIdPeriodo = gIdPeriodo
+            Forma.gIdCliente = gIdCliente
+            Forma.ShowDialog()
+
+
+
+        Else
+            MessageBox.Show("Seleccione un empleado primeramente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End If
+    End Sub
 End Class

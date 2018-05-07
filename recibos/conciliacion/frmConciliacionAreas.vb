@@ -796,24 +796,45 @@ Public Class frmConciliacionAreas
                     'lsvLista.SelectedItems(0).Tag = ""
                 End If
             ElseIf lsvLista.SelectedItems(0).SubItems(11).Text = "3" And lsvLista.SelectedItems(0).SubItems(6).Text <> "0.00" Then
-                Dim Forma As New frmAnexarFacturaConciliacion
-                Forma.giIdEmpresa = cboempresa.SelectedIndex
-                Forma.gFechaInicial = dtpfechainicio.Value
-                Forma.gFechaFinal = dtpfechafin.Value
-                If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
-                    lsvLista.SelectedItems(0).SubItems(8).Text = Forma.gDatosFactura
-                    lsvLista.SelectedItems(0).SubItems(8).Tag = Forma.giIdFactura
-                    lsvLista.SelectedItems(0).SubItems(11).Text = "1"
-                    lsvLista.SelectedItems(0).BackColor = Color.Green
-                    lsvLista.SelectedItems(0).Checked = True
-                    'lsvLista.SelectedItems(0).SubItems(lsvLista.SelectedItems(0).SubItems.Count - 1).Text = "1"
 
-                    MessageBox.Show("Factura asignada", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                    'If cboempresa.SelectedIndex > -1 Then
-                    '    cargarlista()
-                    'End If
-                    'lsvLista.SelectedItems(0).Tag = ""
+                'preguntamos si quiere asginar gastos o requiere poner la leyenda directamente
+                Dim resultado As Integer = MessageBox.Show("¿Desea buscar Factura?", "Pregunta", MessageBoxButtons.YesNo)
+                If resultado = DialogResult.Yes Then
+                    Dim Forma As New frmAnexarFacturaConciliacion
+                    Forma.giIdEmpresa = cboempresa.SelectedIndex
+                    Forma.gFechaInicial = dtpfechainicio.Value
+                    Forma.gFechaFinal = dtpfechafin.Value
+                    If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
+                        lsvLista.SelectedItems(0).SubItems(8).Text = Forma.gDatosFactura
+                        lsvLista.SelectedItems(0).SubItems(8).Tag = Forma.giIdFactura
+                        lsvLista.SelectedItems(0).SubItems(11).Text = "1"
+                        lsvLista.SelectedItems(0).BackColor = Color.Green
+                        lsvLista.SelectedItems(0).Checked = True
+                        'lsvLista.SelectedItems(0).SubItems(lsvLista.SelectedItems(0).SubItems.Count - 1).Text = "1"
+
+                        MessageBox.Show("Factura asignada", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        'If cboempresa.SelectedIndex > -1 Then
+                        '    cargarlista()
+                        'End If
+                        'lsvLista.SelectedItems(0).Tag = ""
+                    End If
+                Else
+                    Dim Forma As New frmCargoManual
+
+                    If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
+                        lsvLista.SelectedItems(0).SubItems(8).Text = Forma.gTextoCargo
+                        'lsvLista.SelectedItems(0).SubItems(8).Tag = Forma.giIdFactura
+                        lsvLista.SelectedItems(0).SubItems(11).Text = "1"
+                        lsvLista.SelectedItems(0).BackColor = Color.Green
+                        lsvLista.SelectedItems(0).Checked = True
+
+
+                        MessageBox.Show("Abono asignado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                    End If
                 End If
+
+                
             ElseIf lsvLista.SelectedItems(0).SubItems(11).Text = "3" And lsvLista.SelectedItems(0).SubItems(5).Text <> "0.00" Then
 
                 'preguntamos si quiere asginar gastos o requiere poner la leyenda directamente

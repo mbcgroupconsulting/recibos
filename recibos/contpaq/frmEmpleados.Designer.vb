@@ -136,6 +136,7 @@ Partial Class frmEmpleados
         Me.Label51 = New System.Windows.Forms.Label()
         Me.Label52 = New System.Windows.Forms.Label()
         Me.txtExtra = New System.Windows.Forms.TextBox()
+        Me.cmdfiniquito = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -217,6 +218,7 @@ Partial Class frmEmpleados
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.cmdfiniquito)
         Me.Panel1.Controls.Add(Me.cmdprestamo)
         Me.Panel1.Controls.Add(Me.cmdincidencias)
         Me.Panel1.Controls.Add(Me.cmdbuscar)
@@ -281,7 +283,7 @@ Partial Class frmEmpleados
         '
         Me.cmdsalir.Image = CType(resources.GetObject("cmdsalir.Image"), System.Drawing.Image)
         Me.cmdsalir.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdsalir.Location = New System.Drawing.Point(10, 390)
+        Me.cmdsalir.Location = New System.Drawing.Point(11, 468)
         Me.cmdsalir.Name = "cmdsalir"
         Me.cmdsalir.Size = New System.Drawing.Size(87, 72)
         Me.cmdsalir.TabIndex = 37
@@ -1123,6 +1125,18 @@ Partial Class frmEmpleados
         Me.txtExtra.Size = New System.Drawing.Size(98, 26)
         Me.txtExtra.TabIndex = 206
         '
+        'cmdfiniquito
+        '
+        Me.cmdfiniquito.Image = CType(resources.GetObject("cmdfiniquito.Image"), System.Drawing.Image)
+        Me.cmdfiniquito.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdfiniquito.Location = New System.Drawing.Point(11, 387)
+        Me.cmdfiniquito.Name = "cmdfiniquito"
+        Me.cmdfiniquito.Size = New System.Drawing.Size(87, 72)
+        Me.cmdfiniquito.TabIndex = 43
+        Me.cmdfiniquito.Text = "Finiquito"
+        Me.cmdfiniquito.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdfiniquito.UseVisualStyleBackColor = True
+        '
         'frmEmpleados
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1345,4 +1359,5 @@ Partial Class frmEmpleados
     Friend WithEvents cmdprestamo As Button
     Friend WithEvents Label52 As Label
     Friend WithEvents txtExtra As TextBox
+    Friend WithEvents cmdfiniquito As System.Windows.Forms.Button
 End Class
