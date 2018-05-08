@@ -92,7 +92,7 @@
 
                         FileCopy(archivo.SubItems(0).Text, "C:\Temp\" & nombrearchivocompleto)
 
-                        '' My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
+                        My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
 
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Ocurrio un error," & SQL, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
