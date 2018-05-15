@@ -271,6 +271,22 @@
         cmdcancelar.Enabled = False
         MostrarClientes()
         MostrarDocumentos()
+        ''TabIndex()
+
+    End Sub
+
+    Private Sub TabIndex()
+        cboclientes.TabIndex = 1
+        cmdagregar.TabIndex = 2
+        cmdborrarfactura.TabIndex = 3
+        lsvLista.TabIndex = 4
+        cmdarchivo.TabIndex = 5
+        cboanio.TabIndex = 6
+        cbomes.TabIndex = 7
+        cmdBorrarArchivo.TabIndex = 8
+        cboDocumento.TabIndex = 9
+        lsvArchivo.TabIndex = 10
+
     End Sub
 
     Private Sub MostrarClientes()
@@ -285,17 +301,9 @@
     Private Sub MostrarDocumentos()
         'Verificar si se tienen permisos
         Try
-            SQL = "Select Documentos,iIdDocumentos from Documentos where iEstatus=1 and cArea=2 "
+            SQL = "Select Documentos,iIdDocumentos from Documentos where iEstatus=1 and cArea=2"
+            SQL &= sqltmm()
 
-            'If (cboclientes.SelectedIndex = "191" Or
-            '   cboclientes.SelectedIndex = "290" Or
-            '   cboclientes.SelectedIndex = "132" Or
-            '   cboclientes.SelectedIndex = "420") Then
-
-            '    SQL &= "AND iTMM=1  order by iIdDocumentos"
-            'Else
-            '    SQL &= "AND iTMM=0  order by iIdDocumentos"
-            'End If
             nCargaCBO(cboDocumento, SQL, Trim("Documentos"), "iIdDocumentos")
         Catch ex As Exception
         End Try
@@ -312,20 +320,21 @@
         lsvLista.Items.Clear()
     End Sub
 
-    'Public Sub validarTMM()
-    '    SQL = "Select Documentos,iIdDocumentos from Documentos where iEstatus=1 and cArea=2 "
+    Public Sub cboclientes_LostFocus(ByVal sender As Object, ByVal e As EventArgs) Handles cboclientes.LostFocus
+        MostrarDocumentos()
+    End Sub
+    Public Function sqltmm() As String
 
-    '    If (cboclientes.SelectedIndex = "191" Or
-    '       cboclientes.SelectedIndex = "290" Or
-    '       cboclientes.SelectedIndex = "132" Or
-    '       cboclientes.SelectedIndex = "420" Or
-    '       cboclientes.SelectedIndex = "469") Then
+        If cboclientes.SelectedValue = "37" Or
+            cboclientes.SelectedValue = "411" Or
+            cboclientes.SelectedValue = "420" Then
 
-    '        SQL &= "AND iTMM=1  order by iIdDocumentos"
-    '    Else
-    '        SQL &= "AND iTMM=0  order by iIdDocumentos"
-    '    End If
-    '    nCargaCBO(cboDocumento, SQL, Trim("Documentos"), "iIdDocumentos")
+            Return "AND iTMM=1  order by iIdDocumentos"
+        Else
+            Return "AND iTMM=0  order by iIdDocumentos"
 
-    'End Sub
+        End If
+
+    End Function
+
 End Class
