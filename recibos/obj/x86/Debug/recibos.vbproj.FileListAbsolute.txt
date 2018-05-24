@@ -753,4 +753,3 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmEstatusNomina.resour
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmFiniquito.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmContratos.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmComprobanteBancomer.resources
-D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
