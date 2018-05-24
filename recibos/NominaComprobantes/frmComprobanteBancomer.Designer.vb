@@ -28,6 +28,15 @@ Partial Class frmComprobanteBancomer
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.cmdCerrar = New System.Windows.Forms.Button()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.dtpHora = New System.Windows.Forms.DateTimePicker()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtCuenta = New System.Windows.Forms.TextBox()
+        Me.txtContrato = New System.Windows.Forms.TextBox()
+        Me.txtNombrepago = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtEmpresa = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.dtpFecha = New System.Windows.Forms.DateTimePicker()
@@ -47,15 +56,8 @@ Partial Class frmComprobanteBancomer
         Me.tsbProcesar = New System.Windows.Forms.ToolStripButton()
         Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         Me.lblRuta = New System.Windows.Forms.Label()
-        Me.txtEmpresa = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.txtNombrepago = New System.Windows.Forms.TextBox()
-        Me.txtContrato = New System.Windows.Forms.TextBox()
-        Me.txtCuenta = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.dtpHora = New System.Windows.Forms.DateTimePicker()
+        Me.txtFolio = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.pnlProgreso.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -111,6 +113,8 @@ Partial Class frmComprobanteBancomer
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlCatalogo.Controls.Add(Me.Label8)
+        Me.pnlCatalogo.Controls.Add(Me.txtFolio)
         Me.pnlCatalogo.Controls.Add(Me.dtpHora)
         Me.pnlCatalogo.Controls.Add(Me.Label7)
         Me.pnlCatalogo.Controls.Add(Me.txtCuenta)
@@ -131,6 +135,81 @@ Partial Class frmComprobanteBancomer
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Size = New System.Drawing.Size(945, 501)
         Me.pnlCatalogo.TabIndex = 43
+        '
+        'dtpHora
+        '
+        Me.dtpHora.Format = System.Windows.Forms.DateTimePickerFormat.Time
+        Me.dtpHora.Location = New System.Drawing.Point(599, 19)
+        Me.dtpHora.Name = "dtpHora"
+        Me.dtpHora.Size = New System.Drawing.Size(96, 26)
+        Me.dtpHora.TabIndex = 66
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(599, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(76, 19)
+        Me.Label7.TabIndex = 65
+        Me.Label7.Text = "Hora pago"
+        '
+        'txtCuenta
+        '
+        Me.txtCuenta.Location = New System.Drawing.Point(831, 19)
+        Me.txtCuenta.Name = "txtCuenta"
+        Me.txtCuenta.Size = New System.Drawing.Size(108, 26)
+        Me.txtCuenta.TabIndex = 64
+        '
+        'txtContrato
+        '
+        Me.txtContrato.Location = New System.Drawing.Point(710, 19)
+        Me.txtContrato.Name = "txtContrato"
+        Me.txtContrato.Size = New System.Drawing.Size(108, 26)
+        Me.txtContrato.TabIndex = 63
+        '
+        'txtNombrepago
+        '
+        Me.txtNombrepago.Location = New System.Drawing.Point(25, 71)
+        Me.txtNombrepago.Name = "txtNombrepago"
+        Me.txtNombrepago.Size = New System.Drawing.Size(452, 26)
+        Me.txtNombrepago.TabIndex = 62
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(827, 0)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(55, 19)
+        Me.Label11.TabIndex = 61
+        Me.Label11.Text = "Cuenta"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(710, 0)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(65, 19)
+        Me.Label10.TabIndex = 60
+        Me.Label10.Text = "Contrato"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(22, 50)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(115, 18)
+        Me.Label1.TabIndex = 59
+        Me.Label1.Text = "Nombre del pago"
+        '
+        'txtEmpresa
+        '
+        Me.txtEmpresa.Location = New System.Drawing.Point(25, 19)
+        Me.txtEmpresa.Name = "txtEmpresa"
+        Me.txtEmpresa.Size = New System.Drawing.Size(452, 26)
+        Me.txtEmpresa.TabIndex = 58
         '
         'Label9
         '
@@ -339,80 +418,21 @@ Partial Class frmComprobanteBancomer
         Me.lblRuta.Size = New System.Drawing.Size(604, 39)
         Me.lblRuta.TabIndex = 45
         '
-        'txtEmpresa
+        'txtFolio
         '
-        Me.txtEmpresa.Location = New System.Drawing.Point(25, 19)
-        Me.txtEmpresa.Name = "txtEmpresa"
-        Me.txtEmpresa.Size = New System.Drawing.Size(452, 26)
-        Me.txtEmpresa.TabIndex = 58
+        Me.txtFolio.Location = New System.Drawing.Point(491, 71)
+        Me.txtFolio.Name = "txtFolio"
+        Me.txtFolio.Size = New System.Drawing.Size(105, 26)
+        Me.txtFolio.TabIndex = 67
         '
-        'Label1
+        'Label8
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(22, 50)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(115, 18)
-        Me.Label1.TabIndex = 59
-        Me.Label1.Text = "Nombre del pago"
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(710, 0)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(65, 19)
-        Me.Label10.TabIndex = 60
-        Me.Label10.Text = "Contrato"
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(827, 0)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(55, 19)
-        Me.Label11.TabIndex = 61
-        Me.Label11.Text = "Cuenta"
-        '
-        'txtNombrepago
-        '
-        Me.txtNombrepago.Location = New System.Drawing.Point(25, 71)
-        Me.txtNombrepago.Name = "txtNombrepago"
-        Me.txtNombrepago.Size = New System.Drawing.Size(452, 26)
-        Me.txtNombrepago.TabIndex = 62
-        '
-        'txtContrato
-        '
-        Me.txtContrato.Location = New System.Drawing.Point(710, 19)
-        Me.txtContrato.Name = "txtContrato"
-        Me.txtContrato.Size = New System.Drawing.Size(108, 26)
-        Me.txtContrato.TabIndex = 63
-        '
-        'txtCuenta
-        '
-        Me.txtCuenta.Location = New System.Drawing.Point(831, 19)
-        Me.txtCuenta.Name = "txtCuenta"
-        Me.txtCuenta.Size = New System.Drawing.Size(108, 26)
-        Me.txtCuenta.TabIndex = 64
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(599, 0)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(76, 19)
-        Me.Label7.TabIndex = 65
-        Me.Label7.Text = "Hora pago"
-        '
-        'dtpHora
-        '
-        Me.dtpHora.Format = System.Windows.Forms.DateTimePickerFormat.Time
-        Me.dtpHora.Location = New System.Drawing.Point(599, 19)
-        Me.dtpHora.Name = "dtpHora"
-        Me.dtpHora.Size = New System.Drawing.Size(96, 26)
-        Me.dtpHora.TabIndex = 66
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(492, 50)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(39, 18)
+        Me.Label8.TabIndex = 68
+        Me.Label8.Text = "Folio"
         '
         'frmComprobanteBancomer
         '
@@ -476,4 +496,6 @@ Partial Class frmComprobanteBancomer
     Friend WithEvents txtContrato As System.Windows.Forms.TextBox
     Friend WithEvents dtpHora As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents txtFolio As System.Windows.Forms.TextBox
 End Class

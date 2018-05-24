@@ -614,7 +614,6 @@ D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.exe.config
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.pdb
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.xml
-D:\Escritorio\Team\recibos\recibos\bin\Debug\ClosedXML.xml
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmBuscarDepartamento.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmDepartamentoAlta.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmBuscarPuesto.resources
@@ -738,13 +737,12 @@ C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAsig
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAsignarEmpresa.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmCargoManual.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmEstatusNomina.resources
-C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmNotarioC.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmNotario.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmContratos.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmFiniquito.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmComprobanteBancomer.resources
-D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
+C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotarioC.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotario.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAnexarFacturaConciliacion.resources
@@ -755,3 +753,4 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmEstatusNomina.resour
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmFiniquito.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmContratos.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmComprobanteBancomer.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache

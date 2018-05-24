@@ -214,18 +214,7 @@ Public Class frmComprobanteBancomer
 
                 'Dim fiscaltmm As New frmReciboTMM
 
-                Dim dsReporte As New DataSet
-
-                dsReporte.Tables.Add("Tabla")
-                dsReporte.Tables("Tabla").Columns.Add("Empresa")
-                dsReporte.Tables("Tabla").Columns.Add("Fecha")
-                dsReporte.Tables("Tabla").Columns.Add("Hora")
-                dsReporte.Tables("Tabla").Columns.Add("Contrato")
-                dsReporte.Tables("Tabla").Columns.Add("Cuenta")
-                dsReporte.Tables("Tabla").Columns.Add("NombrePago")
-                dsReporte.Tables("Tabla").Columns.Add("Nombretrabajdor")
-                dsReporte.Tables("Tabla").Columns.Add("CuentaTrabajador")
-                dsReporte.Tables("Tabla").Columns.Add("Importe")
+                
                 
                 'Seleccionar carpeta donde guardar los archivos
                 Dim Carpeta = New FolderBrowserDialog
@@ -243,15 +232,28 @@ Public Class frmComprobanteBancomer
                     Dim importe As Double = Double.Parse(IIf(producto.SubItems(CInt(NudImporte.Value)).Text = "", "0", producto.SubItems(CInt(NudImporte.Value)).Text))
 
                     If importe > 0 Then
-                        
+                        Dim dsReporte As New DataSet
+
+                        dsReporte.Tables.Add("Tabla")
+                        dsReporte.Tables("Tabla").Columns.Add("Empresa")
+                        dsReporte.Tables("Tabla").Columns.Add("Fecha")
+                        dsReporte.Tables("Tabla").Columns.Add("Hora")
+                        dsReporte.Tables("Tabla").Columns.Add("Contrato")
+                        dsReporte.Tables("Tabla").Columns.Add("Cuenta")
+                        dsReporte.Tables("Tabla").Columns.Add("NombrePago")
+                        dsReporte.Tables("Tabla").Columns.Add("Folio")
+                        dsReporte.Tables("Tabla").Columns.Add("Nombretrabajdor")
+                        dsReporte.Tables("Tabla").Columns.Add("CuentaTrabajador")
+                        dsReporte.Tables("Tabla").Columns.Add("Importe")
 
                         Dim fila As DataRow = dsReporte.Tables("Tabla").NewRow
                         fila.Item("Empresa") = Trim(txtEmpresa.Text.ToUpper)
-                        fila.Item("Fecha") = Trim(dtpFecha.Value)
-                        fila.Item("Hora") = Trim(dtpFecha.Value.ToString.ToUpper)
+                        fila.Item("Fecha") = Trim(Date.Parse(dtpFecha.Value).ToShortDateString)
+                        fila.Item("Hora") = Trim(dtpFecha.Value.ToString.ToUpper.Substring(11))
                         fila.Item("Contrato") = Trim(txtContrato.Text)
                         fila.Item("Cuenta") = Trim(txtCuenta.Text)
                         fila.Item("NombrePago") = Trim(txtNombrepago.Text.ToUpper)
+                        fila.Item("Folio") = Trim(txtFolio.Text)
                         fila.Item("Nombretrabajdor") = producto.SubItems(CInt(NudNombre.Value)).Text
                         fila.Item("CuentaTrabajador") = producto.SubItems(CInt(NudCuenta.Value)).Text
                         fila.Item("Importe") = Math.Round(importe, 2)
@@ -274,7 +276,7 @@ Public Class frmComprobanteBancomer
                         'reporte.FileName = Application.StartupPath & "\Reportes\tmm.rpt"
                         Dim oReporte As New comprobantenominabancomer
                         oReporte.SetDataSource(dsReporte)
-                        oReporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, direccioncarpeta & "\" & producto.SubItems(CInt(NudNombre.Value)).Text.ToUpper & " " & CDate(dtpFecha.Value).Month.ToString("00") & "-" & CDate(dtpFecha.Value).Month.ToString("00") & "-" & CDate(dtpFecha.Value).Year.ToString() & ".pdf")
+                        oReporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, direccioncarpeta & "\" & producto.SubItems(CInt(NudNombre.Value)).Text.ToUpper & " " & CDate(dtpFecha.Value).Day.ToString("00") & "-" & CDate(dtpFecha.Value).Month.ToString("00") & "-" & CDate(dtpFecha.Value).Year.ToString() & ".pdf")
                         ''reporte.Load(Application.StartupPath & "\reportes\asitmm.rpt")
                         ''reporte.SetDataSource(dsReporte)
                         ''reporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, direccioncarpeta & "\" & CDate(dtpfecha.Value).Month.ToString("00") & CDate(dtpfecha.Value).Year.ToString() & Trim(producto.SubItems(1).Text) & "ASIM.pdf")
