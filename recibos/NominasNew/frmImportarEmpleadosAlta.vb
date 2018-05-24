@@ -225,8 +225,10 @@ Public Class frmImportarEmpleadosAlta
     Private Sub tsbGuardar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles tsbGuardar.Click
         Dim SQL As String, nombresistema As String = ""
         Dim bandera As Boolean
-
+        Dim epat, ec As Integer
         Dim x As Integer
+        Dim list As New ArrayList
+
 
         Try
             If lsvLista.CheckedItems.Count > 0 Then
@@ -364,6 +366,7 @@ Public Class frmImportarEmpleadosAlta
                                 bandera = False
                             Else
                                 empresa = empc(0).Item("iIdCliente")
+                                ec = empresa
                                 bandera = True
                             End If
                         Else
@@ -373,12 +376,13 @@ Public Class frmImportarEmpleadosAlta
                         Dim ep As String = Trim(empleadofull.SubItems(42).Text)
                         Dim empresapa As Integer
                         If ep <> "" Then
-                            Dim empc As DataRow() = nConsulta("SELECT * FROM empresa  WHERE nombrefiscal like '%" & ep & "%'")
+                            Dim empc As DataRow() = nConsulta("SELECT * FROM empresa  WHERE nombre like '%" & ep & "%'")
                             If empc Is Nothing Then
                                 mensa = "Revise el nombre del la empresa patrona"
                                 bandera = False
                             Else
                                 empresapa = empc(0).Item("iIdEmpresa")
+                                epat = empresapa
                                 bandera = True
                             End If
                         Else
@@ -424,6 +428,8 @@ Public Class frmImportarEmpleadosAlta
                         SQL &= ",'" & cbEmpresasC.SelectedValue & "','" & " " & "','" & rpatronal & "'"
                         SQL &= "," & 0 & ", '" & " " & "'"
 
+                        list.Add(Trim(empleadofull.SubItems(1).Text))
+
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Error en el registro con los siguiente datos:   Empleado:  " & Trim(empleado.SubItems(3).Text), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
@@ -432,6 +438,9 @@ Public Class frmImportarEmpleadosAlta
                         pgbProgreso.Value += 1
                         Application.DoEvents()
                         t = t + 1
+
+                        'Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), empleado.SubItems.Count - 1), "e.ruiz@mbcgroup.mx", "Empleado Alta")
+
                     Else
                         MessageBox.Show(mensa, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         tsbCancelar_Click(sender, e)
@@ -449,8 +458,10 @@ Public Class frmImportarEmpleadosAlta
                 If bandera <> False Then
                     tsbCancelar_Click(sender, e)
                     pnlProgreso.Visible = False
-
                     MessageBox.Show(t.ToString() & "  Proceso terminado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), "c.serrano@mbcgroup.mx;p.vicente@mbcgroup.mx", "Empleado Alta")
+
+
                 Else
                     pnlProgreso.Visible = False
                     MessageBox.Show("No se guardo ninguna dato, revise y vuelva a intentarlo ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)

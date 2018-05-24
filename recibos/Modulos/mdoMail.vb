@@ -15,14 +15,20 @@ Module mdoMail
         'Razon = ObtencampoDR(SQL, 2)
         'eMailRoot = ObtencampoDR(SQL, 0)
         eMailRoot = "sistema@mbcgroup.mx"
+        'eMailRoot = "sistema@mbcgroup.com.mx"
         'PWDMailRoot = ObtencampoDR(SQL, 1)
         'Email = ObtencampoDR(SQL, 3)
 
         Dim LogonInfo As New NetworkCredential("sistema@mbcgroup.mx", "ade1f0abcd")
+        ' Dim LogonInfo As New NetworkCredential("sistema@mbcgroup.com.mx", "ade1f0abcd")
+
+
         Dim Mensaje As New MailMessage()
         Dim Adjunto As Mail.Attachment
         Dim Correos As String(), i As Integer
         Dim CorreoDe As New MailAddress("sistema@mbcgroup.mx", "Sistema")
+        'Dim CorreoDe As New MailAddress("sistema@mbcgroup.com.mx", "Sistema")
+
         Dim CorreoPara As MailAddress
 
         Correos = eMailDest.Split(";")
@@ -57,6 +63,10 @@ Module mdoMail
                 Client = New SmtpClient("mail.mbcgroup.mx", 26)
                 Client.EnableSsl = False
                 Client.UseDefaultCredentials = True
+                'ElseIf InStr(eMailRoot.ToLower, "mbcgroup.com.mx") > 0 Then
+                '    Client = New SmtpClient("mail.mbcgroup.com.mx", 26)
+                '    Client.EnableSsl = False
+                '    Client.UseDefaultCredentials = True
             ElseIf InStr(eMailRoot.ToLower, "hotmail.com") > 0 Then
                 Client = New SmtpClient("smtp.live.com", 587)
                 Client.EnableSsl = True
@@ -363,6 +373,180 @@ Module mdoMail
         CuerpoMail += "</form>"
         CuerpoMail += "</body>"
         CuerpoMail += "</html>"
+
+        Return CuerpoMail
+
+    End Function
+
+    Public Function GenerarCorreo1(ByVal IdEmpresa As String, ByVal IdCliente As String, ByVal idEmpleado As String) As String
+        Dim CuerpoMail As String
+        Dim Sql As String = ""
+        Sql = "select cCodigoEmpleado,cNombreLargo,clientes.nombrefiscal as cliente, empresa.nombrefiscal as empresa "
+        Sql &= " from (empleadosAlta inner join clientes on"
+        Sql &= " empleadosAlta.fkiIdCliente= clientes.iIdCliente) inner join empresa"
+        Sql &= " on empleadosAlta.fkiIdEmpresa= empresa.iIdEmpresa"
+        Sql &= " where cCodigoEmpleado =" & idEmpleado
+
+        Dim rwFilas As DataRow() = nConsulta(Sql)
+
+
+        CuerpoMail = ""
+        CuerpoMail = "<html>" & vbCrLf
+        CuerpoMail += "<head>"
+        CuerpoMail += "<title>Alta Empleado</title>"
+        CuerpoMail += "</head>"
+        CuerpoMail += "<body>"
+        CuerpoMail += "<form>"
+        CuerpoMail += "<div>"
+        CuerpoMail += "<table border='1' cellspacing='0' cellpadding='2' bordercolor='000000' style=""" & "width :700px; height : auto ; margin : 0 auto; border: 1px solid #000; font-size :11px; font-family :Verdana ;""" & ">"
+        CuerpoMail += "<tr>"
+        CuerpoMail += "<td colspan='2'>"
+        CuerpoMail += "Estimado(a): Area IMSS, Area Juridico"
+        CuerpoMail += "</td>"
+        CuerpoMail += "</tr>"
+        CuerpoMail += "<tr>"
+        CuerpoMail += "<td colspan='2' align=""" & "center""" & ">"
+        CuerpoMail += "<strong>Datos alta</strong>"
+        CuerpoMail += "</td>"
+        CuerpoMail += "</tr>"
+        CuerpoMail += "<tr style=""" & "font-weight :bold ;""" & ">"
+        CuerpoMail += "<td style=""" & "text-align:center; """ & ">Codigo Empleado</td>"
+        CuerpoMail += "<td style=""" & "text-align:center; """ & ">" & rwFilas(0).Item(0) & "</td>"
+        CuerpoMail += "</tr>"
+        CuerpoMail += "<tr style=""" & "font-weight :bold ;""" & ">"
+        CuerpoMail += "<td style=""" & "text-align:center;""" & ">Nombre Empleado</td>"
+        CuerpoMail += "<td style=""" & "text-align:center;""" & ">" & rwFilas(0).Item(1) & "</td>"
+        CuerpoMail += "</tr>"
+        CuerpoMail += "<tr style=""" & "font-weight :bold ;""" & ">"
+        CuerpoMail += "<td style=""" & "text-align:center;""" & ">Cliente</td>"
+        CuerpoMail += "<td style=""" & "text-align:center;""" & ">" & rwFilas(0).Item(2) & "</td>"
+        CuerpoMail += "</tr>"
+        CuerpoMail += "<tr style=""" & "font-weight :bold ;""" & ">"
+        CuerpoMail += "<td style=""" & "text-align:center;""" & ">Empresa patrona</td>"
+        CuerpoMail += "<td style=""" & "text-align:center;""" & ">" & rwFilas(0).Item(3) & "</td>"
+        CuerpoMail += "</tr>"
+        'Aqui va el for
+
+        'If rwFilas Is Nothing = False Then
+        '    For Each Fila In rwFilas
+        '        CuerpoMail += "<tr><td style=""" & "text-align:center;""" & ">" & Fila.Item(1) & "</td>"
+        '        CuerpoMail += "<td style=""" & "text-align:center;""" & ">" & Fila.Item(2) & "</td>"
+        '        CuerpoMail += "<td>" & Fila.Item(3) & "</td>"
+        '        CuerpoMail += "<td>" & Fila.Item(4) & "</td>"
+        '        CuerpoMail += "<td>" & Fila.Item(5) & "</td>"
+        '        CuerpoMail += "<td>" & Fila.Item(6) & "</td></tr>"
+        '    Next
+        'End If
+        CuerpoMail += "<tr><td colspan='6'>Por favor no contestar este correo ya que fue generado de manera automatica por el sistema de altas empleados</td></tr>"
+        CuerpoMail += "</table>"
+        CuerpoMail += "</div>"
+        CuerpoMail += "</form>"
+        CuerpoMail += "</body>"
+        CuerpoMail += "</html>"
+
+        Return CuerpoMail
+
+    End Function
+    Public Function GenerarCorreo2(ByVal IdEmpresa As String, ByVal IdCliente As String, ByVal idEmpleado As String, ByVal empleado As ArrayList) As String
+        Dim CuerpoMail As String
+        Dim codigo, nombre, cliente, empresa As String
+        For Each value As String In empleado
+
+            Dim Sql As String = ""
+            Sql = "select cCodigoEmpleado,cNombreLargo,clientes.nombrefiscal as cliente, empresa.nombrefiscal as empresa "
+            Sql &= " from (empleadosAlta inner join clientes on"
+            Sql &= " empleadosAlta.fkiIdCliente= clientes.iIdCliente) inner join empresa"
+            Sql &= " on empleadosAlta.fkiIdEmpresa= empresa.iIdEmpresa"
+            Sql &= " where cCodigoEmpleado =" & value
+
+            Dim rwFilas As DataRow() = nConsulta(Sql)
+            If codigo Is Nothing Then
+                codigo += rwFilas(0).Item(0) & vbCrLf
+            Else
+                codigo += ", " & rwFilas(0).Item(0) & vbCrLf
+
+            End If
+            If nombre Is Nothing Then
+                nombre += " " & rwFilas(0).Item(1) & vbCrLf
+            Else
+                nombre += ", " & rwFilas(0).Item(1) & vbCrLf
+            End If
+
+
+            If cliente Is Nothing Then
+                cliente += " " & rwFilas(0).Item(2) & vbCrLf
+            Else
+                If cliente.Contains(rwFilas(0).Item(2)) = False Then
+                    cliente += ", " & rwFilas(0).Item(2) & vbCrLf
+                End If
+            End If
+
+
+            If empresa Is Nothing Then
+                empresa += " " & rwFilas(0).Item(3) & vbCrLf
+            Else
+                If empresa.Contains(rwFilas(0).Item(3)) = False Then
+                    empresa += ", " & rwFilas(0).Item(3) & vbCrLf
+                End If
+            End If
+
+
+        Next
+
+        CuerpoMail = ""
+        CuerpoMail = "<html>" & vbCrLf
+        CuerpoMail += "<head>"
+        CuerpoMail += "<title>Alta Empleado</title>"
+        CuerpoMail += "</head>"
+        CuerpoMail += "<body>"
+        CuerpoMail += "<form>"
+        CuerpoMail += "<div>"
+        CuerpoMail += "<table border='1' cellspacing='0' cellpadding='2' bordercolor='000000' style=""" & "width :700px; height : auto ; margin : 0 auto; border: 1px solid #000; font-size :11px; font-family :Verdana ;""" & ">"
+        CuerpoMail += "<tr>"
+        CuerpoMail += "<td colspan='2'>"
+        CuerpoMail += "Estimado(a): Area IMSS, Area Juridico"
+        CuerpoMail += "</td>"
+        CuerpoMail += "</tr>"
+        CuerpoMail += "<tr>"
+        CuerpoMail += "<td colspan='2' align=""" & "center""" & ">"
+        CuerpoMail += "<strong>Datos alta</strong>"
+        CuerpoMail += "</td>"
+        CuerpoMail += "</tr>"
+        CuerpoMail += "<tr style=""" & "font-weight :bold ;""" & ">"
+        CuerpoMail += "<td style=""" & "text-align:center; """ & ">Codigo Empleado</td>"
+        CuerpoMail += "<td style=""" & "text-align:center; """ & ">" & codigo & "</td>"
+        CuerpoMail += "</tr>"
+        CuerpoMail += "<tr style=""" & "font-weight :bold ;""" & ">"
+        CuerpoMail += "<td style=""" & "text-align:center;""" & ">Nombre Empleado</td>"
+        CuerpoMail += "<td style=""" & "text-align:center;""" & ">" & nombre & "</td>"
+        CuerpoMail += "</tr>"
+        CuerpoMail += "<tr style=""" & "font-weight :bold ;""" & ">"
+        CuerpoMail += "<td style=""" & "text-align:center;""" & ">Cliente</td>"
+        CuerpoMail += "<td style=""" & "text-align:center;""" & ">" & cliente & "</td>"
+        CuerpoMail += "</tr>"
+        CuerpoMail += "<tr style=""" & "font-weight :bold ;""" & ">"
+        CuerpoMail += "<td style=""" & "text-align:center;""" & ">Empresa patrona</td>"
+        CuerpoMail += "<td style=""" & "text-align:center;""" & ">" & empresa & "</td>"
+        CuerpoMail += "</tr>"
+        'Aqui va el for
+
+        'If rwFilas Is Nothing = False Then
+        '    For Each Fila In rwFilas
+        '        CuerpoMail += "<tr><td style=""" & "text-align:center;""" & ">" & Fila.Item(1) & "</td>"
+        '        CuerpoMail += "<td style=""" & "text-align:center;""" & ">" & Fila.Item(2) & "</td>"
+        '        CuerpoMail += "<td>" & Fila.Item(3) & "</td>"
+        '        CuerpoMail += "<td>" & Fila.Item(4) & "</td>"
+        '        CuerpoMail += "<td>" & Fila.Item(5) & "</td>"
+        '        CuerpoMail += "<td>" & Fila.Item(6) & "</td></tr>"
+        '    Next
+        'End If
+        CuerpoMail += "<tr><td colspan='6'>Por favor no contestar este correo ya que fue generado de manera automatica por el sistema de altas empleados</td></tr>"
+        CuerpoMail += "</table>"
+        CuerpoMail += "</div>"
+        CuerpoMail += "</form>"
+        CuerpoMail += "</body>"
+        CuerpoMail += "</html>"
+
 
         Return CuerpoMail
 
