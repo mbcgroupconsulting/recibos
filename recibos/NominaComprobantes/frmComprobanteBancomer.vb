@@ -276,7 +276,7 @@ Public Class frmComprobanteBancomer
                         'reporte.FileName = Application.StartupPath & "\Reportes\tmm.rpt"
                         Dim oReporte As New comprobantenominabancomer
                         oReporte.SetDataSource(dsReporte)
-                        oReporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, direccioncarpeta & "\" & producto.SubItems(CInt(NudNombre.Value)).Text.ToUpper & " " & CDate(dtpFecha.Value).Month.ToString("00") & "-" & CDate(dtpFecha.Value).Month.ToString("00") & "-" & CDate(dtpFecha.Value).Year.ToString() & ".pdf")
+                        oReporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, direccioncarpeta & "\" & producto.SubItems(CInt(NudNombre.Value)).Text.ToUpper & " " & CDate(dtpFecha.Value).Day.ToString("00") & "-" & CDate(dtpFecha.Value).Month.ToString("00") & "-" & CDate(dtpFecha.Value).Year.ToString() & ".pdf")
                         ''reporte.Load(Application.StartupPath & "\reportes\asitmm.rpt")
                         ''reporte.SetDataSource(dsReporte)
                         ''reporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, direccioncarpeta & "\" & CDate(dtpfecha.Value).Month.ToString("00") & CDate(dtpfecha.Value).Year.ToString() & Trim(producto.SubItems(1).Text) & "ASIM.pdf")

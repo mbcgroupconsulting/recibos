@@ -323,6 +323,7 @@ Public Class frmSubirInfoBancosConciliacion
                         SQL &= "','" & DateTime.Now.ToString.Substring(0, 20)
                         SQL &= "',1,1"
                         SQL &= ",0,''"
+                        SQL &= ",0,0,0,0,0,0,0,0,0,0,0"
 
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Error en el registro con los siguiente datos: Fecha:" & producto.SubItems(CInt(NudFecha.Value)).Text & " Cargo:" & producto.SubItems(CInt(NudCargo.Value)).Text & " Abono:" & producto.SubItems(CInt(NudAbono.Value)).Text & " Saldo:" & producto.SubItems(CInt(NudSaldo.Value)).Text, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -353,7 +354,7 @@ Public Class frmSubirInfoBancosConciliacion
                         SQL &= "','" & DateTime.Now.ToString.Substring(0, 20)
                         SQL &= "',1,1"
                         SQL &= ",0,''"
-
+                        SQL &= ",0,0,0,0,0,0,0,0,0,0,0"
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Error en el registro con los siguiente datos: Fecha:" & producto.SubItems(CInt(NudFecha.Value)).Text & " Cargo:" & producto.SubItems(CInt(NudCargo.Value)).Text & " Abono:" & producto.SubItems(CInt(NudAbono.Value)).Text & " Saldo:" & producto.SubItems(CInt(NudSaldo.Value)).Text, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                             Exit Sub

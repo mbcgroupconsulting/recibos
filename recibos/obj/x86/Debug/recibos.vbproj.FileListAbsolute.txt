@@ -744,4 +744,4 @@ C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmNota
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmContratos.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmFiniquito.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmComprobanteBancomer.resources
-C:\systemw\proyectos\recibosgrupo2\recibos\recibos\bin\Debug\ClosedXML.xml
+C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
