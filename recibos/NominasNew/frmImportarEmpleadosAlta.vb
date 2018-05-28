@@ -105,16 +105,46 @@ Public Class frmImportarEmpleadosAlta
                     lsvLista.Columns(2).Width = 200
                     lsvLista.Columns(3).Width = 100
                     lsvLista.Columns(4).Width = 200
-                    lsvLista.Columns(5).Width = 50
+                    lsvLista.Columns(5).Width = 150
                     lsvLista.Columns(6).Width = 200
                     lsvLista.Columns(7).Width = 150
-                    lsvLista.Columns(7).TextAlign = 1
-                    lsvLista.Columns(8).Width = 150
-                    lsvLista.Columns(8).TextAlign = 1
-                    lsvLista.Columns(9).Width = 150
-                    lsvLista.Columns(9).TextAlign = 1
-                    lsvLista.Columns(10).Width = 100
-                    lsvLista.Columns(11).Width = 400
+                    lsvLista.Columns(8).Width = 120
+                    lsvLista.Columns(9).Width = 120
+                    lsvLista.Columns(10).Width = 120
+                    lsvLista.Columns(11).Width = 120
+                    lsvLista.Columns(12).Width = 120
+                    lsvLista.Columns(13).Width = 120
+                    lsvLista.Columns(14).Width = 120
+                    lsvLista.Columns(15).Width = 120
+                    lsvLista.Columns(16).Width = 120
+                    lsvLista.Columns(17).Width = 120
+                    lsvLista.Columns(18).Width = 120
+                    lsvLista.Columns(19).Width = 120
+                    lsvLista.Columns(20).Width = 120
+                    lsvLista.Columns(21).Width = 120
+                    lsvLista.Columns(22).Width = 120
+                    lsvLista.Columns(23).Width = 120
+                    lsvLista.Columns(24).Width = 120
+                    lsvLista.Columns(25).Width = 120
+                    lsvLista.Columns(26).Width = 120
+                    lsvLista.Columns(27).Width = 120
+                    lsvLista.Columns(28).Width = 120
+                    lsvLista.Columns(29).Width = 120
+                    lsvLista.Columns(30).Width = 120
+                    lsvLista.Columns(31).Width = 120
+                    lsvLista.Columns(32).Width = 120
+                    lsvLista.Columns(33).Width = 120
+                    lsvLista.Columns(34).Width = 120
+                    lsvLista.Columns(35).Width = 120
+                    lsvLista.Columns(36).Width = 120
+                    lsvLista.Columns(37).Width = 120
+                    lsvLista.Columns(38).Width = 120
+                    lsvLista.Columns(39).Width = 120
+                    lsvLista.Columns(40).Width = 120
+                    lsvLista.Columns(41).Width = 120
+                    lsvLista.Columns(42).Width = 120
+                    lsvLista.Columns(43).Width = 120
+                    lsvLista.Columns(44).Width = 120
 
 
 
@@ -439,8 +469,6 @@ Public Class frmImportarEmpleadosAlta
                         Application.DoEvents()
                         t = t + 1
 
-                        'Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), empleado.SubItems.Count - 1), "e.ruiz@mbcgroup.mx", "Empleado Alta")
-
                     Else
                         MessageBox.Show(mensa, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         tsbCancelar_Click(sender, e)
@@ -464,7 +492,7 @@ Public Class frmImportarEmpleadosAlta
 
                 Else
                     pnlProgreso.Visible = False
-                    MessageBox.Show("No se guardo ninguna dato, revise y vuelva a intentarlo ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    MessageBox.Show("No se guardo ninguna dato, revise y vuelva a intentarlo " + mensa, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
 
 

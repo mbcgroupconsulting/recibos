@@ -285,12 +285,12 @@ Public Class frmJuridico
 
                 Else
                     MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+                    Documento.Close()
                 End If
 
             Else
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+                Documento.Close()
             End If
 
         Catch ex As Exception
@@ -383,10 +383,14 @@ Public Class frmJuridico
                     Documento.Save()
                     MSWord.Visible = True
 
+                Else
+                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento.Close()
                 End If
 
 
             Else
+                Documento.Close()
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
@@ -497,10 +501,13 @@ Public Class frmJuridico
                     Documento.Save()
                     MSWord.Visible = True
 
+                Else
+                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento.Close()
                 End If
             Else
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+                Documento.Close()
             End If
 
         Catch ex As Exception
@@ -569,10 +576,14 @@ Public Class frmJuridico
 
                     Documento.Save()
                     MSWord.Visible = True
+                Else
+                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento.Close()
                 End If
+
             Else
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+                Documento.Close()
             End If
 
         Catch ex As Exception
@@ -637,6 +648,9 @@ Public Class frmJuridico
                     Documento.Save()
                     MSWord.Visible = True
 
+                Else
+                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento.Close()
                 End If
             Else
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -706,10 +720,13 @@ Public Class frmJuridico
 
                     Documento.Save()
                     MSWord.Visible = True
+                Else
+                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento.Close()
                 End If
             Else
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+                Documento.Close()
             End If
 
         Catch ex As Exception
@@ -789,7 +806,7 @@ Public Class frmJuridico
 
              Else
             MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+                Documento.Close()
             End If
 
         Catch ex As Exception
@@ -950,6 +967,9 @@ Public Class frmJuridico
                     Documento.Save()
                     MSWord.Visible = True
 
+                Else
+                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento.Close()
                 End If
 
             Else
