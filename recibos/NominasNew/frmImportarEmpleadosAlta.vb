@@ -322,7 +322,8 @@ Public Class frmImportarEmpleadosAlta
 
                     If bandera <> False Then
 
-                        Dim b As String = Trim(empleadofull.SubItems(27).Text)
+                        Dim barray() As String = Trim(empleadofull.SubItems(27).Text).Split("-")
+                        Dim b As String = barray(0) ' Trim(empleadofull.SubItems(27).Text).Split("-")
                         Dim idbanco As Integer
                         If b <> "" Then
                             Dim banco As DataRow() = nConsulta(" select * from bancos where clave =" & b)
@@ -354,12 +355,12 @@ Public Class frmImportarEmpleadosAlta
 
                         Dim number As Integer
                         Select Case Trim(empleadofull.SubItems(33).Text)
-                            Case "QUINCENAL"
+                            Case "QUINCENAL", "quincenal"
                                 number = 4
                                 ' The following is the only Case clause that evaluates to True.
-                            Case "MENSUAL"
+                            Case "MENSUAL", "mensual"
                                 number = 5
-                            Case "SEMANAL"
+                            Case "SEMANAL", "semanal"
                                 number = 2
                             Case Else
                                 number = 10
@@ -480,14 +481,11 @@ Public Class frmImportarEmpleadosAlta
 
                 Next
 
-                'Enviar correo
-                '' Enviar_Mail(GenerarCorreoFlujo("Importación Flujo-Conceptos", "Área Facturación", "Se importo un flujo con los conceptos necesarios"), "g.gomez@mbcgroup.mx", "Importación")
-
                 If bandera <> False Then
                     tsbCancelar_Click(sender, e)
                     pnlProgreso.Visible = False
                     MessageBox.Show(t.ToString() & "  Proceso terminado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), "c.serrano@mbcgroup.mx;p.vicente@mbcgroup.mx", "Empleado Alta")
+                    ''Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), "c.serrano@mbcgroup.mx;p.vicente@mbcgroup.mx", "Empleado Alta")
 
 
                 Else

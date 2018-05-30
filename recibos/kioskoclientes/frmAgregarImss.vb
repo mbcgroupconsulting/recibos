@@ -3,6 +3,7 @@
     Dim blnNuevo As Boolean
     Dim gIdClienteEmpresa As String
     Dim files As Integer
+    Dim tmm As Integer
     Private Sub cmdnuevo_Click(sender As Object, e As EventArgs) Handles cmdnuevo.Click
         pnlProveedores.Enabled = True
         'MostrarCliente2()
@@ -63,7 +64,7 @@
 
                         nombrearchivocompleto = cboanio.Text & "-" & cbomes.SelectedIndex + 1 & "-" & datos(0).Tag & "-" & Gen_Psw(15, True) & "-" & archivo.Tag.Replace(" ", "-")
 
-                        Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where Documentos='" & archivo.SubItems(2).Text & "'")
+                        Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where Documentos='" & archivo.SubItems(2).Text & "' AND iTMM=" & tmm)
 
                         SQL = "EXEC setInfoKioskoInsertar 0," & cboanio.Text & "," & cbomes.SelectedIndex + 1
                         SQL &= "," & 20
@@ -79,8 +80,9 @@
 
 
                             FileCopy(archivo.SubItems(0).Text, "C:\Temp\" & nombrearchivocompleto)
+                        MessageBox.Show("Documento :" & doc(0).Item("iIdDocumentos"), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-                        My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
+                        ''My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
 
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Ocurrio un error," & SQL, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -329,8 +331,10 @@
             cboclientes.SelectedValue = "411" Or
             cboclientes.SelectedValue = "420" Then
 
+            tmm = 1
             Return "AND iTMM=1  order by iIdDocumentos"
         Else
+            tmm = 0
             Return "AND iTMM=0  order by iIdDocumentos"
 
         End If

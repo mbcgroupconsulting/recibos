@@ -133,10 +133,12 @@ Public Class frmJuridico
     End Sub
 
     Private Sub cmdcontrato_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdcontrato.Click
+
         Dim MSWord As New Word.Application
         Dim Documento As Word.Document
         Dim Ruta As String, strPWD As String
         Dim SQL As String
+        Dim datosfaltantes As String
 
         'Verificar que archivo le corresponde a la empresa
 
@@ -284,7 +286,7 @@ Public Class frmJuridico
 
 
                 Else
-                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
 
@@ -384,7 +386,7 @@ Public Class frmJuridico
                     MSWord.Visible = True
 
                 Else
-                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
 
@@ -502,7 +504,7 @@ Public Class frmJuridico
                     MSWord.Visible = True
 
                 Else
-                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
             Else
@@ -577,7 +579,7 @@ Public Class frmJuridico
                     Documento.Save()
                     MSWord.Visible = True
                 Else
-                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
 
@@ -649,7 +651,7 @@ Public Class frmJuridico
                     MSWord.Visible = True
 
                 Else
-                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
             Else
@@ -721,7 +723,7 @@ Public Class frmJuridico
                     Documento.Save()
                     MSWord.Visible = True
                 Else
-                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
             Else
@@ -968,7 +970,7 @@ Public Class frmJuridico
                     MSWord.Visible = True
 
                 Else
-                    MessageBox.Show("Revise su información, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
 
