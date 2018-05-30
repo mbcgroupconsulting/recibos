@@ -302,7 +302,7 @@ Public Class frmImportarEmpleadosAlta
                     For x = 0 To empleado.SubItems.Count - 1
 
                         If empleado.SubItems(x).Text = "" Then
-                            mensa = " Datos incompletos en el empleado: Empleado: " & empleado.Text & " Columna:" & x.ToString() & " "
+                            mensa = "| Datos incompletos en el empleado: Empleado: " & empleado.Text & " Columna:" & x.ToString() & " "
 
 
                             '' MessageBox.Show(mensa, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -329,7 +329,7 @@ Public Class frmImportarEmpleadosAlta
                             Dim banco As DataRow() = nConsulta(" select * from bancos where clave =" & b)
                             If banco Is Nothing Then
                                 idbanco = 1
-                                mensa = "Revise el tipo de banco"
+                                mensa = "| Revise el tipo de banco"
                                 bandera = False
                             Else
                                 idbanco = banco(0).Item("iIdBanco")
@@ -370,7 +370,7 @@ Public Class frmImportarEmpleadosAlta
                         If clave <> "" Then
                             Dim metodopago As DataRow() = nConsulta(" SELECT * FROM Cat_MetodoPagoAlta WHERE Clave=" & clave)
                             If metodopago Is Nothing Then
-                                mensa = "Revise la clave del metodo de pago"
+                                mensa = " Revise la clave del metodo de pago"
                                 bandera = False
                             Else
                                 fkIdMetodoPago = metodopago(0).Item("clave")
@@ -385,7 +385,7 @@ Public Class frmImportarEmpleadosAlta
                             bandera = True
                         Else
                             bandera = False
-                            mensa = "Ingrese Registro Patronal "
+                            mensa += "| Ingrese Registro Patronal "
                         End If
                         ''****tienen que agregar metodod de pago
                         Dim cliente As String = Trim(empleadofull.SubItems(2).Text)
@@ -393,7 +393,7 @@ Public Class frmImportarEmpleadosAlta
                         If cliente <> "" Then
                             Dim empc As DataRow() = nConsulta(" SELECT * FROM clientes  WHERE nombre like'%" & cliente & "%'")
                             If empc Is Nothing Then
-                                mensa = "Revise el nombre del la empresa cliente"
+                                mensa += "| Revise el nombre del la empresa cliente"
                                 bandera = False
                             Else
                                 empresa = empc(0).Item("iIdCliente")
@@ -409,7 +409,7 @@ Public Class frmImportarEmpleadosAlta
                         If ep <> "" Then
                             Dim empc As DataRow() = nConsulta("SELECT * FROM empresa  WHERE nombre like '%" & ep & "%'")
                             If empc Is Nothing Then
-                                mensa = "Revise el nombre del la empresa patrona"
+                                mensa += "| Revise el nombre del la empresa patrona"
                                 bandera = False
                             Else
                                 empresapa = empc(0).Item("iIdEmpresa")
@@ -481,11 +481,15 @@ Public Class frmImportarEmpleadosAlta
 
                 Next
 
-                If bandera <> False Then
+                If bandera <> False And mensa = "" Then
+
                     tsbCancelar_Click(sender, e)
                     pnlProgreso.Visible = False
                     MessageBox.Show(t.ToString() & "  Proceso terminado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    ''Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), "c.serrano@mbcgroup.mx;p.vicente@mbcgroup.mx", "Empleado Alta")
+                    Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), "c.serrano@mbcgroup.mx;p.vicente@mbcgroup.mx;r.garcia@mbcgroup.mx", "Empleado Alta")
+                    '  Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), "e.ruiz@mbcgroup.mx", "Empleado Alta")
+
+
 
 
                 Else
@@ -498,7 +502,7 @@ Public Class frmImportarEmpleadosAlta
 
                 MessageBox.Show("Por favor seleccione al menos una registro para importar.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
-            pnlCatalogo.Enabled = True
+                pnlCatalogo.Enabled = True
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)

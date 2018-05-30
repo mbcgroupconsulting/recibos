@@ -296,9 +296,10 @@
     Private Sub MostrarDocumentos()
         'Verificar si se tienen permisos
         Try
-            SQL = "Select Documentos,iIdDocumentos from Documentos where iEstatus=1 and cArea=1"
+            SQL = "Select Documentos,iIdDocumentos from Documentos where  iEstatus IN (1,2) and  cArea=1"
             SQL &= "AND iTMM=1"
             SQL &= sqltmm()
+            'SQL &= "AND iEstatus IN (1,2)  order by iIdDocumentos"
 
             nCargaCBO(cboDocumento, SQL, Trim("Documentos"), "iIdDocumentos")
         Catch ex As Exception
@@ -308,7 +309,7 @@
     Public Function sqltmm() As String
         Select Case cboempresa.SelectedValue
             Case 49
-                Return "OR iTMM=49  order by iIdDocumentos"
+                Return "OR iTMM=49 order by iIdDocumentos"
                 'Else
             Case 48
                 Return "OR iTMM=48 order by iIdDocumentos"
@@ -319,7 +320,7 @@
                 Return "OR iTMM=15 OR iTMM=16 OR iTMM=17 order by iIdDocumentos"
 
             Case 59, 37, 22, 74
-                Return "OR iTMM=59 OR iTMM=37 OR iTMM=22 OR iTMM=74 order by iIdDocumentos"
+                Return "OR iTMM=59 OR iTMM=37 OR iTMM=22 OR iTMM=74  order by iIdDocumentos"
 
             Case 25
                 Return "OR iTMM=25 order by iIdDocumentos"
@@ -332,7 +333,7 @@
                 Return "OR iTMM=6 order by iIdDocumentos"
 
             Case 12
-                Return "OR iTMM=12 order by iIdDocumentos"
+                Return "OR iTMM=12  order by iIdDocumentos"
 
             Case 50
                 Return "OR iTMM=50 order by iIdDocumentos"
@@ -341,7 +342,7 @@
                 Return "OR iTMM=29 order by iIdDocumentos"
 
             Case 13
-                Return "OR iTMM=13 order by iIdDocumentos"
+                Return "OR iTMM=13  order by iIdDocumentos"
 
             Case 11
                 Return "OR iTMM=11 order by iIdDocumentos"
@@ -350,14 +351,14 @@
                 Return "OR iTMM=81 order by iIdDocumentos"
 
             Case 58
-                Return "OR iTMM=58 order by iIdDocumentos"
+                Return "OR iTMM=58  order by iIdDocumentos"
 
             Case 5
                 Return "OR iTMM=5 order by iIdDocumentos"
 
 
             Case 26, 27, 53, 8, 10, 36, 20
-                Return "OR iTMM=26 OR iTMM=27 OR iTMM=53 OR iTMM=8 OR iTMM=10 OR iTMM=36 OR iTMM=20 order by iIdDocumentos"
+                Return "OR iTMM=26 OR iTMM=27 OR iTMM=53 OR iTMM=8 OR iTMM=10 OR iTMM=36 OR iTMM=20" ' order by iIdDocumentos"
 
             Case Else
                 Return " "

@@ -80,9 +80,8 @@
 
 
                             FileCopy(archivo.SubItems(0).Text, "C:\Temp\" & nombrearchivocompleto)
-                        MessageBox.Show("Documento :" & doc(0).Item("iIdDocumentos"), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-                        ''My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
+                        
+                        My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
 
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Ocurrio un error," & SQL, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
