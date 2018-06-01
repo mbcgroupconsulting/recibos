@@ -49,6 +49,7 @@ Public Class frmJuridico
                 ''Ruta2 = System.Windows.Forms.Application.StartupPath & "\Archivos\oficio1L.docx"
              
 
+
                 FileCopy(Ruta, "C:\Temp\oficio1.docx")
                 Documento = MSWord.Documents.Open("C:\Temp\oficio1.docx")
 
@@ -110,9 +111,18 @@ Public Class frmJuridico
                 Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\" & Fila.Item("OficioSimple") & ".docx"
 
 
-                FileCopy(Ruta, "C:\Temp\simple.docx")
-                Documento = MSWord.Documents.Open("C:\Temp\simple.docx")
 
+                If File.Exists("C:\Temp\simple.docx") Then
+
+                    FileCopy(Ruta, "C:\Temp\simple.docx")
+                    Documento = MSWord.Documents.Open("C:\Temp\simple.docx")
+                Else
+                    Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                    FileCopy(Ruta, "C:\Temp\simple.docx")
+                    MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Exit Sub
+                End If
                 'Documento.Bookmarks.Item("nombre").Range.Text = txtnombre.Text
                 ''Documento.Bookmarks.Item("apellido").Range.Text = txtapellido.Text
                 'Documento.Bookmarks.Item("direccion").Range.Text = txtdireccion.Text
@@ -152,9 +162,17 @@ Public Class frmJuridico
 
                 Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\" & Fila.Item("ContratoPrincipal") & ".doc"
 
+                If File.Exists("C:\Temp\contrato.doc") Then
+                    FileCopy(Ruta, "C:\Temp\contrato.doc")
+                    Documento = MSWord.Documents.Open("C:\Temp\contrato.doc")
+                Else
+                    Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                    FileCopy(Ruta, "C:\Temp\contrato.doc")
+                    MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                FileCopy(Ruta, "C:\Temp\contrato.doc")
-                Documento = MSWord.Documents.Open("C:\Temp\contrato.doc")
+                    Exit Sub
+                End If
+
 
                 'Buscamos datos del empleado
 
@@ -171,7 +189,7 @@ Public Class frmJuridico
                 SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
                 SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
                 SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
-                Dim rwEmpleado As DataRow() = nConsulta(SQL)
+                Dim rwEmpleado As DataRow() = nConsulta(Sql)
 
                 If rwEmpleado Is Nothing = False Then
 
@@ -204,7 +222,7 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cPuesto2").Range.Text = fEmpleado.Item("cPuesto").ToString.ToUpper
                     Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
                     Documento.Bookmarks.Item("cRFC2").Range.Text = fEmpleado.Item("cRFC")
-                   
+
                     Documento.Bookmarks.Item("iCategoria").Range.Text = IIf(fEmpleado.Item("iCategoria") = "0", "A", "B")
                     Documento.Bookmarks.Item("iSexo").Range.Text = IIf(fEmpleado.Item("iSexo") = "0", "FEMENINO", "MASCULINO")
                     Documento.Bookmarks.Item("iSexo2").Range.Text = IIf(fEmpleado.Item("iSexo") = "0", "FEMENINO", "MASCULINO")
@@ -225,34 +243,34 @@ Public Class frmJuridico
                     Else
                         MessageBox.Show("Falta agregar Representante Patrona y/u Objeto Social", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End If
-                       Documento.Bookmarks.Item("cFuncionesPuesto").Range.Text = fEmpleado.Item("cFuncionesPuesto")
-                        Documento.Bookmarks.Item("cFuncionesPuesto2").Range.Text = fEmpleado.Item("cFuncionesPuesto")
-                        Documento.Bookmarks.Item("cHorario").Range.Text = fEmpleado.Item("cHorario")
-                        Documento.Bookmarks.Item("cFormaPago").Range.Text = fEmpleado.Item("cFormaPago")
-                        Documento.Bookmarks.Item("iEstadoCivil").Range.Text = IIf(fEmpleado.Item("iEstadoCivil") = "0", "SOLTERO", "CASADO")
-                        Dim fechanac As Date
-                        fechanac = fEmpleado.Item("dFechaNac")
-                        Dim edad As Integer = DateDiff(DateInterval.Year, fechanac, Date.Today)
-                        Documento.Bookmarks.Item("cEdad").Range.Text = edad
-                        Documento.Bookmarks.Item("cLugarPago").Range.Text = fEmpleado.Item("cLugarPago")
-                        Documento.Bookmarks.Item("cFechaPago").Range.Text = fEmpleado.Item("cFechaPago")
-                        Documento.Bookmarks.Item("cLugarFirmaContrato").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
-                        Documento.Bookmarks.Item("cLugarFirmaContrato2").Range.Text = fEmpleado.Item("cLugarFirmaContrato").ToLower()
+                    Documento.Bookmarks.Item("cFuncionesPuesto").Range.Text = fEmpleado.Item("cFuncionesPuesto")
+                    Documento.Bookmarks.Item("cFuncionesPuesto2").Range.Text = fEmpleado.Item("cFuncionesPuesto")
+                    Documento.Bookmarks.Item("cHorario").Range.Text = fEmpleado.Item("cHorario")
+                    Documento.Bookmarks.Item("cFormaPago").Range.Text = fEmpleado.Item("cFormaPago")
+                    Documento.Bookmarks.Item("iEstadoCivil").Range.Text = IIf(fEmpleado.Item("iEstadoCivil") = "0", "SOLTERO", "CASADO")
+                    Dim fechanac As Date
+                    fechanac = fEmpleado.Item("dFechaNac")
+                    Dim edad As Integer = DateDiff(DateInterval.Year, fechanac, Date.Today)
+                    Documento.Bookmarks.Item("cEdad").Range.Text = edad
+                    Documento.Bookmarks.Item("cLugarPago").Range.Text = fEmpleado.Item("cLugarPago")
+                    Documento.Bookmarks.Item("cFechaPago").Range.Text = fEmpleado.Item("cFechaPago")
+                    Documento.Bookmarks.Item("cLugarFirmaContrato").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
+                    Documento.Bookmarks.Item("cLugarFirmaContrato2").Range.Text = fEmpleado.Item("cLugarFirmaContrato").ToLower()
                     Documento.Bookmarks.Item("cLugarFirmaContrato3").Range.Text = fEmpleado.Item("cLugarFirmaContrato").ToLower()
                     Dim Fec As String = DateTime.Now.ToLongDateString()
                     Dim Fe() As String = Fec.Split(",")
                     Documento.Bookmarks.Item("dFecha").Range.Text = Fe(1).ToString '' DateTime.Now.ToString("dd/MM/yyyy")
                     Documento.Bookmarks.Item("dFecha2").Range.Text = Fe(1).ToString ' DateTime.Now.ToString("dd/MM/yyyy")
                     Documento.Bookmarks.Item("dFecha3").Range.Text = Fe(1).ToString 'DateTime.Now.ToString("dd/MM/yyyy")
-                        Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
-                        Documento.Bookmarks.Item("cNombreSindicato2").Range.Text = fEmpleado.Item("cNombreSindicato")
+                    Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
+                    Documento.Bookmarks.Item("cNombreSindicato2").Range.Text = fEmpleado.Item("cNombreSindicato")
 
-                        ''Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = fEmpleado.Item("fSueldoOrd")
-                        Documento.Bookmarks.Item("fSueldoBase").Range.Text = fEmpleado.Item("fSueldoBase")
+                    ''Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = fEmpleado.Item("fSueldoOrd")
+                    Documento.Bookmarks.Item("fSueldoBase").Range.Text = fEmpleado.Item("fSueldoBase")
 
                     Documento.Bookmarks.Item("fSueldoBaseLetra").Range.Text = SpellNumber(CStr(fEmpleado.Item("fSueldoBase")))
 
-                        Dim cJornada As DataRow() = nConsulta("SELECT * FROM Cat_TipoJornadaAlta where iIdTipoJornadaAlta=" & fEmpleado.Item("cJornada"))
+                    Dim cJornada As DataRow() = nConsulta("SELECT * FROM Cat_TipoJornadaAlta where iIdTipoJornadaAlta=" & fEmpleado.Item("cJornada"))
 
                     ''If cJornada Is Nothing = False Then
                     Documento.Bookmarks.Item("cSalarioPeriodoTipo").Range.Text = cJornada(0).Item("Descripcion")
@@ -273,21 +291,25 @@ Public Class frmJuridico
                         Case Else
                             periodo = 1
                     End Select
-                        Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = CStr(periodo * fEmpleado.Item("fSueldoBase"))
-                        Documento.Bookmarks.Item("cSalarioPeriodoLetra").Range.Text = SpellNumber(CStr(periodo * fEmpleado.Item("fSueldoBase")))
+                    Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = CStr(periodo * fEmpleado.Item("fSueldoBase"))
+                    Documento.Bookmarks.Item("cSalarioPeriodoLetra").Range.Text = SpellNumber(CStr(periodo * fEmpleado.Item("fSueldoBase")))
 
                     If File.Exists(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png") Then
                         Documento.Bookmarks.Item("cLogo").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\empresas\" & fEmpleado.Item("iIdEmpresa") & ".png", LinkToFile:=True, SaveWithDocument:=True)
 
                     End If
 
-                        Documento.Save()
-                        MSWord.Visible = True
+                    Documento.Save()
+                    MSWord.Visible = True
 
 
                 Else
+
+                    'Documento.Save()
+                    'MSWord.Visible = True
+                    'Documento.Close()
                     MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Documento.Close()
+                    'Documento.Close()
                 End If
 
             Else
@@ -323,8 +345,18 @@ Public Class frmJuridico
                 Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\" & Fila.Item("SolicitudIngreso") & ".docx"
 
 
-                FileCopy(Ruta, "C:\Temp\SolicitudI.docx")
-                Documento = MSWord.Documents.Open("C:\Temp\SolicitudI.docx")
+               
+                If File.Exists("C:\Temp\SolicitudI.docx") Then
+                    FileCopy(Ruta, "C:\Temp\SolicitudI.docx")
+                    Documento = MSWord.Documents.Open("C:\Temp\SolicitudI.docx")
+
+                Else
+                    Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                    FileCopy(Ruta, "C:\Temp\SolicitudI.docx")
+                    MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Exit Sub
+                End If
 
                 'Buscamos datos del empleado
 
@@ -339,7 +371,7 @@ Public Class frmJuridico
                 SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
                 SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
                 SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
-               
+
                 Dim rwEmpleado As DataRow() = nConsulta(SQL)
 
                 If rwEmpleado Is Nothing = False Then
@@ -421,8 +453,21 @@ Public Class frmJuridico
                 Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\" & Fila.Item("SolicitudEmpleo") & ".xls"
 
 
-                FileCopy(Ruta, "C:\Temp\empleo.xls")
-                Documento = MSExcel.Application.Workbooks.Open("C:\Temp\empleo.xls")
+                'FileCopy(Ruta, "C:\Temp\empleo.xls")
+                'Documento = MSExcel.Application.Workbooks.Open("C:\Temp\empleo.xls")
+
+                If File.Exists("C:\Temp\empleo.xls") Then
+                    FileCopy(Ruta, "C:\Temp\empleo.xls")
+                    Documento = MSExcel.Application.Workbooks.Open("C:\Temp\empleo.xls")
+
+                Else
+                    Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                    FileCopy(Ruta, "C:\Temp\empleo.xls")
+                    MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Exit Sub
+                End If
+
 
                 'Documento.Bookmarks.Item("nombre").Range.Text = txtnombre.Text
                 ''Documento.Bookmarks.Item("apellido").Range.Text = txtapellido.Text
@@ -457,9 +502,22 @@ Public Class frmJuridico
 
                 Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\anexoI.docx"
 
-                FileCopy(Ruta, "C:\Temp\AnexoI.docx")
-                Documento = MSWord.Documents.Open("C:\Temp\AnexoI.docx")
+                'FileCopy(Ruta, "C:\Temp\AnexoI.docx")
+                'Documento = MSWord.Documents.Open("C:\Temp\AnexoI.docx")
 
+                If File.Exists("C:\Temp\AnexoI.docx") Then
+
+                    FileCopy(Ruta, "C:\Temp\AnexoI.docx")
+                    Documento = MSWord.Documents.Open("C:\Temp\AnexoI.docx")
+
+
+                Else
+                    Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                    FileCopy(Ruta, "C:\Temp\AnexoI.docx")
+                    MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Exit Sub
+                End If
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
                 SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestosAlta.cNombre as cPuesto,fSueldoBase,"
@@ -477,7 +535,7 @@ Public Class frmJuridico
                 If rwEmpleado Is Nothing = False Then
                     Dim fEmpleado As DataRow = rwEmpleado(0)
 
-                    
+
                     Documento.Bookmarks.Item("cNombreLargo").Range.Text = (fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")).ToString.ToUpper
                     Documento.Bookmarks.Item("cNombreLargo2").Range.Text = (fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")).ToString.ToUpper
                     Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto")
@@ -522,11 +580,11 @@ Public Class frmJuridico
         'Buscamos datos del empleado
 
     End Sub
-   
-  
-    
-   
-   
+
+
+
+
+
     Private Sub btnAnexo2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAnexo2.Click
         Dim MSWord As New Word.Application
         Dim Documento As Word.Document
@@ -541,9 +599,20 @@ Public Class frmJuridico
 
                 Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\anexoII.docx"
 
-                FileCopy(Ruta, "C:\Temp\AnexoII.docx")
-                Documento = MSWord.Documents.Open("C:\Temp\AnexoII.docx")
+              
 
+                If File.Exists("C:\Temp\AnexoII.docx") Then
+
+                    FileCopy(Ruta, "C:\Temp\AnexoII.docx")
+                    Documento = MSWord.Documents.Open("C:\Temp\AnexoII.docx")
+
+                Else
+                    Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                    FileCopy(Ruta, "C:\Temp\AnexoII.docx")
+                    MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Exit Sub
+                End If
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
                 SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestosAlta.cNombre as cPuesto,fSueldoBase,"
@@ -560,7 +629,7 @@ Public Class frmJuridico
 
                 If rwEmpleado Is Nothing = False Then
                     Dim fEmpleado As DataRow = rwEmpleado(0)
-                   
+
                     Documento.Bookmarks.Item("cNombreLargo").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                     Documento.Bookmarks.Item("cNombreLargo2").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                     Documento.Bookmarks.Item("cCURP").Range.Text = fEmpleado.Item("cCURP")
@@ -611,8 +680,20 @@ Public Class frmJuridico
                 Dim Fila As DataRow = rwFilas(0)
                 Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\anexoIII.docx"
 
-                FileCopy(Ruta, "C:\Temp\AnexoIII.docx")
-                Documento = MSWord.Documents.Open("C:\Temp\AnexoIII.docx")
+              
+                If File.Exists("C:\Temp\AnexoIII.docx") Then
+
+                    FileCopy(Ruta, "C:\Temp\AnexoIII.docx")
+                    Documento = MSWord.Documents.Open("C:\Temp\AnexoIII.docx")
+
+                Else
+                    Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                    FileCopy(Ruta, "C:\Temp\AnexoIII.docx")
+                    MessageBox.Show("Se ha creado la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Exit Sub
+                End If
+
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
                 SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestosAlta.cNombre as cPuesto,"
@@ -629,7 +710,7 @@ Public Class frmJuridico
 
                 If rwEmpleado Is Nothing = False Then
                     Dim fEmpleado As DataRow = rwEmpleado(0)
-                  
+
 
                     Documento.Bookmarks.Item("cNombreLargo").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                     Documento.Bookmarks.Item("cNombreLargo2").Range.Text = (fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")).ToString.ToUpper
@@ -642,7 +723,7 @@ Public Class frmJuridico
                         MessageBox.Show("Falta agregar Representante Patrona", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     End If
-                   Dim Fec As String = DateTime.Now.ToLongDateString()
+                    Dim Fec As String = DateTime.Now.ToLongDateString()
                     Dim Fe() As String = Fec.Split(",")
                     Documento.Bookmarks.Item("cFecha").Range.Text = Fe(1).ToUpper
                     Documento.Bookmarks.Item("cLugarFirma").Range.Text = fEmpleado.Item("cLugarFirmaContrato")
@@ -681,8 +762,19 @@ Public Class frmJuridico
 
                 Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\anexoIV.docx"
 
-                FileCopy(Ruta, "C:\Temp\AnexoIV.docx")
-                Documento = MSWord.Documents.Open("C:\Temp\AnexoIV.docx")
+              
+                If File.Exists("C:\Temp\AnexoIV.docx") Then
+
+                    FileCopy(Ruta, "C:\Temp\AnexoIV.docx")
+                    Documento = MSWord.Documents.Open("C:\Temp\AnexoIV.docx")
+
+                Else
+                    Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                    FileCopy(Ruta, "C:\Temp\AnexoIV.docx")
+                    MessageBox.Show("Se ha creado la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Exit Sub
+                End If
 
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
@@ -749,10 +841,21 @@ Public Class frmJuridico
 
             Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\asmiladosfm.docx"
 
-            FileCopy(Ruta, "C:\Temp\Asmilados.docx")
-            Documento = MSWord.Documents.Open("C:\Temp\Asmilados.docx")
+         
 
-        
+            If File.Exists("C:\Temp\Asmilados.docx") Then
+
+                FileCopy(Ruta, "C:\Temp\Asmilados.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\Asmilados.docx")
+
+            Else
+                Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                FileCopy(Ruta, "C:\Temp\Asmilados.docx")
+                MessageBox.Show("Se ha creado la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                Exit Sub
+            End If
+
             SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
             SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestosAlta.cNombre as cPuesto,fSueldoBase,"
             SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.iIdEmpresa ,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
@@ -806,8 +909,8 @@ Public Class frmJuridico
                 Documento.Save()
                 MSWord.Visible = True
 
-             Else
-            MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Documento.Close()
             End If
 
@@ -839,9 +942,20 @@ Public Class frmJuridico
                 '' If Directory.Exists(System.Windows.Forms.Application.StartupPath & "\Archivos\" & Fila.Item("ContratoPrincipal") & "d" & ".doc") Then
                 Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\" & Fila.Item("ContratoPrincipal") & "d" & ".doc"
 
+                If File.Exists("C:\Temp\contratoDeterminado.doc") Then
 
-                FileCopy(Ruta, "C:\Temp\contratoDeterminado.doc")
-                Documento = MSWord.Documents.Open("C:\Temp\contratoDeterminado.doc")
+
+                    FileCopy(Ruta, "C:\Temp\contratoDeterminado.doc")
+                    Documento = MSWord.Documents.Open("C:\Temp\contratoDeterminado.doc")
+
+                Else
+                    Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                    FileCopy(Ruta, "C:\Temp\contratoDeterminado.doc")
+                    MessageBox.Show("Se ha creado la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Exit Sub
+                End If
+
 
                 'Buscamos datos del empleado
 

@@ -4,14 +4,14 @@
     Dim gIdClienteEmpresa As String
     Dim files As Integer
     Dim tmm As Integer
-    Private Sub cmdnuevo_Click(sender As Object, e As EventArgs) Handles cmdnuevo.Click
+    Private Sub cmdnuevo_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdnuevo.Click
         pnlProveedores.Enabled = True
         'MostrarCliente2()
 
         blnNuevo = True
     End Sub
 
-    Private Sub cmdguardar_Click(sender As Object, e As EventArgs) Handles cmdguardar.Click
+    Private Sub cmdguardar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdguardar.Click
         Dim SQL As String, Mensaje As String = "", nombresistema As String = ""
         Dim usuario As String = "", idperfil As String = "", nombrearchivocompleto As String
 
@@ -79,8 +79,8 @@
                         SQL &= "," & doc(0).Item("iIdDocumentos")
 
 
-                            FileCopy(archivo.SubItems(0).Text, "C:\Temp\" & nombrearchivocompleto)
-                        
+                        FileCopy(archivo.SubItems(0).Text, "C:\Temp\" & nombrearchivocompleto)
+
                         My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
 
                         If nExecute(SQL) = False Then
@@ -122,7 +122,7 @@
         End Try
     End Sub
 
-    Private Sub cmdcancelar_Click(sender As Object, e As EventArgs) Handles cmdcancelar.Click
+    Private Sub cmdcancelar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdcancelar.Click
         pnlProveedores.Enabled = False
         Limpiar(pnlProveedores)
     End Sub
@@ -154,15 +154,15 @@
 
         Next
     End Sub
-    Private Sub cmdbuscar_Click(sender As Object, e As EventArgs) Handles cmdbuscar.Click
+    Private Sub cmdbuscar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdbuscar.Click
 
     End Sub
 
-    Private Sub cmdsalir_Click(sender As Object, e As EventArgs) Handles cmdsalir.Click
+    Private Sub cmdsalir_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdsalir.Click
         Me.Close()
     End Sub
 
-    Private Sub cmdagregar_Click(sender As Object, e As EventArgs) Handles cmdagregar.Click
+    Private Sub cmdagregar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdagregar.Click
         Dim Alter As Boolean = False
         Try
             SQL = "select empresa.iIdEmpresa,empresa.nombre from IntClienteEmpresaKiosko"
@@ -195,7 +195,7 @@
         End Try
     End Sub
 
-    Private Sub cmdarchivo_Click(sender As Object, e As EventArgs) Handles cmdarchivo.Click
+    Private Sub cmdarchivo_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdarchivo.Click
         Dim dialogo As New OpenFileDialog()
         Dim item As ListViewItem
         Dim Alter As Boolean = False
@@ -247,8 +247,8 @@
 
         End Try
     End Sub
-   
-    Private Sub cmdBorrarArchivo_Click(sender As Object, e As EventArgs) Handles cmdBorrarArchivo.Click
+
+    Private Sub cmdBorrarArchivo_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdBorrarArchivo.Click
         Dim datos As ListView.SelectedListViewItemCollection = lsvArchivo.SelectedItems
         If datos.Count = 1 Then
             Dim resultado As Integer = MessageBox.Show("¿Desea borrar la empresa " & datos(0).SubItems(0).Text & "?", "Pregunta", MessageBoxButtons.YesNo)
@@ -267,7 +267,7 @@
         End If
     End Sub
 
-    Private Sub frmAgregarImss_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmAgregarImss_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         cmdguardar.Enabled = False
         cmdcancelar.Enabled = False
         MostrarClientes()
@@ -310,14 +310,14 @@
         End Try
     End Sub
 
-    Private Sub pnlProveedores_EnabledChanged(sender As Object, e As EventArgs) Handles pnlProveedores.EnabledChanged
+    Private Sub pnlProveedores_EnabledChanged(ByVal sender As Object, ByVal e As EventArgs) Handles pnlProveedores.EnabledChanged
         cmdnuevo.Enabled = Not pnlProveedores.Enabled
         cmdguardar.Enabled = pnlProveedores.Enabled
         cmdcancelar.Enabled = pnlProveedores.Enabled
         cmdbuscar.Enabled = Not pnlProveedores.Enabled
     End Sub
 
-    Private Sub cboclientes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboclientes.SelectedIndexChanged
+    Private Sub cboclientes_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cboclientes.SelectedIndexChanged
         lsvLista.Items.Clear()
     End Sub
 
@@ -340,4 +340,61 @@
 
     End Function
 
+  
+    Private Sub cmdcargados_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdcargados.Click
+        Dim Alter As Boolean = False
+        'lsvArchivo.Clear()
+
+        Try
+            Dim datos As ListView.SelectedListViewItemCollection = lsvLista.SelectedItems
+            If datos.Count = 1 Then
+
+                ' lsvArchivo.Clear()
+
+            Else
+                MessageBox.Show("No hay una empresa seleccionada para asociar los archivos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+            'SQL = "SELECT * FROM  DOCUMENTOS AS D"
+            'SQL &= " WHERE  cArea=" & 2 & "AND iEstatus=1 and d.iIdDocumentos IN (SELECT fkiIdDocumentos FROM InfoKiosko inner join documentos"
+            'SQL &= " ON infokiosko.fkiIdDocumentos = documentos.iIdDocumentos "
+            'SQL &= " WHERE InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & " and infokiosko.anio=" & cboanio.Text & " and documentos.cArea=" & 2
+            'SQL &= " AND infokiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & cboclientes.SelectedValue & ")"
+            'SQL &= " or cPeriOdicidad='BIMESTRAL' AND iTMM =" & tmm
+
+            SQL = " SELECT * FROM InfoKiosko WHERE"
+            SQL &= " InfoKiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & cboclientes.SelectedValue & " AND"
+            SQL &= " InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & "  and infokiosko.anio=" & cboanio.Text
+            SQL &= " and fkiIdDocumentos IN"
+            SQL &= " (SELECT iIdDocumentos FROM Documentos where iTMM=" & tmm & " and iEstatus=1 and cArea=2)"
+
+            Dim rwFilas As DataRow() = nConsulta(SQL)
+            Dim item As ListViewItem
+            lsvArchivo.Items.Clear()
+
+            If rwFilas Is Nothing = False Then
+                For Each Fila In rwFilas
+                    item = lsvArchivo.Items.Add(Fila.Item("nombrearchivo"))
+
+                    ' item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
+
+                    item.SubItems.Add("IMSS")
+
+
+                    Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where cArea=2 and iIdDocumentos=" & Fila.Item("fkiIdDocumentos"))
+                    item.SubItems.Add(doc(0).Item("Documentos"))
+
+                    item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
+                    Alter = Not Alter
+
+                Next
+
+            End If
+
+        Catch
+
+        End Try
+    End Sub
+
+    
 End Class
