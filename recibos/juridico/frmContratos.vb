@@ -157,9 +157,18 @@ Public Class frmContratos
         Try
             Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\CPS.docx"
 
+            If File.Exists("C:\Temp\CPS_APE_Excedente.docx") Then
+                FileCopy(Ruta, "C:\Temp\CPS_APE_Excedente.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\CPS_APE_Excedente.docx")
+            Else
+                Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                FileCopy(Ruta, "C:\Temp\CPS_APE_Excedente.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\CCPS_APE_Excedente.docx")
+                'MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            FileCopy(Ruta, "C:\Temp\CPS_APE_Excedente.docx")
-            Documento = MSWord.Documents.Open("C:\Temp\CPS_APE_Excedente.docx")
+                ' Exit Sub
+            End If
+            
 
 
             SQL = " SELECT e.iIdEmpresa, e.nombrefiscal AS cNombreFiscalP, e.cRepresentanteP, e.RFC AS cRFCP, e.cCargoRepresentante AS cRepresentanteCargoP,"
@@ -267,8 +276,19 @@ Public Class frmContratos
             Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\CPS_Correlacionado.docx"
 
 
-            FileCopy(Ruta, "C:\Temp\CPS_Correlacionado.docx")
-            Documento = MSWord.Documents.Open("C:\Temp\CPS_Correlacionado.docx")
+
+            If File.Exists("C:\Temp\CPS_Correlacionado.docx") Then
+
+                FileCopy(Ruta, "C:\Temp\CPS_Correlacionado.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\CPS_Correlacionado.docx")
+            Else
+                Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                FileCopy(Ruta, "C:\Temp\CPS_Correlacionado.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\CPS_Correlacionado.docx")
+                'MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                ' Exit Sub
+            End If
 
 
             SQL = "SELECT e.iIdEmpresa, e.nombrefiscal AS cNombreFiscalP, e.cRepresentanteP, e.RFC AS cRFCP, e.cCargoRepresentante AS cCargoRepresentanteU,"

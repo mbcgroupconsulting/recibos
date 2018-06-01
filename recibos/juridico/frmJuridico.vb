@@ -48,11 +48,16 @@ Public Class frmJuridico
                 Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\" & Fila.Item("Oficio") & ".docx"
                 ''Ruta2 = System.Windows.Forms.Application.StartupPath & "\Archivos\oficio1L.docx"
              
+                If File.Exists("C:\Temp\oficio1.docx") Then
+                    FileCopy(Ruta, "C:\Temp\oficio1.docx")
+                    Documento = MSWord.Documents.Open("C:\Temp\oficio1.docx")
+                Else
+                    Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                    FileCopy(Ruta, "C:\Temp\oficio1.docx")
+                    Documento = MSWord.Documents.Open("C:\Temp\oficio1.docx")
+                End If
 
-
-                FileCopy(Ruta, "C:\Temp\oficio1.docx")
-                Documento = MSWord.Documents.Open("C:\Temp\oficio1.docx")
-
+                
                 'Buscamos datos del empleado
 
                 SQL = "select * from empleadosAlta where iIdEmpleadoAlta = " & gIdEmpleado
@@ -119,9 +124,9 @@ Public Class frmJuridico
                 Else
                     Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
                     FileCopy(Ruta, "C:\Temp\simple.docx")
-                    MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento = MSWord.Documents.Open("C:\Temp\simple.docx")
+                    'MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                    Exit Sub
                 End If
                 'Documento.Bookmarks.Item("nombre").Range.Text = txtnombre.Text
                 ''Documento.Bookmarks.Item("apellido").Range.Text = txtapellido.Text
@@ -168,9 +173,9 @@ Public Class frmJuridico
                 Else
                     Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
                     FileCopy(Ruta, "C:\Temp\contrato.doc")
-                    MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento = MSWord.Documents.Open("C:\Temp\contrato.doc")
+                    'MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                    Exit Sub
                 End If
 
 
@@ -353,9 +358,9 @@ Public Class frmJuridico
                 Else
                     Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
                     FileCopy(Ruta, "C:\Temp\SolicitudI.docx")
-                    MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento = MSWord.Documents.Open("C:\Temp\SolicitudI.docx")
+                    'MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                    Exit Sub
                 End If
 
                 'Buscamos datos del empleado
@@ -463,9 +468,9 @@ Public Class frmJuridico
                 Else
                     Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
                     FileCopy(Ruta, "C:\Temp\empleo.xls")
-                    MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento = MSExcel.Application.Workbooks.Open("C:\Temp\empleo.xls")
+                    'MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                    Exit Sub
                 End If
 
 
@@ -514,9 +519,8 @@ Public Class frmJuridico
                 Else
                     Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
                     FileCopy(Ruta, "C:\Temp\AnexoI.docx")
-                    MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Exit Sub
+                     Documento = MSWord.Documents.Open("C:\Temp\AnexoI.docx")
+                    'Exit Sub
                 End If
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
@@ -609,9 +613,7 @@ Public Class frmJuridico
                 Else
                     Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
                     FileCopy(Ruta, "C:\Temp\AnexoII.docx")
-                    MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Exit Sub
+                   Documento = MSWord.Documents.Open("C:\Temp\AnexoII.docx")
                 End If
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
@@ -689,9 +691,8 @@ Public Class frmJuridico
                 Else
                     Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
                     FileCopy(Ruta, "C:\Temp\AnexoIII.docx")
-                    MessageBox.Show("Se ha creado la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                     Documento = MSWord.Documents.Open("C:\Temp\AnexoIII.docx")
 
-                    Exit Sub
                 End If
 
 
@@ -771,9 +772,8 @@ Public Class frmJuridico
                 Else
                     Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
                     FileCopy(Ruta, "C:\Temp\AnexoIV.docx")
-                    MessageBox.Show("Se ha creado la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento = MSWord.Documents.Open("C:\Temp\AnexoIV.docx")
 
-                    Exit Sub
                 End If
 
 
@@ -851,9 +851,8 @@ Public Class frmJuridico
             Else
                 Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
                 FileCopy(Ruta, "C:\Temp\Asmilados.docx")
-                MessageBox.Show("Se ha creado la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                 Documento = MSWord.Documents.Open("C:\Temp\Asmilados.docx")
 
-                Exit Sub
             End If
 
             SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
@@ -951,9 +950,8 @@ Public Class frmJuridico
                 Else
                     Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
                     FileCopy(Ruta, "C:\Temp\contratoDeterminado.doc")
-                    MessageBox.Show("Se ha creado la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                      Documento = MSWord.Documents.Open("C:\Temp\contratoDeterminado.doc")
 
-                    Exit Sub
                 End If
 
 
