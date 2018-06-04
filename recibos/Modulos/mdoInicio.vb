@@ -146,12 +146,12 @@ Module mdoInicio
                 'Servidor.IP = "facturacion.elchingon.net"
 
                 Servidor.IP = "localhost"
-                Servidor.IP = "192.168.1.223"
-                ' Servidor.Nombre = "Equipo1\sqlexpress"
+                'Servidor.IP = "192.168.1.223"
+                Servidor.Nombre = "Equipo1\sqlexpress"
                 Servidor.Base = "unificacion"
                 Servidor.User = "sa"
-                'Servidor.PWD = "123456"
-                Servidor.PWD = "1123581321"
+                Servidor.PWD = "123456"
+                'Servidor.PWD = "1123581321"
 
             End If
             strConfig.WriteLine(Servidor.IP)

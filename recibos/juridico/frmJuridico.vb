@@ -181,18 +181,33 @@ Public Class frmJuridico
 
                 'Buscamos datos del empleado
 
+                Dim sindicato As DataRow() = nConsulta("select fkiIdSindicato from clientes where iIdCliente=" & gIdCliente)
+                Dim value As DataRow = sindicato(0)
+
+                Dim puesto As DataRow() = nConsulta("select fkiIdPuesto  from empleadosAlta where iIdEmpleadoAlta=" & gIdEmpleado)
+                Dim valueP As DataRow = puesto(0)
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
                 ''SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestos.cNombre as cPuesto, fSueldoBase,"
-                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP, cMunicipio,cCP,iSexo,iEstadoCivil, dFechaNac,puestosAlta.cNombre as cPuesto,  fSueldoBase,"
+                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo, iEstadoCivil, dFechaNac," & IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False, "puestosAlta.cNombre as cPuesto,", "")
+                SQL &= " fSueldoBase,"
                 SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
                 SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago,  cLugarFirmaContrato,empleadosAlta.cLugarPrestacion,"
-                SQL &= "empresa.iIdEmpresa, empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+                SQL &= "empresa.iIdEmpresa, empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP" & IIf(IsDBNull(value.Item("fkiIdSindicato")) = False, ",Cat_SindicatosAlta.cNombre AS cNombreSindicato", "")
                 SQL &= " from ((empleadosAlta"
-                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
                 ''SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
-                SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
-                SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+                If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+                    SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
+                Else
+                    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa))"
+                End If
+
+                If IsDBNull(value.Item("fkiIdSindicato")) = False Then
+                    SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+                End If
+
+
                 SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
                 Dim rwEmpleado As DataRow() = nConsulta(Sql)
 
@@ -222,9 +237,14 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cNombreLargo4").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                     Documento.Bookmarks.Item("cNombreLargo5").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                     Documento.Bookmarks.Item("cNombreLargo6").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
+                    If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                        Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto").ToString.ToUpper
+                        Documento.Bookmarks.Item("cPuesto2").Range.Text = fEmpleado.Item("cPuesto").ToString.ToUpper
+                    Else
+                        MessageBox.Show("Revise su informacion, le falta puesto al empleado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                    Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto").ToString.ToUpper
-                    Documento.Bookmarks.Item("cPuesto2").Range.Text = fEmpleado.Item("cPuesto").ToString.ToUpper
+                    End If
+                    
                     Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
                     Documento.Bookmarks.Item("cRFC2").Range.Text = fEmpleado.Item("cRFC")
 
@@ -267,9 +287,13 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("dFecha").Range.Text = Fe(1).ToString '' DateTime.Now.ToString("dd/MM/yyyy")
                     Documento.Bookmarks.Item("dFecha2").Range.Text = Fe(1).ToString ' DateTime.Now.ToString("dd/MM/yyyy")
                     Documento.Bookmarks.Item("dFecha3").Range.Text = Fe(1).ToString 'DateTime.Now.ToString("dd/MM/yyyy")
-                    Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
-                    Documento.Bookmarks.Item("cNombreSindicato2").Range.Text = fEmpleado.Item("cNombreSindicato")
-
+                    If IsDBNull(value.Item("fkiIdSindicato")) = False Then
+                        Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
+                        Documento.Bookmarks.Item("cNombreSindicato2").Range.Text = fEmpleado.Item("cNombreSindicato")
+                    Else
+                        MessageBox.Show("Revise su información, falta sindicato en la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+                   
                     ''Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = fEmpleado.Item("fSueldoOrd")
                     Documento.Bookmarks.Item("fSueldoBase").Range.Text = fEmpleado.Item("fSueldoBase")
 
@@ -313,7 +337,7 @@ Public Class frmJuridico
                     'Documento.Save()
                     'MSWord.Visible = True
                     'Documento.Close()
-                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, falta puesto al empleado ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     'Documento.Close()
                 End If
 
@@ -365,16 +389,32 @@ Public Class frmJuridico
 
                 'Buscamos datos del empleado
 
+                Dim sindicato As DataRow() = nConsulta("select fkiIdSindicato from clientes where iIdCliente=" & gIdCliente)
+                Dim value As DataRow = sindicato(0)
+
+                Dim puesto As DataRow() = nConsulta("select fkiIdPuesto  from empleadosAlta where iIdEmpleadoAlta=" & gIdEmpleado)
+                Dim valueP As DataRow = puesto(0)
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
-                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,dFechaNac,puestosAlta.cNombre as cPuesto,fSueldoBase,"
+                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,dFechaNac," & IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False, "puestosAlta.cNombre as cPuesto,", "")
+                SQL &= " fSueldoBase,"
                 SQL &= "cNacionalidad, fSueldoOrd, iOrigen, empresa.calle + empresa.numero + empresa.numeroint + empresa.localidad AS cDireccionP, cCiudadP, cCPP, iCategoria, cJornada, cHorario,"
-                SQL &= "cHoras, cDescanso, empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato, Cat_SindicatosAlta.iIdSindicato "
+                SQL &= " cHoras, cDescanso, empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP" & IIf(IsDBNull(value.Item("fkiIdSindicato")) = False, ",Cat_SindicatosAlta.cNombre AS cNombreSindicato", "")
                 SQL &= " from ((empleadosAlta"
-                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+
                 ''SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
-                SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
-                SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+                If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+                    SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
+                Else
+                    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa))"
+                End If
+
+
+                If IsDBNull(value.Item("fkiIdSindicato")) = False Then
+                    SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+                End If
+
                 SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
 
                 Dim rwEmpleado As DataRow() = nConsulta(SQL)
@@ -406,15 +446,21 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("nombrefiscal").Range.Text = fEmpleado.Item("nombrefiscal")
                     Documento.Bookmarks.Item("cLugar").Range.Text = "OAXACA DE JUAREZ, OAXACA"
 
-                    Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
 
-                    If fEmpleado.Item("iIdSindicato") = 1 Then
-                        Documento.Bookmarks.Item("cLogoSindicato").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\7enero.png", LinkToFile:=True, SaveWithDocument:=True)
-                        Documento.Bookmarks.Item("cLogoSindicato2").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\croc.jpg", LinkToFile:=True, SaveWithDocument:=True)
+                    If IsDBNull(value.Item("fkiIdSindicato")) = False Then
 
-                    ElseIf fEmpleado.Item("iIdSindicato") = 2 Then
-                        Documento.Bookmarks.Item("cLogoSindicato").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\ctm.png", LinkToFile:=True, SaveWithDocument:=True)
+                        Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
 
+                        If fEmpleado.Item("iIdSindicato") = 1 Then
+                            Documento.Bookmarks.Item("cLogoSindicato").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\7enero.png", LinkToFile:=True, SaveWithDocument:=True)
+                            Documento.Bookmarks.Item("cLogoSindicato2").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\croc.jpg", LinkToFile:=True, SaveWithDocument:=True)
+
+                        ElseIf fEmpleado.Item("iIdSindicato") = 2 Then
+                            Documento.Bookmarks.Item("cLogoSindicato").Range.InlineShapes.AddPicture(System.Windows.Forms.Application.StartupPath & "\Archivos\logos\ctm.png", LinkToFile:=True, SaveWithDocument:=True)
+                        End If
+
+                    Else
+                        MessageBox.Show("Revise su información, falta sindicato en la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     End If
 
@@ -423,7 +469,7 @@ Public Class frmJuridico
                     MSWord.Visible = True
 
                 Else
-                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, falta puesto al empleado ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
 
@@ -522,17 +568,25 @@ Public Class frmJuridico
                      Documento = MSWord.Documents.Open("C:\Temp\AnexoI.docx")
                     'Exit Sub
                 End If
+                Dim puesto As DataRow() = nConsulta("select fkiIdPuesto  from empleadosAlta where iIdEmpleadoAlta=" & gIdEmpleado)
+                Dim valueP As DataRow = puesto(0)
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
-                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestosAlta.cNombre as cPuesto,fSueldoBase,"
+                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac," & IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False, "puestosAlta.cNombre as cPuesto,", "")
+                SQL &= " fSueldoBase,"
                 SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
                 SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago, cLugarFirmaContrato,empleadosAlta.cLugarPrestacion,"
-                SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+                SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP" ',  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
                 SQL &= " from ((empleadosAlta"
-                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
-                ''SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
-                SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
-                SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+                ' SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+
+                If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+                    SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
+                Else
+                    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa))"
+                End If
+                '  SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
                 SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
                 Dim rwEmpleado As DataRow() = nConsulta(SQL)
 
@@ -542,7 +596,13 @@ Public Class frmJuridico
 
                     Documento.Bookmarks.Item("cNombreLargo").Range.Text = (fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")).ToString.ToUpper
                     Documento.Bookmarks.Item("cNombreLargo2").Range.Text = (fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")).ToString.ToUpper
-                    Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto")
+                    If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                        Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto")
+                        else
+                        MessageBox.Show("Revise su información, falta puesto al empleado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+
+
                     Documento.Bookmarks.Item("cNombreFiscal").Range.Text = fEmpleado.Item("nombrefiscal")
                     Documento.Bookmarks.Item("cNombreFiscal2").Range.Text = fEmpleado.Item("nombrefiscal")
                     '' Documento.Bookmarks.Item("cLugar").Range.Text = "OAXACA DE JUAREZ, OAXACA"
@@ -566,7 +626,7 @@ Public Class frmJuridico
                     MSWord.Visible = True
 
                 Else
-                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
             Else
@@ -615,17 +675,24 @@ Public Class frmJuridico
                     FileCopy(Ruta, "C:\Temp\AnexoII.docx")
                    Documento = MSWord.Documents.Open("C:\Temp\AnexoII.docx")
                 End If
+                Dim puesto As DataRow() = nConsulta("select fkiIdPuesto  from empleadosAlta where iIdEmpleadoAlta=" & gIdEmpleado)
+                Dim valueP As DataRow = puesto(0)
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
-                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestosAlta.cNombre as cPuesto,fSueldoBase,"
+                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac," '' & IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False, ",puestosAlta.cNombre as cPuesto,", "")
+                SQL &= " fSueldoBase,"
                 SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
                 SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago, cLugarFirmaContrato,empleadosAlta.cLugarPrestacion,"
-                SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+                SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP" ',  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
                 SQL &= " from ((empleadosAlta"
-                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
-                ''SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
-                SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
-                SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+
+                'If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                '    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+                '    SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
+                'Else
+                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa))"
+                ' End If
+                'SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
                 SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
                 Dim rwEmpleado As DataRow() = nConsulta(SQL)
 
@@ -650,7 +717,7 @@ Public Class frmJuridico
                     Documento.Save()
                     MSWord.Visible = True
                 Else
-                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
 
@@ -680,7 +747,7 @@ Public Class frmJuridico
             If rwFilas Is Nothing = False Then
 
                 Dim Fila As DataRow = rwFilas(0)
-                Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\anexoIII.docx"
+                Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\AnexoIII.docx"
 
               
                 If File.Exists("C:\Temp\AnexoIII.docx") Then
@@ -697,15 +764,14 @@ Public Class frmJuridico
 
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
-                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestosAlta.cNombre as cPuesto,"
+                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac," 'puestosAlta.cNombre as cPuesto,"
                 SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
                 SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago, cLugarFirmaContrato,empleadosAlta.cLugarPrestacion,"
-                SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+                SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP" ',  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
                 SQL &= " from ((empleadosAlta"
-                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
-                '' SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
-                SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
-                SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa))"
+                '   SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
+                ' SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
                 SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
                 Dim rwEmpleado As DataRow() = nConsulta(SQL)
 
@@ -733,7 +799,7 @@ Public Class frmJuridico
                     MSWord.Visible = True
 
                 Else
-                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, falta puesto al empleado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
             Else
@@ -778,15 +844,15 @@ Public Class frmJuridico
 
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
-                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestosAlta.cNombre as cPuesto,fSueldoBase,"
+                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac," 'puestosAlta.cNombre as cPuesto,fSueldoBase,"
                 SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.iIdEmpresa ,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
                 SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago, cLugarFirmaContrato,empleadosAlta.cLugarPrestacion, dFechaPatrona,"
-                SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+                SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP" ',  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
                 SQL &= " from ((empleadosAlta"
-                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
-                ''SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
-                SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
-                SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa))"
+
+                ' SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
+                ' SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
                 SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
                 Dim rwEmpleado As DataRow() = nConsulta(SQL)
 
@@ -815,7 +881,7 @@ Public Class frmJuridico
                     Documento.Save()
                     MSWord.Visible = True
                 Else
-                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, falta puesto al empleado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
             Else
@@ -854,17 +920,23 @@ Public Class frmJuridico
                  Documento = MSWord.Documents.Open("C:\Temp\Asmilados.docx")
 
             End If
+            Dim puesto As DataRow() = nConsulta("select fkiIdPuesto  from empleadosAlta where iIdEmpleadoAlta=" & gIdEmpleado)
+            Dim valueP As DataRow = puesto(0)
 
             SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
-            SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestosAlta.cNombre as cPuesto,fSueldoBase,"
+            SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac," & IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False, "puestosAlta.cNombre as cPuesto,", "")
+            SQL &= " fSueldoBase,"
             SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.iIdEmpresa ,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
             SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago, cLugarFirmaContrato,empleadosAlta.cLugarPrestacion, dFechaPatrona,"
-            SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+            SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP" ',  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
             SQL &= " from ((empleadosAlta"
-            SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
-            ''SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
-            SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
-            SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+            If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+                SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
+            Else
+                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa))"
+            End If
+            ' SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
             SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
             Dim rwEmpleado As DataRow() = nConsulta(SQL)
 
@@ -956,18 +1028,30 @@ Public Class frmJuridico
 
 
                 'Buscamos datos del empleado
+                Dim sindicato As DataRow() = nConsulta("select fkiIdSindicato from clientes where iIdCliente=" & gIdCliente)
+                Dim value As DataRow = sindicato(0)
 
+                Dim puesto As DataRow() = nConsulta("select fkiIdPuesto  from empleadosAlta where iIdEmpleadoAlta=" & gIdEmpleado)
+                Dim valueP As DataRow = puesto(0)
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
-                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestosAlta.cNombre as cPuesto,fSueldoBase,"
+                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac," & IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False, " puestosAlta.cNombre as cPuesto,", "")
+                SQL &= " fSueldoBase,"
                 SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
                 SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago,  cLugarFirmaContrato,empleadosAlta.cLugarPrestacion, dFechaTerminoContrato,"
-                SQL &= "empresa.iIdEmpresa, empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP,  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
+                SQL &= "empresa.iIdEmpresa, empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP " & IIf(IsDBNull(value.Item("fkiIdSindicato")) = False, ", Cat_SindicatosAlta.cNombre AS cNombreSindicato", " ")
                 SQL &= " from ((empleadosAlta"
-                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
-                '' SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
-                SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
-                SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+                If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+                    SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
+                Else
+                    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa))"
+                End If
+
+                If IsDBNull(value.Item("fkiIdSindicato")) = False Then
+                    SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
+                End If
+
                 SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
                 Dim rwEmpleado As DataRow() = nConsulta(SQL)
 
@@ -996,8 +1080,15 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cNombreLargo3").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                     Documento.Bookmarks.Item("cNombreLargo4").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                     Documento.Bookmarks.Item("cNombreLargo5").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
-                    Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto").ToString.ToUpper
-                    Documento.Bookmarks.Item("cPuesto2").Range.Text = fEmpleado.Item("cPuesto")
+
+                    If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                        Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto").ToString.ToUpper
+                        Documento.Bookmarks.Item("cPuesto2").Range.Text = fEmpleado.Item("cPuesto")
+                    Else
+                        MessageBox.Show("Revise su información, falta puesto al empleado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    End If
+                   
                     Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
 
                     Documento.Bookmarks.Item("cCategoria").Range.Text = IIf(fEmpleado.Item("iCategoria") = "0", "A", "B")
@@ -1039,8 +1130,15 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cFecha2").Range.Text = fe(1).ToString ''DateTime.Now.ToString("dd/MM/yyyy")
                     Documento.Bookmarks.Item("cFecha3").Range.Text = fe(1).ToString '' DateTime.Now.ToString("dd/MM/yyyy")
                     Documento.Bookmarks.Item("cFecha4").Range.Text = fe(1).ToString ''DateTime.Now.ToString("dd/MM/yyyy")
-                    Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
-                    Documento.Bookmarks.Item("cNombreSindicato2").Range.Text = fEmpleado.Item("cNombreSindicato")
+
+                    If IsDBNull(value.Item("fkiIdSindicato")) = False Then
+                        Documento.Bookmarks.Item("cNombreSindicato").Range.Text = fEmpleado.Item("cNombreSindicato")
+                        Documento.Bookmarks.Item("cNombreSindicato2").Range.Text = fEmpleado.Item("cNombreSindicato")
+                    Else
+                        MessageBox.Show("Revise su información, falta sindicato en la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    End If
+                  
 
                     ''Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = fEmpleado.Item("fSueldoOrd")
                     Documento.Bookmarks.Item("fSueldoBase").Range.Text = fEmpleado.Item("fSueldoBase")
@@ -1082,7 +1180,7 @@ Public Class frmJuridico
                     MSWord.Visible = True
 
                 Else
-                    MessageBox.Show("Revise su información, falta puesto al empleado y/o sindicato a la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, falta puesto al empleado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                 End If
 
