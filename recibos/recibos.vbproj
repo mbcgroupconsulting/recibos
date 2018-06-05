@@ -1434,6 +1434,7 @@
     <Content Include="Resources\1361155112_ok-green.png" />
     <Content Include="Resources\1361622577_find.png" />
     <None Include="Resources\bloggif_5aa81d204bc8d.png" />
+    <None Include="Resources\cubo-de-basura.png" />
     <Content Include="Resources\GF1.png" />
     <Content Include="Resources\GF3.png" />
     <None Include="Resources\material-escolar.png" />

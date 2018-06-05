@@ -171,6 +171,7 @@ Public Class frmJuridico
                     FileCopy(Ruta, "C:\Temp\contrato.doc")
                     Documento = MSWord.Documents.Open("C:\Temp\contrato.doc")
                 Else
+
                     Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
                     FileCopy(Ruta, "C:\Temp\contrato.doc")
                     Documento = MSWord.Documents.Open("C:\Temp\contrato.doc")

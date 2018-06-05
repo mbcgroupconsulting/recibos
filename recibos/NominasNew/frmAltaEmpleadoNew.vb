@@ -665,7 +665,7 @@ Public Class frmAltaEmpleadoNew
             MessageBox.Show("Datos Guardados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             If blnNuevo = True Then
-                Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), "c.serrano@mbcgroup.mx;p.vicente@mbcgroup.mx", "Empleado Alta")
+                ' Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), "c.serrano@mbcgroup.mx;p.vicente@mbcgroup.mx", "Empleado Alta")
                 'Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), "e.ruiz@mbcgroup.mx", "Empleado Alta")
 
             End If

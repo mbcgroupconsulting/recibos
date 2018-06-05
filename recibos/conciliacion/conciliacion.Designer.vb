@@ -31,8 +31,12 @@ Partial Class conciliacion
         Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         Me.tsbreportes = New System.Windows.Forms.ToolStripButton()
         Me.tsbExcel = New System.Windows.Forms.ToolStripButton()
+        Me.tsbDeleted = New System.Windows.Forms.ToolStripButton()
         Me.lblRuta = New System.Windows.Forms.Label()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.txtidempresa = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtids = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -67,9 +71,6 @@ Partial Class conciliacion
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.cmdCerrar = New System.Windows.Forms.Button()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.txtidempresa = New System.Windows.Forms.TextBox()
-        Me.Label14 = New System.Windows.Forms.Label()
         Me.ToolStrip1.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -87,7 +88,7 @@ Partial Class conciliacion
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbImportar, Me.tsbGuardar, Me.tsbProcesar, Me.tsbCancelar, Me.tsbreportes, Me.tsbExcel})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbImportar, Me.tsbGuardar, Me.tsbProcesar, Me.tsbCancelar, Me.tsbreportes, Me.tsbExcel, Me.tsbDeleted})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(945, 54)
@@ -165,6 +166,16 @@ Partial Class conciliacion
         Me.tsbExcel.Text = "Exportar Excel"
         Me.tsbExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
+        'tsbDeleted
+        '
+        Me.tsbDeleted.Image = Global.recibos.My.Resources.Resources.cubo_de_basura
+        Me.tsbDeleted.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbDeleted.Name = "tsbDeleted"
+        Me.tsbDeleted.Size = New System.Drawing.Size(43, 51)
+        Me.tsbDeleted.Text = "Borrar"
+        Me.tsbDeleted.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.tsbDeleted.Visible = False
+        '
         'lblRuta
         '
         Me.lblRuta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -177,8 +188,8 @@ Partial Class conciliacion
         'pnlCatalogo
         '
         Me.pnlCatalogo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pnlCatalogo.Controls.Add(Me.Label13)
         Me.pnlCatalogo.Controls.Add(Me.txtidempresa)
@@ -205,6 +216,33 @@ Partial Class conciliacion
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Size = New System.Drawing.Size(945, 501)
         Me.pnlCatalogo.TabIndex = 33
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(172, 128)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(285, 13)
+        Me.Label13.TabIndex = 55
+        Me.Label13.Text = "En caso de ser mas de un identificador separarlo por comas (,)"
+        '
+        'txtidempresa
+        '
+        Me.txtidempresa.Location = New System.Drawing.Point(387, 94)
+        Me.txtidempresa.Name = "txtidempresa"
+        Me.txtidempresa.Size = New System.Drawing.Size(65, 27)
+        Me.txtidempresa.TabIndex = 54
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(24, 101)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(361, 19)
+        Me.Label14.TabIndex = 53
+        Me.Label14.Text = "Identificador de la empresa en el catalogo de clientes:"
         '
         'Label12
         '
@@ -507,8 +545,8 @@ Partial Class conciliacion
         'lsvLista
         '
         Me.lsvLista.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lsvLista.CheckBoxes = True
         Me.lsvLista.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvLista.FullRowSelect = True
@@ -561,33 +599,6 @@ Partial Class conciliacion
         Me.cmdCerrar.Text = "Cerrar"
         Me.cmdCerrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.cmdCerrar.UseVisualStyleBackColor = True
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(172, 128)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(285, 13)
-        Me.Label13.TabIndex = 55
-        Me.Label13.Text = "En caso de ser mas de un identificador separarlo por comas (,)"
-        '
-        'txtidempresa
-        '
-        Me.txtidempresa.Location = New System.Drawing.Point(387, 94)
-        Me.txtidempresa.Name = "txtidempresa"
-        Me.txtidempresa.Size = New System.Drawing.Size(65, 27)
-        Me.txtidempresa.TabIndex = 54
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(24, 101)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(361, 19)
-        Me.Label14.TabIndex = 53
-        Me.Label14.Text = "Identificador de la empresa en el catalogo de clientes:"
         '
         'conciliacion
         '
@@ -670,4 +681,5 @@ Partial Class conciliacion
     Friend WithEvents Label13 As Label
     Friend WithEvents txtidempresa As TextBox
     Friend WithEvents Label14 As Label
+    Friend WithEvents tsbDeleted As System.Windows.Forms.ToolStripButton
 End Class

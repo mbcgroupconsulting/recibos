@@ -146,7 +146,7 @@ Module mdoInicio
                 'Servidor.IP = "facturacion.elchingon.net"
 
                 Servidor.IP = "localhost"
-                'Servidor.IP = "192.168.1.223"
+                ' Servidor.IP = "192.168.1.223"
                 Servidor.Nombre = "Equipo1\sqlexpress"
                 Servidor.Base = "unificacion"
                 Servidor.User = "sa"
