@@ -33,6 +33,7 @@ Partial Class frmEmpleados
         Me.txtsalario = New System.Windows.Forms.TextBox()
         Me.cbojornada = New System.Windows.Forms.ComboBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.cmdfiniquito = New System.Windows.Forms.Button()
         Me.cmdprestamo = New System.Windows.Forms.Button()
         Me.cmdincidencias = New System.Windows.Forms.Button()
         Me.cmdbuscar = New System.Windows.Forms.Button()
@@ -136,7 +137,8 @@ Partial Class frmEmpleados
         Me.Label51 = New System.Windows.Forms.Label()
         Me.Label52 = New System.Windows.Forms.Label()
         Me.txtExtra = New System.Windows.Forms.TextBox()
-        Me.cmdfiniquito = New System.Windows.Forms.Button()
+        Me.Label53 = New System.Windows.Forms.Label()
+        Me.txtCostoSocial = New System.Windows.Forms.TextBox()
         Me.Panel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -229,6 +231,18 @@ Partial Class frmEmpleados
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(105, 596)
         Me.Panel1.TabIndex = 184
+        '
+        'cmdfiniquito
+        '
+        Me.cmdfiniquito.Image = CType(resources.GetObject("cmdfiniquito.Image"), System.Drawing.Image)
+        Me.cmdfiniquito.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdfiniquito.Location = New System.Drawing.Point(11, 387)
+        Me.cmdfiniquito.Name = "cmdfiniquito"
+        Me.cmdfiniquito.Size = New System.Drawing.Size(87, 72)
+        Me.cmdfiniquito.TabIndex = 43
+        Me.cmdfiniquito.Text = "Finiquito"
+        Me.cmdfiniquito.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdfiniquito.UseVisualStyleBackColor = True
         '
         'cmdprestamo
         '
@@ -1125,22 +1139,28 @@ Partial Class frmEmpleados
         Me.txtExtra.Size = New System.Drawing.Size(98, 26)
         Me.txtExtra.TabIndex = 206
         '
-        'cmdfiniquito
+        'Label53
         '
-        Me.cmdfiniquito.Image = CType(resources.GetObject("cmdfiniquito.Image"), System.Drawing.Image)
-        Me.cmdfiniquito.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdfiniquito.Location = New System.Drawing.Point(11, 387)
-        Me.cmdfiniquito.Name = "cmdfiniquito"
-        Me.cmdfiniquito.Size = New System.Drawing.Size(87, 72)
-        Me.cmdfiniquito.TabIndex = 43
-        Me.cmdfiniquito.Text = "Finiquito"
-        Me.cmdfiniquito.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdfiniquito.UseVisualStyleBackColor = True
+        Me.Label53.AutoSize = True
+        Me.Label53.Location = New System.Drawing.Point(556, 633)
+        Me.Label53.Name = "Label53"
+        Me.Label53.Size = New System.Drawing.Size(82, 18)
+        Me.Label53.TabIndex = 207
+        Me.Label53.Text = "Costo Social"
+        '
+        'txtCostoSocial
+        '
+        Me.txtCostoSocial.Location = New System.Drawing.Point(555, 609)
+        Me.txtCostoSocial.Name = "txtCostoSocial"
+        Me.txtCostoSocial.Size = New System.Drawing.Size(98, 26)
+        Me.txtCostoSocial.TabIndex = 208
         '
         'frmEmpleados
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(971, 705)
+        Me.Controls.Add(Me.txtCostoSocial)
+        Me.Controls.Add(Me.Label53)
         Me.Controls.Add(Me.txtExtra)
         Me.Controls.Add(Me.Label52)
         Me.Controls.Add(Me.cbobanco2)
@@ -1360,4 +1380,6 @@ Partial Class frmEmpleados
     Friend WithEvents Label52 As Label
     Friend WithEvents txtExtra As TextBox
     Friend WithEvents cmdfiniquito As System.Windows.Forms.Button
+    Friend WithEvents Label53 As System.Windows.Forms.Label
+    Friend WithEvents txtCostoSocial As System.Windows.Forms.TextBox
 End Class

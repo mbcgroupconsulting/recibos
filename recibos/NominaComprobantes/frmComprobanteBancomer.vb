@@ -245,6 +245,7 @@ Public Class frmComprobanteBancomer
                         dsReporte.Tables("Tabla").Columns.Add("Nombretrabajdor")
                         dsReporte.Tables("Tabla").Columns.Add("CuentaTrabajador")
                         dsReporte.Tables("Tabla").Columns.Add("Importe")
+                        dsReporte.Tables("Tabla").Columns.Add("MotivoPago")
 
                         Dim fila As DataRow = dsReporte.Tables("Tabla").NewRow
                         fila.Item("Empresa") = Trim(txtEmpresa.Text.ToUpper)
@@ -257,7 +258,7 @@ Public Class frmComprobanteBancomer
                         fila.Item("Nombretrabajdor") = producto.SubItems(CInt(NudNombre.Value)).Text
                         fila.Item("CuentaTrabajador") = producto.SubItems(CInt(NudCuenta.Value)).Text
                         fila.Item("Importe") = Math.Round(importe, 2)
-                        
+                        fila.Item("MotivoPago") = IIf(rdbPatrona.Checked, "SUELDO", "BENEFICIOSOCIALPROMOYDIFSINDIC")
                         dsReporte.Tables("Tabla").Rows.Add(fila)
 
                         'Dim Archivo As String = IO.Path.GetTempFileName.Replace(".tmp", ".xml")

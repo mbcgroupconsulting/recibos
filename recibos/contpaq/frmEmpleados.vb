@@ -42,7 +42,7 @@ Public Class frmEmpleados
 
             'Validar si ya esta el codigo del empleado
             If blnNuevo Then
-                SQL = "select * from empleados where cCodigoEmpleado=" & txtcodigo.Text
+                SQL = "select * from empleadosC where cCodigoEmpleado=" & txtcodigo.Text & " and fkiIdEmpresa=" & gIdEmpresa
                 Dim rwCodigo As DataRow() = nConsulta(SQL)
 
                 If rwCodigo Is Nothing = False Then
@@ -110,7 +110,8 @@ Public Class frmEmpleados
                 SQL &= "','','" & txtfunciones.Text
                 SQL &= "'," & IIf(txtsd.Text = "", 0, txtsd.Text) & "," & IIf(txtsdi.Text = "", 0, txtsdi.Text)
                 SQL &= ",'','" & txtnacionalidad.Text & "','','','" & txtduracion.Text & "','" & txtcomentarios.Text
-                SQL &= "'," & gIdEmpresa & "," & IIf(txtsalario.Text = "", 0, txtsalario.Text) & ",0" & ",-1" & "," & cbopertenece.SelectedIndex + 1 & "," & cbobanco.SelectedValue
+                SQL &= "'," & gIdEmpresa & "," & IIf(txtsalario.Text = "", 0, txtsalario.Text)
+                SQL &= "," & IIf(txtCostoSocial.Text = "", 0, txtCostoSocial.Text) & ",-1" & "," & cbopertenece.SelectedIndex + 1 & "," & cbobanco.SelectedValue
                 SQL &= ",'" & txtcuenta.Text & "',1,'" & txtdireccionP.Text
                 SQL &= "','" & txtciudadP.Text & "'," & cboestadoP.SelectedValue & ",'" & txtcp2.Text
                 SQL &= "','" & Format(dtppatrona.Value.Date, "yyyy/dd/MM") & "','" & Format(dtpsindicato.Value.Date, "yyyy/dd/MM") & "','" & Format(dtpantiguedad.Value.Date, "yyyy/dd/MM")
@@ -123,7 +124,7 @@ Public Class frmEmpleados
                 SQL &= "," & cbobanco2.SelectedValue
                 SQL &= ",'" & txtcuenta2.Text
                 SQL &= "','" & txtclabe2.Text & "'"
-                SQL &= "," & txtExtra.Text
+                SQL &= "," & IIf(txtExtra.Text = "", 0, txtCostoSocial.Text)
             Else
                 'Actualizar
 
@@ -137,7 +138,8 @@ Public Class frmEmpleados
                 SQL &= "','','" & txtfunciones.Text
                 SQL &= "'," & IIf(txtsd.Text = "", 0, txtsd.Text) & "," & IIf(txtsdi.Text = "", 0, txtsdi.Text)
                 SQL &= ",'','" & txtnacionalidad.Text & "','','','" & txtduracion.Text & "','" & txtcomentarios.Text
-                SQL &= "'," & gIdEmpresa & "," & IIf(txtsalario.Text = "", 0, txtsalario.Text) & ",0" & ",-1" & "," & cbopertenece.SelectedIndex + 1 & "," & cbobanco.SelectedValue
+                SQL &= "'," & gIdEmpresa & "," & IIf(txtsalario.Text = "", 0, txtsalario.Text)
+                SQL &= "," & IIf(txtCostoSocial.Text = "", 0, txtCostoSocial.Text) & ",-1" & "," & cbopertenece.SelectedIndex + 1 & "," & cbobanco.SelectedValue
                 SQL &= ",'" & txtcuenta.Text & "',1,'" & txtdireccionP.Text
                 SQL &= "','" & txtciudadP.Text & "'," & cboestadoP.SelectedValue & ",'" & txtcp2.Text
                 SQL &= "','" & Format(dtppatrona.Value.Date, "yyyy/dd/MM") & "','" & Format(dtpsindicato.Value.Date, "yyyy/dd/MM") & "','" & Format(dtpantiguedad.Value.Date, "yyyy/dd/MM")
@@ -150,7 +152,7 @@ Public Class frmEmpleados
                 SQL &= "," & cbobanco2.SelectedValue
                 SQL &= ",'" & txtcuenta2.Text
                 SQL &= "','" & txtclabe2.Text & "'"
-                SQL &= "," & txtExtra.Text
+                SQL &= "," & IIf(txtExtra.Text = "", 0, txtCostoSocial.Text)
 
             End If
             If nExecute(SQL) = False Then
@@ -341,6 +343,7 @@ Public Class frmEmpleados
                 txtclabe2.Text = Fila.Item("clabe2")
                 'item.SubItems.Add("" & Fila.Item("Clabe"))
                 txtsalario.Text = Fila.Item("fSueldoOrd")
+                txtCostoSocial.Text = Fila.Item("fCosto")
                 SQL = "select * from bancos where iIdBanco=" & Fila.Item("fkiIdBanco2")
                 Dim Banco2 As DataRow() = nConsulta(SQL)
                 cbobanco2.SelectedValue = Banco2(0).Item("iIdBanco")
@@ -766,5 +769,13 @@ Public Class frmEmpleados
             MessageBox.Show("Seleccione un empleado primeramente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         End If
+    End Sub
+
+    Private Sub txtCostoSocial_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtCostoSocial.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtCostoSocial_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCostoSocial.TextChanged
+
     End Sub
 End Class

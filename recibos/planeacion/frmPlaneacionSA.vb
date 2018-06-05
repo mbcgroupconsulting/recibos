@@ -92,7 +92,12 @@
                 dsPeriodo.Tables("Tabla").Columns.Add("IMSS")
                 dsPeriodo.Tables("Tabla").Columns.Add("Total deducciones")
                 dsPeriodo.Tables("Tabla").Columns.Add("Neto")
-
+                dsPeriodo.Tables("Tabla").Columns.Add("IMSS_CS")
+                dsPeriodo.Tables("Tabla").Columns.Add("RCV_CS")
+                dsPeriodo.Tables("Tabla").Columns.Add("INFONAVIT_CS")
+                dsPeriodo.Tables("Tabla").Columns.Add("ISN_CS")
+                dsPeriodo.Tables("Tabla").Columns.Add("TOTAL_CS")
+                dsPeriodo.Tables("Tabla").Columns.Add("COSTO_NOMINA_TOTAL")
                 For x = 0 To tbRegistros.Rows.Count - 1
 
                     Dim fila As DataRow = dsPeriodo.Tables("Tabla").NewRow
@@ -111,7 +116,12 @@
                     fila.Item("IMSS") = "0"
                     fila.Item("Total deducciones") = "0"
                     fila.Item("Neto") = "0"
-
+                    fila.Item("IMSS_CS") = "0"
+                    fila.Item("RCV_CS") = "0"
+                    fila.Item("INFONAVIT_CS") = "0"
+                    fila.Item("ISN_CS") = "0"
+                    fila.Item("TOTAL_CS") = "0"
+                    fila.Item("COSTO_NOMINA_TOTAL") = "0"
 
 
 
@@ -186,6 +196,31 @@
                 dtgDatos.Columns(14).ReadOnly = True
                 dtgDatos.Columns(14).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
+                dtgDatos.Columns(15).Width = 100
+                dtgDatos.Columns(15).ReadOnly = True
+                dtgDatos.Columns(15).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                dtgDatos.Columns(16).Width = 100
+                dtgDatos.Columns(16).ReadOnly = True
+                dtgDatos.Columns(16).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                dtgDatos.Columns(17).Width = 100
+                dtgDatos.Columns(17).ReadOnly = True
+                dtgDatos.Columns(17).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                dtgDatos.Columns(18).Width = 100
+                dtgDatos.Columns(18).ReadOnly = True
+                dtgDatos.Columns(18).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                dtgDatos.Columns(19).Width = 100
+                dtgDatos.Columns(19).ReadOnly = True
+                dtgDatos.Columns(19).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                dtgDatos.Columns(20).Width = 150
+                dtgDatos.Columns(20).ReadOnly = True
+                dtgDatos.Columns(20).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+                
 
             End If
 
@@ -263,6 +298,9 @@
         Dim diferencia As Double
         Dim SDI As Double
         Dim imss As Double
+        Dim imssP As Double
+        Dim RCVP As Double
+        Dim INFONAVITP As Double
 
         Dim SQL As String
         Try
@@ -311,7 +349,7 @@
                                 subsidio = IIf(subsidio > isr, subsidio - isr, 0)
 
                                 'Calcular imss
-                                imss = calculoimss(propuesta * 1.0452, bruto)
+                                imss = calculoimss(propuesta * 1.0452, bruto, 1)
 
 
 
@@ -444,10 +482,10 @@
                             subsidio = IIf(subsidio > isr, subsidio - isr, 0)
 
                             'Calcular imss
-                            imss = calculoimss(propuesta * 1.0452, bruto)
-
-
-
+                            imss = calculoimss(propuesta * 1.0452, bruto, 1)
+                            imssP = calculoimss(propuesta * 1.0452, bruto, 2)
+                            RCVP = calculoimss(propuesta * 1.0452, bruto, 3)
+                            INFONAVITP = calculoimss(propuesta * 1.0452, bruto, 4)
 
 
                         End If
@@ -464,6 +502,22 @@
                     dtgDatos.Rows(x).Cells(12).Value = imss
                     dtgDatos.Rows(x).Cells(13).Value = imss + isr2
                     dtgDatos.Rows(x).Cells(14).Value = (bruto + subsidio) - (imss + isr2)
+                    dtgDatos.Rows(x).Cells(15).Value = imssP
+                    dtgDatos.Rows(x).Cells(16).Value = RCVP
+                    dtgDatos.Rows(x).Cells(17).Value = INFONAVITP
+                    dtgDatos.Rows(x).Cells(18).Value = (Double.Parse(Nudnomina.Value) / 100) * bruto
+                    dtgDatos.Rows(x).Cells(19).Value = imssP + RCVP + INFONAVITP + ((Double.Parse(Nudnomina.Value) / 100) * bruto)
+
+                    dtgDatos.Rows(x).Cells(20).Value = (bruto) + (imssP + RCVP + INFONAVITP + ((Double.Parse(Nudnomina.Value) / 100) * bruto))
+
+
+
+                    'fila.Item("IMSS_CS") = "0"
+                    'fila.Item("RCV_CS") = "0"
+                    'fila.Item("INFONAVIT_CS") = "0"
+                    'fila.Item("ISN_CS") = "0"
+                    'fila.Item("TOTAL_CS") = "0"
+                    'fila.Item("COSTO_NOMINA_TOTAL") = "0"
                 Next
                 pnlProgreso.Visible = False
                 MessageBox.Show("Calculos terminados", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -476,7 +530,7 @@
 
     End Sub
 
-    Function calculoimss(sdi As Double, totalp As Double) As Double
+    Function calculoimss(sdi As Double, totalp As Double, tipo As Integer) As Double
         Dim SQL As String
         Dim TC25 As Double = Double.Parse(txtsalario.Text) * 25
         Dim TC22 As Double = Double.Parse(txtsalario.Text) * 25
@@ -645,7 +699,13 @@
 
                 'COSTO SOCIAL
                 costosocial = totaltotalp + totaltotalt
-
+                If tipo = 2 Then
+                    totaltotalt = cuotasimssp
+                ElseIf tipo = 3 Then
+                    totaltotalt = totalrcvp
+                ElseIf tipo = 4 Then
+                    totaltotalt = infonavitp
+                End If
                 Return totaltotalt
 
             End If
@@ -704,7 +764,7 @@
                         subsidio = IIf(subsidio > isr, subsidio - isr, 0)
 
                         'Calcular imss
-                        imss = calculoimss(propuesta * 1.0452, bruto)
+                        imss = calculoimss(propuesta * 1.0452, bruto, 1)
 
 
 

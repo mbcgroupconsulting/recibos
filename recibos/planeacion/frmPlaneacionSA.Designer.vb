@@ -30,6 +30,11 @@ Partial Class frmPlaneacionSA
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.tsbNuevo = New System.Windows.Forms.ToolStripButton()
+        Me.tsbImportar = New System.Windows.Forms.ToolStripButton()
+        Me.tsbGuardar = New System.Windows.Forms.ToolStripButton()
+        Me.tsbProcesar = New System.Windows.Forms.ToolStripButton()
+        Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         Me.lblRuta = New System.Windows.Forms.Label()
         Me.cmdCerrar = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -42,11 +47,6 @@ Partial Class frmPlaneacionSA
         Me.Nudnomina = New System.Windows.Forms.NumericUpDown()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.tsbNuevo = New System.Windows.Forms.ToolStripButton()
-        Me.tsbImportar = New System.Windows.Forms.ToolStripButton()
-        Me.tsbGuardar = New System.Windows.Forms.ToolStripButton()
-        Me.tsbProcesar = New System.Windows.Forms.ToolStripButton()
-        Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         CType(Me.dtgDatos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlProgreso.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
@@ -122,6 +122,59 @@ Partial Class frmPlaneacionSA
         Me.ToolStrip1.Size = New System.Drawing.Size(1170, 54)
         Me.ToolStrip1.TabIndex = 29
         Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'tsbNuevo
+        '
+        Me.tsbNuevo.Image = Global.recibos.My.Resources.Resources._1361007999_document_new
+        Me.tsbNuevo.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbNuevo.Name = "tsbNuevo"
+        Me.tsbNuevo.Size = New System.Drawing.Size(96, 51)
+        Me.tsbNuevo.Text = "Agregar Salarios"
+        Me.tsbNuevo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'tsbImportar
+        '
+        Me.tsbImportar.Enabled = False
+        Me.tsbImportar.Image = Global.recibos.My.Resources.Resources._1361008137_export_excel
+        Me.tsbImportar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbImportar.Name = "tsbImportar"
+        Me.tsbImportar.Size = New System.Drawing.Size(99, 51)
+        Me.tsbImportar.Text = "Importar archivo"
+        Me.tsbImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'tsbGuardar
+        '
+        Me.tsbGuardar.AutoSize = False
+        Me.tsbGuardar.Enabled = False
+        Me.tsbGuardar.Image = Global.recibos.My.Resources.Resources._1361008510_save_diskette_floppy_disk
+        Me.tsbGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbGuardar.Name = "tsbGuardar"
+        Me.tsbGuardar.Size = New System.Drawing.Size(90, 51)
+        Me.tsbGuardar.Text = "Importar gastos"
+        Me.tsbGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.tsbGuardar.Visible = False
+        '
+        'tsbProcesar
+        '
+        Me.tsbProcesar.Enabled = False
+        Me.tsbProcesar.Image = CType(resources.GetObject("tsbProcesar.Image"), System.Drawing.Image)
+        Me.tsbProcesar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbProcesar.Name = "tsbProcesar"
+        Me.tsbProcesar.Size = New System.Drawing.Size(98, 51)
+        Me.tsbProcesar.Text = "Procesar archivo"
+        Me.tsbProcesar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.tsbProcesar.Visible = False
+        '
+        'tsbCancelar
+        '
+        Me.tsbCancelar.AutoSize = False
+        Me.tsbCancelar.Enabled = False
+        Me.tsbCancelar.Image = Global.recibos.My.Resources.Resources._1361008659_cancel
+        Me.tsbCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbCancelar.Name = "tsbCancelar"
+        Me.tsbCancelar.Size = New System.Drawing.Size(90, 51)
+        Me.tsbCancelar.Text = "Cancelar"
+        Me.tsbCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'lblRuta
         '
@@ -243,59 +296,7 @@ Partial Class frmPlaneacionSA
         Me.Button1.TabIndex = 42
         Me.Button1.Text = "Calcular"
         Me.Button1.UseVisualStyleBackColor = True
-        '
-        'tsbNuevo
-        '
-        Me.tsbNuevo.Image = Global.recibos.My.Resources.Resources._1361007999_document_new
-        Me.tsbNuevo.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbNuevo.Name = "tsbNuevo"
-        Me.tsbNuevo.Size = New System.Drawing.Size(90, 51)
-        Me.tsbNuevo.Text = "Agregar gastos"
-        Me.tsbNuevo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        '
-        'tsbImportar
-        '
-        Me.tsbImportar.Enabled = False
-        Me.tsbImportar.Image = Global.recibos.My.Resources.Resources._1361008137_export_excel
-        Me.tsbImportar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbImportar.Name = "tsbImportar"
-        Me.tsbImportar.Size = New System.Drawing.Size(99, 51)
-        Me.tsbImportar.Text = "Importar archivo"
-        Me.tsbImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        '
-        'tsbGuardar
-        '
-        Me.tsbGuardar.AutoSize = False
-        Me.tsbGuardar.Enabled = False
-        Me.tsbGuardar.Image = Global.recibos.My.Resources.Resources._1361008510_save_diskette_floppy_disk
-        Me.tsbGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbGuardar.Name = "tsbGuardar"
-        Me.tsbGuardar.Size = New System.Drawing.Size(90, 51)
-        Me.tsbGuardar.Text = "Importar gastos"
-        Me.tsbGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.tsbGuardar.Visible = False
-        '
-        'tsbProcesar
-        '
-        Me.tsbProcesar.Enabled = False
-        Me.tsbProcesar.Image = CType(resources.GetObject("tsbProcesar.Image"), System.Drawing.Image)
-        Me.tsbProcesar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbProcesar.Name = "tsbProcesar"
-        Me.tsbProcesar.Size = New System.Drawing.Size(98, 51)
-        Me.tsbProcesar.Text = "Procesar archivo"
-        Me.tsbProcesar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.tsbProcesar.Visible = False
-        '
-        'tsbCancelar
-        '
-        Me.tsbCancelar.AutoSize = False
-        Me.tsbCancelar.Enabled = False
-        Me.tsbCancelar.Image = Global.recibos.My.Resources.Resources._1361008659_cancel
-        Me.tsbCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbCancelar.Name = "tsbCancelar"
-        Me.tsbCancelar.Size = New System.Drawing.Size(90, 51)
-        Me.tsbCancelar.Text = "Cancelar"
-        Me.tsbCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.Button1.Visible = False
         '
         'frmPlaneacionSA
         '

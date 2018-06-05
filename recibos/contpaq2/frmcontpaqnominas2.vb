@@ -657,6 +657,7 @@ Public Class frmcontpaqnominas2
                                 sql &= "," & gIdEmpresa
 
                                 sql &= ",0.00"
+                                'Costo Social
                                 sql &= ",0.00"
                                 sql &= ",-1"
                                 sql &= ",1"
@@ -930,7 +931,7 @@ Public Class frmcontpaqnominas2
             Dim AguinaldoSA As Double
             Dim ImssSA As Double
             Dim SubsidioSA As Double
-            Dim fCostoSA As Double 
+            Dim fCostoSA As Double
             Dim AguinaldoSin As Double
             Dim cadenabanco As String
             dtgDatos.DataSource = Nothing
@@ -1307,6 +1308,16 @@ Public Class frmcontpaqnominas2
                                     End If
                                 End If
 
+
+                                If dt.Columns.IndexOf("Prima de vacaciones reportada $") <> -1 Then
+                                    If (Not (row("Prima de vacaciones reportada $") Is DBNull.Value)) Then
+                                        PrimaSA = PrimaSA + IIf(Trim(row("Prima de vacaciones reportada $")) = "", "0.00", Trim(row("Prima de vacaciones reportada $")))
+                                    End If
+                                End If
+
+
+
+
                                 fila.Item("Prima_SA") = PrimaSA
 
                                 'Termina
@@ -1510,6 +1521,13 @@ Public Class frmcontpaqnominas2
                                 If dt.Columns.IndexOf("Prima de vacaciones a tiempo") <> -1 Then
                                     If (Not (row("Prima de vacaciones a tiempo") Is DBNull.Value)) Then
                                         PrimaSA = IIf(Trim(row("Prima de vacaciones a tiempo")) = "", "0.00", Trim(row("Prima de vacaciones a tiempo")))
+                                    End If
+                                End If
+
+
+                                If dt.Columns.IndexOf("Prima de vacaciones reportada $") <> -1 Then
+                                    If (Not (row("Prima de vacaciones reportada $") Is DBNull.Value)) Then
+                                        PrimaSA = PrimaSA + IIf(Trim(row("Prima de vacaciones reportada $")) = "", "0.00", Trim(row("Prima de vacaciones reportada $")))
                                     End If
                                 End If
 
@@ -2255,7 +2273,7 @@ Public Class frmcontpaqnominas2
                     dtgDatos.Columns(9).ReadOnly = True
                     'prima SA
                     dtgDatos.Columns(10).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                    dtgDatos.Columns(10).ReadOnly = True
+                    'dtgDatos.Columns(10).ReadOnly = True
 
                     'Aguinaldo SA
                     dtgDatos.Columns(11).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -2507,7 +2525,7 @@ Public Class frmcontpaqnominas2
                         dtgDatos.Columns(9).ReadOnly = True
                         'prima SA
                         dtgDatos.Columns(10).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                        dtgDatos.Columns(10).ReadOnly = True
+                        'dtgDatos.Columns(10).ReadOnly = True
 
                         'Aguinaldo SA
                         dtgDatos.Columns(11).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -2521,7 +2539,7 @@ Public Class frmcontpaqnominas2
 
                         'sindicato
                         dtgDatos.Columns(14).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                        dtgDatos.Columns(14).ReadOnly = True
+                        'dtgDatos.Columns(14).ReadOnly = True
 
                         'Prima_Sin
                         dtgDatos.Columns(15).Width = 100
@@ -3815,7 +3833,7 @@ Public Class frmcontpaqnominas2
         Dim columna As Integer
         m_currentControl = Nothing
         columna = CInt(DirectCast(sender, System.Windows.Forms.DataGridView).CurrentCell.ColumnIndex)
-        If columna = 6 Or columna = 9 Or columna = 10 Then
+        If columna = 7 Or columna = 10 Or columna = 12 Or columna = 13 Or columna = 14 Or columna = 15 Then
             AddHandler e.Control.KeyPress, AddressOf TextboxNumeric_KeyPress
             m_currentControl = e.Control
         End If

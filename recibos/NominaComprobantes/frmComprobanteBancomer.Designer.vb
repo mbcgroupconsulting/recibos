@@ -28,6 +28,8 @@ Partial Class frmComprobanteBancomer
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.cmdCerrar = New System.Windows.Forms.Button()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtFolio = New System.Windows.Forms.TextBox()
         Me.dtpHora = New System.Windows.Forms.DateTimePicker()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtCuenta = New System.Windows.Forms.TextBox()
@@ -56,8 +58,9 @@ Partial Class frmComprobanteBancomer
         Me.tsbProcesar = New System.Windows.Forms.ToolStripButton()
         Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         Me.lblRuta = New System.Windows.Forms.Label()
-        Me.txtFolio = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.rdbPatrona = New System.Windows.Forms.RadioButton()
+        Me.rdbSindicato = New System.Windows.Forms.RadioButton()
         Me.pnlProgreso.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -65,6 +68,7 @@ Partial Class frmComprobanteBancomer
         CType(Me.NudImporte, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudNombre, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlProgreso
@@ -113,6 +117,7 @@ Partial Class frmComprobanteBancomer
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlCatalogo.Controls.Add(Me.Panel1)
         Me.pnlCatalogo.Controls.Add(Me.Label8)
         Me.pnlCatalogo.Controls.Add(Me.txtFolio)
         Me.pnlCatalogo.Controls.Add(Me.dtpHora)
@@ -135,6 +140,22 @@ Partial Class frmComprobanteBancomer
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Size = New System.Drawing.Size(945, 501)
         Me.pnlCatalogo.TabIndex = 43
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(492, 50)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(39, 18)
+        Me.Label8.TabIndex = 68
+        Me.Label8.Text = "Folio"
+        '
+        'txtFolio
+        '
+        Me.txtFolio.Location = New System.Drawing.Point(491, 71)
+        Me.txtFolio.Name = "txtFolio"
+        Me.txtFolio.Size = New System.Drawing.Size(105, 26)
+        Me.txtFolio.TabIndex = 67
         '
         'dtpHora
         '
@@ -418,21 +439,37 @@ Partial Class frmComprobanteBancomer
         Me.lblRuta.Size = New System.Drawing.Size(604, 39)
         Me.lblRuta.TabIndex = 45
         '
-        'txtFolio
+        'Panel1
         '
-        Me.txtFolio.Location = New System.Drawing.Point(491, 71)
-        Me.txtFolio.Name = "txtFolio"
-        Me.txtFolio.Size = New System.Drawing.Size(105, 26)
-        Me.txtFolio.TabIndex = 67
+        Me.Panel1.Controls.Add(Me.rdbSindicato)
+        Me.Panel1.Controls.Add(Me.rdbPatrona)
+        Me.Panel1.Location = New System.Drawing.Point(627, 71)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(148, 58)
+        Me.Panel1.TabIndex = 69
         '
-        'Label8
+        'rdbPatrona
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(492, 50)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(39, 18)
-        Me.Label8.TabIndex = 68
-        Me.Label8.Text = "Folio"
+        Me.rdbPatrona.AutoSize = True
+        Me.rdbPatrona.Checked = True
+        Me.rdbPatrona.Location = New System.Drawing.Point(18, 6)
+        Me.rdbPatrona.Name = "rdbPatrona"
+        Me.rdbPatrona.Size = New System.Drawing.Size(74, 22)
+        Me.rdbPatrona.TabIndex = 0
+        Me.rdbPatrona.TabStop = True
+        Me.rdbPatrona.Text = "Patrona"
+        Me.rdbPatrona.UseVisualStyleBackColor = True
+        '
+        'rdbSindicato
+        '
+        Me.rdbSindicato.AutoSize = True
+        Me.rdbSindicato.Location = New System.Drawing.Point(18, 33)
+        Me.rdbSindicato.Name = "rdbSindicato"
+        Me.rdbSindicato.Size = New System.Drawing.Size(83, 22)
+        Me.rdbSindicato.TabIndex = 1
+        Me.rdbSindicato.TabStop = True
+        Me.rdbSindicato.Text = "Sindicato"
+        Me.rdbSindicato.UseVisualStyleBackColor = True
         '
         'frmComprobanteBancomer
         '
@@ -459,6 +496,8 @@ Partial Class frmComprobanteBancomer
         CType(Me.NudNombre, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -498,4 +537,7 @@ Partial Class frmComprobanteBancomer
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents txtFolio As System.Windows.Forms.TextBox
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents rdbSindicato As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbPatrona As System.Windows.Forms.RadioButton
 End Class
