@@ -165,6 +165,20 @@
         cmdcancelar.Enabled = False
         MostrarClientes()
         MostrarDocumentos()
+        ''TabIndex()
+    End Sub
+    Private Sub TabIndex()
+        cboclientes.TabIndex = 1
+        cmdagregar.TabIndex = 2
+        cmdborrarfactura.TabIndex = 3
+        lsvLista.TabIndex = 4
+        cmdarchivo.TabIndex = 5
+        cboanio.TabIndex = 6
+        cbomes.TabIndex = 7
+        cmdBorrarArchivo.TabIndex = 8
+        cboDocumento.TabIndex = 9
+        lsvArchivo.TabIndex = 10
+
     End Sub
 
     Private Sub MostrarClientes()

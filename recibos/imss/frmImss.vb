@@ -21,7 +21,7 @@
         Dim SQL As String, Alter As Boolean = False
         Try
             lsvincapacidad.Items.Clear()
-            SQL = "select * from Incapacidad "
+            SQL = "select * from IncapacidadAlta "
             SQL &= " where fkiIdEmpleado=" & gIdEmpleado
             SQL &= " order by iIdIncapacidad "
             Dim rwFilas As DataRow() = nConsulta(SQL)
@@ -58,7 +58,7 @@
         Dim SQL As String, Alter As Boolean = False
         Try
             lsvHistorial.Items.Clear()
-            SQL = "select * from ingresobaja "
+            SQL = "select * from ingresobajaAlta "
             SQL &= " where fkiIdEmpleado=" & gIdEmpleado
             SQL &= " order by iIdIngresoBaja "
             Dim rwFilas As DataRow() = nConsulta(SQL)
@@ -95,7 +95,7 @@
         Try
             lsvSalario.Items.Clear()
 
-            SQL = "select * from sueldo "
+            SQL = "select * from sueldoAlta "
             SQL &= " where fkiIdEmpleado=" & gIdEmpleado
             SQL &= " order by iIdCambioSueldo "
             Dim rwFilas As DataRow() = nConsulta(SQL)
@@ -217,14 +217,14 @@
         Dim SQL As String = "SELECT "
         If Tipo = "1" Then
             'Agregar alta/baja
-            SQL = "UPDATE IngresoBaja SET "
+            SQL = "UPDATE IngresoBajaAlta SET "
             SQL &= "fechabajaimss='" & Format(dtpFecha.Value.Date, "yyyy/dd/MM") & "',"
             SQL &= "acuse='" & txtNumacuse.Text & "',observaciones='" & txtObservaciones.Text & "'"
 
             SQL &= " WHERE iIdIngresoBaja=" & idAcuse
         Else
             'Agregar modificación
-            SQL = "UPDATE Sueldo SET "
+            SQL = "UPDATE SueldoAlta SET "
             SQL &= "dFechaImss='" & Format(dtpFecha.Value.Date, "yyyy/dd/MM") & "',"
             SQL &= "acuse='" & txtNumacuse.Text & "',observaciones='" & txtObservaciones.Text & "'"
             SQL &= " WHERE iIdCambioSueldo=" & idAcuse
@@ -272,7 +272,7 @@
 
                     If blnNuevo Then
                         'Insertar nuevo
-                        SQL = "EXEC setIncapacidadInsertar 0,'" & txtfolio.Text & "'," & cbotipo.SelectedIndex
+                        SQL = "EXEC setIncapacidadAltaInsertar 0,'" & txtfolio.Text & "'," & cbotipo.SelectedIndex
                         SQL &= "," & NudDias.Value & ",'" & Format(dtpinicial.Value.Date, "yyyy/dd/MM")
                         SQL &= "','" & Format(dtpfinal.Value.Date, "yyyy/dd/MM") & "','" & Date.Today.ToShortDateString
                         SQL &= "'," & cboopcion.SelectedIndex & ",'" & txtObservacion.Text & "'," & gIdEmpleado

@@ -157,9 +157,18 @@ Public Class frmContratos
         Try
             Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\CPS.docx"
 
+            If File.Exists("C:\Temp\CPS_APE_Excedente.docx") Then
+                FileCopy(Ruta, "C:\Temp\CPS_APE_Excedente.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\CPS_APE_Excedente.docx")
+            Else
+                Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                FileCopy(Ruta, "C:\Temp\CPS_APE_Excedente.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\CCPS_APE_Excedente.docx")
+                'MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            FileCopy(Ruta, "C:\Temp\CPS_APE_Excedente.docx")
-            Documento = MSWord.Documents.Open("C:\Temp\CPS_APE_Excedente.docx")
+                ' Exit Sub
+            End If
+            
 
 
             SQL = " SELECT e.iIdEmpresa, e.nombrefiscal AS cNombreFiscalP, e.cRepresentanteP, e.RFC AS cRFCP, e.cCargoRepresentante AS cRepresentanteCargoP,"
@@ -267,8 +276,19 @@ Public Class frmContratos
             Ruta = System.Windows.Forms.Application.StartupPath & "\Archivos\CPS_Correlacionado.docx"
 
 
-            FileCopy(Ruta, "C:\Temp\CPS_Correlacionado.docx")
-            Documento = MSWord.Documents.Open("C:\Temp\CPS_Correlacionado.docx")
+
+            If File.Exists("C:\Temp\CPS_Correlacionado.docx") Then
+
+                FileCopy(Ruta, "C:\Temp\CPS_Correlacionado.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\CPS_Correlacionado.docx")
+            Else
+                Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
+                FileCopy(Ruta, "C:\Temp\CPS_Correlacionado.docx")
+                Documento = MSWord.Documents.Open("C:\Temp\CPS_Correlacionado.docx")
+                'MessageBox.Show("Error con la ruta para guardar el contrato, intente otra vez", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                ' Exit Sub
+            End If
 
 
             SQL = "SELECT e.iIdEmpresa, e.nombrefiscal AS cNombreFiscalP, e.cRepresentanteP, e.RFC AS cRFCP, e.cCargoRepresentante AS cCargoRepresentanteU,"
@@ -338,7 +358,7 @@ Public Class frmContratos
                     IsDBNull(fEmpleado.Item("cNotarioP")) = False And IsDBNull(fEmpleado.Item("cNotarioU")) = False And
                     IsDBNull(fEmpleado.Item("cNotarioNumeroP")) = False And IsDBNull(fEmpleado.Item("cNotarioNumeroU")) = False And
                     IsDBNull(fEmpleado.Item("cNotarioResidenciaP")) = False And IsDBNull(fEmpleado.Item("cNotarioResidenciaU")) = False And
-                    IsDBNull(fEmpleado.Item("cFechaActa")) = False And IsDBNull(fEmpleado.Item("cFechaActaU")) = False And
+                    IsDBNull(fEmpleado.Item("dFechaActaP")) = False And IsDBNull(fEmpleado.Item("dFechaActaU")) = False And
                     IsDBNull(fEmpleado.Item("cLugarRPPP")) = False And IsDBNull(fEmpleado.Item("cLugarRPPu")) = False Then
 
                     Documento.Bookmarks.Item("cRepresentanteP").Range.Text = UCase(fEmpleado.Item("cRepresentanteP"))
@@ -391,7 +411,11 @@ Public Class frmContratos
 
                 End If
 
+            Else
+                MessageBox.Show("Revise la información de la empresa y/o cliente, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Documento.Close()
             End If
+
 
 
         Catch ex As Exception

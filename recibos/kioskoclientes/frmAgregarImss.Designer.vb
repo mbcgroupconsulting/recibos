@@ -24,6 +24,7 @@ Partial Class frmAgregarImss
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAgregarImss))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.cmdcargados = New System.Windows.Forms.Button()
         Me.cmdcancelar = New System.Windows.Forms.Button()
         Me.cmdbuscar = New System.Windows.Forms.Button()
         Me.cmdnuevo = New System.Windows.Forms.Button()
@@ -56,6 +57,7 @@ Partial Class frmAgregarImss
         '
         Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.cmdcargados)
         Me.Panel1.Controls.Add(Me.cmdcancelar)
         Me.Panel1.Controls.Add(Me.cmdbuscar)
         Me.Panel1.Controls.Add(Me.cmdnuevo)
@@ -63,15 +65,28 @@ Partial Class frmAgregarImss
         Me.Panel1.Controls.Add(Me.cmdguardar)
         Me.Panel1.Location = New System.Drawing.Point(638, 7)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(105, 380)
+        Me.Panel1.Size = New System.Drawing.Size(105, 480)
         Me.Panel1.TabIndex = 69
+        '
+        'cmdcargados
+        '
+        Me.cmdcargados.Image = Global.recibos.My.Resources.Resources._1359876031_folder_search
+        Me.cmdcargados.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdcargados.Location = New System.Drawing.Point(7, 397)
+        Me.cmdcargados.Name = "cmdcargados"
+        Me.cmdcargados.Size = New System.Drawing.Size(87, 72)
+        Me.cmdcargados.TabIndex = 38
+        Me.cmdcargados.Text = "Cargados"
+        Me.cmdcargados.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdcargados.UseVisualStyleBackColor = True
+        Me.cmdcargados.Visible = False
         '
         'cmdcancelar
         '
         Me.cmdcancelar.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.cmdcancelar.Image = CType(resources.GetObject("cmdcancelar.Image"), System.Drawing.Image)
         Me.cmdcancelar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdcancelar.Location = New System.Drawing.Point(7, 148)
+        Me.cmdcancelar.Location = New System.Drawing.Point(7, 158)
         Me.cmdcancelar.Name = "cmdcancelar"
         Me.cmdcancelar.Size = New System.Drawing.Size(87, 72)
         Me.cmdcancelar.TabIndex = 37
@@ -83,7 +98,7 @@ Partial Class frmAgregarImss
         '
         Me.cmdbuscar.Image = CType(resources.GetObject("cmdbuscar.Image"), System.Drawing.Image)
         Me.cmdbuscar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdbuscar.Location = New System.Drawing.Point(7, 224)
+        Me.cmdbuscar.Location = New System.Drawing.Point(7, 235)
         Me.cmdbuscar.Name = "cmdbuscar"
         Me.cmdbuscar.Size = New System.Drawing.Size(87, 72)
         Me.cmdbuscar.TabIndex = 36
@@ -107,7 +122,7 @@ Partial Class frmAgregarImss
         '
         Me.cmdsalir.Image = CType(resources.GetObject("cmdsalir.Image"), System.Drawing.Image)
         Me.cmdsalir.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdsalir.Location = New System.Drawing.Point(7, 299)
+        Me.cmdsalir.Location = New System.Drawing.Point(7, 313)
         Me.cmdsalir.Name = "cmdsalir"
         Me.cmdsalir.Size = New System.Drawing.Size(87, 72)
         Me.cmdsalir.TabIndex = 37
@@ -153,7 +168,7 @@ Partial Class frmAgregarImss
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(194, 285)
+        Me.Label3.Location = New System.Drawing.Point(199, 285)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(139, 19)
         Me.Label3.TabIndex = 101
@@ -162,7 +177,7 @@ Partial Class frmAgregarImss
         'cboDocumento
         '
         Me.cboDocumento.FormattingEnabled = True
-        Me.cboDocumento.Location = New System.Drawing.Point(332, 280)
+        Me.cboDocumento.Location = New System.Drawing.Point(338, 280)
         Me.cboDocumento.Name = "cboDocumento"
         Me.cboDocumento.Size = New System.Drawing.Size(279, 27)
         Me.cboDocumento.TabIndex = 100
@@ -179,7 +194,7 @@ Partial Class frmAgregarImss
         'cboanio
         '
         Me.cboanio.FormattingEnabled = True
-        Me.cboanio.Items.AddRange(New Object() {"2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"})
+        Me.cboanio.Items.AddRange(New Object() {"2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"})
         Me.cboanio.Location = New System.Drawing.Point(237, 245)
         Me.cboanio.Name = "cboanio"
         Me.cboanio.Size = New System.Drawing.Size(82, 27)
@@ -355,4 +370,5 @@ Partial Class frmAgregarImss
     Private WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
     Friend WithEvents cboDocumento As System.Windows.Forms.ComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents cmdcargados As System.Windows.Forms.Button
 End Class

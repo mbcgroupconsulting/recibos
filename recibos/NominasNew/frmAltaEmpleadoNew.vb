@@ -566,6 +566,7 @@ Public Class frmAltaEmpleadoNew
                     Exit Sub
 
                 End If
+
             End If
             'Agregar datos de sueldos para historial
 
@@ -620,6 +621,7 @@ Public Class frmAltaEmpleadoNew
                 SQL &= "','" & cbEmpresasC.SelectedValue & "','" & txtlugarfirma.Text & "','" & txtRegistroPatronal.Text & "'"
                 SQL &= "," & cboTipoContratoJuridico.SelectedIndex & ",'" & txtPuestoJuridico.Text & "'"
 
+
             Else
                 'Actualizar
 
@@ -647,6 +649,7 @@ Public Class frmAltaEmpleadoNew
                 SQL &= "','" & cbEmpresasC.SelectedValue & "','" & txtlugarfirma.Text & "','" & txtRegistroPatronal.Text & "'"
                 SQL &= "," & cboTipoContratoJuridico.SelectedIndex & ",'" & txtPuestoJuridico.Text & "'"
 
+
             End If
 
             If nExecute(SQL) = False Then
@@ -661,6 +664,11 @@ Public Class frmAltaEmpleadoNew
 
             MessageBox.Show("Datos Guardados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+            If blnNuevo = True Then
+                Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), "c.serrano@mbcgroup.mx;p.vicente@mbcgroup.mx", "Empleado Alta")
+                'Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), "e.ruiz@mbcgroup.mx", "Empleado Alta")
+
+            End If
             Limpiar(Me)
 
             If Mensaje <> "" Then

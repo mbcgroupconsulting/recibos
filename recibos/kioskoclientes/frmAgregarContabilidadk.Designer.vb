@@ -48,6 +48,7 @@ Partial Class frmAgregarContabilidadk
         Me.cmdnuevo = New System.Windows.Forms.Button()
         Me.cmdsalir = New System.Windows.Forms.Button()
         Me.cmdguardar = New System.Windows.Forms.Button()
+        Me.cmdcargados = New System.Windows.Forms.Button()
         Me.pnlProveedores.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -241,6 +242,7 @@ Partial Class frmAgregarContabilidadk
         '
         Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.cmdcargados)
         Me.Panel1.Controls.Add(Me.cmdcancelar)
         Me.Panel1.Controls.Add(Me.cmdbuscar)
         Me.Panel1.Controls.Add(Me.cmdnuevo)
@@ -248,7 +250,7 @@ Partial Class frmAgregarContabilidadk
         Me.Panel1.Controls.Add(Me.cmdguardar)
         Me.Panel1.Location = New System.Drawing.Point(641, 5)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(105, 380)
+        Me.Panel1.Size = New System.Drawing.Size(105, 480)
         Me.Panel1.TabIndex = 67
         '
         'cmdcancelar
@@ -256,7 +258,7 @@ Partial Class frmAgregarContabilidadk
         Me.cmdcancelar.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.cmdcancelar.Image = CType(resources.GetObject("cmdcancelar.Image"), System.Drawing.Image)
         Me.cmdcancelar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdcancelar.Location = New System.Drawing.Point(7, 148)
+        Me.cmdcancelar.Location = New System.Drawing.Point(8, 150)
         Me.cmdcancelar.Name = "cmdcancelar"
         Me.cmdcancelar.Size = New System.Drawing.Size(87, 72)
         Me.cmdcancelar.TabIndex = 37
@@ -312,6 +314,19 @@ Partial Class frmAgregarContabilidadk
         Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdguardar.UseVisualStyleBackColor = True
         '
+        'cmdcargados
+        '
+        Me.cmdcargados.Image = Global.recibos.My.Resources.Resources._1359876031_folder_search
+        Me.cmdcargados.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdcargados.Location = New System.Drawing.Point(8, 377)
+        Me.cmdcargados.Name = "cmdcargados"
+        Me.cmdcargados.Size = New System.Drawing.Size(87, 72)
+        Me.cmdcargados.TabIndex = 39
+        Me.cmdcargados.Text = "Cargados"
+        Me.cmdcargados.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdcargados.UseVisualStyleBackColor = True
+        Me.cmdcargados.Visible = False
+        '
         'frmAgregarContabilidadk
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -354,4 +369,5 @@ Partial Class frmAgregarContabilidadk
     Friend WithEvents cboDocumento As System.Windows.Forms.ComboBox
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents cmdcargados As System.Windows.Forms.Button
 End Class
