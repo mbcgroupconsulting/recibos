@@ -621,7 +621,6 @@ C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmNota
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmContratos.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmFiniquito.resources
 C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmComprobanteBancomer.resources
-C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.exe.config
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.pdb
@@ -754,3 +753,4 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.xml
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.pdb
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
+C:\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
