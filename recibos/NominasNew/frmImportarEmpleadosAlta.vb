@@ -323,21 +323,27 @@ Public Class frmImportarEmpleadosAlta
                     If bandera <> False Then
 
                         Dim barray() As String = Trim(empleadofull.SubItems(27).Text).Split("-")
-                        Dim b As String = barray(0) ' Trim(empleadofull.SubItems(27).Text).Split("-")
+                        Dim b As String = Trim(empleadofull.SubItems(27).Text)  'barray(0)
                         Dim idbanco As Integer
-                        If b <> "" Then
-                            Dim banco As DataRow() = nConsulta(" select * from bancos where clave =" & b)
-                            If banco Is Nothing Then
-                                idbanco = 1
-                                mensa = "| Revise el tipo de banco"
-                                bandera = False
-                            Else
-                                idbanco = banco(0).Item("iIdBanco")
-                            End If
+                        If (b.Length > 3) = False Then
 
+                            If b <> "" Then
+                                Dim banco As DataRow() = nConsulta(" select * from bancos where clave =" & b)
+                                If banco Is Nothing Then
+                                    idbanco = 1
+                                    mensa = "| Revise el tipo de banco"
+                                    'bandera = False
+                                Else
+                                    idbanco = banco(0).Item("iIdBanco")
+                                End If
+
+                            Else
+                                b = 0
+                            End If
                         Else
-                            b = 0
+                            idbanco = 0
                         End If
+                       
 
 
                         Dim factor As Integer
@@ -401,7 +407,9 @@ Public Class frmImportarEmpleadosAlta
                                 bandera = True
                             End If
                         Else
-                            cliente = 1
+                            mensa += "| Revise el nombre del la empresa cliente"
+                            bandera = False
+                            'cliente = 1
                         End If
 
                         Dim ep As String = Trim(empleadofull.SubItems(42).Text)
@@ -417,8 +425,50 @@ Public Class frmImportarEmpleadosAlta
                                 bandera = True
                             End If
                         Else
-                            cliente = 1
+                            mensa += "| Revise el nombre del la empresa patrona"
+                            bandera = False
+                            'cliente = 1
                         End If
+
+                        Dim pst As String = Trim(empleadofull.SubItems(10).Text)
+                        Dim idPuesto As Integer
+                        If pst <> "" Then
+                            Dim puesto As DataRow() = nConsulta(" select * from PuestosAlta where cNombre like '%" & pst & "%' and fkiIdEmpresa=" & epat)
+                            If puesto Is Nothing Then
+                                ' mensa += "| Revise el nombre del puesto"
+                                'bandera = False
+                                idPuesto = 0
+                            Else
+                                idPuesto = puesto(0).Item("iIdPuestoAlta")
+
+                                bandera = True
+                            End If
+                        Else
+                            mensa += "| Revise el nombre del puesto"
+                            bandera = False
+                            idPuesto = 0
+                        End If
+
+                        Dim dpto As String = Trim(empleadofull.SubItems(9).Text)
+                        Dim idDepartamento As Integer
+                        If dpto <> "" Then
+                            Dim depa As DataRow() = nConsulta(" select * from DepartamentosAlta where cNombre like '%" & dpto & "%' and fkiIdEmpresa=" & epat)
+                            If depa Is Nothing Then
+                                ' mensa += "| Revise el nombre del puesto"
+                                'bandera = False
+                                idDepartamento = 0
+                            Else
+                                idDepartamento = depa(0).Item("iIdPuestoAlta")
+
+                                bandera = True
+                            End If
+                        Else
+                            mensa += "| Revise el nombre del departamento"
+                            bandera = False
+                            idDepartamento = 0
+                        End If
+
+
                         Dim dFechaNac, dFechaCap, dFechaPatrona, dFechaTerminoContrato, dFechaSindicato, dFechaAntiguedad As String
                         ''   Dim _fecha As String
 
@@ -450,7 +500,9 @@ Public Class frmImportarEmpleadosAlta
                         SQL &= "'," & 0 & "," & Trim(empleadofull.SubItems(22).Text) & ",'" & Trim(empleadofull.SubItems(24).Text) & "'," & IIf(Trim(empleadofull.SubItems(12).Text) = "A", 0, 1) & ",'" & Trim(empleadofull.SubItems(23).Text) & "','" & factor ''switch
                         SQL &= "'," & IIf(Trim(empleadofull.SubItems(24).Text) = "", 0, Trim(empleadofull.SubItems(24).Text)) & ",'" & number & "','" & Trim(empleadofull.SubItems(36).Text) ''JORNADA
                         SQL &= "','" & Trim(empleadofull.SubItems(37).Text) & "','" & Trim(empleadofull.SubItems(38).Text) & "','" & " " & "','" & Trim(empleadofull.SubItems(39).Text) & "','" & " " ''fecha de pago
-                        SQL &= "','" & " " & "','" & " " & "'," & 0 & "," & IIf(Trim(empleadofull.SubItems(6).Text) = "", 0, Trim(empleadofull.SubItems(6).Text)) & "," & 0 ''depto- y puesto +
+                        SQL &= "','" & " " & "','" & " " & "'," & 0 & "," & idPuesto & "," & idDepartamento ''depto- y puesto +
+                        'SQL &= "','" & txtFormaPago.Text & "','" & txtlugarpago.Text & "'," & 0 & "," & cbopuesto.SelectedValue & "," & cbodepartamento.SelectedValue ''depto
+
                         ''   abiriEmpresasC()
                         ''1 es de predeterminado
                         SQL &= ",'" & IIf(Trim(empleadofull.SubItems(8).Text) = "SOLTERO", 0, 1) & "'," & 1 & ",0" & "," & fkIdMetodoPago & ",'" & Trim(empleadofull.SubItems(31).Text) & "', 1, " & 1 & ", 1, 1,'" & 1 & "'"

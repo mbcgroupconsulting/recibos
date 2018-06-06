@@ -1438,7 +1438,7 @@ Public Class frmConciliacionAreas
         Dim tiempo As TimeSpan = fin - inicio
 
         Try
-
+           
             SQL = "Select * from usuarios where idUsuario = " & idUsuario
             Dim rwFilas As DataRow() = nConsulta(SQL)
             If rwFilas Is Nothing = False Then
@@ -1446,13 +1446,12 @@ Public Class frmConciliacionAreas
                 nombresistema = Fila.Item("nombre")
 
                 If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4") Then
-                    If (tiempo.Days >= 0) Then
+                    ''If (tiempo.Days >= 0) Then
 
+                    If lsvLista.CheckedItems.Count <> 0 Then
 
                         Dim confimacion As String = MsgBox("¿Esta seguro que desea eliminar?, una vez eliminado ya no podra utilizar estos datos.", vbOKCancel, "CONFIRMACIÓN")
                         If confimacion = vbOK Then
-
-
 
                             Dim mensaje As String
                             Dim idConciliacion As String
@@ -1463,71 +1462,118 @@ Public Class frmConciliacionAreas
                             Application.DoEvents()
                             Dim t As Integer = 0
 
-                            SQL = " SELECT * from conciliacion"
-                            SQL &= " WHERE fkiIdEmpresa=" & cboempresa.SelectedValue
-                            SQL &= " AND fkiIdBanco=" & cbobanco.SelectedValue
-                            SQL &= " AND  dfechaMovimiento BETWEEN '" + inicio.ToShortDateString + "' AND '" + fin.ToShortDateString + "'"
 
-                            Dim rwDatos As DataRow() = nConsulta(SQL)
-                            pgbProgreso.Minimum = 0
-                            pgbProgreso.Value = 0
-                            pgbProgreso.Maximum = rwDatos.Length
-                            If rwDatos Is Nothing = False Then
+                            For x = 0 To lsvLista.CheckedItems.Count - 1
+                                Dim rwData As DataRow() = nConsulta("select * from conciliacion where iIdConciliacion= " & lsvLista.CheckedItems(x).Tag)
+                                pgbProgreso.Minimum = 0
+                                pgbProgreso.Value = 0
+                                pgbProgreso.Maximum = rwData.Length
+                                If rwData Is Nothing = False Then
+                                    For Each Fila In rwData
 
-                                For Each Fila In rwDatos
+                                        SQL = "EXEC setconciliacionRespaldoInsertar  0," & cbobanco.SelectedValue & "," & cboempresa.SelectedValue
+                                        SQL &= ",'" & Fila.Item("dFechaMovimiento").ToString.Substring(0, 16)
+                                        SQL &= "'," & Fila.Item("iAnio")
+                                        SQL &= "," & Fila.Item("iMes")
+                                        SQL &= ",'" & Fila.Item("cConcepto")
+                                        SQL &= "'," & Fila.Item("fCargo")
+                                        SQL &= "," & Fila.Item("fAbono")
+                                        SQL &= "," & Fila.Item("fSaldo")
+                                        SQL &= ",'','',0,0,0,0,''," & Fila.Item("fkiIdUsuario")
+                                        SQL &= ",'" & Fila.Item("cUsuario")
+                                        SQL &= "','" & Fila.Item("dFechaCaptura").ToString.Substring(0, 16)
+                                        SQL &= "',1,1"
+                                        SQL &= ",0,''"
+                                        SQL &= ",'" & DateTime.Now.ToString.Substring(0, 16)
+                                        SQL &= "','" & nombresistema & "'"
 
-                                    SQL = "EXEC setconciliacionRespaldoInsertar  0," & cbobanco.SelectedValue & "," & cboempresa.SelectedValue
-                                    SQL &= ",'" & Fila.Item("dFechaMovimiento").ToString.Substring(0, 16)
-                                    SQL &= "'," & Fila.Item("iAnio")
-                                    SQL &= "," & Fila.Item("iMes")
-                                    SQL &= ",'" & Fila.Item("cConcepto")
-                                    SQL &= "'," & Fila.Item("fCargo")
-                                    SQL &= "," & Fila.Item("fAbono")
-                                    SQL &= "," & Fila.Item("fSaldo")
-                                    SQL &= ",'','',0,0,0,0,''," & Fila.Item("fkiIdUsuario")
-                                    SQL &= ",'" & Fila.Item("cUsuario")
-                                    SQL &= "','" & Fila.Item("dFechaCaptura").ToString.Substring(0, 16)
-                                    SQL &= "',1,1"
-                                    SQL &= ",0,''"
-                                    SQL &= ",'" & DateTime.Now.ToString.Substring(0, 16)
-                                    SQL &= "','" & nombresistema & "'"
 
-                                    If nExecute(SQL) = False Then
-                                        MessageBox.Show("Error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                                    End If
-                                    pgbProgreso.Value += 1
-                                    Application.DoEvents()
-                                    t = t + 1
-                                Next
+                                        If nExecute(SQL) = False Then
+                                            MessageBox.Show("Error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                        End If
+                                        pgbProgreso.Value += 1
+                                        Application.DoEvents()
+                                        t = t + 1
 
-                                SQL = "EXEC deleteConciliacion "
-                                SQL &= cboempresa.SelectedValue
-                                SQL &= ", " & cbobanco.SelectedValue
-                                SQL &= ", '" & inicio.ToShortDateString & "'"
-                                SQL &= ", '" & fin.ToShortDateString & "'"
-                                If nExecute(SQL) = False Then
-                                    MessageBox.Show("Hubo un error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                        SQL = " DELETE FROM  conciliacion "
+                                        SQL &= "WHERE iIdConciliacion=" & Fila.Item("iIdConciliacion")
+                                        If nExecute(SQL) = False Then
+                                            MessageBox.Show("Hubo un error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                        End If
+                                    Next
                                 End If
+                            Next x
 
-                               
-                            Else
-                                MessageBox.Show("No se encontraron datos que eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
-                            End If
+
+
+                            'SQL = " SELECT * from conciliacion"
+                            'SQL &= " WHERE fkiIdEmpresa=" & cboempresa.SelectedValue
+                            'SQL &= " AND fkiIdBanco=" & cbobanco.SelectedValue
+                            'SQL &= " AND  dfechaMovimiento BETWEEN '" + inicio.ToShortDateString + "' AND '" + fin.ToShortDateString + "'"
+
+                            'Dim rwDatos As DataRow() = nConsulta(SQL)
+
+                            'If rwDatos Is Nothing = False Then
+
+                            '    For Each Fila In rwDatos
+
+                            '        SQL = "EXEC setconciliacionRespaldoInsertar  0," & cbobanco.SelectedValue & "," & cboempresa.SelectedValue
+                            '        SQL &= ",'" & Fila.Item("dFechaMovimiento").ToString.Substring(0, 16)
+                            '        SQL &= "'," & Fila.Item("iAnio")
+                            '        SQL &= "," & Fila.Item("iMes")
+                            '        SQL &= ",'" & Fila.Item("cConcepto")
+                            '        SQL &= "'," & Fila.Item("fCargo")
+                            '        SQL &= "," & Fila.Item("fAbono")
+                            '        SQL &= "," & Fila.Item("fSaldo")
+                            '        SQL &= ",'','',0,0,0,0,''," & Fila.Item("fkiIdUsuario")
+                            '        SQL &= ",'" & Fila.Item("cUsuario")
+                            '        SQL &= "','" & Fila.Item("dFechaCaptura").ToString.Substring(0, 16)
+                            '        SQL &= "',1,1"
+                            '        SQL &= ",0,''"
+                            '        SQL &= ",'" & DateTime.Now.ToString.Substring(0, 16)
+                            '        SQL &= "','" & nombresistema & "'"
+
+                            '        If nExecute(SQL) = False Then
+                            '            MessageBox.Show("Error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                            '        End If
+                            '        pgbProgreso.Value += 1
+                            '        Application.DoEvents()
+                            '        t = t + 1
+                            '    Next
+
+                            'SQL = "EXEC deleteConciliacion "
+                            'SQL &= cboempresa.SelectedValue
+                            'SQL &= ", " & cbobanco.SelectedValue
+                            'SQL &= ", '" & inicio.ToShortDateString & "'"
+                            'SQL &= ", '" & fin.ToShortDateString & "'"
+                            'If nExecute(SQL) = False Then
+                            '    MessageBox.Show("Hubo un error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                            'End If
+
+
+                            'Else
+                            '    MessageBox.Show("No se encontraron datos que eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                            'End If
 
                             ' tsbCancelar_Click(sender, e)
-                            lsvLista.Clear()
+                            '' lsvLista.Clear()
+
                             pnlProgreso.Visible = False
                             pnlCatalogo.Enabled = True
                             MessageBox.Show("Datos eliminados satisfactoriamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+                            tsbNuevo_Click(sender, e)
                         End If
+                        'Else
+
+                        '    MessageBox.Show("La fecha final debe ser mayor a la fecha inicial", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        'End If
                     Else
+                        MessageBox.Show("Seleccione al menos un dato, que desea eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
-                        MessageBox.Show("La fecha final debe ser mayor a la fecha inicial", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
                     End If
-                   
-
 
                 Else
                     MessageBox.Show("No tiene permisos para realizar esta acción, consulte al administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)

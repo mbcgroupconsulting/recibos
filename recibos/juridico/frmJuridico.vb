@@ -190,14 +190,16 @@ Public Class frmJuridico
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
                 ''SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac,puestos.cNombre as cPuesto, fSueldoBase,"
-                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo, iEstadoCivil, dFechaNac," & IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False, "puestosAlta.cNombre as cPuesto,", "")
+                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo, iEstadoCivil, dFechaNac," & IIf(valueP.Item("fkiIdPuesto").ToString <> "0", "puestosAlta.cNombre as cPuesto,", "")
                 SQL &= " fSueldoBase,"
                 SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
                 SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago,  cLugarFirmaContrato,empleadosAlta.cLugarPrestacion,"
                 SQL &= "empresa.iIdEmpresa, empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP" & IIf(IsDBNull(value.Item("fkiIdSindicato")) = False, ",Cat_SindicatosAlta.cNombre AS cNombreSindicato", "")
                 SQL &= " from ((empleadosAlta"
                 ''SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
-                If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                ' If IsDBNull(valueP.Item("fkiIdPuesto")) = False Or valueP.Item("fkiIdPuesto").ToString <> "" And valueP.Item("fkiIdPuesto").ToString <> "0" Then
+                If valueP.Item("fkiIdPuesto").ToString <> "0" Then
+
                     SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
                     SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
                 Else
@@ -210,7 +212,7 @@ Public Class frmJuridico
 
 
                 SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
-                Dim rwEmpleado As DataRow() = nConsulta(Sql)
+                Dim rwEmpleado As DataRow() = nConsulta(SQL)
 
                 If rwEmpleado Is Nothing = False Then
 
@@ -238,7 +240,7 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cNombreLargo4").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                     Documento.Bookmarks.Item("cNombreLargo5").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                     Documento.Bookmarks.Item("cNombreLargo6").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
-                    If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                    If valueP.Item("fkiIdPuesto").ToString <> "0" Then
                         Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto").ToString.ToUpper
                         Documento.Bookmarks.Item("cPuesto2").Range.Text = fEmpleado.Item("cPuesto").ToString.ToUpper
                     Else
@@ -246,7 +248,7 @@ Public Class frmJuridico
                         Documento.Bookmarks.Item("cPuesto").Range.Text = ""
                         Documento.Bookmarks.Item("cPuesto2").Range.Text = ""
                     End If
-                    
+
                     Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
                     Documento.Bookmarks.Item("cRFC2").Range.Text = fEmpleado.Item("cRFC")
 
@@ -260,6 +262,7 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cLugarPrestacion3").Range.Text = fEmpleado.Item("cLugarPrestacion")
                     Documento.Bookmarks.Item("cRFCP").Range.Text = fEmpleado.Item("cRFCP")
                     Documento.Bookmarks.Item("cRFCP2").Range.Text = fEmpleado.Item("cRFCP")
+
                     If IsDBNull(fEmpleado.Item("cRepresentanteP")) = False And IsDBNull(fEmpleado.Item("cObjetoSocialP")) = False Then
                         Documento.Bookmarks.Item("cRepresentanteP").Range.Text = fEmpleado.Item("cRepresentanteP")
                         Documento.Bookmarks.Item("cRepresentanteP2").Range.Text = fEmpleado.Item("cRepresentanteP")
@@ -295,7 +298,7 @@ Public Class frmJuridico
                     Else
                         MessageBox.Show("Revise su información, falta sindicato en la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End If
-                   
+
                     ''Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = fEmpleado.Item("fSueldoOrd")
                     Documento.Bookmarks.Item("fSueldoBase").Range.Text = fEmpleado.Item("fSueldoBase")
 
@@ -339,14 +342,11 @@ Public Class frmJuridico
                     'Documento.Save()
                     'MSWord.Visible = True
                     'Documento.Close()
-<<<<<<< HEAD
-                    MessageBox.Show("Revise su información, faltan datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    'Documento.Close()
-=======
-                    MessageBox.Show("Revise su información, falta puesto al empleado ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    MessageBox.Show("Revise su información", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
                     MSWord.Quit(SaveChanges:=False)
->>>>>>> origin/master
+
                 End If
 
             Else
@@ -407,19 +407,19 @@ Public Class frmJuridico
                 Dim valueP As DataRow = puesto(0)
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
-                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,dFechaNac," & IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False, "puestosAlta.cNombre as cPuesto,", "")
+                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,dFechaNac," ''& IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False Or valueP.Item("fkiIdPuesto").ToString <> "" Or valueP.Item("fkiIdPuesto").ToString <> "0", "puestosAlta.cNombre as cPuesto,", "")
                 SQL &= " fSueldoBase,"
                 SQL &= "cNacionalidad, fSueldoOrd, iOrigen, empresa.calle + empresa.numero + empresa.numeroint + empresa.localidad AS cDireccionP, cCiudadP, cCPP, iCategoria, cJornada, cHorario,"
                 SQL &= " cHoras, cDescanso, empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP" & IIf(IsDBNull(value.Item("fkiIdSindicato")) = False, ",Cat_SindicatosAlta.cNombre AS cNombreSindicato", "")
                 SQL &= " from ((empleadosAlta"
 
-                ''SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
-                If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
-                    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
-                    SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
-                Else
-                    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa))"
-                End If
+                ' ''SQL &= " inner join puestos on fkiIdPuesto= iIdPuesto)"
+                'If IsDBNull(valueP.Item("fkiIdPuesto")) = False Or valueP.Item("fkiIdPuesto").ToString <> "" Or valueP.Item("fkiIdPuesto").ToString <> "0" Then
+                '    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+                '    SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
+                'Else
+                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa))"
+                'End If
 
 
                 If IsDBNull(value.Item("fkiIdSindicato")) = False Then
@@ -482,17 +482,23 @@ Public Class frmJuridico
                 Else
                     MessageBox.Show("Revise su información, falta puesto al empleado ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
+                    MSWord.Quit(SaveChanges:=False)
+
                 End If
 
 
             Else
                 Documento.Close()
+                MSWord.Quit(SaveChanges:=False)
+
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
         Catch ex As Exception
             Documento.Close()
-            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSWord.Quit(SaveChanges:=False)
+            MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
         End Try
     End Sub
 
@@ -541,6 +547,7 @@ Public Class frmJuridico
                 MSExcel.Visible = True
 
             Else
+                'Documento.Close()
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
@@ -583,7 +590,7 @@ Public Class frmJuridico
                 Dim valueP As DataRow = puesto(0)
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
-                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac," & IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False, "puestosAlta.cNombre as cPuesto,", "")
+                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac," & IIf(valueP.Item("fkiIdPuesto").ToString <> "0", "puestosAlta.cNombre as cPuesto,", "")
                 SQL &= " fSueldoBase,"
                 SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
                 SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago, cLugarFirmaContrato,empleadosAlta.cLugarPrestacion,"
@@ -591,7 +598,7 @@ Public Class frmJuridico
                 SQL &= " from ((empleadosAlta"
                 ' SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
 
-                If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                If valueP.Item("fkiIdPuesto").ToString <> "0" Then ''IsDBNull(valueP.Item("fkiIdPuesto")) = False Or valueP.Item("fkiIdPuesto").ToString <> "" Or valueP.Item("fkiIdPuesto").ToString <> "0" Then
                     SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
                     SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
                 Else
@@ -607,9 +614,11 @@ Public Class frmJuridico
 
                     Documento.Bookmarks.Item("cNombreLargo").Range.Text = (fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")).ToString.ToUpper
                     Documento.Bookmarks.Item("cNombreLargo2").Range.Text = (fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")).ToString.ToUpper
-                    If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                    If valueP.Item("fkiIdPuesto").ToString <> "0" Then
+                        '' IsDBNull(valueP.Item("fkiIdPuesto")) = False Or valueP.Item("fkiIdPuesto").ToString <> "" Or valueP.Item("fkiIdPuesto").ToString <> "0" Then
                         Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto")
-                        else
+                    Else
+
                         MessageBox.Show("Revise su información, falta puesto al empleado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End If
 
@@ -639,15 +648,19 @@ Public Class frmJuridico
                 Else
                     MessageBox.Show("Revise su información", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
+                    MSWord.Quit(SaveChanges:=False)
+
                 End If
             Else
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Documento.Close()
+                MSWord.Quit(SaveChanges:=False)
             End If
 
         Catch ex As Exception
             Documento.Close()
-            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSWord.Quit(SaveChanges:=False)
+            MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
         End Try
 
@@ -728,19 +741,23 @@ Public Class frmJuridico
                     Documento.Save()
                     MSWord.Visible = True
                 Else
-                    MessageBox.Show("Revise su información", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
                     Documento.Close()
+                    MSWord.Quit(SaveChanges:=False)
+                    MessageBox.Show("Revise su información", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
 
             Else
-                MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Documento.Close()
+                MSWord.Quit(SaveChanges:=False)
+                MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
             End If
 
         Catch ex As Exception
             Documento.Close()
-            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+            MSWord.Quit(SaveChanges:=False)
+            MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End Try
 
     End Sub
@@ -810,17 +827,22 @@ Public Class frmJuridico
                     MSWord.Visible = True
 
                 Else
-                    MessageBox.Show("Revise su información, falta puesto al empleado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
+                    MSWord.Quit(SaveChanges:=False)
+                    MessageBox.Show("Revise su información", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
                 End If
             Else
+                Documento.Close()
+                MSWord.Quit(SaveChanges:=False)
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             End If
 
         Catch ex As Exception
             Documento.Close()
-            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSWord.Quit(SaveChanges:=False)
+            MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
         End Try
     End Sub
@@ -892,18 +914,21 @@ Public Class frmJuridico
                     Documento.Save()
                     MSWord.Visible = True
                 Else
-                    MessageBox.Show("Revise su información, falta puesto al empleado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
+                    MSWord.Quit(SaveChanges:=False)
+
                 End If
             Else
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Documento.Close()
+                MSWord.Quit(SaveChanges:=False)
             End If
 
         Catch ex As Exception
             Documento.Close()
-            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+            MSWord.Quit(SaveChanges:=False)
+            MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End Try
     End Sub
 
@@ -935,18 +960,18 @@ Public Class frmJuridico
             Dim valueP As DataRow = puesto(0)
 
             SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
-            SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac," & IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False, "puestosAlta.cNombre as cPuesto,", "")
+            SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac," '' & IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False, "puestosAlta.cNombre as cPuesto,", "")
             SQL &= " fSueldoBase,"
             SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.iIdEmpresa ,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
             SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago, cLugarFirmaContrato,empleadosAlta.cLugarPrestacion, dFechaPatrona,"
             SQL &= "empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP" ',  Cat_SindicatosAlta.cNombre AS cNombreSindicato"
             SQL &= " from ((empleadosAlta"
-            If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
-                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
-                SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
-            Else
-                SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa))"
-            End If
+            'If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+            '    SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
+            '    SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
+            'Else
+            SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa))"
+            'End If
             ' SQL &= " inner join (clientes inner join Cat_SindicatosAlta on fkiIdSindicato= iIdSindicato) on fkiIdCliente=iIdCliente"
             SQL &= " where iIdEmpleadoAlta = " & gIdEmpleado
             Dim rwEmpleado As DataRow() = nConsulta(SQL)
@@ -992,13 +1017,16 @@ Public Class frmJuridico
                 MSWord.Visible = True
 
             Else
-                MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Documento.Close()
+                MSWord.Quit(SaveChanges:=False)
+                MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
             End If
 
         Catch ex As Exception
             Documento.Close()
-            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSWord.Quit(SaveChanges:=False)
+            MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
         End Try
 
@@ -1046,13 +1074,13 @@ Public Class frmJuridico
                 Dim valueP As DataRow = puesto(0)
 
                 SQL = "select iIdEmpleadoAlta,cCodigoEmpleado,empleadosAlta.cNombre,cApellidoP,cApellidoM,cRFC,cCURP,"
-                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac," & IIf(IsDBNull(valueP.Item("fkiIdPuesto")) = False, " puestosAlta.cNombre as cPuesto,", "")
+                SQL &= "cIMSS,cDescanso,cCalleNumero,cCiudadP,cCP,iSexo,iEstadoCivil, dFechaNac," & IIf(valueP.Item("fkiIdPuesto").ToString <> "0", " puestosAlta.cNombre as cPuesto,", "")
                 SQL &= " fSueldoBase,"
                 SQL &= "cNacionalidad,empleadosAlta.cFuncionesPuesto, fSueldoOrd, iOrigen,empresa.calle +' '+ empresa.numero AS cDireccionP, empresa.localidad as cCiudadP, empresa.cp as cCPP, iCategoria, cJornada, cHorario,"
                 SQL &= "cHoras, cDescanso, cFechaPago, cFormaPago, cLugarPago,  cLugarFirmaContrato,empleadosAlta.cLugarPrestacion, dFechaTerminoContrato,"
                 SQL &= "empresa.iIdEmpresa, empresa.nombrefiscal, empresa.RFC AS cRFCP, empresa.cRepresentanteP, empresa.cObjetoSocialP " & IIf(IsDBNull(value.Item("fkiIdSindicato")) = False, ", Cat_SindicatosAlta.cNombre AS cNombreSindicato", " ")
                 SQL &= " from ((empleadosAlta"
-                If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                If (valueP.Item("fkiIdPuesto").ToString <> "0") Then ''IsDBNull(valueP.Item("fkiIdPuesto")) = False Or valueP.Item("fkiIdPuesto").ToString <> "" Or valueP.Item("fkiIdPuesto").ToString <> "0") Then
                     SQL &= " inner join empresa on fkiIdEmpresa= iIdEmpresa)"
                     SQL &= " inner join puestosAlta on fkiIdPuesto= iIdPuestoAlta)"
                 Else
@@ -1092,14 +1120,15 @@ Public Class frmJuridico
                     Documento.Bookmarks.Item("cNombreLargo4").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
                     Documento.Bookmarks.Item("cNombreLargo5").Range.Text = fEmpleado.Item("cNombre") & " " & fEmpleado.Item("cApellidoP") & " " & fEmpleado.Item("cApellidoM")
 
-                    If IsDBNull(valueP.Item("fkiIdPuesto")) = False Then
+                    If (valueP.Item("fkiIdPuesto").ToString <> "0") Then
+                        ''IsDBNull(valueP.Item("fkiIdPuesto")) = False Or valueP.Item("fkiIdPuesto").ToString <> "" Or valueP.Item("fkiIdPuesto").ToString <> "0" Then
                         Documento.Bookmarks.Item("cPuesto").Range.Text = fEmpleado.Item("cPuesto").ToString.ToUpper
                         Documento.Bookmarks.Item("cPuesto2").Range.Text = fEmpleado.Item("cPuesto")
                     Else
                         MessageBox.Show("Revise su información, falta puesto al empleado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     End If
-                   
+
                     Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
 
                     Documento.Bookmarks.Item("cCategoria").Range.Text = IIf(fEmpleado.Item("iCategoria") = "0", "A", "B")
@@ -1149,7 +1178,7 @@ Public Class frmJuridico
                         MessageBox.Show("Revise su información, falta sindicato en la empresa cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     End If
-                  
+
 
                     ''Documento.Bookmarks.Item("fSalarioPeriodo").Range.Text = fEmpleado.Item("fSueldoOrd")
                     Documento.Bookmarks.Item("fSueldoBase").Range.Text = fEmpleado.Item("fSueldoBase")
