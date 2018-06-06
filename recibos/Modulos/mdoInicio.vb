@@ -145,6 +145,7 @@ Module mdoInicio
             If Not Guardar Then
                 'Servidor.IP = "facturacion.elchingon.net"
 
+<<<<<<< HEAD
                 'Servidor.IP = "localhost"
                 Servidor.IP = "192.168.1.223"
                 Servidor.Nombre = "Equipo1\sqlexpress"
@@ -152,6 +153,15 @@ Module mdoInicio
                 Servidor.User = "sa"
                 'Servidor.PWD = "123456"
                 Servidor.PWD = "1123581321"
+=======
+                Servidor.IP = "192.168.1.223\compac"
+                'Servidor.IP = "192.168.1.223"
+                Servidor.Nombre = "Equipo1\sqlexpress"
+                Servidor.Base = "unificacion"
+                Servidor.User = "sa"
+                Servidor.PWD = "1123581321"
+                'Servidor.PWD = "1123581321"
+>>>>>>> origin/master
 
             End If
             strConfig.WriteLine(Servidor.IP)

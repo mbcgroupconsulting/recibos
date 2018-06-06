@@ -243,7 +243,8 @@ Public Class frmJuridico
                         Documento.Bookmarks.Item("cPuesto2").Range.Text = fEmpleado.Item("cPuesto").ToString.ToUpper
                     Else
                         MessageBox.Show("Revise su informacion, le falta puesto al empleado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+                        Documento.Bookmarks.Item("cPuesto").Range.Text = ""
+                        Documento.Bookmarks.Item("cPuesto2").Range.Text = ""
                     End If
                     
                     Documento.Bookmarks.Item("cRFC").Range.Text = fEmpleado.Item("cRFC")
@@ -338,20 +339,29 @@ Public Class frmJuridico
                     'Documento.Save()
                     'MSWord.Visible = True
                     'Documento.Close()
+<<<<<<< HEAD
                     MessageBox.Show("Revise su información, faltan datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     'Documento.Close()
+=======
+                    MessageBox.Show("Revise su información, falta puesto al empleado ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Documento.Close()
+                    MSWord.Quit(SaveChanges:=False)
+>>>>>>> origin/master
                 End If
 
             Else
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Documento.Close()
+                MSWord.Quit(SaveChanges:=False)
             End If
 
         Catch ex As Exception
+            MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            Documento.Close()
+            Documento.Close(SaveChanges:=False)
 
-            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSWord.Quit(SaveChanges:=False)
+
 
         End Try
     End Sub
