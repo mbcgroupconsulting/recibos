@@ -543,4 +543,85 @@ Public Class conciliacion
 
         End Try
     End Sub
+
+    Private Sub tsbDeleted_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbDeleted.Click
+        Dim SQL As String, nombresistema As String = ""
+        Dim inicio As DateTime = dtpfechainicio.Value
+        Dim fin As DateTime = dtpfechafin.Value
+
+        Try
+
+            Dim mensaje As String
+            Dim idConciliacion As String
+
+
+            pnlProgreso.Visible = True
+            pnlCatalogo.Enabled = False
+            Application.DoEvents()
+
+            pgbProgreso.Minimum = 0
+            pgbProgreso.Value = 0
+            pgbProgreso.Maximum = lsvLista.CheckedItems.Count
+
+            SQL = "Select * from usuarios where idUsuario = " & idUsuario
+            Dim rwFilas As DataRow() = nConsulta(SQL)
+
+            If rwFilas Is Nothing = False Then
+                Dim Fila As DataRow = rwFilas(0)
+                nombresistema = Fila.Item("nombre")
+            End If
+
+            SQL = " SELECT * from conciliacion"
+            SQL &= " WHERE fkiIdEmpresa=" & cboempresa.SelectedValue
+            SQL &= " AND fkiIdBanco=" & cbobanco.SelectedValue
+            SQL &= " AND  dfechaMovimiento BETWEEN '" + inicio.ToShortDateString + "' AND '" + fin.ToShortDateString + "'"
+
+            Dim rwDatos As DataRow() = nConsulta(SQL)
+
+            If rwDatos Is Nothing = False Then
+
+                For Each Fila In rwDatos
+
+                    SQL = "EXEC setconciliacionRespaldoInsertar  0," & cbobanco.SelectedValue & "," & cboempresa.SelectedValue
+                    SQL &= ",'" & Fila.Item("dFechaMovimiento")
+                    SQL &= "'," & Fila.Item("iAnio")
+                    SQL &= "," & Fila.Item("iMes")
+                    SQL &= ",'" & Fila.Item("cConcepto")
+                    SQL &= "'," & Fila.Item("fCargo")
+                    SQL &= "," & Fila.Item("fAbono")
+                    SQL &= "," & Fila.Item("fSaldo")
+                    SQL &= ",'','',0,0,0,0,''," & Fila.Item("fkiIdUsuario")
+                    SQL &= ",'" & Fila.Item("cUsuario")
+                    SQL &= "','" & Fila.Item("dFechaCaptura")
+                    SQL &= "',1,1"
+                    SQL &= ",0,''"
+                    SQL &= ",0,0,0,0,0,0,0,0,0,0,0"
+                    SQL &= ", '" & DateTime.Now.ToString
+                    SQL &= "','" & nombresistema & "'"
+
+                Next
+
+
+                SQL = "EXEC deleteConciliacion "
+                SQL &= cboempresa.SelectedValue
+                SQL &= ", " & cbobanco.SelectedValue
+                SQL &= ", '" & inicio.ToShortDateString & "'"
+                SQL &= ", '" & fin.ToShortDateString & "'"
+
+
+
+            Else
+                MessageBox.Show("No se encontraron datos que eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
+
+
+    End Sub
+
+   
 End Class

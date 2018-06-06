@@ -91,6 +91,8 @@ Public Class frmConciliacionAreas
                     tsbConciliar.Enabled = True
 
                     tsbCancelar.Enabled = True
+                    tsbDeleted.Enabled = True
+
                     lblRuta.Text = FormatNumber(lsvLista.Items.Count, 0) & " registros en el archivo."
                     Me.Enabled = True
                     Me.cmdCerrar.Enabled = True
@@ -138,6 +140,8 @@ Public Class frmConciliacionAreas
         tsbConciliar.Enabled = False
         tsbGuardar.Enabled = False
         tsbCancelar.Enabled = False
+
+        tsbDeleted.Enabled = False
         tsbNuevo.Enabled = True
     End Sub
 
@@ -1425,4 +1429,124 @@ Public Class frmConciliacionAreas
 
         End Try
     End Sub
+
+    Private Sub tsbDeleted_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbDeleted.Click
+
+        Dim SQL As String, nombresistema As String = ""
+        Dim inicio As DateTime = dtpfechainicio.Value
+        Dim fin As DateTime = dtpfechafin.Value
+        Dim tiempo As TimeSpan = fin - inicio
+
+        Try
+
+            SQL = "Select * from usuarios where idUsuario = " & idUsuario
+            Dim rwFilas As DataRow() = nConsulta(SQL)
+            If rwFilas Is Nothing = False Then
+                Dim Fila As DataRow = rwFilas(0)
+                nombresistema = Fila.Item("nombre")
+
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4") Then
+                    If (tiempo.Days >= 0) Then
+
+
+                        Dim confimacion As String = MsgBox("¿Esta seguro que desea eliminar?, una vez eliminado ya no podra utilizar estos datos.", vbOKCancel, "CONFIRMACIÓN")
+                        If confimacion = vbOK Then
+
+
+
+                            Dim mensaje As String
+                            Dim idConciliacion As String
+
+
+                            pnlProgreso.Visible = True
+                            pnlCatalogo.Enabled = False
+                            Application.DoEvents()
+                            Dim t As Integer = 0
+
+                            SQL = " SELECT * from conciliacion"
+                            SQL &= " WHERE fkiIdEmpresa=" & cboempresa.SelectedValue
+                            SQL &= " AND fkiIdBanco=" & cbobanco.SelectedValue
+                            SQL &= " AND  dfechaMovimiento BETWEEN '" + inicio.ToShortDateString + "' AND '" + fin.ToShortDateString + "'"
+
+                            Dim rwDatos As DataRow() = nConsulta(SQL)
+                            pgbProgreso.Minimum = 0
+                            pgbProgreso.Value = 0
+                            pgbProgreso.Maximum = rwDatos.Length
+                            If rwDatos Is Nothing = False Then
+
+                                For Each Fila In rwDatos
+
+                                    SQL = "EXEC setconciliacionRespaldoInsertar  0," & cbobanco.SelectedValue & "," & cboempresa.SelectedValue
+                                    SQL &= ",'" & Fila.Item("dFechaMovimiento").ToString.Substring(0, 16)
+                                    SQL &= "'," & Fila.Item("iAnio")
+                                    SQL &= "," & Fila.Item("iMes")
+                                    SQL &= ",'" & Fila.Item("cConcepto")
+                                    SQL &= "'," & Fila.Item("fCargo")
+                                    SQL &= "," & Fila.Item("fAbono")
+                                    SQL &= "," & Fila.Item("fSaldo")
+                                    SQL &= ",'','',0,0,0,0,''," & Fila.Item("fkiIdUsuario")
+                                    SQL &= ",'" & Fila.Item("cUsuario")
+                                    SQL &= "','" & Fila.Item("dFechaCaptura").ToString.Substring(0, 16)
+                                    SQL &= "',1,1"
+                                    SQL &= ",0,''"
+                                    SQL &= ",'" & DateTime.Now.ToString.Substring(0, 16)
+                                    SQL &= "','" & nombresistema & "'"
+
+                                    If nExecute(SQL) = False Then
+                                        MessageBox.Show("Error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                    End If
+                                    pgbProgreso.Value += 1
+                                    Application.DoEvents()
+                                    t = t + 1
+                                Next
+
+                                SQL = "EXEC deleteConciliacion "
+                                SQL &= cboempresa.SelectedValue
+                                SQL &= ", " & cbobanco.SelectedValue
+                                SQL &= ", '" & inicio.ToShortDateString & "'"
+                                SQL &= ", '" & fin.ToShortDateString & "'"
+                                If nExecute(SQL) = False Then
+                                    MessageBox.Show("Hubo un error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                End If
+
+                               
+                            Else
+                                MessageBox.Show("No se encontraron datos que eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                            End If
+
+                            ' tsbCancelar_Click(sender, e)
+                            lsvLista.Clear()
+                            pnlProgreso.Visible = False
+                            pnlCatalogo.Enabled = True
+                            MessageBox.Show("Datos eliminados satisfactoriamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                        End If
+                    Else
+
+                        MessageBox.Show("La fecha final debe ser mayor a la fecha inicial", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+                   
+
+
+                Else
+                    MessageBox.Show("No tiene permisos para realizar esta acción, consulte al administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                End If
+
+            Else
+                MessageBox.Show("Existe un error con el usuario, consulte al administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            End If
+
+
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+        End Try
+
+
+    End Sub
+
+  
 End Class

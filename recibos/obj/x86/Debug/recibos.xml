@@ -75,6 +75,10 @@ recibos
 	<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
+</member><member name="P:recibos.My.Resources.Resources.cubo_de_basura">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
 </member><member name="P:recibos.My.Resources.Resources.GF1">
 	<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.

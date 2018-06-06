@@ -171,6 +171,7 @@ Public Class frmJuridico
                     FileCopy(Ruta, "C:\Temp\contrato.doc")
                     Documento = MSWord.Documents.Open("C:\Temp\contrato.doc")
                 Else
+
                     Dim di As DirectoryInfo = Directory.CreateDirectory("C:\Temp\")
                     FileCopy(Ruta, "C:\Temp\contrato.doc")
                     Documento = MSWord.Documents.Open("C:\Temp\contrato.doc")
@@ -337,7 +338,7 @@ Public Class frmJuridico
                     'Documento.Save()
                     'MSWord.Visible = True
                     'Documento.Close()
-                    MessageBox.Show("Revise su información, falta puesto al empleado ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Revise su información, faltan datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     'Documento.Close()
                 End If
 

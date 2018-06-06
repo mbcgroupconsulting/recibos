@@ -25,6 +25,10 @@ Partial Class frmConciliacionAreas
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmConciliacionAreas))
         Me.cmdCerrar = New System.Windows.Forms.Button()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.grbGuardar = New System.Windows.Forms.GroupBox()
+        Me.rdbTodos = New System.Windows.Forms.RadioButton()
+        Me.rdbAbonos = New System.Windows.Forms.RadioButton()
+        Me.rdbCargos = New System.Windows.Forms.RadioButton()
         Me.txtidempresa = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.txtcomision = New System.Windows.Forms.TextBox()
@@ -54,19 +58,16 @@ Partial Class frmConciliacionAreas
         Me.tsbProcesar = New System.Windows.Forms.ToolStripButton()
         Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         Me.tsbreportes = New System.Windows.Forms.ToolStripButton()
+        Me.tsbDeleted = New System.Windows.Forms.ToolStripButton()
         Me.pnlProgreso = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
-        Me.grbGuardar = New System.Windows.Forms.GroupBox()
-        Me.rdbCargos = New System.Windows.Forms.RadioButton()
-        Me.rdbAbonos = New System.Windows.Forms.RadioButton()
-        Me.rdbTodos = New System.Windows.Forms.RadioButton()
         Me.pnlCatalogo.SuspendLayout()
+        Me.grbGuardar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.Nudrango, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.pnlProgreso.SuspendLayout()
-        Me.grbGuardar.SuspendLayout()
         Me.SuspendLayout()
         '
         'cmdCerrar
@@ -85,8 +86,8 @@ Partial Class frmConciliacionAreas
         'pnlCatalogo
         '
         Me.pnlCatalogo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pnlCatalogo.Controls.Add(Me.grbGuardar)
         Me.pnlCatalogo.Controls.Add(Me.txtidempresa)
@@ -110,6 +111,50 @@ Partial Class frmConciliacionAreas
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Size = New System.Drawing.Size(1208, 501)
         Me.pnlCatalogo.TabIndex = 42
+        '
+        'grbGuardar
+        '
+        Me.grbGuardar.Controls.Add(Me.rdbTodos)
+        Me.grbGuardar.Controls.Add(Me.rdbAbonos)
+        Me.grbGuardar.Controls.Add(Me.rdbCargos)
+        Me.grbGuardar.Location = New System.Drawing.Point(931, 41)
+        Me.grbGuardar.Name = "grbGuardar"
+        Me.grbGuardar.Size = New System.Drawing.Size(197, 95)
+        Me.grbGuardar.TabIndex = 58
+        Me.grbGuardar.TabStop = False
+        Me.grbGuardar.Text = "Datos a conciliar y guardar"
+        '
+        'rdbTodos
+        '
+        Me.rdbTodos.AutoSize = True
+        Me.rdbTodos.Checked = True
+        Me.rdbTodos.Location = New System.Drawing.Point(15, 66)
+        Me.rdbTodos.Name = "rdbTodos"
+        Me.rdbTodos.Size = New System.Drawing.Size(65, 23)
+        Me.rdbTodos.TabIndex = 2
+        Me.rdbTodos.TabStop = True
+        Me.rdbTodos.Text = "Todos"
+        Me.rdbTodos.UseVisualStyleBackColor = True
+        '
+        'rdbAbonos
+        '
+        Me.rdbAbonos.AutoSize = True
+        Me.rdbAbonos.Location = New System.Drawing.Point(15, 42)
+        Me.rdbAbonos.Name = "rdbAbonos"
+        Me.rdbAbonos.Size = New System.Drawing.Size(75, 23)
+        Me.rdbAbonos.TabIndex = 1
+        Me.rdbAbonos.Text = "Abonos"
+        Me.rdbAbonos.UseVisualStyleBackColor = True
+        '
+        'rdbCargos
+        '
+        Me.rdbCargos.AutoSize = True
+        Me.rdbCargos.Location = New System.Drawing.Point(15, 20)
+        Me.rdbCargos.Name = "rdbCargos"
+        Me.rdbCargos.Size = New System.Drawing.Size(72, 23)
+        Me.rdbCargos.TabIndex = 0
+        Me.rdbCargos.Text = "Cargos"
+        Me.rdbCargos.UseVisualStyleBackColor = True
         '
         'txtidempresa
         '
@@ -295,8 +340,8 @@ Partial Class frmConciliacionAreas
         'lsvLista
         '
         Me.lsvLista.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lsvLista.CheckBoxes = True
         Me.lsvLista.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvLista.FullRowSelect = True
@@ -323,7 +368,7 @@ Partial Class frmConciliacionAreas
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbImportar, Me.tsbConciliar, Me.tsbGuardar, Me.tsbProcesar, Me.tsbCancelar, Me.tsbreportes})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbImportar, Me.tsbConciliar, Me.tsbGuardar, Me.tsbProcesar, Me.tsbCancelar, Me.tsbreportes, Me.tsbDeleted})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1208, 54)
@@ -405,6 +450,16 @@ Partial Class frmConciliacionAreas
         Me.tsbreportes.Text = "Reportes"
         Me.tsbreportes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
+        'tsbDeleted
+        '
+        Me.tsbDeleted.Enabled = False
+        Me.tsbDeleted.Image = Global.recibos.My.Resources.Resources.cubo_de_basura
+        Me.tsbDeleted.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbDeleted.Name = "tsbDeleted"
+        Me.tsbDeleted.Size = New System.Drawing.Size(43, 51)
+        Me.tsbDeleted.Text = "Borrar"
+        Me.tsbDeleted.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
         'pnlProgreso
         '
         Me.pnlProgreso.Anchor = System.Windows.Forms.AnchorStyles.None
@@ -432,50 +487,6 @@ Partial Class frmConciliacionAreas
         Me.pgbProgreso.Size = New System.Drawing.Size(413, 30)
         Me.pgbProgreso.TabIndex = 0
         '
-        'grbGuardar
-        '
-        Me.grbGuardar.Controls.Add(Me.rdbTodos)
-        Me.grbGuardar.Controls.Add(Me.rdbAbonos)
-        Me.grbGuardar.Controls.Add(Me.rdbCargos)
-        Me.grbGuardar.Location = New System.Drawing.Point(931, 41)
-        Me.grbGuardar.Name = "grbGuardar"
-        Me.grbGuardar.Size = New System.Drawing.Size(197, 95)
-        Me.grbGuardar.TabIndex = 58
-        Me.grbGuardar.TabStop = False
-        Me.grbGuardar.Text = "Datos a conciliar y guardar"
-        '
-        'rdbCargos
-        '
-        Me.rdbCargos.AutoSize = True
-        Me.rdbCargos.Location = New System.Drawing.Point(15, 20)
-        Me.rdbCargos.Name = "rdbCargos"
-        Me.rdbCargos.Size = New System.Drawing.Size(72, 23)
-        Me.rdbCargos.TabIndex = 0
-        Me.rdbCargos.Text = "Cargos"
-        Me.rdbCargos.UseVisualStyleBackColor = True
-        '
-        'rdbAbonos
-        '
-        Me.rdbAbonos.AutoSize = True
-        Me.rdbAbonos.Location = New System.Drawing.Point(15, 42)
-        Me.rdbAbonos.Name = "rdbAbonos"
-        Me.rdbAbonos.Size = New System.Drawing.Size(75, 23)
-        Me.rdbAbonos.TabIndex = 1
-        Me.rdbAbonos.Text = "Abonos"
-        Me.rdbAbonos.UseVisualStyleBackColor = True
-        '
-        'rdbTodos
-        '
-        Me.rdbTodos.AutoSize = True
-        Me.rdbTodos.Checked = True
-        Me.rdbTodos.Location = New System.Drawing.Point(15, 66)
-        Me.rdbTodos.Name = "rdbTodos"
-        Me.rdbTodos.Size = New System.Drawing.Size(65, 23)
-        Me.rdbTodos.TabIndex = 2
-        Me.rdbTodos.TabStop = True
-        Me.rdbTodos.Text = "Todos"
-        Me.rdbTodos.UseVisualStyleBackColor = True
-        '
         'frmConciliacionAreas
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -491,6 +502,8 @@ Partial Class frmConciliacionAreas
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.pnlCatalogo.ResumeLayout(False)
         Me.pnlCatalogo.PerformLayout()
+        Me.grbGuardar.ResumeLayout(False)
+        Me.grbGuardar.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.Nudrango, System.ComponentModel.ISupportInitialize).EndInit()
@@ -498,8 +511,6 @@ Partial Class frmConciliacionAreas
         Me.ToolStrip1.PerformLayout()
         Me.pnlProgreso.ResumeLayout(False)
         Me.pnlProgreso.PerformLayout()
-        Me.grbGuardar.ResumeLayout(False)
-        Me.grbGuardar.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -542,4 +553,5 @@ Partial Class frmConciliacionAreas
     Friend WithEvents rdbTodos As System.Windows.Forms.RadioButton
     Friend WithEvents rdbAbonos As System.Windows.Forms.RadioButton
     Friend WithEvents rdbCargos As System.Windows.Forms.RadioButton
+    Friend WithEvents tsbDeleted As System.Windows.Forms.ToolStripButton
 End Class
