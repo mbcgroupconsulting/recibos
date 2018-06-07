@@ -13,6 +13,9 @@ Public Class frmcontpaqnominas2
     Dim gIdEmpresaAsignada As String
     Dim gIdClienteAsignada As String
     Dim gdFechaFin As String
+    Dim valorsubsidio As Integer
+    Dim calculosubsidio As Integer
+
 
     Public Sub New()
         InitializeComponent()
@@ -25,6 +28,8 @@ Public Class frmcontpaqnominas2
 
             BuscarEmpresaAsignada()
             BuscarClienteAsignado()
+
+
 
             Me.dtgDatos.ContextMenuStrip = Me.cmenu
 
@@ -71,9 +76,13 @@ Public Class frmcontpaqnominas2
             If rwCliente Is Nothing = False Then
                 lblCliente.Text = "Cliente Asignado: " & rwCliente(0)("nombre") & " - Tipo porcentaje: " & IIf(rwCliente(0)("iTipoPor") = "1", "Sueldo Ordinario", "Sueldo Neto + Sindicato") & " - Porcentaje Neto: " & rwCliente(0)("porcentaje") & "% - Porcentaje sindicato: " & rwCliente(0)("porsindicato") & "%"
                 gIdClienteAsignada = rwCliente(0)("fkIdCliente").ToString
+                valorsubsidio = rwCliente(0)("TipoSubsidio").ToString
+                calculosubsidio = rwCliente(0)("CalculoSubsidio").ToString
             Else
                 lblCliente.Text = "No existe cliente asignado, favor de realizar la asignación"
                 gIdClienteAsignada = "0"
+                valorsubsidio = 0
+                calculosubsidio = 0
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -96,7 +105,8 @@ Public Class frmcontpaqnominas2
         Dim sql As String
         Try
             sql = "Select (Convert(varchar, dFechaInicio,103) + '-' + Convert(varchar, dFechaFin,103)) as dFechaInicio,iIdPeriodo,dFechaFin "
-            sql &= "from periodos where fkiIdTipoPeriodo=" & gIdTipoPeriodo & " and fkiIdEmpresa=" & gIdEmpresa & " order by iEjercicio,iNumeroPeriodo"
+            sql &= "from periodos where fkiIdTipoPeriodo=" & gIdTipoPeriodo & " and fkiIdEmpresa=" & gIdEmpresa & " and iEjercicio=" & Date.Now.Year
+            sql &= " order by iEjercicio,iNumeroPeriodo"
             nCargaCBO(cboperiodo, sql, "dFechainicio", "iIdPeriodo")
 
         Catch ex As Exception
@@ -934,6 +944,7 @@ Public Class frmcontpaqnominas2
             Dim fCostoSA As Double
             Dim AguinaldoSin As Double
             Dim cadenabanco As String
+
             dtgDatos.DataSource = Nothing
 
 
@@ -1053,7 +1064,7 @@ Public Class frmcontpaqnominas2
             sql &= " inner join empleadosC on NominaSindicato.fkiIdempleado= empleadosC.iIdEmpleadoC"
             sql &= " inner join departamentos on empleadosC.fkiIdDepartamento= departamentos.iIdDepartamento "
             sql &= " where NominaSindicato.fkiIdEmpresa=" & gIdEmpresa & " and fkiIdPeriodo=" & cboperiodo.SelectedValue & " and iEstatusNomina=1 and NominaSindicato.iEstatus=1"
-            sql &= " order by empleadosC.iOrigen,nombre"
+            sql &= " order by empleadosC.iOrigen,departamentos.cNombre,nombre"
 
             'sql = "EXEC getNominaXEmpresaXPeriodo " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1"
 
@@ -1242,6 +1253,8 @@ Public Class frmcontpaqnominas2
 
                 If rwDatosPeriodo Is Nothing = False Then
 
+                    
+
                     Dim dt As DataTable
                     dt = rwDatosPeriodo.CopyToDataTable()
 
@@ -1353,13 +1366,20 @@ Public Class frmcontpaqnominas2
                                 fila.Item("imss") = ImssSA
 
                                 SubsidioSA = 0
-                                If dt.Columns.IndexOf("Subs al Empleo acreditado") <> -1 Then
-                                    If (Not (row("Subs al Empleo acreditado") Is DBNull.Value)) Then
-                                        SubsidioSA = IIf(Trim(row("Subs al Empleo acreditado")) = "", "0.00", Trim(row("Subs al Empleo acreditado")))
+
+                                If valorsubsidio = 0 Then
+                                    If dt.Columns.IndexOf("Subs al Empleo acreditado") <> -1 Then
+                                        If (Not (row("Subs al Empleo acreditado") Is DBNull.Value)) Then
+                                            SubsidioSA = IIf(Trim(row("Subs al Empleo acreditado")) = "", "0.00", Trim(row("Subs al Empleo acreditado")))
+                                        End If
+                                    End If
+                                Else
+                                    If dt.Columns.IndexOf("Subsidio al Empleo (sp)") <> -1 Then
+                                        If (Not (row("Subsidio al Empleo (sp)") Is DBNull.Value)) Then
+                                            SubsidioSA = IIf(Trim(row("Subsidio al Empleo (sp)")) = "", "0.00", Trim(row("Subsidio al Empleo (sp)")))
+                                        End If
                                     End If
                                 End If
-
-
 
                                 fila.Item("subsidiado") = SubsidioSA
 
@@ -1423,7 +1443,7 @@ Public Class frmcontpaqnominas2
                                     End If
                                 End If
 
-                               
+
 
 
                                 'If dt.Columns.IndexOf("fCosto") <> -1 Then
@@ -1556,9 +1576,18 @@ Public Class frmcontpaqnominas2
                                 fila.Item("imss") = ImssSA
 
                                 SubsidioSA = 0
-                                If dt.Columns.IndexOf("Subs al Empleo acreditado") <> -1 Then
-                                    If (Not (row("Subs al Empleo acreditado") Is DBNull.Value)) Then
-                                        SubsidioSA = IIf(Trim(row("Subs al Empleo acreditado")) = "", "0.00", Trim(row("Subs al Empleo acreditado")))
+
+                                If valorsubsidio = 0 Then
+                                    If dt.Columns.IndexOf("Subs al Empleo acreditado") <> -1 Then
+                                        If (Not (row("Subs al Empleo acreditado") Is DBNull.Value)) Then
+                                            SubsidioSA = IIf(Trim(row("Subs al Empleo acreditado")) = "", "0.00", Trim(row("Subs al Empleo acreditado")))
+                                        End If
+                                    End If
+                                Else
+                                    If dt.Columns.IndexOf("Subsidio al Empleo (sp)") <> -1 Then
+                                        If (Not (row("Subsidio al Empleo (sp)") Is DBNull.Value)) Then
+                                            SubsidioSA = IIf(Trim(row("Subsidio al Empleo (sp)")) = "", "0.00", Trim(row("Subsidio al Empleo (sp)")))
+                                        End If
                                     End If
                                 End If
 
@@ -2786,7 +2815,7 @@ Public Class frmcontpaqnominas2
         Dim Igualar0 As Boolean
 
         Dim sueldoord, neto, infonavit, descuento, prestamo, sindicato, primasin, totalsindicato, netopagar, primasa, aguinaldosa, aguinaldosin, Extra As Double
-        Dim imss, costosocial1, costosocial2, comisionSA, comisionSindicato, subtotal, iva As Double
+        Dim imss, costosocial1, costosocial2, comisionSA, comisionSindicato, subtotal, iva, subsidio As Double
         Try
             bandera = False
 
@@ -2964,11 +2993,21 @@ Public Class frmcontpaqnominas2
                         'Calculo subtotal = neto a pagar + imss + costo social + costo social 2 + comision sa + comision sindicato 
                         netopagar = Double.Parse(IIf(dtgDatos.Rows(x).Cells(19).Value = "", "0", dtgDatos.Rows(x).Cells(19).Value))
                         imss = Double.Parse(IIf(dtgDatos.Rows(x).Cells(20).Value = "", "0", dtgDatos.Rows(x).Cells(20).Value))
+                        subsidio = Double.Parse(IIf(dtgDatos.Rows(x).Cells(21).Value = "", "0", dtgDatos.Rows(x).Cells(21).Value))
                         costosocial1 = Double.Parse(IIf(dtgDatos.Rows(x).Cells(22).Value = "", "0", dtgDatos.Rows(x).Cells(22).Value))
                         costosocial2 = Double.Parse(IIf(dtgDatos.Rows(x).Cells(23).Value = "", "0", dtgDatos.Rows(x).Cells(23).Value))
                         comisionSA = Double.Parse(IIf(dtgDatos.Rows(x).Cells(24).Value = "", "0", dtgDatos.Rows(x).Cells(24).Value))
                         comisionSindicato = Double.Parse(IIf(dtgDatos.Rows(x).Cells(25).Value = "", "0", dtgDatos.Rows(x).Cells(25).Value))
-                        subtotal = netopagar + imss + costosocial1 + costosocial2 + comisionSA + comisionSindicato
+
+                        If calculosubsidio = 0 Then
+                            subtotal = netopagar + imss + costosocial1 + costosocial2 + comisionSA + comisionSindicato
+                        ElseIf calculosubsidio = 1 Then
+                            subtotal = netopagar + subsidio + imss + costosocial1 + costosocial2 + comisionSA + comisionSindicato
+                        ElseIf calculosubsidio = 2 Then
+                            subtotal = netopagar - subsidio + imss + costosocial1 + costosocial2 + comisionSA + comisionSindicato
+                        End If
+
+                        'subtotal = netopagar + imss + costosocial1 + costosocial2 + comisionSA + comisionSindicato
                         dtgDatos.Rows(x).Cells(26).Value = Math.Round(subtotal, 2).ToString("#,###,##0.00")
 
                         'Calculo IVA
@@ -3810,7 +3849,13 @@ Public Class frmcontpaqnominas2
 
         nonNumberEntered = True
 
-        If (Convert.ToInt32(e.KeyChar) >= 48 AndAlso Convert.ToInt32(e.KeyChar) <= 57) OrElse Convert.ToInt32(e.KeyChar) = 8 Then
+        If (Convert.ToInt32(e.KeyChar) >= 48 AndAlso Convert.ToInt32(e.KeyChar) <= 57) OrElse Convert.ToInt32(e.KeyChar) = 8 OrElse Convert.ToInt32(e.KeyChar) = 46 Then
+            'If Convert.ToInt32(e.KeyChar) = 46 Then
+            '    'verificamos cuantos puntos hay
+
+            'Else
+
+            'End If
             nonNumberEntered = False
         End If
 
@@ -5332,8 +5377,10 @@ Public Class frmcontpaqnominas2
         Dim cadenabanco As String
         cadenabanco = ""
 
-        Sql = "select iIdempleadoC,NumCuenta,Clabe,cuenta2,clabe2,fkiIdBanco,fkiIdBanco2"
-        Sql &= " from empleadosC"
+        Sql = "select iIdempleadoC,NumCuenta,Clabe,cuenta2,clabe2,fkiIdBanco,bancos.cBanco as banco1,fkiIdBanco2,bancos2.cBanco as banco2"
+        Sql &= " from (empleadosC"
+        Sql &= " inner join bancos on empleadosC.fkiIdBanco= bancos.iIdBanco)"
+        Sql &= " inner join (select iIdBanco,cBanco from bancos) as bancos2 on empleadosC.fkiIdBanco2= bancos2.iIdBanco"
         Sql &= " where fkiIdEmpresa=" & gIdEmpresa & " and iIdempleadoC=" & idempleado
 
         Dim rwDatosBanco As DataRow() = nConsulta(Sql)
@@ -5347,17 +5394,19 @@ Public Class frmcontpaqnominas2
                 cadenabanco &= "T"
             End If
 
-            If rwDatosBanco(0)("fkiIdBanco") = "1" Then
-                cadenabanco &= "-BANAMEX"
-            ElseIf rwDatosBanco(0)("fkiIdBanco") = "4" Then
-                cadenabanco &= "-BANCOMER"
-            ElseIf rwDatosBanco(0)("fkiIdBanco") = "13" Then
-                cadenabanco &= "-SCOTIABANK"
-            ElseIf rwDatosBanco(0)("fkiIdBanco") = "18" Then
-                cadenabanco &= "-BANORTE"
-            Else
-                cadenabanco &= "-OTRO"
-            End If
+            cadenabanco &= "-" & rwDatosBanco(0)("banco1").ToString.ToUpper
+
+            'If rwDatosBanco(0)("fkiIdBanco") = "1" Then
+            '    cadenabanco &= "-BANAMEX"
+            'ElseIf rwDatosBanco(0)("fkiIdBanco") = "4" Then
+            '    cadenabanco &= "-BANCOMER"
+            'ElseIf rwDatosBanco(0)("fkiIdBanco") = "13" Then
+            '    cadenabanco &= "-SCOTIABANK"
+            'ElseIf rwDatosBanco(0)("fkiIdBanco") = "18" Then
+            '    cadenabanco &= "-BANORTE"
+            'Else
+            '    cadenabanco &= "-OTRO"
+            'End If
 
             cadenabanco &= "/"
 
@@ -5367,18 +5416,19 @@ Public Class frmcontpaqnominas2
                 cadenabanco &= "T"
             End If
 
-            If rwDatosBanco(0)("fkiIdBanco2") = "1" Then
-                cadenabanco &= "-BANAMEX"
-            ElseIf rwDatosBanco(0)("fkiIdBanco2") = "4" Then
-                cadenabanco &= "-BANCOMER"
-            ElseIf rwDatosBanco(0)("fkiIdBanco2") = "13" Then
-                cadenabanco &= "-SCOTIABANK"
-            ElseIf rwDatosBanco(0)("fkiIdBanco2") = "18" Then
-                cadenabanco &= "-BANORTE"
-            Else
-                cadenabanco &= "-OTRO"
-            End If
+            'If rwDatosBanco(0)("fkiIdBanco2") = "1" Then
+            '    cadenabanco &= "-BANAMEX"
+            'ElseIf rwDatosBanco(0)("fkiIdBanco2") = "4" Then
+            '    cadenabanco &= "-BANCOMER"
+            'ElseIf rwDatosBanco(0)("fkiIdBanco2") = "13" Then
+            '    cadenabanco &= "-SCOTIABANK"
+            'ElseIf rwDatosBanco(0)("fkiIdBanco2") = "18" Then
+            '    cadenabanco &= "-BANORTE"
+            'Else
+            '    cadenabanco &= "-OTRO"
+            'End If
 
+            cadenabanco &= "-" & rwDatosBanco(0)("banco2").ToString.ToUpper
 
         End If
 

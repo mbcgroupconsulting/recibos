@@ -6,6 +6,8 @@
 
     Private Sub frmAsignarCliente_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         MostrarCliente()
+        cboSubsidio.SelectedIndex = 0
+
         'verificar si la nomina tiene clientes
         sql = "select * from IntClienteEmpresaContpaq where fkIdEmpresaC=" & gidEmpresa
         Dim rwCliente As DataRow() = nConsulta(sql)
@@ -13,6 +15,16 @@
             cboClientes.SelectedValue = rwCliente(0)("fkIdCliente")
             lblcliente.Text = "Cliente asignado actualmente: " & cboClientes.Text
             iIdClienteEmpresaContpaq = rwCliente(0)("iIdClienteEmpresaContpaq")
+            cboSubsidio.SelectedIndex = rwCliente(0)("TipoSubsidio")
+            If rwCliente(0)("CalculoSubsidio") = "0" Then
+                rdbNada.Checked = True
+            ElseIf rwCliente(0)("CalculoSubsidio") = "1" Then
+                rdbSumar.Checked = True
+            ElseIf rwCliente(0)("CalculoSubsidio") = "2" Then
+                rdbRestar.Checked = True
+            End If
+            chkSubsidio.Checked = IIf(rwCliente(0)("SubsidioReporte") = "1", True, False)
+
             existe = True
         End If
 
@@ -31,14 +43,36 @@
 
     Private Sub cmdguardar_Click(sender As System.Object, e As System.EventArgs) Handles cmdguardar.Click
         Try
-
+            Dim valor As Integer
             If existe Then
                 sql = "EXEC setIntClienteEmpresaContpaqActualizar " & iIdClienteEmpresaContpaq & "," & gidEmpresa
                 sql &= "," & cboClientes.SelectedValue
+                sql &= "," & cboSubsidio.SelectedIndex
 
+                If rdbNada.Checked Then
+                    valor = 0
+                ElseIf rdbSumar.Checked Then
+                    valor = 1
+                ElseIf rdbRestar.Checked = True Then
+                    valor = 2
+                End If
+
+                sql &= "," & valor
+                sql &= "," & IIf(chkSubsidio.Checked, 1, 0)
             Else
                 sql = "EXEC setIntClienteEmpresaContpaqInsertar   0," & gidEmpresa
                 sql &= "," & cboClientes.SelectedValue
+                sql &= "," & cboSubsidio.SelectedIndex
+                If rdbNada.Checked Then
+                    valor = 0
+                ElseIf rdbSumar.Checked Then
+                    valor = 1
+                ElseIf rdbRestar.Checked = True Then
+                    valor = 2
+                End If
+
+                sql &= "," & valor
+                sql &= "," & IIf(chkSubsidio.Checked, 1, 0)
             End If
 
             If nExecute(sql) = False Then
