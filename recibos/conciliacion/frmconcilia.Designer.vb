@@ -69,6 +69,7 @@ Partial Class frmconcilia
         Me.pnlProgreso = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
+        Me.tsbDeleted = New System.Windows.Forms.ToolStripButton()
         Me.pnlCatalogo.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.Nudrango, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -98,8 +99,8 @@ Partial Class frmconcilia
         'pnlCatalogo
         '
         Me.pnlCatalogo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pnlCatalogo.Controls.Add(Me.txtidempresa)
         Me.pnlCatalogo.Controls.Add(Me.Label15)
@@ -444,8 +445,8 @@ Partial Class frmconcilia
         'lsvLista
         '
         Me.lsvLista.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lsvLista.CheckBoxes = True
         Me.lsvLista.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvLista.FullRowSelect = True
@@ -472,7 +473,7 @@ Partial Class frmconcilia
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbImportar, Me.tsbGuardar, Me.tsbProcesar, Me.tsbCancelar, Me.tsbreportes, Me.tsbExcel})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbImportar, Me.tsbGuardar, Me.tsbProcesar, Me.tsbCancelar, Me.tsbreportes, Me.tsbExcel, Me.tsbDeleted})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(945, 54)
@@ -577,6 +578,16 @@ Partial Class frmconcilia
         Me.pgbProgreso.Size = New System.Drawing.Size(413, 30)
         Me.pgbProgreso.TabIndex = 0
         '
+        'tsbDeleted
+        '
+        Me.tsbDeleted.Image = Global.recibos.My.Resources.Resources.cubo_de_basura
+        Me.tsbDeleted.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbDeleted.Name = "tsbDeleted"
+        Me.tsbDeleted.Size = New System.Drawing.Size(43, 51)
+        Me.tsbDeleted.Text = "Borrar"
+        Me.tsbDeleted.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.tsbDeleted.Visible = False
+        '
         'frmconcilia
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -658,4 +669,5 @@ Partial Class frmconcilia
     Friend WithEvents Label13 As Label
     Friend WithEvents txtidempresa As TextBox
     Friend WithEvents Label15 As Label
+    Friend WithEvents tsbDeleted As System.Windows.Forms.ToolStripButton
 End Class
