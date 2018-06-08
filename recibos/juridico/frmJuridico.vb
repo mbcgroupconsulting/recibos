@@ -10,6 +10,7 @@ Public Class frmJuridico
     Public gIdEmpleado As String
 
     Private Sub frmJuridico_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+     
         Dim SQL As String
         SQL = "select * from clientes where iIdCliente=" & gIdCliente
         Dim rwFilas As DataRow() = nConsulta(SQL)
@@ -22,14 +23,16 @@ Public Class frmJuridico
 
             End If
         End If
+       
+        
 
 
     End Sub
     Private Sub cmdoficio_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdoficio.Click
         Dim MSWord As New Word.Application
-        Dim MSWordL As New Word.Application
+        '' Dim MSWordL As New Word.Application
         Dim Documento As Word.Document
-        Dim DocumentoL As Word.Document
+        ''Dim DocumentoL As Word.Document
         Dim Ruta As String, strPWD As String
         Dim Ruta2 As String
         Dim Empleados As String()
@@ -84,13 +87,16 @@ Public Class frmJuridico
 
 
             Else
+                Documento.Close()
+                MSWord.Quit(SaveChanges:=False)
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             End If
 
         Catch ex As Exception
             Documento.Close()
-            MessageBox.Show(ex.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSWord.Quit(SaveChanges:=False)
+            MessageBox.Show(ex.Message.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         End Try
 
@@ -138,11 +144,17 @@ Public Class frmJuridico
                 MSWord.Visible = True
 
             Else
+                Documento.Close()
+                MSWord.Quit(SaveChanges:=False)
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
         Catch ex As Exception
+            ''MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show(ex.Message.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
             Documento.Close()
+            MSWord.Quit(SaveChanges:=False)
         End Try
 
     End Sub
@@ -1222,18 +1234,20 @@ Public Class frmJuridico
                 Else
                     MessageBox.Show("Revise su información, falta puesto al empleado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Documento.Close()
+                    MSWord.Quit(SaveChanges:=False)
                 End If
 
             Else
                 MessageBox.Show("La empresa patrona no tiene asignados los contratos o documentos, consulte con el administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+                Documento.Close()
+                MSWord.Quit(SaveChanges:=False)
             End If
 
         Catch ex As Exception
 
             Documento.Close()
-
-            MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSWord.Quit(SaveChanges:=False)
+            MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
         End Try
     End Sub
