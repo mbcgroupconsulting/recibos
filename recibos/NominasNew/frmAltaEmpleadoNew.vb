@@ -494,6 +494,8 @@ Public Class frmAltaEmpleadoNew
 
     Private Sub cmdguardar_Click(sender As Object, e As EventArgs) Handles cmdguardar.Click
         Dim SQL As String, Mensaje As String = ""
+        Dim correo As String
+
         Try
             'Validar
             If txtcodigo.Text.Trim.Length = 0 And Mensaje = "" Then
@@ -549,6 +551,17 @@ Public Class frmAltaEmpleadoNew
                 End If
             End If
 
+            Dim rwCorreo As DataRow() = nConsulta("SELECT * FROM correos where iRemitente=1 or iRemitente=2 and iEstatus=1")
+            If rwCorreo Is Nothing = False Then
+                For Each Fila In rwCorreo
+                    If correo Is Nothing Then
+                        correo += Fila.Item("cCorreo")
+                    Else
+                        correo += ";" & Fila.Item("cCorreo")
+                    End If
+
+                Next
+            End If
 
 
             If Mensaje <> "" Then
@@ -566,7 +579,6 @@ Public Class frmAltaEmpleadoNew
                     Exit Sub
 
                 End If
-
             End If
             'Agregar datos de sueldos para historial
 
@@ -665,10 +677,9 @@ Public Class frmAltaEmpleadoNew
             MessageBox.Show("Datos Guardados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             If blnNuevo = True Then
-                Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), "c.serrano@mbcgroup.mx;p.vicente@mbcgroup.mx", "Empleado Alta")
-                'Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), "e.ruiz@mbcgroup.mx", "Empleado Alta")
-
+                Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), correo, "Empleado Alta")
             End If
+
             Limpiar(Me)
 
             If Mensaje <> "" Then

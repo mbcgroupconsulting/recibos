@@ -253,7 +253,7 @@ Public Class frmImportarEmpleadosAlta
     End Function
 
     Private Sub tsbGuardar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles tsbGuardar.Click
-        Dim SQL As String, nombresistema As String = ""
+        Dim SQL As String, nombresistema As String = "", correo As String
         Dim bandera As Boolean
         Dim epat, ec As Integer
         Dim x As Integer
@@ -290,6 +290,18 @@ Public Class frmImportarEmpleadosAlta
                 If rwFilas Is Nothing = False Then
                     Dim Fila As DataRow = rwFilas(0)
                     nombresistema = Fila.Item("nombre")
+                End If
+
+                Dim rwCorreo As DataRow() = nConsulta("SELECT * FROM correos where iRemitente=1 or iRemitente=2 and iEstatus=1")
+                If rwCorreo Is Nothing = False Then
+                    For Each Fila In rwCorreo
+                        If correo Is Nothing Then
+                            correo += Fila.Item("cCorreo")
+                        Else
+                            correo += ";" & Fila.Item("cCorreo")
+                        End If
+
+                    Next
                 End If
 
                 Dim empleadofull As ListViewItem
@@ -538,11 +550,7 @@ Public Class frmImportarEmpleadosAlta
                     tsbCancelar_Click(sender, e)
                     pnlProgreso.Visible = False
                     MessageBox.Show(t.ToString() & "  Proceso terminado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), "c.serrano@mbcgroup.mx;p.vicente@mbcgroup.mx;r.garcia@mbcgroup.mx", "Empleado Alta")
-                    '  Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), "e.ruiz@mbcgroup.mx", "Empleado Alta")
-
-
-
+                    Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), correo, "Empleado Alta")
 
                 Else
                     pnlProgreso.Visible = False
