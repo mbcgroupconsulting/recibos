@@ -417,6 +417,7 @@ Public Class frmAltaEmpleado
 
 
             If blnNuevo Then
+
                 SQL = "select max(iIdEmpleado) as id from empleados"
                 Dim rwFilas As DataRow() = nConsulta(SQL)
 
@@ -427,6 +428,7 @@ Public Class frmAltaEmpleado
                     SQL += ",'01/01/1900',''"
 
                 End If
+
             Else
                 'verificamos el cambio de algun dato
                 SQL = "select * from empleados where iIdEmpleado = " & gIdEmpleado

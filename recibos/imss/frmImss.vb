@@ -324,4 +324,6 @@
     Private Sub lsvHistorial_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lsvHistorial.SelectedIndexChanged
 
     End Sub
+
+   
 End Class

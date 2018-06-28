@@ -277,6 +277,7 @@ Partial Class frmEmpleadosXCliente
         Me.Button2.TabIndex = 26
         Me.Button2.Text = "Juridico Masivo"
         Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.Visible = False
         '
         'frmEmpleadosXCliente
         '
