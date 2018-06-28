@@ -552,12 +552,6 @@ Public Class frmEmpleadosXCliente
     End Sub
 
 
-
-
-    Private Sub lsvLista_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles lsvLista.SelectedIndexChanged
-
-    End Sub
-
     Private Sub btnPuestoN_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPuestoN.Click
         Dim formI As New frmPuestoAlta
         ''  forma.gIdCliente = cboclientes.SelectedValue
@@ -1008,5 +1002,28 @@ Public Class frmEmpleadosXCliente
             item.Checked = chkAll.Checked
         Next
         chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        Dim frmJ2 As New frmJuridico2
+        ''  forma.gIdCliente = cboclientes.SelectedValue
+       
+        Dim list As New ArrayList
+        If lsvLista.CheckedItems.Count <> 0 Then
+            For x = 0 To lsvLista.CheckedItems.Count - 1
+                SQL = "select * from empleadosAlta where iIdEmpleadoAlta= " & lsvLista.CheckedItems(x).Tag
+                Dim rwDatos As DataRow() = nConsulta(SQL)
+
+                If rwDatos Is Nothing = False Then
+                    list.Add(rwDatos(0).Item("iIdEmpleadoAlta"))
+                   
+
+                End If
+            Next
+        End If
+        frmJ2.gIdCliente = cboclientes.SelectedValue
+        frmJ2.gIdEmpresa = cboempresas.SelectedValue
+        frmJ2.gListaEmpleado = list
+        frmJ2.ShowDialog()
     End Sub
 End Class

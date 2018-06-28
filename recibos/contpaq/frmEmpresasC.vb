@@ -235,8 +235,22 @@
 
                     Else
 
-                        If id = 180 Or id = 184 Or id = 181 Or id = 182 Or id = 183 Or id = 179 Or id = 178 Or id = 121 Then
+                        If id = 180 Or id = 184 Or id = 181 Or id = 182 Or id = 183 Or id = 179 Or id = 178 Then
                             MessageBox.Show("No tiene permisos para trabajar con esta empresa, consulte al administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                        ElseIf (Fila.Item("Nombre") = "Claudia") Then
+
+                            Dim Forma As New frmPeriodos
+                            Forma.gIEmpresa = id
+                            If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
+                                idperiodo = Forma.gIPeriodo
+                                nombre = Forma.gNombrePeriodo
+                                Dim Forma2 As New frmcontpaqnominas2
+                                Forma2.gIdEmpresa = id
+                                Forma2.gIdTipoPeriodo = idperiodo
+                                Forma2.gNombrePeriodo = nombre
+                                Forma2.ShowDialog()
+                            End If
 
                         Else
                             Dim Forma As New frmPeriodos

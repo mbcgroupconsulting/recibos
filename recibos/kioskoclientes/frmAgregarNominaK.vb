@@ -72,7 +72,7 @@
                         SQL &= "," & usuario
                         SQL &= ",'" & nombrearchivocompleto
                         SQL &= "'"
-                        SQL &= "," & doc(0).Item("iIdDocumentos")
+                        SQL &= "," & "99" 'doc(0).Item("iIdDocumentos")
 
 
                         FileCopy(archivo.SubItems(0).Text, "C:\Temp\" & nombrearchivocompleto)
@@ -244,53 +244,53 @@
         Dim item As ListViewItem
         Dim Alter As Boolean = False
         Try
-            If cboDocumento.SelectedValue <> Nothing Then
+            'If cboDocumento.SelectedValue <> Nothing Then
 
-                Dim valor As ListViewItem = lsvArchivo.FindItemWithText(cboDocumento.Text)
-                If valor Is Nothing Then
+            Dim valor As ListViewItem = lsvArchivo.FindItemWithText(cboDocumento.Text)
+            'If valor Is Nothing Then
 
-                    With dialogo
-                        .Multiselect = True
-                        .Title = "Búsqueda de archivos"
-                        .Filter = "Archivos comprimidos|*.zip;*.rar"
-                        .CheckFileExists = True
-                        If .ShowDialog = Windows.Forms.DialogResult.OK Then
-
-
-                            SQL = "SELECT * FROM Documentos where cArea=3 and iIdDocumentos=" & cboDocumento.SelectedValue
-                            Dim doc As DataRow() = nConsulta(SQL)
-
-                            Dim selectfiles() As String = .FileNames
-
-                            For Each file In selectfiles
-                                item = lsvArchivo.Items.Add(file)
-                                item.Tag = System.IO.Path.GetFileNameWithoutExtension(file) & System.IO.Path.GetExtension(file)
-                                item.SubItems.Add("Nominas")
-                                item.SubItems.Add(doc(0).Item("Documentos"))
-                                item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
-                                Alter = Not Alter
-                            Next
+            With dialogo
+                .Multiselect = True
+                .Title = "Búsqueda de archivos"
+                .Filter = "Archivos comprimidos|*.zip;*.rar"
+                .CheckFileExists = True
+                If .ShowDialog = Windows.Forms.DialogResult.OK Then
 
 
+                    ''SQL = "SELECT * FROM Documentos where cArea=3 and iIdDocumentos=" & cboDocumento.SelectedValue
+                    ''Dim doc As DataRow() = nConsulta(SQL)
 
-                            'item = lsvArchivo.Items.Add(.FileName)
-                            'item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
+                    Dim selectfiles() As String = .FileNames
 
-                            'item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
-                            'Alter = Not Alter
+                    For Each file In selectfiles
+                        item = lsvArchivo.Items.Add(file)
+                        item.Tag = System.IO.Path.GetFileNameWithoutExtension(file) & System.IO.Path.GetExtension(file)
+                        item.SubItems.Add("Nominas")
+                        item.SubItems.Add("Documento") 'doc(0).Item("Documentos"))
+                        item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
+                        Alter = Not Alter
+                    Next
 
-                        End If
-                    End With
 
 
-                Else
-                    MessageBox.Show("Escoja otro tipo de documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    'item = lsvArchivo.Items.Add(.FileName)
+                    'item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
+
+                    'item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
+                    'Alter = Not Alter
 
                 End If
-            Else
-                 MessageBox.Show("Seleccione el tipo de documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End With
 
-            End If
+
+            'Else
+            '    MessageBox.Show("Escoja otro tipo de documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            'End If
+            'Else
+            'MessageBox.Show("Seleccione el tipo de documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            'End If
         Catch ex As Exception
 
         End Try
