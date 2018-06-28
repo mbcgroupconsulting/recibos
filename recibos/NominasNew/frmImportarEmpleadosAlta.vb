@@ -525,6 +525,7 @@ Public Class frmImportarEmpleadosAlta
 
                         list.Add(Trim(empleadofull.SubItems(1).Text))
 
+                        'If bandera <> False And mensa = "" Then
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Error en el registro con los siguiente datos:   Empleado:  " & Trim(empleado.SubItems(3).Text), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
@@ -533,6 +534,8 @@ Public Class frmImportarEmpleadosAlta
                         pgbProgreso.Value += 1
                         Application.DoEvents()
                         t = t + 1
+
+                        'End If
 
                     Else
                         MessageBox.Show(mensa, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
