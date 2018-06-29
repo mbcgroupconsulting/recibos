@@ -86,6 +86,7 @@ Partial Class frmEmpleadosXCliente
         '
         'btnDepto
         '
+        Me.btnDepto.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDepto.Location = New System.Drawing.Point(842, 63)
         Me.btnDepto.Name = "btnDepto"
         Me.btnDepto.Size = New System.Drawing.Size(130, 41)
@@ -95,6 +96,7 @@ Partial Class frmEmpleadosXCliente
         '
         'btnPuestoN
         '
+        Me.btnPuestoN.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnPuestoN.Location = New System.Drawing.Point(842, 10)
         Me.btnPuestoN.Name = "btnPuestoN"
         Me.btnPuestoN.Size = New System.Drawing.Size(131, 51)
