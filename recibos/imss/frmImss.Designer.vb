@@ -84,6 +84,7 @@ Partial Class frmImss
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.cmdBorrar = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -337,6 +338,7 @@ Partial Class frmImss
         '
         'Panel4
         '
+        Me.Panel4.Controls.Add(Me.cmdBorrar)
         Me.Panel4.Controls.Add(Me.cmdIncapacidad)
         Me.Panel4.Controls.Add(Me.lsvincapacidad)
         Me.Panel4.Controls.Add(Me.txtObservacion)
@@ -361,9 +363,9 @@ Partial Class frmImss
         '
         'cmdIncapacidad
         '
-        Me.cmdIncapacidad.Location = New System.Drawing.Point(868, 52)
+        Me.cmdIncapacidad.Location = New System.Drawing.Point(792, 52)
         Me.cmdIncapacidad.Name = "cmdIncapacidad"
-        Me.cmdIncapacidad.Size = New System.Drawing.Size(104, 25)
+        Me.cmdIncapacidad.Size = New System.Drawing.Size(78, 25)
         Me.cmdIncapacidad.TabIndex = 33
         Me.cmdIncapacidad.Text = "Agregar"
         Me.cmdIncapacidad.UseVisualStyleBackColor = True
@@ -616,6 +618,15 @@ Partial Class frmImss
         Me.Label6.TabIndex = 6
         Me.Label6.Text = "Riesgo de trabajo"
         '
+        'cmdBorrar
+        '
+        Me.cmdBorrar.Location = New System.Drawing.Point(894, 54)
+        Me.cmdBorrar.Name = "cmdBorrar"
+        Me.cmdBorrar.Size = New System.Drawing.Size(77, 25)
+        Me.cmdBorrar.TabIndex = 34
+        Me.cmdBorrar.Text = "Borrar"
+        Me.cmdBorrar.UseVisualStyleBackColor = True
+        '
         'frmImss
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -705,4 +716,5 @@ Partial Class frmImss
     Friend WithEvents txtObservaciones As System.Windows.Forms.TextBox
     Friend WithEvents ColumnHeader18 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader19 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents cmdBorrar As System.Windows.Forms.Button
 End Class

@@ -326,4 +326,30 @@
     End Sub
 
    
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdBorrar.Click
+        Dim sql As String
+        Dim datos As ListView.SelectedListViewItemCollection = lsvincapacidad.SelectedItems
+        If datos.Count = 1 Then
+            Dim resultado As Integer = MessageBox.Show("¿Desea borrar la incapacidad " & datos(0).SubItems(0).Text & "?", "Pregunta", MessageBoxButtons.YesNo)
+
+
+            If resultado = DialogResult.Yes Then
+
+
+                'datos(0).Remove()
+
+                sql = " DELETE FROM  IncapacidadAlta "
+                sql &= "WHERE iIdIncapacidad=" & datos(0).Tag
+                If nExecute(Sql) = False Then
+                    MessageBox.Show("Hubo un error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                End If
+                CargarIncapacidades()
+                MessageBox.Show("Datos borrados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+
+            End If
+        Else
+            MessageBox.Show("No hay una incapacidad seleccionada para borrar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
+    End Sub
 End Class
