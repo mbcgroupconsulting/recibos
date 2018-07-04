@@ -820,10 +820,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BanamexNomina.rpt</DependentUpon>
-<<<<<<< HEAD
-=======
       <SubType>Component</SubType>
->>>>>>> julio
     </Compile>
     <Compile Include="reportes\comprobantebancomer.vb">
       <AutoGen>True</AutoGen>
