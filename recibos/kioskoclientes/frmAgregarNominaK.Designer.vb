@@ -158,6 +158,7 @@ Partial Class frmAgregarNominaK
         Me.Label3.Size = New System.Drawing.Size(139, 19)
         Me.Label3.TabIndex = 103
         Me.Label3.Text = "Tipo de Documento:"
+        Me.Label3.Visible = False
         '
         'cbomes
         '
@@ -175,6 +176,7 @@ Partial Class frmAgregarNominaK
         Me.cboDocumento.Name = "cboDocumento"
         Me.cboDocumento.Size = New System.Drawing.Size(274, 27)
         Me.cboDocumento.TabIndex = 102
+        Me.cboDocumento.Visible = False
         '
         'cboanio
         '

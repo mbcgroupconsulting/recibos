@@ -43,10 +43,10 @@ Module mdoMail
             Next
         End If
 
-        'Mensaje.Bcc.Add("o.perez@mbcgroup.mx")
-        'If Email <> "" Then
-        '    Mensaje.Bcc.Add(Email)
-        'End If
+        Mensaje.Bcc.Add("o.perez@mbcgroup.mx")
+        If Email <> "" Then
+            Mensaje.Bcc.Add(Email)
+        End If
         Mensaje.Subject = sSubject
         Mensaje.Body = sBody
 

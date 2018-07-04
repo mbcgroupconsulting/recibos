@@ -51,8 +51,10 @@ Public Class frmTMMFiscalAuto
 
             Dim Esquema As DataTable = xlsConexion.GetOleDbSchemaTable(OleDb.OleDbSchemaGuid.Tables, {Nothing, Nothing, Nothing, "TABLE"})
 
+
             If Esquema Is Nothing = False Then
-                Hoja = Esquema.Rows(0)(2).ToString()
+                Hoja = Esquema.Rows(0)(2).ToString().Replace("'", "")
+
             Else
                 MessageBox.Show("No se ha podido leer el archivo específicado.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Exit Sub

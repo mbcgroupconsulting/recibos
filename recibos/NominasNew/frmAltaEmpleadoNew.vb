@@ -494,6 +494,8 @@ Public Class frmAltaEmpleadoNew
 
     Private Sub cmdguardar_Click(sender As Object, e As EventArgs) Handles cmdguardar.Click
         Dim SQL As String, Mensaje As String = ""
+        Dim correo As String
+
         Try
             'Validar
             If txtcodigo.Text.Trim.Length = 0 And Mensaje = "" Then
@@ -549,6 +551,17 @@ Public Class frmAltaEmpleadoNew
                 End If
             End If
 
+            Dim rwCorreo As DataRow() = nConsulta("SELECT * FROM correos where iRemitente=1 or iRemitente=2 and iEstatus=1")
+            If rwCorreo Is Nothing = False Then
+                For Each Fila In rwCorreo
+                    If correo Is Nothing Then
+                        correo += Fila.Item("cCorreo")
+                    Else
+                        correo += ";" & Fila.Item("cCorreo")
+                    End If
+
+                Next
+            End If
 
 
             If Mensaje <> "" Then
@@ -566,7 +579,6 @@ Public Class frmAltaEmpleadoNew
                     Exit Sub
 
                 End If
-
             End If
             'Agregar datos de sueldos para historial
 
@@ -579,12 +591,35 @@ Public Class frmAltaEmpleadoNew
 
                 If rwFilas Is Nothing = False Then
                     Dim Fila As DataRow = rwFilas(0)
-                    SQL = "EXEC setSueldoInsertar  0," & IIf(txtsalario.Text = "", 0, txtsalario.Text) & ",'" & Format(dtppatrona.Value.Date, "yyyy/dd/MM")
+                    SQL = "EXEC setSueldoAltaInsertar  0," & IIf(txtsalario.Text = "", 0, txtsalario.Text) & ",'" & Format(dtppatrona.Value.Date, "yyyy/dd/MM")
                     SQL += "',0,''," & IIf(txtsd.Text = "", 0, txtsd.Text) & "," & IIf(txtsdi.Text = "", 0, txtsdi.Text) & "," & Fila.Item("id")
                     SQL += ",'01/01/1900',''"
 
                 End If
 
+                '***************************
+                'Se le agrego
+            Else
+
+                'verificamos el cambio de algun dato
+                SQL = "select * from empleadosAlta where iIdEmpleadoAlta = " & gIdEmpleado
+                Dim rwFilas As DataRow() = nConsulta(SQL)
+
+                If rwFilas Is Nothing = False Then
+
+                    Dim Fila As DataRow = rwFilas(0)
+                    If Fila.Item("fSueldoOrd") <> IIf(txtsalario.Text = "", 0, txtsalario.Text) Or Fila.Item("fSueldoBase") <> IIf(txtsd.Text = "", 0, txtsd.Text) Or Fila.Item("fSueldoIntegrado") <> IIf(txtsdi.Text = "", 0, txtsdi.Text) Then
+
+                        SQL = "EXEC setSueldoAltaInsertar  0," & IIf(txtsalario.Text = "", 0, txtsalario.Text) & ",'" & Date.Today.ToShortDateString()
+                        SQL += "',0,''," & IIf(txtsd.Text = "", 0, txtsd.Text) & "," & IIf(txtsdi.Text = "", 0, txtsdi.Text) & "," & gIdEmpleado
+                        SQL += ",'01/01/1900',''"
+
+                        'Enviar_Mail(GenerarCorreo(gIdEmpresa, cboclientefiscal.SelectedValue, gIdEmpleado), "p.isidro@mbcgroup.mx;l.aquino@mbcgroup.mx;r.garcia@mbcgroup.mx", "Cambio en sueldo")
+                        Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), correo, "Cambio en sueldo")
+                    End If
+
+
+                End If
             End If
 
             If SQL <> "" Then
@@ -653,22 +688,68 @@ Public Class frmAltaEmpleadoNew
             End If
 
             If nExecute(SQL) = False Then
+
                 Exit Sub
             End If
 
+            '*********************
+            'Agregar alta/baja
+            If blnNuevo Then
+                'Obtener id
+                SQL = "select max(iIdEmpleadoAlta) as id from empleadosAlta"
+                Dim rwFilas As DataRow() = nConsulta(SQL)
 
-            gIdEmpleado = "" '" & txtmunicip
+                If rwFilas Is Nothing = False Then
+                    Dim Fila As DataRow = rwFilas(0)
+                    SQL = "EXEC setIngresoBajaAltaInsertar  0," & Fila.Item("id") & ",'" & IIf(cbostatus.SelectedIndex = 0, "A", "B") & "','" & Format(dtppatrona.Value.Date, "yyyy/dd/MM") & "','01/01/1900','',''"
+                    'Enviar correo
+                    Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), correo, "Alta de empleado")
+                    'Enviar_Mail(GenerarCorreo(gIdEmpresa, cboclientefiscal.SelectedValue, Fila.Item("id")), "p.isidro@mbcgroup.mx;l.aquino@mbcgroup.mx;r.garcia@mbcgroup.mx", "Alta de empleado")
+                End If
+
+
+            Else
+                SQL = "select * from IngresoBajaAlta"
+                SQL &= " where iIdIngresoBaja= (select max(iIdIngresoBaja) "
+                SQL &= " as maximo from IngresoBajaAlta where fkiIdEmpleado =" & gIdEmpleado & ")"
+
+
+                Dim rwFilas As DataRow() = nConsulta(SQL)
+
+                If rwFilas Is Nothing = False Then
+                    SQL = ""
+                    Dim Fila As DataRow = rwFilas(0)
+                    If Fila.Item("Clave") <> IIf(cbostatus.SelectedIndex = 0, "A", "B") Then
+
+                        SQL = "EXEC setIngresoBajaAltaInsertar  0," & gIdEmpleado & ",'" & IIf(cbostatus.SelectedIndex = 0, "A", "B") & "','" & Date.Today.ToShortDateString & "','01/01/1900','',''"
+
+                        'Enviar_Mail(GenerarCorreo(gIdEmpresa, cboclientefiscal.SelectedValue, gIdEmpleado), "p.isidro@mbcgroup.mx;l.aquino@mbcgroup.mx;r.garcia@mbcgroup.mx", "Modificacion Baja/reingreso")
+                        Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), correo, "Modificacion Baja/reingreso")
+                    End If
+
+
+                End If
+
+
+            End If
+
+            If SQL <> "" Then
+                If nExecute(SQL) = False Then
+                    Exit Sub
+                End If
+            End If
+            '**********************************************
+            gIdEmpleado = ""
             gIdEmpresa = ""
             gIdCliente = ""
 
 
             MessageBox.Show("Datos Guardados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            If blnNuevo = True Then
-                Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), "c.serrano@mbcgroup.mx;p.vicente@mbcgroup.mx", "Empleado Alta")
-                'Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), "e.ruiz@mbcgroup.mx", "Empleado Alta")
+            'If blnNuevo = True Then
+            '    '  Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), correo, "Empleado Alta")
+            'End If
 
-            End If
             Limpiar(Me)
 
             If Mensaje <> "" Then

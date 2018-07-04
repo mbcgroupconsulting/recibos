@@ -236,7 +236,9 @@ Public Class frmContratos
                     MSWord.Visible = True
                 Else
                     MessageBox.Show("Faltan algunos datos, revise la información de la empresa y/o cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
                     Documento.Close()
+                    MSWord.Quit(SaveChanges:=False)
                 End If
 
 
@@ -248,7 +250,7 @@ Public Class frmContratos
 
         Catch ex As Exception
             Documento.Close()
-
+            MSWord.Quit(SaveChanges:=False)
             MessageBox.Show(ex.ToString(), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         End Try
@@ -408,12 +410,14 @@ Public Class frmContratos
                     MessageBox.Show("Faltan algunos datos, revise la información de la empresa y/o cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     Documento.Close()
+                    MSWord.Quit(SaveChanges:=False)
 
                 End If
 
             Else
                 MessageBox.Show("Revise la información de la empresa y/o cliente, faltan algunos datos ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Documento.Close()
+                MSWord.Quit(SaveChanges:=False)
             End If
 
 

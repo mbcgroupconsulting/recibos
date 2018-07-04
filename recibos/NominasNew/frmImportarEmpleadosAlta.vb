@@ -253,7 +253,7 @@ Public Class frmImportarEmpleadosAlta
     End Function
 
     Private Sub tsbGuardar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles tsbGuardar.Click
-        Dim SQL As String, nombresistema As String = ""
+        Dim SQL As String, nombresistema As String = "", correo As String
         Dim bandera As Boolean
         Dim epat, ec As Integer
         Dim x As Integer
@@ -290,6 +290,18 @@ Public Class frmImportarEmpleadosAlta
                 If rwFilas Is Nothing = False Then
                     Dim Fila As DataRow = rwFilas(0)
                     nombresistema = Fila.Item("nombre")
+                End If
+
+                Dim rwCorreo As DataRow() = nConsulta("SELECT * FROM correos where iRemitente=1 or iRemitente=2 and iEstatus=1")
+                If rwCorreo Is Nothing = False Then
+                    For Each Fila In rwCorreo
+                        If correo Is Nothing Then
+                            correo += Fila.Item("cCorreo")
+                        Else
+                            correo += ";" & Fila.Item("cCorreo")
+                        End If
+
+                    Next
                 End If
 
                 Dim empleadofull As ListViewItem
@@ -479,7 +491,32 @@ Public Class frmImportarEmpleadosAlta
                         dFechaSindicato = Date.Parse(Trim(empleadofull.SubItems(14).Text))
                         dFechaAntiguedad = Date.Parse(Trim(empleadofull.SubItems(30).Text))
 
+                        '***********************************'
+                        SQL = "select max(iIdEmpleadoAlta) as id from empleadosAlta"
 
+                        Dim salario As String = "0"  '= Trim(empleadofull.SubItems(17).Text)
+                        Dim sdi As String = Trim(empleadofull.SubItems(17).Text)
+                        Dim sd As String = Trim(empleadofull.SubItems(16).Text)
+                        Dim status As String = Trim(empleadofull.SubItems(12).Text)
+
+                        'CUANDO SE AGREGA EL SUELDO ORDINARIO
+                        Dim rwFilas2 As DataRow() = nConsulta(SQL)
+
+                        If rwFilas2 Is Nothing = False Then
+                            Dim Fila As DataRow = rwFilas2(0)
+                            SQL = "EXEC setSueldoAltaInsertar  0," & IIf(salario = "", 0, salario) & ",'" & dFechaPatrona ' Format(dtppatrona.Value.Date, "yyyy/dd/MM")
+                            SQL += "',0,''," & IIf(sd = "", 0, sd) & "," & IIf(sdi = "", 0, sdi) & "," & Fila.Item("id")
+                            SQL += ",'01/01/1900',''"
+
+                        End If
+
+                        If SQL <> "" Then
+                            If nExecute(SQL) = False Then
+                                Exit Sub
+                            End If
+                        End If
+
+                        '***********************************'
 
                         SQL = "EXEC setempleadosAltaInsertar 0 ,'" & Trim(empleadofull.SubItems(1).Text) & "','" & Trim(empleadofull.SubItems(3).Text)
                         SQL &= "','" & Trim(empleadofull.SubItems(4).Text)
@@ -496,7 +533,7 @@ Public Class frmImportarEmpleadosAlta
                         SQL &= "'," & 36 & ",'" & "" & "','" & " " & "','" & " " ' 36 es banco 1 ordenado IIf(cbobanco2.SelectedValue <> "", 1, cbobanco2.SelectedIndex) 'Asignar codigo por tipo de cuenta2
                         SQL &= "','" & " " & "','" & " " & "'," & 1 & ",'" & " " ''cp2
                         SQL &= "','" & dFechaPatrona & "','" & dFechaTerminoContrato & "','" & dFechaSindicato & "','" & dFechaAntiguedad
-                        ''COMILLA
+
                         SQL &= "'," & 0 & "," & Trim(empleadofull.SubItems(22).Text) & ",'" & Trim(empleadofull.SubItems(24).Text) & "'," & IIf(Trim(empleadofull.SubItems(12).Text) = "A", 0, 1) & ",'" & Trim(empleadofull.SubItems(23).Text) & "','" & factor ''switch
                         SQL &= "'," & IIf(Trim(empleadofull.SubItems(24).Text) = "", 0, Trim(empleadofull.SubItems(24).Text)) & ",'" & number & "','" & Trim(empleadofull.SubItems(36).Text) ''JORNADA
                         SQL &= "','" & Trim(empleadofull.SubItems(37).Text) & "','" & Trim(empleadofull.SubItems(38).Text) & "','" & " " & "','" & Trim(empleadofull.SubItems(39).Text) & "','" & " " ''fecha de pago
@@ -513,14 +550,66 @@ Public Class frmImportarEmpleadosAlta
 
                         list.Add(Trim(empleadofull.SubItems(1).Text))
 
+                        'If bandera <> False And mensa = "" Then
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Error en el registro con los siguiente datos:   Empleado:  " & Trim(empleado.SubItems(3).Text), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
                             Exit Sub
                         End If
+                        '*********************
+                        'Agregar alta/baja
+                        'If blnNuevo Then
+                        'Obtener id
+
+                        SQL = "select max(iIdEmpleadoAlta) as id from empleadosAlta"
+                        Dim rwFilas3 As DataRow() = nConsulta(SQL)
+
+                        If rwFilas3 Is Nothing = False Then
+                            Dim Fila As DataRow = rwFilas3(0)
+                            SQL = "EXEC setIngresoBajaAltaInsertar  0," & Fila.Item("id") & ",'" & status & "','" & dFechaPatrona & "','01/01/1900','',''"
+                            'Enviar correo
+
+                            Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), correo, "Empleado Alta")
+                            'Enviar_Mail(GenerarCorreo(gIdEmpresa, cboclientefiscal.SelectedValue, Fila.Item("id")), "p.isidro@mbcgroup.mx;l.aquino@mbcgroup.mx;r.garcia@mbcgroup.mx", "Alta de empleado")
+                        End If
+
+
+                        'Else
+                        '    SQL = "select * from IngresoBajaAlta"
+                        '    SQL &= " where iIdIngresoBaja= (select max(iIdIngresoBaja) "
+                        '    SQL &= " as maximo from IngresoBaja where fkiIdEmpleado =" & gIdEmpleado & ")"
+
+
+                        '    Dim rwFilas As DataRow() = nConsulta(SQL)
+
+                        '    If rwFilas Is Nothing = False Then
+                        '        SQL = ""
+                        '        Dim Fila As DataRow = rwFilas(0)
+                        '        If Fila.Item("Clave") <> IIf(cbostatus.SelectedIndex = 0, "A", "B") Then
+
+                        '            SQL = "EXEC setIngresoBajaAltaInsertar  0," & gIdEmpleado & ",'" & IIf(cbostatus.SelectedIndex = 0, "A", "B") & "','" & Date.Today.ToShortDateString & "','01/01/1900','',''"
+
+                        '            'Enviar_Mail(GenerarCorreo(gIdEmpresa, cboclientefiscal.SelectedValue, gIdEmpleado), "p.isidro@mbcgroup.mx;l.aquino@mbcgroup.mx;r.garcia@mbcgroup.mx", "Modificacion Baja/reingreso")
+                        '            '  Enviar_Mail(GenerarCorreo1(gIdEmpresa, gIdCliente, txtcodigo.Text), correo,"Modificacion Baja/reingreso")
+                        '        End If
+
+
+                        '    End If
+
+
+                        'End If
+
+                        If SQL <> "" Then
+                            If nExecute(SQL) = False Then
+                                Exit Sub
+                            End If
+                        End If
+                        '**********************************************
                         pgbProgreso.Value += 1
                         Application.DoEvents()
                         t = t + 1
+
+                        'End If
 
                     Else
                         MessageBox.Show(mensa, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -538,11 +627,7 @@ Public Class frmImportarEmpleadosAlta
                     tsbCancelar_Click(sender, e)
                     pnlProgreso.Visible = False
                     MessageBox.Show(t.ToString() & "  Proceso terminado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), "c.serrano@mbcgroup.mx;p.vicente@mbcgroup.mx;r.garcia@mbcgroup.mx", "Empleado Alta")
-                    '  Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), "e.ruiz@mbcgroup.mx", "Empleado Alta")
-
-
-
+                    ' Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), correo, "Empleado Alta")
 
                 Else
                     pnlProgreso.Visible = False

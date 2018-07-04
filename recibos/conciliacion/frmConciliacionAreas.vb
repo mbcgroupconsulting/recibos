@@ -838,8 +838,8 @@ Public Class frmConciliacionAreas
                     End If
                 End If
 
-                
-            ElseIf lsvLista.SelectedItems(0).SubItems(11).Text = "3" And lsvLista.SelectedItems(0).SubItems(5).Text <> "0.00" Then
+
+            ElseIf (lsvLista.SelectedItems(0).SubItems(11).Text = "3" And lsvLista.SelectedItems(0).SubItems(5).Text <> "0.00") Or (lsvLista.SelectedItems(0).SubItems(11).Text = "1" And lsvLista.SelectedItems(0).SubItems(5).Text <> "0.00") Then
 
                 'preguntamos si quiere asginar gastos o requiere poner la leyenda directamente
                 Dim resultado As Integer = MessageBox.Show("¿Desea buscar gastos?", "Pregunta", MessageBoxButtons.YesNo)
@@ -864,7 +864,7 @@ Public Class frmConciliacionAreas
                     End If
                 Else
                     Dim Forma As New frmCargoManual
-                    
+
                     If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
                         lsvLista.SelectedItems(0).SubItems(8).Text = Forma.gTextoCargo
                         'lsvLista.SelectedItems(0).SubItems(8).Tag = Forma.giIdFactura
@@ -874,11 +874,11 @@ Public Class frmConciliacionAreas
 
 
                         MessageBox.Show("Cargo asignado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                        
+
                     End If
                 End If
 
-                
+
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

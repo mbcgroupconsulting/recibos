@@ -43,6 +43,7 @@ Partial Class frmEmpleadosXCliente
         Me.Label3 = New System.Windows.Forms.Label()
         Me.cmdexcel = New System.Windows.Forms.Button()
         Me.btnExport = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.pnlVentana.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -85,6 +86,7 @@ Partial Class frmEmpleadosXCliente
         '
         'btnDepto
         '
+        Me.btnDepto.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDepto.Location = New System.Drawing.Point(842, 63)
         Me.btnDepto.Name = "btnDepto"
         Me.btnDepto.Size = New System.Drawing.Size(130, 41)
@@ -94,6 +96,7 @@ Partial Class frmEmpleadosXCliente
         '
         'btnPuestoN
         '
+        Me.btnPuestoN.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnPuestoN.Location = New System.Drawing.Point(842, 10)
         Me.btnPuestoN.Name = "btnPuestoN"
         Me.btnPuestoN.Size = New System.Drawing.Size(131, 51)
@@ -267,10 +270,22 @@ Partial Class frmEmpleadosXCliente
         Me.btnExport.Text = "Exportar CONTPAQ"
         Me.btnExport.UseVisualStyleBackColor = True
         '
+        'Button2
+        '
+        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button2.Location = New System.Drawing.Point(670, 449)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 26)
+        Me.Button2.TabIndex = 26
+        Me.Button2.Text = "Juridico Masivo"
+        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.Visible = False
+        '
         'frmEmpleadosXCliente
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1021, 484)
+        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.btnExport)
         Me.Controls.Add(Me.cmdexcel)
         Me.Controls.Add(Me.pnlVentana)
@@ -311,4 +326,5 @@ Partial Class frmEmpleadosXCliente
     Friend WithEvents btnDepto As System.Windows.Forms.Button
     Friend WithEvents btnExport As System.Windows.Forms.Button
     Friend WithEvents chkAll As System.Windows.Forms.CheckBox
+    Friend WithEvents Button2 As System.Windows.Forms.Button
 End Class
