@@ -250,14 +250,14 @@ Public Class frmComprobanteBancomer
                         Dim fila As DataRow = dsReporte.Tables("Tabla").NewRow
                         fila.Item("Empresa") = Trim(txtEmpresa.Text.ToUpper)
                         fila.Item("Fecha") = Trim(Date.Parse(dtpFecha.Value).ToShortDateString)
-                        fila.Item("Hora") = Trim(dtpFecha.Value.ToString.ToUpper.Substring(11))
+                        fila.Item("Hora") = Trim(dtpHora.Value.ToString.ToUpper.Substring(11))
                         fila.Item("Contrato") = Trim(txtContrato.Text)
                         fila.Item("Cuenta") = Trim(txtCuenta.Text)
                         fila.Item("NombrePago") = Trim(txtNombrepago.Text.ToUpper)
                         fila.Item("Folio") = Trim(txtFolio.Text)
                         fila.Item("Nombretrabajdor") = producto.SubItems(CInt(NudNombre.Value)).Text
                         fila.Item("CuentaTrabajador") = producto.SubItems(CInt(NudCuenta.Value)).Text
-                        fila.Item("Importe") = Math.Round(importe, 2)
+                        fila.Item("Importe") = Math.Round(importe, 2).ToString("######.00")
                         fila.Item("MotivoPago") = IIf(rdbPatrona.Checked, "SUELDO", "BENEFICIOSOCIALPROMOYDIFSINDIC")
                         dsReporte.Tables("Tabla").Rows.Add(fila)
 

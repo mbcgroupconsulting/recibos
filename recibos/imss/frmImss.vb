@@ -215,6 +215,7 @@
 
     Private Sub cmdAgregar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAgregar.Click
         Dim SQL As String = "SELECT "
+
         If Tipo = "1" Then
             'Agregar alta/baja
             SQL = "UPDATE IngresoBajaAlta SET "
@@ -322,6 +323,10 @@
     End Sub
 
     Private Sub lsvHistorial_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lsvHistorial.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub txtNumacuse_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtNumacuse.TextChanged
 
     End Sub
 End Class

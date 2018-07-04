@@ -28,6 +28,7 @@ Partial Class frmcontpaqnominas2
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.cmdBorrar = New System.Windows.Forms.Button()
         Me.cmdGuardarSueldo = New System.Windows.Forms.Button()
         Me.chkAguinaldo = New System.Windows.Forms.CheckBox()
         Me.chkgrupo = New System.Windows.Forms.CheckBox()
@@ -105,6 +106,7 @@ Partial Class frmcontpaqnominas2
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlCatalogo.Controls.Add(Me.cmdBorrar)
         Me.pnlCatalogo.Controls.Add(Me.cmdGuardarSueldo)
         Me.pnlCatalogo.Controls.Add(Me.chkAguinaldo)
         Me.pnlCatalogo.Controls.Add(Me.chkgrupo)
@@ -128,6 +130,16 @@ Partial Class frmcontpaqnominas2
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Size = New System.Drawing.Size(1497, 390)
         Me.pnlCatalogo.TabIndex = 29
+        '
+        'cmdBorrar
+        '
+        Me.cmdBorrar.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdBorrar.Location = New System.Drawing.Point(1243, 4)
+        Me.cmdBorrar.Name = "cmdBorrar"
+        Me.cmdBorrar.Size = New System.Drawing.Size(111, 27)
+        Me.cmdBorrar.TabIndex = 22
+        Me.cmdBorrar.Text = "Borrar Nomina"
+        Me.cmdBorrar.UseVisualStyleBackColor = True
         '
         'cmdGuardarSueldo
         '
@@ -555,4 +567,5 @@ Partial Class frmcontpaqnominas2
     Friend WithEvents Igualar0 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DesactivarIgualarA0ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsbExportarExcelEmpleado As System.Windows.Forms.ToolStripButton
+    Friend WithEvents cmdBorrar As System.Windows.Forms.Button
 End Class

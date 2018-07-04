@@ -38,12 +38,34 @@ Public Class frmPrincipal
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox1.CheckedChanged
-        Dim PT As Point = Me.PointToScreen(CheckBox1.Location)
+        SQL = "select * from usuarios where idUsuario = " & idUsuario
+        Dim rwFilas As DataRow() = nConsulta(SQL)
 
-        If CheckBox1.Checked Then
-            MenuInicio.Show(CheckBox1.Location.X, (CheckBox1.Location.Y + pnlBar.Location.Y) - ((CheckBox1.Height - 4) * MenuInicio.Items.Count))
-            CheckBox1.Checked = False
-        End If
+        Try
+            If rwFilas Is Nothing = False Then
+                Dim forma As New frmImportarFlujoConConceptos
+
+
+                Dim Fila As DataRow = rwFilas(0)
+                If (Fila.Item("fkIdPerfil") <> "2") Then
+                    Dim PT As Point = Me.PointToScreen(CheckBox1.Location)
+
+                    If CheckBox1.Checked Then
+                        MenuInicio.Show(CheckBox1.Location.X, (CheckBox1.Location.Y + pnlBar.Location.Y) - ((CheckBox1.Height - 4) * MenuInicio.Items.Count))
+                        CheckBox1.Checked = False
+                    End If
+
+                Else
+                    MessageBox.Show("No tiene permisos" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
+        
     End Sub
 
     Private Sub frmPrincipal_SizeChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.SizeChanged

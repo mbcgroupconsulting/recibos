@@ -1010,6 +1010,7 @@ Public Class frmcontpaqnominas2
             dsPeriodo.Tables("Tabla").Columns.Add("Sueldo")
             dsPeriodo.Tables("Tabla").Columns.Add("Neto_SA")
             dsPeriodo.Tables("Tabla").Columns.Add("Infonavit")
+            'dsPeriodo.Tables("Tabla").Columns.Add("Fonacot")
             dsPeriodo.Tables("Tabla").Columns.Add("Prima_SA")
             dsPeriodo.Tables("Tabla").Columns.Add("Aguinaldo_SA")
             dsPeriodo.Tables("Tabla").Columns.Add("Descuento")
@@ -1041,6 +1042,7 @@ Public Class frmcontpaqnominas2
             dsSASindicato.Tables("Tabla").Columns.Add("sueldo")
             dsSASindicato.Tables("Tabla").Columns.Add("neto")
             dsSASindicato.Tables("Tabla").Columns.Add("infonavit")
+            'dsSASindicato.Tables("Tabla").Columns.Add("fonacot")
             dsSASindicato.Tables("Tabla").Columns.Add("Prima_SA")
             dsSASindicato.Tables("Tabla").Columns.Add("Aguinaldo_SA")
             dsSASindicato.Tables("Tabla").Columns.Add("Aguinaldo_Sin")
@@ -3212,6 +3214,7 @@ Public Class frmcontpaqnominas2
                             sql &= "," & dtgDatos.Rows(x).Cells(13).Value
                             sql &= ",'" & Date.Now.ToShortDateString
                             sql &= "',1"
+                            sql &= "," & cboperiodo.SelectedValue
                             If nExecute(sql) = False Then
                                 MessageBox.Show("Ocurrio un error insertar pago prestamo ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                                 'pnlProgreso.Visible = False
@@ -3364,7 +3367,7 @@ Public Class frmcontpaqnominas2
                                 If CDbl(IIf(dtgDatos.Rows(x).Cells(16).Value = "", "0", dtgDatos.Rows(x).Cells(16).Value)) > 0 Then
                                     Dim fila As DataRow = forma2.dsReporte.Tables("Tabla").NewRow
                                     fila.Item("nombre") = Trim(dtgDatos.Rows(x).Cells(6).Value)
-                                    fila.Item("cantidad") = Math.Round(CDbl(dtgDatos.Rows(x).Cells(16).Value), 2)
+                                    fila.Item("cantidad") = Math.Round(CDbl(dtgDatos.Rows(x).Cells(16).Value), 2).ToString("##,###,###.00")
                                     fila.Item("letra") = ImprimeLetra(Math.Round(CDbl(dtgDatos.Rows(x).Cells(16).Value), 2))
 
                                     fila.Item("fecha") = Forma.gfecha
@@ -3379,7 +3382,7 @@ Public Class frmcontpaqnominas2
                                 If CDbl(IIf(dtgDatos.Rows(x).Cells(18).Value = "", "0", dtgDatos.Rows(x).Cells(18).Value)) > 0 Then
                                     Dim fila As DataRow = forma2.dsReporte.Tables("Tabla").NewRow
                                     fila.Item("nombre") = Trim(dtgDatos.Rows(x).Cells(6).Value)
-                                    fila.Item("cantidad") = Math.Round(CDbl(dtgDatos.Rows(x).Cells(18).Value), 2)
+                                    fila.Item("cantidad") = Math.Round(CDbl(dtgDatos.Rows(x).Cells(18).Value), 2).ToString("##,###,###.00")
                                     fila.Item("letra") = ImprimeLetra(Math.Round(CDbl(dtgDatos.Rows(x).Cells(18).Value), 2))
 
                                     fila.Item("fecha") = Forma.gfecha
@@ -5806,6 +5809,56 @@ Public Class frmcontpaqnominas2
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+  
+    Private Sub cmdBorrar_Click(sender As System.Object, e As System.EventArgs) Handles cmdBorrar.Click
+        Try
+            Dim sql As String
+            Dim resultado As Integer = MessageBox.Show("¿Realmente desea borrar la nomina que ya  aun cuando esta ya este guardada como final?", "Pregunta", MessageBoxButtons.YesNo)
+            If resultado = DialogResult.Yes Then
+                sql = "select * from usuarios where idUsuario = " & idUsuario
+                Dim rwFilas As DataRow() = nConsulta(sql)
+
+                If rwFilas Is Nothing = False Then
+                    sql = "delete from NominaSindicato"
+                    sql &= " where NominaSindicato.fkiIdEmpresa=" & gIdEmpresa & " and NominaSindicato.fkiIdPeriodo=" & cboperiodo.SelectedValue
+
+                    If nExecute(sql) = False Then
+                        MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        'pnlProgreso.Visible = False
+                        Exit Sub
+
+                    End If
+
+                    sql = "delete from PagoPrestamo"
+                    sql &= " where PagoPrestamo.fkiIdPeriodo=" & cboperiodo.SelectedValue
+
+                    If nExecute(sql) = False Then
+                        MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        'pnlProgreso.Visible = False
+                        Exit Sub
+
+                    End If
+
+                    sql = "EXEC setNominaBorradaContpaqInsertar 0"
+                    sql &= "," & cboperiodo.SelectedValue
+                    sql &= ",'" & rwFilas(0)("Nombre").ToString & "'"
+
+                    If nExecute(sql) = False Then
+                        MessageBox.Show("Ocurrio un error al insertar NominaBorradaContpaq", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        'pnlProgreso.Visible = False
+                        Exit Sub
+                    End If
+
+
+                    MessageBox.Show("Nomina borrada correctamente, vuelva a cargar los datos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    dtgDatos.DataSource = ""
+                End If
+            End If
+        Catch ex As Exception
+
         End Try
     End Sub
 End Class
