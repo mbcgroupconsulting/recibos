@@ -124,7 +124,7 @@ Public Class frmEmpleados
                 SQL &= "," & cbobanco2.SelectedValue
                 SQL &= ",'" & txtcuenta2.Text
                 SQL &= "','" & txtclabe2.Text & "'"
-                SQL &= "," & IIf(txtExtra.Text = "", 0, txtCostoSocial.Text)
+                SQL &= "," & IIf(txtExtra.Text = "", 0, txtExtra.Text)
             Else
                 'Actualizar
 
@@ -152,7 +152,7 @@ Public Class frmEmpleados
                 SQL &= "," & cbobanco2.SelectedValue
                 SQL &= ",'" & txtcuenta2.Text
                 SQL &= "','" & txtclabe2.Text & "'"
-                SQL &= "," & IIf(txtExtra.Text = "", 0, txtCostoSocial.Text)
+                SQL &= "," & IIf(txtExtra.Text = "", 0, txtExtra.Text)
 
             End If
             If nExecute(SQL) = False Then

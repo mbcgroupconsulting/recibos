@@ -35,6 +35,7 @@ Partial Class frmAsignarCliente
         Me.rdbSumar = New System.Windows.Forms.RadioButton()
         Me.rdbNada = New System.Windows.Forms.RadioButton()
         Me.chkSubsidio = New System.Windows.Forms.CheckBox()
+        Me.chkCalcularOrdinario = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
         Me.grbSubsidio.SuspendLayout()
         Me.SuspendLayout()
@@ -157,10 +158,21 @@ Partial Class frmAsignarCliente
         Me.chkSubsidio.Text = "El subsidio debe aparecer en el reporte."
         Me.chkSubsidio.UseVisualStyleBackColor = True
         '
+        'chkCalcularOrdinario
+        '
+        Me.chkCalcularOrdinario.AutoSize = True
+        Me.chkCalcularOrdinario.Location = New System.Drawing.Point(324, 210)
+        Me.chkCalcularOrdinario.Name = "chkCalcularOrdinario"
+        Me.chkCalcularOrdinario.Size = New System.Drawing.Size(181, 22)
+        Me.chkCalcularOrdinario.TabIndex = 47
+        Me.chkCalcularOrdinario.Text = "Calcular sueldo ordinario"
+        Me.chkCalcularOrdinario.UseVisualStyleBackColor = True
+        '
         'frmAsignarCliente
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(650, 274)
+        Me.Controls.Add(Me.chkCalcularOrdinario)
         Me.Controls.Add(Me.chkSubsidio)
         Me.Controls.Add(Me.grbSubsidio)
         Me.Controls.Add(Me.cboSubsidio)
@@ -193,4 +205,5 @@ Partial Class frmAsignarCliente
     Friend WithEvents rdbSumar As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNada As System.Windows.Forms.RadioButton
     Friend WithEvents chkSubsidio As System.Windows.Forms.CheckBox
+    Friend WithEvents chkCalcularOrdinario As System.Windows.Forms.CheckBox
 End Class

@@ -78,7 +78,7 @@
                     If CDbl(IIf(producto.SubItems(CInt(NudColumnaC.Value)).Text = "", "0", producto.SubItems(CInt(NudColumnaC.Value)).Text)) > 0 Then
                         Dim fila As DataRow = forma.dsReporte.Tables("Tabla").NewRow
                         fila.Item("nombre") = Trim(producto.SubItems(CInt(NudColumnaN.Value)).Text)
-                        fila.Item("cantidad") = Math.Round(CDbl(producto.SubItems(CInt(NudColumnaC.Value)).Text), 2)
+                        fila.Item("cantidad") = Math.Round(CDbl(producto.SubItems(CInt(NudColumnaC.Value)).Text), 2).ToString("##,###,###.00")
                         fila.Item("letra") = ImprimeLetra(Math.Round(CDbl(producto.SubItems(CInt(NudColumnaC.Value)).Text), 2))
 
                         fila.Item("fecha") = dtpfecha.Value.ToLongDateString().ToUpper()
