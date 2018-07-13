@@ -257,10 +257,13 @@ Public Class frmComprobanteBanamex
 
 
                         Dim fila As DataRow = dsReporte.Tables("Tabla").NewRow
+                        Dim fec() As String = Date.Parse(dtpFecha.Value).ToLongDateString.Split(" ")
+                        Dim fecha As String = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fec(0).Replace(",", "")) & " " & fec(1) & " de " & CultureInfo.CurrentCulture.TextInfo.ToTitleCase(MonthString(Date.Parse(dtpFecha.Value).Month)) & " de " & Date.Parse(dtpFecha.Value).Year
+                        'CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Trim(Date.Parse(dtpFecha.Value).ToLongDateString))
                         fila.Item("Empresa") = Trim(txtEmpresa.Text.ToUpper)
                         fila.Item("Fecha") = (Trim(Date.Parse(dtpFecha.Value).ToShortDateString))
                         fila.Item("Fecha2") = (Trim(Date.Parse(dtpFecha.Value).ToShortDateString))
-                        fila.Item("FechaLarga") = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Trim(Date.Parse(dtpFecha.Value).ToLongDateString)) + ", " + Trim(dtpHora.Value.ToString.ToUpper.Substring(11, 5)) + " " + Trim(dtpHora.Value.ToString.ToUpper.Substring(20)) + " Centro de México"
+                        fila.Item("FechaLarga") = fecha & ", " & Trim(dtpHora.Value.ToString.ToUpper.Substring(11, 5)) & " " + Trim(dtpHora.Value.ToString.ToUpper.Substring(20)) + " Centro de México"
                         fila.Item("Hora") = Trim(dtpHora.Value.ToString.ToUpper.Substring(11, 5)) + " " + Trim(dtpHora.Value.ToString.ToUpper.Substring(20))
                         fila.Item("Cliente") = Trim(txtContrato.Text)
                         fila.Item("Cuenta") = Trim(txtCuenta.Text)
@@ -366,5 +369,23 @@ Public Class frmComprobanteBanamex
 
     End Sub
 
+    Function MonthString(ByRef month As Integer) As String
 
+        Select Case month
+            Case 1 : Return "Enero"
+            Case 2 : Return "Febrero"
+            Case 3 : Return "Marzo"
+            Case 4 : Return "Abril"
+            Case 5 : Return "Mayo"
+            Case 6 : Return "Junio"
+            Case 7 : Return "Julio"
+            Case 8 : Return "Agosto"
+            Case 9 : Return "Septiembre"
+            Case 10 : Return "Octubre"
+            Case 11 : Return "Noviembre"
+            Case 12 : Return "Diciembre"
+
+        End Select
+
+    End Function
 End Class
