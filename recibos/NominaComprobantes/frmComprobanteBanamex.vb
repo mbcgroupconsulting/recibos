@@ -263,7 +263,7 @@ Public Class frmComprobanteBanamex
                         fila.Item("Empresa") = Trim(txtEmpresa.Text.ToUpper)
                         fila.Item("Fecha") = (Trim(Date.Parse(dtpFecha.Value).ToShortDateString))
                         fila.Item("Fecha2") = (Trim(Date.Parse(dtpFecha.Value).ToShortDateString))
-                        fila.Item("FechaLarga") = fecha & ", " & Trim(dtpHora.Value.ToString.ToUpper.Substring(11, 5)) & " " + Trim(dtpHora.Value.ToString.ToUpper.Substring(20)) + " Centro de México"
+                        fila.Item("FechaLarga") = fecha & ", " & Trim(dtpHora.Value.ToString.ToUpper.Substring(11, 5)) & " " + Trim(dtpHora.Value.ToString.ToUpper.Substring(20)).Replace(".", "") + " Centro de México"
                         fila.Item("Hora") = Trim(dtpHora.Value.ToString.ToUpper.Substring(11, 5)) + " " + Trim(dtpHora.Value.ToString.ToUpper.Substring(20))
                         fila.Item("Cliente") = Trim(txtContrato.Text)
                         fila.Item("Cuenta") = Trim(txtCuenta.Text)
