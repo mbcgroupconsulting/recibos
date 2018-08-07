@@ -227,7 +227,7 @@
         cmdnuevo.Enabled = Not pnlProveedores.Enabled
         cmdguardar.Enabled = pnlProveedores.Enabled
         cmdcancelar.Enabled = pnlProveedores.Enabled
-        cmdbuscar.Enabled = Not pnlProveedores.Enabled
+        cmdbuscar.Enabled = pnlProveedores.Enabled
     End Sub
 
     Private Sub cmdagregar_Click(sender As Object, e As EventArgs) Handles cmdagregar.Click

@@ -48,7 +48,6 @@ Partial Class frmAgregarNominaK
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cboclientes = New System.Windows.Forms.ComboBox()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.cmdcargados = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.pnlProveedores.SuspendLayout()
         Me.SuspendLayout()
@@ -57,7 +56,6 @@ Partial Class frmAgregarNominaK
         '
         Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel1.Controls.Add(Me.cmdcargados)
         Me.Panel1.Controls.Add(Me.cmdcancelar)
         Me.Panel1.Controls.Add(Me.cmdbuscar)
         Me.Panel1.Controls.Add(Me.cmdnuevo)
@@ -318,19 +316,6 @@ Partial Class frmAgregarNominaK
         Me.Label23.TabIndex = 49
         Me.Label23.Text = "Clientes:"
         '
-        'cmdcargados
-        '
-        Me.cmdcargados.Image = Global.recibos.My.Resources.Resources._1359876031_folder_search
-        Me.cmdcargados.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdcargados.Location = New System.Drawing.Point(7, 377)
-        Me.cmdcargados.Name = "cmdcargados"
-        Me.cmdcargados.Size = New System.Drawing.Size(87, 72)
-        Me.cmdcargados.TabIndex = 40
-        Me.cmdcargados.Text = "Cargados"
-        Me.cmdcargados.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdcargados.UseVisualStyleBackColor = True
-        Me.cmdcargados.Visible = False
-        '
         'frmAgregarNominaK
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -373,5 +358,4 @@ Partial Class frmAgregarNominaK
     Friend WithEvents cboDocumento As System.Windows.Forms.ComboBox
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
     Private WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents cmdcargados As System.Windows.Forms.Button
 End Class
