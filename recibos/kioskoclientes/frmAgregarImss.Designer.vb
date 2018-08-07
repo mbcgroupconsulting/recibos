@@ -24,7 +24,6 @@ Partial Class frmAgregarImss
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAgregarImss))
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.cmdcargados = New System.Windows.Forms.Button()
         Me.cmdcancelar = New System.Windows.Forms.Button()
         Me.cmdbuscar = New System.Windows.Forms.Button()
         Me.cmdnuevo = New System.Windows.Forms.Button()
@@ -57,7 +56,6 @@ Partial Class frmAgregarImss
         '
         Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel1.Controls.Add(Me.cmdcargados)
         Me.Panel1.Controls.Add(Me.cmdcancelar)
         Me.Panel1.Controls.Add(Me.cmdbuscar)
         Me.Panel1.Controls.Add(Me.cmdnuevo)
@@ -67,19 +65,6 @@ Partial Class frmAgregarImss
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(105, 480)
         Me.Panel1.TabIndex = 69
-        '
-        'cmdcargados
-        '
-        Me.cmdcargados.Image = Global.recibos.My.Resources.Resources._1359876031_folder_search
-        Me.cmdcargados.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdcargados.Location = New System.Drawing.Point(7, 397)
-        Me.cmdcargados.Name = "cmdcargados"
-        Me.cmdcargados.Size = New System.Drawing.Size(87, 72)
-        Me.cmdcargados.TabIndex = 38
-        Me.cmdcargados.Text = "Cargados"
-        Me.cmdcargados.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdcargados.UseVisualStyleBackColor = True
-        Me.cmdcargados.Visible = False
         '
         'cmdcancelar
         '
@@ -370,5 +355,4 @@ Partial Class frmAgregarImss
     Private WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
     Friend WithEvents cboDocumento As System.Windows.Forms.ComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents cmdcargados As System.Windows.Forms.Button
 End Class

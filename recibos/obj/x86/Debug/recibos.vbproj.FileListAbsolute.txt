@@ -265,7 +265,6 @@ D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.exe.config
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.pdb
 D:\Escritorio\Team\recibos\recibos\bin\Debug\recibos.xml
-D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotarioC.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmNotario.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmBuscarDepartamento.resources
@@ -395,3 +394,4 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.xml
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.pdb
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmComprobanteBanamex.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache

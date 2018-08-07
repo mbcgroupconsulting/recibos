@@ -43,12 +43,12 @@ Partial Class frmAgregarContabilidadk
         Me.cboempresa = New System.Windows.Forms.ComboBox()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.cmdcargados = New System.Windows.Forms.Button()
         Me.cmdcancelar = New System.Windows.Forms.Button()
         Me.cmdbuscar = New System.Windows.Forms.Button()
         Me.cmdnuevo = New System.Windows.Forms.Button()
         Me.cmdsalir = New System.Windows.Forms.Button()
         Me.cmdguardar = New System.Windows.Forms.Button()
-        Me.cmdcargados = New System.Windows.Forms.Button()
         Me.pnlProveedores.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -253,6 +253,19 @@ Partial Class frmAgregarContabilidadk
         Me.Panel1.Size = New System.Drawing.Size(105, 480)
         Me.Panel1.TabIndex = 67
         '
+        'cmdcargados
+        '
+        Me.cmdcargados.Image = Global.recibos.My.Resources.Resources._1359876031_folder_search
+        Me.cmdcargados.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdcargados.Location = New System.Drawing.Point(8, 377)
+        Me.cmdcargados.Name = "cmdcargados"
+        Me.cmdcargados.Size = New System.Drawing.Size(87, 72)
+        Me.cmdcargados.TabIndex = 39
+        Me.cmdcargados.Text = "Cargados"
+        Me.cmdcargados.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdcargados.UseVisualStyleBackColor = True
+        Me.cmdcargados.Visible = False
+        '
         'cmdcancelar
         '
         Me.cmdcancelar.Anchor = System.Windows.Forms.AnchorStyles.None
@@ -313,19 +326,6 @@ Partial Class frmAgregarContabilidadk
         Me.cmdguardar.Text = "Guardar"
         Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdguardar.UseVisualStyleBackColor = True
-        '
-        'cmdcargados
-        '
-        Me.cmdcargados.Image = Global.recibos.My.Resources.Resources._1359876031_folder_search
-        Me.cmdcargados.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdcargados.Location = New System.Drawing.Point(8, 377)
-        Me.cmdcargados.Name = "cmdcargados"
-        Me.cmdcargados.Size = New System.Drawing.Size(87, 72)
-        Me.cmdcargados.TabIndex = 39
-        Me.cmdcargados.Text = "Cargados"
-        Me.cmdcargados.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdcargados.UseVisualStyleBackColor = True
-        Me.cmdcargados.Visible = False
         '
         'frmAgregarContabilidadk
         '
