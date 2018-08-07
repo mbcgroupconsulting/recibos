@@ -735,13 +735,9 @@
     <Compile Include="NominaComprobantes\frmComprobanteBanamex.Designer.vb">
       <DependentUpon>frmComprobanteBanamex.vb</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="NominaComprobantes\frmComprobanteBanamex.vb" />
-=======
     <Compile Include="NominaComprobantes\frmComprobanteBanamex.vb">
       <SubType>Form</SubType>
     </Compile>
->>>>>>> julio
     <Compile Include="NominaComprobantes\frmComprobanteBancomer.Designer.vb">
       <DependentUpon>frmComprobanteBancomer.vb</DependentUpon>
     </Compile>
