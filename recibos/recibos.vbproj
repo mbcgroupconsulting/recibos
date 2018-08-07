@@ -732,6 +732,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="NominaComprobantes\frmComprobanteBanamex.Designer.vb">
+      <DependentUpon>frmComprobanteBanamex.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NominaComprobantes\frmComprobanteBanamex.vb" />
     <Compile Include="NominaComprobantes\frmComprobanteBancomer.Designer.vb">
       <DependentUpon>frmComprobanteBancomer.vb</DependentUpon>
     </Compile>
@@ -1279,6 +1283,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NominaComprobantes\frmComprobanteBanamex.resx">
+      <DependentUpon>frmComprobanteBanamex.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NominaComprobantes\frmComprobanteBancomer.resx">
       <DependentUpon>frmComprobanteBancomer.vb</DependentUpon>
