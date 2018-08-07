@@ -143,14 +143,22 @@ Module mdoInicio
 
             strConfig = File.CreateText(Ruta)
             If Not Guardar Then
-                'Servidor.IP = "facturacion.elchingon.net"
+                Servidor.IP = "facturacion.elchingon.net"
 
                 'Servidor.IP = "localhost"
+<<<<<<< HEAD
                 Servidor.IP = "192.168.1.222"
                 Servidor.Nombre = "Equipo1\sqlexpress"
                 Servidor.Base = "unificacion"
                 Servidor.User = "sa"
                 'Servidor.PWD = "1123581321"
+=======
+                'Servidor.IP = "192.168.1.222"
+                Servidor.Nombre = "Equipo1\sqlexpress"
+                Servidor.Base = "unificacion"
+                Servidor.User = "sa"
+                ' Servidor.PWD = "123456"
+>>>>>>> julio
                 Servidor.PWD = "kiosko2016"
 
             End If

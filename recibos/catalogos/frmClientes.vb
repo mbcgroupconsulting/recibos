@@ -217,46 +217,53 @@ Public Class frmClientes
             If txtrfc.Text.Trim.Length = 0 And Mensaje = "" Then
                 Mensaje = "Por favor indique el rfc"
             End If
-            If txtcalle.Text.Trim.Length = 0 And Mensaje = "" Then
-                Mensaje = "Indique la calle"
-            End If
-            If txtnumero.Text.Trim.Length = 0 And Mensaje = "" Then
-                Mensaje = "Indique el número de la dirección del cliente"
-            End If
-            If txtcolonia.Text.Trim.Length = 0 And Mensaje = "" Then
-                Mensaje = "Indique la colonia"
-            End If
-            If txtmunicipio.Text.Trim.Length = 0 And Mensaje = "" Then
-                Mensaje = "Indique el municipio"
-            End If
-            If txtcp.Text.Trim.Length = 0 And Mensaje = "" Then
-                Mensaje = "Indique el codigo postal"
-            End If
-            If cboestados.SelectedIndex = -1 And Mensaje = "" Then
-                Mensaje = "Seleccione el estado al que pertenece"
-            End If
-            'If txttelefono.Text.Trim.Length = 0 And Mensaje = "" Then
-            '    Mensaje = "Indique el telefono"
-            'End If
-            If txtcontacto.Text.Trim.Length = 0 And Mensaje = "" Then
-                Mensaje = "Indique el contacto de la empresa"
-            End If
-            If txtemail.Text.Trim.Length > 0 And Mensaje = "" Then
-                If Not Regex.IsMatch(txtemail.Text, "^([\w-]+\.)*?[\w-]+@[\w-]+\.([\w-]+\.)*?[\w]+$") Then
-                    Mensaje = "El email no tiene una forma correcta de correo electrónico (usuario@dominio.com)."
-                    Me.txtemail.Focus()
+
+            If cbotipocliente.SelectedIndex <> 2 Then
+
+
+                If txtcalle.Text.Trim.Length = 0 And Mensaje = "" Then
+                    Mensaje = "Indique la calle"
+                End If
+                If txtnumero.Text.Trim.Length = 0 And Mensaje = "" Then
+                    Mensaje = "Indique el número de la dirección del cliente"
+                End If
+                If txtcolonia.Text.Trim.Length = 0 And Mensaje = "" Then
+                    Mensaje = "Indique la colonia"
+                End If
+                If txtmunicipio.Text.Trim.Length = 0 And Mensaje = "" Then
+                    Mensaje = "Indique el municipio"
+                End If
+                If txtcp.Text.Trim.Length = 0 And Mensaje = "" Then
+                    Mensaje = "Indique el codigo postal"
+                End If
+                If cboestados.SelectedIndex = -1 And Mensaje = "" Then
+                    Mensaje = "Seleccione el estado al que pertenece"
+                End If
+                'If txttelefono.Text.Trim.Length = 0 And Mensaje = "" Then
+                '    Mensaje = "Indique el telefono"
+                'End If
+                If txtcontacto.Text.Trim.Length = 0 And Mensaje = "" Then
+                    Mensaje = "Indique el contacto de la empresa"
+                End If
+                If txtemail.Text.Trim.Length > 0 And Mensaje = "" Then
+                    If Not Regex.IsMatch(txtemail.Text, "^([\w-]+\.)*?[\w-]+@[\w-]+\.([\w-]+\.)*?[\w]+$") Then
+                        Mensaje = "El email no tiene una forma correcta de correo electrónico (usuario@dominio.com)."
+                        Me.txtemail.Focus()
+                    End If
+                End If
+
+                If cbostatus.SelectedIndex = -1 And Mensaje = "" Then
+                    Mensaje = "Indique el estatus del proveedor"
+                End If
+                If cbotipocliente.SelectedIndex = -1 And Mensaje = "" Then
+                    Mensaje = "Indique el tipo de cliente"
+                End If
+                If cbotipop.SelectedIndex = -1 And Mensaje = "" Then
+                    Mensaje = "Indique el tipo de porcentaje"
                 End If
             End If
+            'Fin end
 
-            If cbostatus.SelectedIndex = -1 And Mensaje = "" Then
-                Mensaje = "Indique el estatus del proveedor"
-            End If
-            If cbotipocliente.SelectedIndex = -1 And Mensaje = "" Then
-                Mensaje = "Indique el tipo de cliente"
-            End If
-            If cbotipop.SelectedIndex = -1 And Mensaje = "" Then
-                Mensaje = "Indique el tipo de porcentaje"
-            End If
             If Mensaje <> "" Then
                 MessageBox.Show(Mensaje, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Exit Sub
