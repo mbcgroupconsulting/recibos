@@ -186,6 +186,7 @@
                 SQL = " SELECT * FROM InfoKiosko WHERE"
                 SQL &= " InfoKiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & cboclientes.SelectedValue & " AND"
                 SQL &= " InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & "  and infokiosko.anio=" & cboanio.Text
+                SQL &= " and fkiIdPerfil =5 "
 
                 Dim rwFilas As DataRow() = nConsulta(SQL)
                 Dim item As ListViewItem

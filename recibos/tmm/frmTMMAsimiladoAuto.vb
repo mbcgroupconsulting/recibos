@@ -162,9 +162,6 @@ Public Class frmTMMAsimiladoAuto
                             calculado = bruto - isr
 
 
-
-
-
                             If Math.Round((calculado), 2) = Math.Round(Double.Parse(producto.SubItems(53).Text), 2) Then
                                 'el sueldo de la propuesta es correcto
                                 'dtgDatos.Rows(x).Cells(3).Value = propuesta

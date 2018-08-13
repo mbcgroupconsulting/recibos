@@ -202,7 +202,6 @@ Public Class frmPrincipal
                         If rwFilas Is Nothing = False Then
                             Dim forma As New frmTMMSindicatoAuto
 
-
                             Dim Fila As DataRow = rwFilas(0)
                             If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5") Then
 
@@ -370,9 +369,7 @@ Public Class frmPrincipal
         End Try
     End Sub
 
-    Private Sub lsvPanel_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lsvPanel.SelectedIndexChanged
-
-    End Sub
+   
 
     Private Sub lsvPanel_SizeChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lsvPanel.SizeChanged
         Dim sRuta As String
@@ -1136,7 +1133,7 @@ Public Class frmPrincipal
     Private Sub ConciliarToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ConciliarToolStripMenuItem.Click
         SQL = "select * from usuarios where idUsuario = " & idUsuario
         Dim rwFilas As DataRow() = nConsulta(SQL)
-        Dim Forma As New frmConciliacionAreas
+        Dim Forma As New frmFondeoPatrona
 
         Try
             If rwFilas Is Nothing = False Then
@@ -1282,4 +1279,27 @@ Public Class frmPrincipal
         End Try
     End Sub
 
+    Private Sub FondeoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FondeoToolStripMenuItem.Click
+        SQL = "select * from usuarios where idUsuario = " & idUsuario
+        Dim rwFilas As DataRow() = nConsulta(SQL)
+        Dim Forma As New frmFondeo
+
+        Try
+            If rwFilas Is Nothing = False Then
+
+
+                Dim Fila As DataRow = rwFilas(0)
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5" Or Fila.Item("fkIdPerfil") = "8" Or Fila.Item("Nombre") = "Petrus") Then
+
+                    Forma.ShowDialog()
+                Else
+                    MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

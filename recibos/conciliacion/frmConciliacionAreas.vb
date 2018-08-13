@@ -1,14 +1,14 @@
 ﻿Imports ClosedXML.Excel
-Public Class frmConciliacionAreas
+Public Class frmFondeoPatrona
     Dim SQL As String
-    Private Sub chkAll_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkAll.CheckedChanged
+    Private Sub chkAll_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkAll.CheckedChanged
         For Each item As ListViewItem In lsvLista.Items
             item.Checked = chkAll.Checked
         Next
         chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
     End Sub
 
-    Private Sub tsbNuevo_Click(sender As System.Object, e As System.EventArgs) Handles tsbNuevo.Click
+    Private Sub tsbNuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbNuevo.Click
         Try
             Dim Alter As Boolean = False
             Dim inicio As DateTime = dtpfechainicio.Value
@@ -97,7 +97,7 @@ Public Class frmConciliacionAreas
                     Me.Enabled = True
                     Me.cmdCerrar.Enabled = True
                     Me.Cursor = Cursors.Default
-                    
+
                 Else
                     MessageBox.Show("No se encontraron datos en ese rango de fecha", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
@@ -110,7 +110,7 @@ Public Class frmConciliacionAreas
         End Try
     End Sub
 
-    Private Sub frmConciliacionAreas_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub frmConciliacionAreas_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         MostrarEmpresa()
         MostrarBancos()
     End Sub
@@ -130,7 +130,7 @@ Public Class frmConciliacionAreas
         End Try
     End Sub
 
-    Private Sub tsbCancelar_Click(sender As System.Object, e As System.EventArgs) Handles tsbCancelar.Click
+    Private Sub tsbCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbCancelar.Click
 
         lsvLista.Items.Clear()
         chkAll.Checked = False
@@ -145,7 +145,7 @@ Public Class frmConciliacionAreas
         tsbNuevo.Enabled = True
     End Sub
 
-    Private Sub tsbConciliar_Click(sender As System.Object, e As System.EventArgs) Handles tsbConciliar.Click
+    Private Sub tsbConciliar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbConciliar.Click
         Dim SQL As String
 
         Try
@@ -445,22 +445,22 @@ Public Class frmConciliacionAreas
 
 
 
-                                            
+
 
                                         End If
 
                                     Else
-                                            producto.SubItems(8).Text = "//"
-                                            'producto.SubItems.Add("//")
-                                            producto.SubItems(11).Text = "3"
-                                            'producto.SubItems.Add("3")
+                                        producto.SubItems(8).Text = "//"
+                                        'producto.SubItems.Add("//")
+                                        producto.SubItems(11).Text = "3"
+                                        'producto.SubItems.Add("3")
                                     End If
                                     'MessageBox.Show("esta dentro del rango", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                                 End If
                             End If
                             'termina la validacion de que si ya la factura fue conciliada
-                            
+
                         Else
 
                         End If
@@ -736,7 +736,7 @@ Public Class frmConciliacionAreas
                                     End If
                                 End If
                                 'Fin de la factura tiene valor 3
-                                
+
                             Else
 
                             End If
@@ -780,7 +780,7 @@ Public Class frmConciliacionAreas
         End Try
     End Sub
 
-    Private Sub lsvLista_ItemActivate(sender As Object, e As System.EventArgs) Handles lsvLista.ItemActivate
+    Private Sub lsvLista_ItemActivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles lsvLista.ItemActivate
         Try
             If lsvLista.SelectedItems(0).SubItems(11).Tag <> "" Then
                 Dim Forma As New frmlista
@@ -885,11 +885,11 @@ Public Class frmConciliacionAreas
         End Try
     End Sub
 
-    Private Sub lsvLista_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lsvLista.SelectedIndexChanged
+    Private Sub lsvLista_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lsvLista.SelectedIndexChanged
 
     End Sub
 
-    Private Sub tsbGuardar_Click(sender As System.Object, e As System.EventArgs) Handles tsbGuardar.Click
+    Private Sub tsbGuardar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbGuardar.Click
         Dim TotalLista As Integer
         Dim nombresistema As String
         Dim valorFactura As String
@@ -1108,7 +1108,7 @@ Public Class frmConciliacionAreas
                             fkiIdFactura11 = ids(11)
                             fkiIdFactura12 = ids(12)
                             fkiIdFactura13 = ids(13)
-                            
+
                         ElseIf ids.Length >= 15 Then
                             fkiIdFactura0 = ids(0)
                             fkiIdFactura1 = ids(1)
@@ -1268,7 +1268,7 @@ Public Class frmConciliacionAreas
                                 End If
                             End If
 
-                            
+
 
                         Next
 
@@ -1293,7 +1293,7 @@ Public Class frmConciliacionAreas
         End Try
     End Sub
 
-    Private Sub tsbreportes_Click(sender As System.Object, e As System.EventArgs) Handles tsbreportes.Click
+    Private Sub tsbreportes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbreportes.Click
         Try
 
             Dim dialogo As New SaveFileDialog
@@ -1438,7 +1438,7 @@ Public Class frmConciliacionAreas
         Dim tiempo As TimeSpan = fin - inicio
 
         Try
-           
+
             SQL = "Select * from usuarios where idUsuario = " & idUsuario
             Dim rwFilas As DataRow() = nConsulta(SQL)
             If rwFilas Is Nothing = False Then
@@ -1594,5 +1594,5 @@ Public Class frmConciliacionAreas
 
     End Sub
 
-  
+
 End Class
