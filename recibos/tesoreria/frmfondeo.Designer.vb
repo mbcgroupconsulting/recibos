@@ -30,7 +30,6 @@ Partial Class frmFondeo
         Me.cboempresa = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.dtpfechafin = New System.Windows.Forms.DateTimePicker()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.dtpfechainicio = New System.Windows.Forms.DateTimePicker()
         Me.chkfecha = New System.Windows.Forms.CheckBox()
@@ -44,6 +43,7 @@ Partial Class frmFondeo
         Me.pnlProgreso = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.pnlCatalogo.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.pnlProgreso.SuspendLayout()
@@ -85,7 +85,7 @@ Partial Class frmFondeo
         '
         'txtidempresa
         '
-        Me.txtidempresa.Location = New System.Drawing.Point(513, 63)
+        Me.txtidempresa.Location = New System.Drawing.Point(513, 50)
         Me.txtidempresa.Name = "txtidempresa"
         Me.txtidempresa.Size = New System.Drawing.Size(65, 27)
         Me.txtidempresa.TabIndex = 57
@@ -95,7 +95,7 @@ Partial Class frmFondeo
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(146, 63)
+        Me.Label15.Location = New System.Drawing.Point(146, 50)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(361, 19)
         Me.Label15.TabIndex = 56
@@ -122,26 +122,16 @@ Partial Class frmFondeo
         'dtpfechafin
         '
         Me.dtpfechafin.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpfechafin.Location = New System.Drawing.Point(902, 12)
+        Me.dtpfechafin.Location = New System.Drawing.Point(785, 45)
         Me.dtpfechafin.Name = "dtpfechafin"
         Me.dtpfechafin.Size = New System.Drawing.Size(96, 27)
         Me.dtpfechafin.TabIndex = 46
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(868, 18)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(28, 19)
-        Me.Label1.TabIndex = 45
-        Me.Label1.Text = "Fin"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(716, 18)
+        Me.Label3.Location = New System.Drawing.Point(600, 51)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(44, 19)
         Me.Label3.TabIndex = 44
@@ -150,7 +140,7 @@ Partial Class frmFondeo
         'dtpfechainicio
         '
         Me.dtpfechainicio.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpfechainicio.Location = New System.Drawing.Point(766, 12)
+        Me.dtpfechainicio.Location = New System.Drawing.Point(650, 46)
         Me.dtpfechainicio.Name = "dtpfechainicio"
         Me.dtpfechainicio.Size = New System.Drawing.Size(96, 27)
         Me.dtpfechainicio.TabIndex = 43
@@ -160,7 +150,7 @@ Partial Class frmFondeo
         Me.chkfecha.AutoSize = True
         Me.chkfecha.Checked = True
         Me.chkfecha.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkfecha.Location = New System.Drawing.Point(579, 17)
+        Me.chkfecha.Location = New System.Drawing.Point(650, 17)
         Me.chkfecha.Name = "chkfecha"
         Me.chkfecha.Size = New System.Drawing.Size(136, 23)
         Me.chkfecha.TabIndex = 39
@@ -172,7 +162,7 @@ Partial Class frmFondeo
         Me.chkAll.AutoSize = True
         Me.chkAll.BackColor = System.Drawing.Color.Transparent
         Me.chkAll.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkAll.Location = New System.Drawing.Point(12, 62)
+        Me.chkAll.Location = New System.Drawing.Point(3, 59)
         Me.chkAll.Name = "chkAll"
         Me.chkAll.Size = New System.Drawing.Size(107, 22)
         Me.chkAll.TabIndex = 4
@@ -189,10 +179,10 @@ Partial Class frmFondeo
         Me.lsvLista.FullRowSelect = True
         Me.lsvLista.GridLines = True
         Me.lsvLista.HideSelection = False
-        Me.lsvLista.Location = New System.Drawing.Point(1, 96)
+        Me.lsvLista.Location = New System.Drawing.Point(1, 83)
         Me.lsvLista.MultiSelect = False
         Me.lsvLista.Name = "lsvLista"
-        Me.lsvLista.Size = New System.Drawing.Size(1200, 398)
+        Me.lsvLista.Size = New System.Drawing.Size(1200, 411)
         Me.lsvLista.TabIndex = 2
         Me.lsvLista.UseCompatibleStateImageBehavior = False
         Me.lsvLista.View = System.Windows.Forms.View.Details
@@ -276,6 +266,16 @@ Partial Class frmFondeo
         Me.pgbProgreso.Size = New System.Drawing.Size(413, 30)
         Me.pgbProgreso.TabIndex = 0
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(751, 52)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(28, 19)
+        Me.Label1.TabIndex = 45
+        Me.Label1.Text = "Fin"
+        '
         'frmFondeo
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -306,7 +306,6 @@ Partial Class frmFondeo
     Friend WithEvents cboempresa As System.Windows.Forms.ComboBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents dtpfechafin As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents dtpfechainicio As System.Windows.Forms.DateTimePicker
     Friend WithEvents chkfecha As System.Windows.Forms.CheckBox
@@ -320,4 +319,5 @@ Partial Class frmFondeo
     Friend WithEvents pnlProgreso As System.Windows.Forms.Panel
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents pgbProgreso As System.Windows.Forms.ProgressBar
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class

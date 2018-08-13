@@ -24,6 +24,7 @@ Public Class frmFondeo
                 SQL = "SELECT * FROM FondeoPatrona where fkiIdEmpresa=" & cboempresa.SelectedValue
                 If chkfecha.Checked = True Then
                     SQL &= " AND fechapago between '" & inicio.ToShortDateString & "' and '" & fin.ToShortDateString() & "' "
+                    ' SQL &= " and DATEPART(month, fechapago) ='" & cboMesI.SelectedIndex + 1 & "'"
                 End If
                 SQL &= "AND iEstatus=1 "
                 SQL &= "ORDER BY fechapago "
@@ -56,7 +57,10 @@ Public Class frmFondeo
                 lsvLista.Columns(10).Width = 190
                 lsvLista.Columns.Add("Observaciones")
                 lsvLista.Columns(11).Width = 350
-                lsvLista.Columns(11).TextAlign = 1
+                lsvLista.Columns(11).TextAlign = 2
+                lsvLista.Columns.Add("Fondeado")
+                lsvLista.Columns(12).Width = 150
+                lsvLista.Columns(12).TextAlign = 2
 
 
 
@@ -80,10 +84,18 @@ Public Class frmFondeo
                         item.SubItems.Add("" & Format(CType(Fila.Item("fIMSS"), Decimal), "###,###,##0.#0"))
                         item.SubItems.Add("" & Format(CInt(Fila.Item("fSueldo")) + CInt(Fila.Item("fComisionSA")) + CInt(Fila.Item("fInfonavit")) + CInt(Fila.Item("fPension")) + CInt(Fila.Item("fIMSS")), "###,###,##0.#0"))
                         item.SubItems.Add("" & periodo(0).Item("Periodo"))
+                        item.SubItems.Add("" & tipoNomina(Fila.Item("iTipoNomina")))
 
+                        item.SubItems.Add("" & IIf(Fila.Item("iEstatusFondeo") = 1, "SI", "NO"))
                         item.Tag = Fila.Item("iIdFondeoPatrona")
                         'item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
 
+                        If (Fila.Item("iEstatusFondeo") = 1) Then
+                            item.BackColor = Color.YellowGreen
+                        ElseIf (Fila.Item("iEstatusFondeo") = 0) Then
+
+                            item.BackColor = Color.Yellow
+                        End If
 
                     Next
 
@@ -776,104 +788,39 @@ Public Class frmFondeo
 
     Private Sub lsvLista_ItemActivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles lsvLista.ItemActivate
         Try
-            If lsvLista.SelectedItems(0).SubItems(11).Tag <> "" Then
-                Dim Forma As New frmlista
-                Forma.gIdFacturas = lsvLista.SelectedItems(0).SubItems(11).Tag
-                If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
-                    lsvLista.SelectedItems(0).SubItems(8).Text = Forma.gIdFacturaSelec
-                    lsvLista.SelectedItems(0).SubItems(8).Tag = Forma.giIdFactura
-                    lsvLista.SelectedItems(0).SubItems(11).Text = "1"
-                    lsvLista.SelectedItems(0).BackColor = Color.Green
-                    lsvLista.SelectedItems(0).Checked = True
-                    'lsvLista.SelectedItems(0).SubItems(lsvLista.SelectedItems(0).SubItems.Count - 1).Text = "1"
+            SQL = "select * from usuarios where idUsuario = " & idUsuario
+            Dim rwFilas As DataRow() = nConsulta(SQL)
 
-                    MessageBox.Show("Factura asignada", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                    'If cboempresa.SelectedIndex > -1 Then
-                    '    cargarlista()
-                    'End If
-                    'lsvLista.SelectedItems(0).Tag = ""
-                End If
-            ElseIf lsvLista.SelectedItems(0).SubItems(11).Text = "3" And lsvLista.SelectedItems(0).SubItems(6).Text <> "0.00" Then
+            If rwFilas(0).Item("fkIdPerfil") = "4" Or rwFilas(0).Item("fkIdPerfil") = "1" Then
+                Dim confimacion As String = MsgBox("¿Esta seguro que desea cambiar el estatus del Fondeo?", vbOKCancel, "CONFIRMACIÓN")
+                If confimacion = vbOK Then
+                    Dim item As ListViewItem = lsvLista.SelectedItems(0)
 
-                'preguntamos si quiere asginar gastos o requiere poner la leyenda directamente
-                Dim resultado As Integer = MessageBox.Show("¿Desea buscar Factura?", "Pregunta", MessageBoxButtons.YesNo)
-                If resultado = DialogResult.Yes Then
-                    Dim Forma As New frmAnexarFacturaConciliacion
-                    Forma.giIdEmpresa = cboempresa.SelectedIndex
-                    Forma.gFechaInicial = dtpfechainicio.Value
-                    Forma.gFechaFinal = dtpfechafin.Value
-                    If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
-                        lsvLista.SelectedItems(0).SubItems(8).Text = Forma.gDatosFactura
-                        lsvLista.SelectedItems(0).SubItems(8).Tag = Forma.giIdFactura
-                        lsvLista.SelectedItems(0).SubItems(11).Text = "1"
-                        lsvLista.SelectedItems(0).BackColor = Color.Green
-                        lsvLista.SelectedItems(0).Checked = True
-                        'lsvLista.SelectedItems(0).SubItems(lsvLista.SelectedItems(0).SubItems.Count - 1).Text = "1"
+                    Dim idFondeoPatrona As String = item.SubItems(0).Text
+                    Dim fondeoPatrona As DataRow() = nConsulta("SELECT * FROM FondeoPatrona where iIdFondeoPatrona=" & idFondeoPatrona)
 
-                        MessageBox.Show("Factura asignada", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                        'If cboempresa.SelectedIndex > -1 Then
-                        '    cargarlista()
-                        'End If
-                        'lsvLista.SelectedItems(0).Tag = ""
+                    If (fondeoPatrona(0).Item("iEstatusFondeo") = 0) Then
+                        SQL = " UPDATE FondeoPatrona SET  iEstatusFondeo=1"
+                        SQL &= "WHERE iIdFondeoPatrona=" & idFondeoPatrona
+                    Else
+                        SQL = " UPDATE FondeoPatrona SET  iEstatusFondeo=0"
+                        SQL &= "WHERE iIdFondeoPatrona=" & idFondeoPatrona
                     End If
-                Else
-                    Dim Forma As New frmCargoManual
+                   
 
-                    If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
-                        lsvLista.SelectedItems(0).SubItems(8).Text = Forma.gTextoCargo
-                        'lsvLista.SelectedItems(0).SubItems(8).Tag = Forma.giIdFactura
-                        lsvLista.SelectedItems(0).SubItems(11).Text = "1"
-                        lsvLista.SelectedItems(0).BackColor = Color.Green
-                        lsvLista.SelectedItems(0).Checked = True
-
-
-                        MessageBox.Show("Abono asignado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-
+                    If nExecute(SQL) = False Then
+                        MessageBox.Show("Hubo un error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    Else
+                        'MessageBox.Show("Se actualizo correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        tsbNuevo_Click(sender, e)
                     End If
+
                 End If
 
-
-            ElseIf (lsvLista.SelectedItems(0).SubItems(11).Text = "3" And lsvLista.SelectedItems(0).SubItems(5).Text <> "0.00") Or (lsvLista.SelectedItems(0).SubItems(11).Text = "1" And lsvLista.SelectedItems(0).SubItems(5).Text <> "0.00") Then
-
-                'preguntamos si quiere asginar gastos o requiere poner la leyenda directamente
-                Dim resultado As Integer = MessageBox.Show("¿Desea buscar gastos?", "Pregunta", MessageBoxButtons.YesNo)
-                If resultado = DialogResult.Yes Then
-                    Dim Forma As New frmAnexarGastosConciliacion
-                    Forma.giIdEmpresa = cboempresa.SelectedIndex
-                    Forma.gFechaInicial = dtpfechainicio.Value
-                    Forma.gFechaFinal = dtpfechafin.Value
-                    If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
-                        lsvLista.SelectedItems(0).SubItems(8).Text = Forma.gDatosFactura
-                        lsvLista.SelectedItems(0).SubItems(8).Tag = Forma.giIdFactura
-                        lsvLista.SelectedItems(0).SubItems(11).Text = "1"
-                        lsvLista.SelectedItems(0).BackColor = Color.Green
-                        lsvLista.SelectedItems(0).Checked = True
-                        'lsvLista.SelectedItems(0).SubItems(lsvLista.SelectedItems(0).SubItems.Count - 1).Text = "1"
-
-                        MessageBox.Show("Factura asignada", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                        'If cboempresa.SelectedIndex > -1 Then
-                        '    cargarlista()
-                        'End If
-                        'lsvLista.SelectedItems(0).Tag = ""
-                    End If
-                Else
-                    Dim Forma As New frmCargoManual
-
-                    If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
-                        lsvLista.SelectedItems(0).SubItems(8).Text = Forma.gTextoCargo
-                        'lsvLista.SelectedItems(0).SubItems(8).Tag = Forma.giIdFactura
-                        lsvLista.SelectedItems(0).SubItems(11).Text = "1"
-                        lsvLista.SelectedItems(0).BackColor = Color.Green
-                        lsvLista.SelectedItems(0).Checked = True
-
-
-                        MessageBox.Show("Cargo asignado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-
-                    End If
-                End If
-
-
+            Else
+                MessageBox.Show("Necesita permisos para poder realizar cambios")
             End If
+
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -883,6 +830,19 @@ Public Class frmFondeo
 
     End Sub
 
+
+    Public Function tipoNomina(ByVal iTipoNomina As Integer) As String
+
+        Dim tn As String
+
+        Select Case iTipoNomina
+            Case 0 : tn = "Pendiente"
+            Case 1 : tn = "Pagado"
+            Case 2 : tn = "Financiado"
+        End Select
+
+        Return tn
+    End Function
   
 
 End Class
