@@ -822,9 +822,6 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="reportes\BanamexNomina.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="reportes\BanamexNomina1.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
