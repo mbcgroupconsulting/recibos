@@ -263,7 +263,9 @@
     <Compile Include="conciliacion\frmConciliacionAreas.Designer.vb">
       <DependentUpon>frmConciliacionAreas.vb</DependentUpon>
     </Compile>
-    <Compile Include="conciliacion\frmConciliacionAreas.vb" />
+    <Compile Include="conciliacion\frmConciliacionAreas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="conciliacion\frmHojasNomina.designer.vb">
       <DependentUpon>frmHojasNomina.vb</DependentUpon>
     </Compile>
