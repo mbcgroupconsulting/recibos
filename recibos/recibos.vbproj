@@ -263,9 +263,7 @@
     <Compile Include="conciliacion\frmConciliacionAreas.Designer.vb">
       <DependentUpon>frmConciliacionAreas.vb</DependentUpon>
     </Compile>
-    <Compile Include="conciliacion\frmConciliacionAreas.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="conciliacion\frmConciliacionAreas.vb" />
     <Compile Include="conciliacion\frmHojasNomina.designer.vb">
       <DependentUpon>frmHojasNomina.vb</DependentUpon>
     </Compile>
@@ -732,12 +730,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="NominaComprobantes\frmComprobanteBanamex.Designer.vb">
-      <DependentUpon>frmComprobanteBanamex.vb</DependentUpon>
-    </Compile>
-    <Compile Include="NominaComprobantes\frmComprobanteBanamex.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="NominaComprobantes\frmComprobanteBancomer.Designer.vb">
       <DependentUpon>frmComprobanteBancomer.vb</DependentUpon>
     </Compile>
@@ -821,12 +813,6 @@
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="reportes\BanamexNomina.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BanamexNomina.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="reportes\comprobantebancomer.vb">
       <AutoGen>True</AutoGen>
@@ -931,12 +917,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Settings.vb" />
-    <Compile Include="tesoreria\frmfondeo.Designer.vb">
-      <DependentUpon>frmfondeo.vb</DependentUpon>
-    </Compile>
-    <Compile Include="tesoreria\frmfondeo.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="tesoreria\frmcontrol.Designer.vb">
       <DependentUpon>frmcontrol.vb</DependentUpon>
     </Compile>
@@ -959,12 +939,6 @@
       <DependentUpon>frmlista.vb</DependentUpon>
     </Compile>
     <Compile Include="conciliacion\frmlista.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="tmm\frmTMMSimpleProcesos.Designer.vb">
-      <DependentUpon>frmTMMSimpleProcesos.vb</DependentUpon>
-    </Compile>
-    <Compile Include="tmm\frmTMMSimpleProcesos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="tmm\frmAguinaldoGuo.Designer.vb">
@@ -1298,9 +1272,6 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="NominaComprobantes\frmComprobanteBanamex.resx">
-      <DependentUpon>frmComprobanteBanamex.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="NominaComprobantes\frmComprobanteBancomer.resx">
       <DependentUpon>frmComprobanteBancomer.vb</DependentUpon>
     </EmbeddedResource>
@@ -1343,10 +1314,6 @@
     <EmbeddedResource Include="reportes\asimiladostmm.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>asimiladostmm.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="reportes\BanamexNomina.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>BanamexNomina.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\comprobantebancomer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1411,9 +1378,6 @@
     <EmbeddedResource Include="reportes\ucVisor.resx">
       <DependentUpon>ucVisor.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="tesoreria\frmfondeo.resx">
-      <DependentUpon>frmfondeo.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="tesoreria\frmcontrol.resx">
       <DependentUpon>frmcontrol.vb</DependentUpon>
     </EmbeddedResource>
@@ -1425,9 +1389,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="conciliacion\frmlista.resx">
       <DependentUpon>frmlista.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="tmm\frmTMMSimpleProcesos.resx">
-      <DependentUpon>frmTMMSimpleProcesos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tmm\frmAguinaldoGuo.resx">
       <DependentUpon>frmAguinaldoGuo.vb</DependentUpon>
