@@ -961,6 +961,12 @@
     <Compile Include="conciliacion\frmlista.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="tmm\frmTMMSimpleProcesos.Designer.vb">
+      <DependentUpon>frmTMMSimpleProcesos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="tmm\frmTMMSimpleProcesos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="tmm\frmAguinaldoGuo.Designer.vb">
       <DependentUpon>frmAguinaldoGuo.vb</DependentUpon>
     </Compile>
@@ -1419,6 +1425,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="conciliacion\frmlista.resx">
       <DependentUpon>frmlista.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tmm\frmTMMSimpleProcesos.resx">
+      <DependentUpon>frmTMMSimpleProcesos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tmm\frmAguinaldoGuo.resx">
       <DependentUpon>frmAguinaldoGuo.vb</DependentUpon>

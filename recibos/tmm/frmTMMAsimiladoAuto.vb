@@ -108,8 +108,8 @@ Public Class frmTMMAsimiladoAuto
                 dsReporte.Tables("Tabla").Columns.Add("fechaelaboracion")
                 dsReporte.Tables("Tabla").Columns.Add("vacaciones")
                 dsReporte.Tables("Tabla").Columns.Add("alimentovac")
-                dsReporte.Tables("Tabla").Columns.Add("bonoxbuque")
-                dsReporte.Tables("Tabla").Columns.Add("bonoespecial")
+                dsReporte.Tables("Tabla").Columns.Add("bonoxbuque") '<--
+                dsReporte.Tables("Tabla").Columns.Add("bonoespecial") '<--
                 dsReporte.Tables("Tabla").Columns.Add("tpercepciones")
                 dsReporte.Tables("Tabla").Columns.Add("tdeducciones")
                 dsReporte.Tables("Tabla").Columns.Add("neto")

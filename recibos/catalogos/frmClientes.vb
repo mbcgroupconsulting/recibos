@@ -448,7 +448,7 @@ Public Class frmClientes
 
 
                 Dim Fila As DataRow = rwFilas(0)
-                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "10") Then
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "10" Or Fila.Item("Nombre") = "Ananthy") Then
                     If blnNuevo = False And gIdProveedor IsNot Nothing Then
                         Forma.gIdCliente = gIdProveedor
                         Forma.ShowDialog()
