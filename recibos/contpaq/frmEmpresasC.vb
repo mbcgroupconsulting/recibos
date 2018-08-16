@@ -63,7 +63,7 @@
             End If
             DesconectarContpaq()
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
 
     End Sub
@@ -83,6 +83,7 @@
             SQL &= "empresa.registropatronal,clientes.nombre as cliente "
             SQL &= " from (empresaC left join empresa on empresaC.fkiIdEmpresa=empresa.iIdEmpresa)"
             SQL &= " left join clientes on empresac.fkiIdCliente = clientes.iIdCliente"
+            SQL &= " where EmpresaC.iEstatus=1"
             SQL &= " order by empresac.nombre"
 
             Dim item As ListViewItem
@@ -102,7 +103,7 @@
                 For Each Fila In rwEmpresaC
 
                     If iBuscar = 1 Then
-                        If Fila.Item("ruta") <> "" And Fila.Item("ruta") <> "ctCSyAP" And Fila.Item("ruta") <> "ASESORES" Then
+                        If Fila.Item("ruta") <> "" And Fila.Item("ruta") <> "ctCSyAP" And Fila.Item("ruta") <> "ASESORES" And Fila.Item("ruta") <> "BIDAIA JUAN RAMON" Then
                             'importamos los tipos de periodo
                             ConectarContpaq(Fila.Item("ruta"))
                             SQL = "select * from nom10023"

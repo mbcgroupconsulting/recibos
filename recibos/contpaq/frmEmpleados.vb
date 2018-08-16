@@ -222,8 +222,11 @@ Public Class frmEmpleados
     Private Sub cmdcancelar_Click(sender As Object, e As EventArgs) Handles cmdcancelar.Click
         If blnNuevo Then
             'Cargar los datos anteriores
+
         Else
             Limpiar(Me)
+            blnNuevo = True
+
         End If
     End Sub
 
@@ -756,7 +759,7 @@ Public Class frmEmpleados
 
     Private Sub cmdfiniquito_Click(sender As System.Object, e As System.EventArgs) Handles cmdfiniquito.Click
         If blnNuevo = False Then
-            Dim Forma As New frmPrestamoEmpleado
+            Dim Forma As New frmFiniquito
             Forma.gIdEmpresa = gIdEmpresa
             Forma.gIdEmpleado = gIdEmpleado
             Forma.gIdPeriodo = gIdPeriodo
