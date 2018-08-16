@@ -25,11 +25,11 @@ Partial Class frmFondeo
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmFondeo))
         Me.cmdCerrar = New System.Windows.Forms.Button()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
-        Me.txtidempresa = New System.Windows.Forms.TextBox()
-        Me.Label15 = New System.Windows.Forms.Label()
+        Me.chkAllEmpresas = New System.Windows.Forms.CheckBox()
         Me.cboempresa = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.dtpfechafin = New System.Windows.Forms.DateTimePicker()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.dtpfechainicio = New System.Windows.Forms.DateTimePicker()
         Me.chkfecha = New System.Windows.Forms.CheckBox()
@@ -37,13 +37,12 @@ Partial Class frmFondeo
         Me.lsvLista = New System.Windows.Forms.ListView()
         Me.lblRuta = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.tsbNuevo = New System.Windows.Forms.ToolStripButton()
+        Me.tsbBuscar = New System.Windows.Forms.ToolStripButton()
         Me.tsbProcesar = New System.Windows.Forms.ToolStripButton()
         Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         Me.pnlProgreso = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.pnlCatalogo.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.pnlProgreso.SuspendLayout()
@@ -67,8 +66,7 @@ Partial Class frmFondeo
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.pnlCatalogo.Controls.Add(Me.txtidempresa)
-        Me.pnlCatalogo.Controls.Add(Me.Label15)
+        Me.pnlCatalogo.Controls.Add(Me.chkAllEmpresas)
         Me.pnlCatalogo.Controls.Add(Me.cboempresa)
         Me.pnlCatalogo.Controls.Add(Me.Label9)
         Me.pnlCatalogo.Controls.Add(Me.dtpfechafin)
@@ -83,24 +81,15 @@ Partial Class frmFondeo
         Me.pnlCatalogo.Size = New System.Drawing.Size(1208, 501)
         Me.pnlCatalogo.TabIndex = 42
         '
-        'txtidempresa
+        'chkAllEmpresas
         '
-        Me.txtidempresa.Location = New System.Drawing.Point(513, 50)
-        Me.txtidempresa.Name = "txtidempresa"
-        Me.txtidempresa.Size = New System.Drawing.Size(65, 27)
-        Me.txtidempresa.TabIndex = 57
-        Me.txtidempresa.Visible = False
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(146, 50)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(361, 19)
-        Me.Label15.TabIndex = 56
-        Me.Label15.Text = "Identificador de la empresa en el catalogo de clientes:"
-        Me.Label15.Visible = False
+        Me.chkAllEmpresas.AutoSize = True
+        Me.chkAllEmpresas.Location = New System.Drawing.Point(222, 50)
+        Me.chkAllEmpresas.Name = "chkAllEmpresas"
+        Me.chkAllEmpresas.Size = New System.Drawing.Size(156, 23)
+        Me.chkAllEmpresas.TabIndex = 50
+        Me.chkAllEmpresas.Text = "Todas las empresas"
+        Me.chkAllEmpresas.UseVisualStyleBackColor = True
         '
         'cboempresa
         '
@@ -122,16 +111,26 @@ Partial Class frmFondeo
         'dtpfechafin
         '
         Me.dtpfechafin.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpfechafin.Location = New System.Drawing.Point(785, 45)
+        Me.dtpfechafin.Location = New System.Drawing.Point(770, 48)
         Me.dtpfechafin.Name = "dtpfechafin"
         Me.dtpfechafin.Size = New System.Drawing.Size(96, 27)
         Me.dtpfechafin.TabIndex = 46
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(736, 55)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(28, 19)
+        Me.Label1.TabIndex = 45
+        Me.Label1.Text = "Fin"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(600, 51)
+        Me.Label3.Location = New System.Drawing.Point(585, 54)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(44, 19)
         Me.Label3.TabIndex = 44
@@ -140,7 +139,7 @@ Partial Class frmFondeo
         'dtpfechainicio
         '
         Me.dtpfechainicio.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpfechainicio.Location = New System.Drawing.Point(650, 46)
+        Me.dtpfechainicio.Location = New System.Drawing.Point(635, 49)
         Me.dtpfechainicio.Name = "dtpfechainicio"
         Me.dtpfechainicio.Size = New System.Drawing.Size(96, 27)
         Me.dtpfechainicio.TabIndex = 43
@@ -150,7 +149,7 @@ Partial Class frmFondeo
         Me.chkfecha.AutoSize = True
         Me.chkfecha.Checked = True
         Me.chkfecha.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkfecha.Location = New System.Drawing.Point(650, 17)
+        Me.chkfecha.Location = New System.Drawing.Point(635, 20)
         Me.chkfecha.Name = "chkfecha"
         Me.chkfecha.Size = New System.Drawing.Size(136, 23)
         Me.chkfecha.TabIndex = 39
@@ -200,22 +199,22 @@ Partial Class frmFondeo
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbProcesar, Me.tsbCancelar})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbBuscar, Me.tsbProcesar, Me.tsbCancelar})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1208, 54)
         Me.ToolStrip1.TabIndex = 40
         Me.ToolStrip1.Text = "ToolStrip1"
         '
-        'tsbNuevo
+        'tsbBuscar
         '
-        Me.tsbNuevo.Image = Global.recibos.My.Resources.Resources._1359876031_folder_search
-        Me.tsbNuevo.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbNuevo.Name = "tsbNuevo"
-        Me.tsbNuevo.Size = New System.Drawing.Size(78, 51)
-        Me.tsbNuevo.Text = "Buscar datos"
-        Me.tsbNuevo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.tsbNuevo.ToolTipText = "Cargar datos"
+        Me.tsbBuscar.Image = Global.recibos.My.Resources.Resources._1359876031_folder_search
+        Me.tsbBuscar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbBuscar.Name = "tsbBuscar"
+        Me.tsbBuscar.Size = New System.Drawing.Size(78, 51)
+        Me.tsbBuscar.Text = "Buscar datos"
+        Me.tsbBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.tsbBuscar.ToolTipText = "Cargar datos"
         '
         'tsbProcesar
         '
@@ -266,16 +265,6 @@ Partial Class frmFondeo
         Me.pgbProgreso.Size = New System.Drawing.Size(413, 30)
         Me.pgbProgreso.TabIndex = 0
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(751, 52)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(28, 19)
-        Me.Label1.TabIndex = 45
-        Me.Label1.Text = "Fin"
-        '
         'frmFondeo
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -301,8 +290,6 @@ Partial Class frmFondeo
     End Sub
     Friend WithEvents cmdCerrar As System.Windows.Forms.Button
     Friend WithEvents pnlCatalogo As System.Windows.Forms.Panel
-    Friend WithEvents txtidempresa As System.Windows.Forms.TextBox
-    Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents cboempresa As System.Windows.Forms.ComboBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents dtpfechafin As System.Windows.Forms.DateTimePicker
@@ -313,11 +300,12 @@ Partial Class frmFondeo
     Friend WithEvents lsvLista As System.Windows.Forms.ListView
     Friend WithEvents lblRuta As System.Windows.Forms.Label
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents tsbNuevo As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tsbBuscar As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbProcesar As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbCancelar As System.Windows.Forms.ToolStripButton
     Friend WithEvents pnlProgreso As System.Windows.Forms.Panel
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents pgbProgreso As System.Windows.Forms.ProgressBar
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents chkAllEmpresas As System.Windows.Forms.CheckBox
 End Class

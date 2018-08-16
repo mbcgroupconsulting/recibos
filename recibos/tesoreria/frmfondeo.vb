@@ -7,8 +7,8 @@ Public Class frmFondeo
         Next
         chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
     End Sub
-
-    Private Sub tsbNuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbNuevo.Click
+  
+    Private Sub tsbBuscar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBuscar.Click
         Try
             Dim Alter As Boolean = False
             Dim inicio As DateTime = dtpfechainicio.Value
@@ -17,103 +17,111 @@ Public Class frmFondeo
 
             lsvLista.Items.Clear()
             lsvLista.Clear()
-            If (tiempo.Days >= 0) Then
 
-               
+            If chkAllEmpresas.Checked = True Then
+                SQL = "SELECT * FROM FondeoPatrona"
+                SQL &= " WHERE iEstatus=1 "
+                SQL &= " ORDER BY fkiIdEmpresa, fechapago"
+            Else
+                If (tiempo.Days >= 0) Then
 
-                SQL = "SELECT * FROM FondeoPatrona where fkiIdEmpresa=" & cboempresa.SelectedValue
-                If chkfecha.Checked = True Then
-                    SQL &= " AND fechapago between '" & inicio.ToShortDateString & "' and '" & fin.ToShortDateString() & "' "
-                    ' SQL &= " and DATEPART(month, fechapago) ='" & cboMesI.SelectedIndex + 1 & "'"
-                End If
-                SQL &= "AND iEstatus=1 "
-                SQL &= "ORDER BY fechapago "
-
-                Dim item As ListViewItem
-                lsvLista.Columns.Add("iIdFondePatrona")
-                lsvLista.Columns(0).Width = 50
-                lsvLista.Columns.Add("Fecha")
-                lsvLista.Columns(1).Width = 100
-                lsvLista.Columns.Add("Cliente")
-                lsvLista.Columns(2).Width = 300
-                lsvLista.Columns.Add("Intermediario")
-                lsvLista.Columns(3).Width = 300
-                lsvLista.Columns.Add("Sueldo")
-                lsvLista.Columns(4).Width = 100
-                lsvLista.Columns.Add("Descuento")
-                lsvLista.Columns(5).Width = 110
-                lsvLista.Columns(5).TextAlign = 1
-                lsvLista.Columns.Add("INFONAVIT")
-                lsvLista.Columns(6).Width = 110
-                lsvLista.Columns(6).TextAlign = 1
-                lsvLista.Columns.Add("Pensión")
-                lsvLista.Columns(7).Width = 110
-                lsvLista.Columns(7).TextAlign = 1
-                lsvLista.Columns.Add("IMSS")
-                lsvLista.Columns(8).Width = 110
-                lsvLista.Columns.Add("Total Fondeo")
-                lsvLista.Columns(9).Width = 110
-                lsvLista.Columns.Add("Periodo")
-                lsvLista.Columns(10).Width = 190
-                lsvLista.Columns.Add("Observaciones")
-                lsvLista.Columns(11).Width = 350
-                lsvLista.Columns(11).TextAlign = 2
-                lsvLista.Columns.Add("Fondeado")
-                lsvLista.Columns(12).Width = 150
-                lsvLista.Columns(12).TextAlign = 2
-
-
-
-
-                Dim rwFondeOperadora As DataRow() = nConsulta(SQL)
-                If rwFondeOperadora Is Nothing = False Then
-                    For Each Fila In rwFondeOperadora
-
-                        Dim cliente As DataRow() = nConsulta("select *  from clientes where iIdCliente=" & Fila.Item("fkiIdCliente"))
-                        Dim empresa As DataRow() = nConsulta("select *  from empresa where iIdEmpresa=" & Fila.Item("fkiIdEmpresa"))
-                        Dim periodo As DataRow() = nConsulta("select (CONVERT(nvarchar(12),dFechaInicio,103) + ' - ' + CONVERT(nvarchar(12),dFechaFin,103)) as Periodo  from periodos where iIdPeriodo=" & Fila.Item("fkiIdPeriodo"))
-
-                        item = lsvLista.Items.Add("" & Fila.Item("iIdFondeoPatrona"))
-                        item.SubItems.Add("" & Fila.Item("fechapago"))
-                        item.SubItems.Add("" & cliente(0).Item("nombre"))
-                        item.SubItems.Add("" & empresa(0).Item("nombre"))
-                        item.SubItems.Add("" & Format(CType(Fila.Item("fSueldo"), Decimal), "###,###,##0.#0"))
-                        item.SubItems.Add("" & Format(CType(Fila.Item("fComisionSA"), Decimal), "###,###,##0.#0"))
-                        item.SubItems.Add("" & Format(CType(Fila.Item("fInfonavit"), Decimal), "###,###,##0.#0"))
-                        item.SubItems.Add("" & Format(CType(Fila.Item("fPension"), Decimal), "###,###,##0.#0"))
-                        item.SubItems.Add("" & Format(CType(Fila.Item("fIMSS"), Decimal), "###,###,##0.#0"))
-                        item.SubItems.Add("" & Format(CInt(Fila.Item("fSueldo")) + CInt(Fila.Item("fComisionSA")) + CInt(Fila.Item("fInfonavit")) + CInt(Fila.Item("fPension")) + CInt(Fila.Item("fIMSS")), "###,###,##0.#0"))
-                        item.SubItems.Add("" & periodo(0).Item("Periodo"))
-                        item.SubItems.Add("" & tipoNomina(Fila.Item("iTipoNomina")))
-
-                        item.SubItems.Add("" & IIf(Fila.Item("iEstatusFondeo") = 1, "SI", "NO"))
-                        item.Tag = Fila.Item("iIdFondeoPatrona")
-                        'item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
-
-                        If (Fila.Item("iEstatusFondeo") = 1) Then
-                            item.BackColor = Color.YellowGreen
-                        ElseIf (Fila.Item("iEstatusFondeo") = 0) Then
-
-                            item.BackColor = Color.Yellow
-                        End If
-
-                    Next
-
-                    MessageBox.Show(rwFondeOperadora.Count & " Registros encontrados", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    'tsbGuardar.Enabled = True
-                    'tsbNuevo.Enabled = False
-                    tsbCancelar.Enabled = True
-
-                    lblRuta.Text = FormatNumber(lsvLista.Items.Count, 0) & " registros en el archivo."
-                    Me.Enabled = True
-                    Me.cmdCerrar.Enabled = True
-                    Me.Cursor = Cursors.Default
+                    SQL = "SELECT * FROM FondeoPatrona where fkiIdEmpresa=" & cboempresa.SelectedValue
+                    If chkfecha.Checked = True Then
+                        SQL &= " AND fechapago between '" & inicio.ToShortDateString & "' and '" & fin.ToShortDateString() & "' "
+                        ' SQL &= " and DATEPART(month, fechapago) ='" & cboMesI.SelectedIndex + 1 & "'"
+                    End If
+                    SQL &= "AND iEstatus=1 "
+                    SQL &= "ORDER BY fechapago "
 
                 Else
-                    MessageBox.Show("No se encontraron datos en ese rango de fecha", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("La fecha final debe ser mayor a la fecha inicial", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
+            End If
+           
+            Dim item As ListViewItem
+            lsvLista.Columns.Add("iIdFondePatrona")
+            lsvLista.Columns(0).Width = 50
+            lsvLista.Columns.Add("Fecha")
+            lsvLista.Columns(1).Width = 100
+            lsvLista.Columns.Add("Cliente")
+            lsvLista.Columns(2).Width = 300
+            lsvLista.Columns.Add("Intermediario")
+            lsvLista.Columns(3).Width = 300
+            lsvLista.Columns.Add("Sueldo")
+            lsvLista.Columns(4).Width = 100
+            lsvLista.Columns.Add("Descuento")
+            lsvLista.Columns(5).Width = 110
+            lsvLista.Columns(5).TextAlign = 1
+            lsvLista.Columns.Add("INFONAVIT")
+            lsvLista.Columns(6).Width = 110
+            lsvLista.Columns(6).TextAlign = 1
+            lsvLista.Columns.Add("Pensión")
+            lsvLista.Columns(7).Width = 110
+            lsvLista.Columns(7).TextAlign = 1
+            lsvLista.Columns.Add("IMSS")
+            lsvLista.Columns(8).Width = 110
+            lsvLista.Columns.Add("Total Fondeo")
+            lsvLista.Columns(9).Width = 110
+            lsvLista.Columns.Add("Periodo")
+            lsvLista.Columns(10).Width = 190
+            lsvLista.Columns.Add("Observaciones")
+            lsvLista.Columns(11).Width = 350
+            lsvLista.Columns(11).TextAlign = 2
+            lsvLista.Columns.Add("Fondeado")
+            lsvLista.Columns(12).Width = 150
+            lsvLista.Columns(12).TextAlign = 2
+
+
+            Dim rwFondeOperadora As DataRow() = nConsulta(SQL)
+            If rwFondeOperadora Is Nothing = False Then
+                For Each Fila In rwFondeOperadora
+
+                    Dim cliente As DataRow() = nConsulta("select *  from clientes where iIdCliente=" & Fila.Item("fkiIdCliente"))
+                    Dim empresa As DataRow() = nConsulta("select *  from empresa where iIdEmpresa=" & Fila.Item("fkiIdEmpresa"))
+                    Dim periodo As DataRow() = nConsulta("select (CONVERT(nvarchar(12),dFechaInicio,103) + ' - ' + CONVERT(nvarchar(12),dFechaFin,103)) as Periodo  from periodos where iIdPeriodo=" & Fila.Item("fkiIdPeriodo"))
+
+                    item = lsvLista.Items.Add("" & Fila.Item("iIdFondeoPatrona"))
+                    item.SubItems.Add("" & Fila.Item("fechapago"))
+                    item.SubItems.Add("" & cliente(0).Item("nombre"))
+                    item.SubItems.Add("" & empresa(0).Item("nombre"))
+                    item.SubItems.Add("" & Format(CType(Fila.Item("fSueldo"), Decimal), "###,###,##0.#0"))
+                    item.SubItems.Add("" & Format(CType(Fila.Item("fComisionSA"), Decimal), "###,###,##0.#0"))
+                    item.SubItems.Add("" & Format(CType(Fila.Item("fInfonavit"), Decimal), "###,###,##0.#0"))
+                    item.SubItems.Add("" & Format(CType(Fila.Item("fPension"), Decimal), "###,###,##0.#0"))
+                    item.SubItems.Add("" & Format(CType(Fila.Item("fIMSS"), Decimal), "###,###,##0.#0"))
+                    item.SubItems.Add("" & Format(CInt(Fila.Item("fSueldo")) + CInt(Fila.Item("fComisionSA")) + CInt(Fila.Item("fInfonavit")) + CInt(Fila.Item("fPension")) + CInt(Fila.Item("fIMSS")), "###,###,##0.#0"))
+                    item.SubItems.Add("" & periodo(0).Item("Periodo"))
+                    item.SubItems.Add("" & tipoNomina(Fila.Item("iTipoNomina")))
+
+                    item.SubItems.Add("" & IIf(Fila.Item("iEstatusFondeo") = 1, "SI", "NO"))
+                    item.Tag = Fila.Item("iIdFondeoPatrona")
+                    'item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
+
+                    If (Fila.Item("iEstatusFondeo") = 1) Then
+                        item.BackColor = Color.YellowGreen
+                    ElseIf (Fila.Item("iEstatusFondeo") = 0) Then
+
+                        item.BackColor = Color.Yellow
+                    End If
+
+                Next
+
+                MessageBox.Show(rwFondeOperadora.Count & " Registros encontrados", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                'tsbGuardar.Enabled = True
+                'tsbNuevo.Enabled = False
+                tsbCancelar.Enabled = True
+
+                lblRuta.Text = FormatNumber(lsvLista.Items.Count, 0) & " registros en el archivo."
+                Me.Enabled = True
+                Me.cmdCerrar.Enabled = True
+                Me.Cursor = Cursors.Default
+
             Else
-                MessageBox.Show("La fecha final debe ser mayor a la fecha inicial", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                If chkAllEmpresas.Checked = False Then
+                    MessageBox.Show("No se encontraron datos en ese rango de fecha", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    MessageBox.Show("No se encontraron datos, intente más tarde", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
             End If
 
         Catch ex As Exception
@@ -125,7 +133,7 @@ Public Class frmFondeo
         MostrarEmpresa()
     End Sub
 
-  
+
     Private Sub MostrarEmpresa()
         'Verificar si se tienen permisos
         Try
@@ -148,7 +156,7 @@ Public Class frmFondeo
         tsbCancelar.Enabled = False
 
         'tsbDeleted.Enabled = False
-        tsbNuevo.Enabled = True
+        tsbBuscar.Enabled = True
     End Sub
 
     'Private Sub tsbConciliar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -812,7 +820,7 @@ Public Class frmFondeo
                         MessageBox.Show("Hubo un error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     Else
                         'MessageBox.Show("Se actualizo correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        tsbNuevo_Click(sender, e)
+                        tsbBuscar_Click(sender, e)
                     End If
 
                 End If
@@ -845,4 +853,12 @@ Public Class frmFondeo
     End Function
   
 
+   
+    Private Sub chkAllEmpresas_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkAllEmpresas.CheckedChanged
+        If chkAllEmpresas.Checked = True Then
+            chkfecha.Checked = False
+        Else
+            chkfecha.Checked = True
+        End If
+    End Sub
 End Class
