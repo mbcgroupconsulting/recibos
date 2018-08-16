@@ -153,7 +153,74 @@
     End Sub
 
     Private Sub cmdbuscar_Click(sender As Object, e As EventArgs) Handles cmdbuscar.Click
+        Dim Alter As Boolean = False
+        Dim SQL As String, Mensaje As String = "", nombresistema As String = ""
+        Dim usuario As String = "", idperfil As String = "", nombrearchivocompleto As String
+        'lsvArchivo.Clear()
 
+        Try
+            Dim datos As ListView.SelectedListViewItemCollection = lsvLista.SelectedItems
+            If datos.Count = 1 Then
+
+                ' lsvArchivo.Clear()
+
+            Else
+                MessageBox.Show("No hay una empresa seleccionada para asociar los archivos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+            SQL = "Select * from usuarios where idUsuario = " & idUsuario
+            Dim rwUsuario As DataRow() = nConsulta(SQL)
+
+            If rwUsuario Is Nothing = False Then
+                Dim Fila As DataRow = rwUsuario(0)
+                nombresistema = Fila.Item("nombre")
+                Usuario = Fila.Item("IdUsuario")
+                idperfil = Fila.Item("fkIdPerfil")
+
+            End If
+
+            If cboanio.SelectedIndex = -1 Or cbomes.SelectedIndex = -1 Then
+                MessageBox.Show("Seleccione año y mes.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            Else
+                SQL = " SELECT * FROM InfoKiosko WHERE"
+                SQL &= " InfoKiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & cboclientes.SelectedValue & " AND"
+                SQL &= " InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & "  and infokiosko.anio=" & cboanio.Text
+                SQL &= " and fkiIdPerfil =5 "
+
+                Dim rwFilas As DataRow() = nConsulta(SQL)
+                Dim item As ListViewItem
+                lsvArchivo.Items.Clear()
+
+                If rwFilas Is Nothing = False Then
+                    For Each Fila In rwFilas
+                        item = lsvArchivo.Items.Add(Fila.Item("nombrearchivo"))
+
+                        ' item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
+
+                        item.SubItems.Add("Nominas")
+
+                        If Fila.Item("fkiIdDocumentos") = "99" Then
+                            item.SubItems.Add("No asignado")
+                        Else
+                            Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where cArea=1 and iIdDocumentos=" & Fila.Item("fkiIdDocumentos"))
+                            item.SubItems.Add(doc(0).Item("Documentos"))
+                        End If
+
+                        item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
+                        Alter = Not Alter
+
+                    Next
+
+                End If
+            End If
+           
+
+          
+
+        Catch
+
+        End Try
     End Sub
 
     Private Sub cmdsalir_Click(sender As Object, e As EventArgs) Handles cmdsalir.Click
@@ -201,7 +268,7 @@
         cmdnuevo.Enabled = Not pnlProveedores.Enabled
         cmdguardar.Enabled = pnlProveedores.Enabled
         cmdcancelar.Enabled = pnlProveedores.Enabled
-        cmdbuscar.Enabled = Not pnlProveedores.Enabled
+        cmdbuscar.Enabled = pnlProveedores.Enabled
     End Sub
 
     Private Sub cboclientes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboclientes.SelectedIndexChanged
@@ -313,4 +380,60 @@
             MessageBox.Show("No hay una empresa seleccionada para borrar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
     End Sub
+
+    'Private Sub cmdcargados_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdcargados.Click
+    '    Dim Alter As Boolean = False
+    '    'lsvArchivo.Clear()
+
+    '    Try
+    '        Dim datos As ListView.SelectedListViewItemCollection = lsvLista.SelectedItems
+    '        If datos.Count = 1 Then
+
+    '            ' lsvArchivo.Clear()
+
+    '        Else
+    '            MessageBox.Show("No hay una empresa seleccionada para asociar los archivos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+    '        End If
+
+    '        'SQL = "SELECT * FROM  DOCUMENTOS AS D"
+    '        'SQL &= " WHERE  cArea=" & 2 & "AND iEstatus=1 and d.iIdDocumentos IN (SELECT fkiIdDocumentos FROM InfoKiosko inner join documentos"
+    '        'SQL &= " ON infokiosko.fkiIdDocumentos = documentos.iIdDocumentos "
+    '        'SQL &= " WHERE InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & " and infokiosko.anio=" & cboanio.Text & " and documentos.cArea=" & 2
+    '        'SQL &= " AND infokiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & cboclientes.SelectedValue & ")"
+    '        'SQL &= " or cPeriOdicidad='BIMESTRAL' AND iTMM =" & tmm
+
+    '        SQL = " SELECT * FROM InfoKiosko WHERE"
+    '        SQL &= " InfoKiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & cboclientes.SelectedValue & " AND"
+    '        SQL &= " InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & "  and infokiosko.anio=" & cboanio.Text
+    '        'SQL &= " and fkiIdDocumentos IN"
+    '        ' SQL &= " (SELECT iIdDocumentos FROM Documentos where iTMM IN (1," & tmm & ") and iEstatus IN (1,2) and cArea=1)"
+
+    '        Dim rwFilas As DataRow() = nConsulta(SQL)
+    '        Dim item As ListViewItem
+    '        lsvArchivo.Items.Clear()
+
+    '        If rwFilas Is Nothing = False Then
+    '            For Each Fila In rwFilas
+    '                item = lsvArchivo.Items.Add(Fila.Item("nombrearchivo"))
+
+    '                ' item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
+
+    '                item.SubItems.Add("CONTABILIDAD")
+
+
+    '                Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where cArea=1 and iIdDocumentos=" & Fila.Item("fkiIdDocumentos"))
+    '                item.SubItems.Add(doc(0).Item("Documentos"))
+
+    '                item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
+    '                Alter = Not Alter
+
+    '            Next
+
+    '        End If
+
+    '    Catch
+
+    '    End Try
+    'End Sub
+
 End Class

@@ -40,6 +40,7 @@ Partial Class frmPrincipal
         Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Asimilados Marinos"}, 0, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
         Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Simple Maecco Sindicato"}, 0, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
         Dim ListViewItem16 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Bancomer nomina"}, 19, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem17 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Citibanamex Nomina"}, 20, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
         Me.pnlBar = New System.Windows.Forms.Panel()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.chkCBB = New System.Windows.Forms.CheckBox()
@@ -200,7 +201,7 @@ Partial Class frmPrincipal
         ListViewItem2.ToolTipText = "Crear recibos via fiscal"
         ListViewItem3.ToolTipText = "Crear recibos sindicato Lupita"
         ListViewItem5.ToolTipText = "Genera recibos aguinaldo"
-        Me.lsvPanel.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13, ListViewItem14, ListViewItem15, ListViewItem16})
+        Me.lsvPanel.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13, ListViewItem14, ListViewItem15, ListViewItem16, ListViewItem17})
         Me.lsvPanel.LargeImageList = Me.ImageList1
         Me.lsvPanel.Location = New System.Drawing.Point(0, 0)
         Me.lsvPanel.Name = "lsvPanel"
@@ -233,6 +234,7 @@ Partial Class frmPrincipal
         Me.ImageList1.Images.SetKeyName(17, "1474867386_advantage_cloud.png")
         Me.ImageList1.Images.SetKeyName(18, "1474867277_web.png")
         Me.ImageList1.Images.SetKeyName(19, "BANCOMERNOMINA.png")
+        Me.ImageList1.Images.SetKeyName(20, "bana.jpg")
         '
         'MenuInicio
         '
@@ -244,7 +246,7 @@ Partial Class frmPrincipal
         Me.MenuInicio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContpaqToolStripMenuItem, Me.ImssToolStripMenuItem, Me.FlujoBToolStripMenuItem, Me.FlujoCToolStripMenuItem, Me.AltaNominasToolStripMenuItem, Me.CatalogosToolStripMenuItem, Me.PlaneaciónToolStripMenuItem, Me.FacturacionToolStripMenuItem, Me.ControlTesoreriaToolStripMenuItem, Me.NominaToolStripMenuItem, Me.JuridicoToolStripMenuItem, Me.ComisionesToolStripMenuItem, Me.ConciliacionToolStripMenuItem, Me.GastosToolStripMenuItem, Me.KioskoClientesToolStripMenuItem, Me.mnuSalir})
         Me.MenuInicio.Name = "MenuInicio"
         Me.MenuInicio.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuInicio.Size = New System.Drawing.Size(203, 612)
+        Me.MenuInicio.Size = New System.Drawing.Size(203, 634)
         '
         'ContpaqToolStripMenuItem
         '
@@ -256,7 +258,7 @@ Partial Class frmPrincipal
         'VerEmpresasToolStripMenuItem
         '
         Me.VerEmpresasToolStripMenuItem.Name = "VerEmpresasToolStripMenuItem"
-        Me.VerEmpresasToolStripMenuItem.Size = New System.Drawing.Size(167, 24)
+        Me.VerEmpresasToolStripMenuItem.Size = New System.Drawing.Size(166, 24)
         Me.VerEmpresasToolStripMenuItem.Text = "Ver Empresas"
         '
         'ImssToolStripMenuItem
@@ -269,7 +271,7 @@ Partial Class frmPrincipal
         'VerEmpresasToolStripMenuItem1
         '
         Me.VerEmpresasToolStripMenuItem1.Name = "VerEmpresasToolStripMenuItem1"
-        Me.VerEmpresasToolStripMenuItem1.Size = New System.Drawing.Size(167, 24)
+        Me.VerEmpresasToolStripMenuItem1.Size = New System.Drawing.Size(166, 24)
         Me.VerEmpresasToolStripMenuItem1.Text = "Ver Empresas"
         '
         'FlujoBToolStripMenuItem

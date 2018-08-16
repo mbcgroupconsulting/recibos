@@ -2,18 +2,18 @@
 Imports ClosedXML.Excel
 Imports System.IO
 Imports System.Text.RegularExpressions
-Public Class frmTMMAsimiladoAuto
+Public Class frmTMMSimpleProcesos
     Dim sheetIndex As Integer = -1
     Dim Periodo As String
     Dim Periodocom As String
     Dim direccioncarpeta As String
-    Private Sub tsbNuevo_Click(sender As Object, e As EventArgs) Handles tsbNuevo.Click
+    Private Sub tsbNuevo_Click(ByVal sender As Object, ByVal e As EventArgs) Handles tsbNuevo.Click
         tsbNuevo.Enabled = False
         tsbImportar.Enabled = True
         tsbImportar_Click(sender, e)
     End Sub
 
-    Private Sub tsbImportar_Click(sender As Object, e As EventArgs) Handles tsbImportar.Click
+    Private Sub tsbImportar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles tsbImportar.Click
         Dim dialogo As New OpenFileDialog
         lblRuta.Text = ""
         With dialogo
@@ -33,7 +33,7 @@ Public Class frmTMMAsimiladoAuto
 
     End Sub
 
-    Private Sub tsbGuardar_Click(sender As Object, e As EventArgs) Handles tsbGuardar.Click
+    Private Sub tsbGuardar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles tsbGuardar.Click
         Try
             Dim SQL As String
 
@@ -108,8 +108,8 @@ Public Class frmTMMAsimiladoAuto
                 dsReporte.Tables("Tabla").Columns.Add("fechaelaboracion")
                 dsReporte.Tables("Tabla").Columns.Add("vacaciones")
                 dsReporte.Tables("Tabla").Columns.Add("alimentovac")
-                dsReporte.Tables("Tabla").Columns.Add("bonoxbuque") '<--
-                dsReporte.Tables("Tabla").Columns.Add("bonoespecial") '<--
+                dsReporte.Tables("Tabla").Columns.Add("bonoxbuque")
+                dsReporte.Tables("Tabla").Columns.Add("bonoespecial")
                 dsReporte.Tables("Tabla").Columns.Add("tpercepciones")
                 dsReporte.Tables("Tabla").Columns.Add("tdeducciones")
                 dsReporte.Tables("Tabla").Columns.Add("neto")
@@ -424,7 +424,7 @@ Public Class frmTMMAsimiladoAuto
                     End If
 
 
-                    
+
 
                 Next
 
@@ -432,7 +432,7 @@ Public Class frmTMMAsimiladoAuto
                 '###### FIN CALCULO ISR #######
 
 
-                
+
 
 
                 'Dim Archivo As String = IO.Path.GetTempFileName.Replace(".tmp", ".xml")
@@ -453,7 +453,7 @@ Public Class frmTMMAsimiladoAuto
         End Try
     End Sub
 
-    Function fisr(bruto As Double) As Double
+    Function fisr(ByVal bruto As Double) As Double
         Dim sql As String
         Dim excendente As Double
         Dim isr As Double
@@ -480,7 +480,7 @@ Public Class frmTMMAsimiladoAuto
 
     End Function
 
-    Private Sub tsbProcesar_Click(sender As Object, e As EventArgs) Handles tsbProcesar.Click
+    Private Sub tsbProcesar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles tsbProcesar.Click
         lsvLista.Items.Clear()
         lsvLista.Columns.Clear()
         lsvLista.Clear()
@@ -630,7 +630,7 @@ Public Class frmTMMAsimiladoAuto
         End Try
     End Sub
 
-    Private Function getColumnName(index As Single) As String
+    Private Function getColumnName(ByVal index As Single) As String
         Dim numletter As Single = 26
         Dim sGrupo As Single = index / numletter
         Dim Modulo As Single = sGrupo - Math.Truncate(sGrupo)
@@ -649,7 +649,7 @@ Public Class frmTMMAsimiladoAuto
 
     End Function
 
-    Private Sub tsbCancelar_Click(sender As Object, e As EventArgs) Handles tsbCancelar.Click
+    Private Sub tsbCancelar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles tsbCancelar.Click
         pnlCatalogo.Enabled = False
         lsvLista.Items.Clear()
         chkAll.Checked = False
@@ -661,14 +661,18 @@ Public Class frmTMMAsimiladoAuto
         tsbNuevo.Enabled = True
     End Sub
 
-    Private Sub cmdCerrar_Click(sender As Object, e As EventArgs) Handles cmdCerrar.Click
+    Private Sub cmdCerrar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdCerrar.Click
         Me.Close()
     End Sub
 
-    Private Sub chkAll_CheckedChanged(sender As Object, e As EventArgs) Handles chkAll.CheckedChanged
+    Private Sub chkAll_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkAll.CheckedChanged
         For Each item As ListViewItem In lsvLista.Items
             item.Checked = chkAll.Checked
         Next
         chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
+    End Sub
+
+    Private Sub frmTMMSimpleProcesos_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
     End Sub
 End Class

@@ -63,7 +63,7 @@ Partial Class frmAgregarNominaK
         Me.Panel1.Controls.Add(Me.cmdguardar)
         Me.Panel1.Location = New System.Drawing.Point(638, 7)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(105, 380)
+        Me.Panel1.Size = New System.Drawing.Size(105, 462)
         Me.Panel1.TabIndex = 71
         '
         'cmdcancelar
@@ -71,7 +71,7 @@ Partial Class frmAgregarNominaK
         Me.cmdcancelar.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.cmdcancelar.Image = CType(resources.GetObject("cmdcancelar.Image"), System.Drawing.Image)
         Me.cmdcancelar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdcancelar.Location = New System.Drawing.Point(7, 148)
+        Me.cmdcancelar.Location = New System.Drawing.Point(8, 149)
         Me.cmdcancelar.Name = "cmdcancelar"
         Me.cmdcancelar.Size = New System.Drawing.Size(87, 72)
         Me.cmdcancelar.TabIndex = 37
