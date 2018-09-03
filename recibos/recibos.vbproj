@@ -843,44 +843,44 @@
     <Compile Include="reportes\ctm7enero.vb">
       <DependentUpon>ctm7enero.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="reportes\ctmsolidaridad.vb">
       <DependentUpon>ctmsolidaridad.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="reportes\ctmtrabajadoresobreros.vb">
       <DependentUpon>ctmtrabajadoresobreros.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="reportes\ctmindustriaalimenticia.vb">
       <DependentUpon>ctmindustriaalimenticia.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="reportes\ctmcarmenserdan.vb">
       <DependentUpon>ctmcarmenserdan.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="reportes\ctm20noviembre.vb">
       <DependentUpon>ctm20noviembre.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="reportes\ctmconstruccion.vb">
       <DependentUpon>ctmconstruccion.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="reportes\recibosfiscalviaxurtep.vb">
       <DependentUpon>recibosfiscalviaxurtep.rpt</DependentUpon>
