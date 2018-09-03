@@ -3766,7 +3766,7 @@ Public Class frmcontpaqnominas2
                 hoja.Cell(filaExcel + dtgDatos.Rows.Count, 11).FormulaA1 = "=SUM(K" & filaExcel & ":K" & filaExcel + dtgDatos.Rows.Count - 1 & ")"
                 hoja.Cell(filaExcel + dtgDatos.Rows.Count, 12).FormulaA1 = "=SUM(L" & filaExcel & ":L" & filaExcel + dtgDatos.Rows.Count - 1 & ")"
                 hoja.Cell(filaExcel + dtgDatos.Rows.Count, 13).FormulaA1 = "=SUM(M" & filaExcel & ":M" & filaExcel + dtgDatos.Rows.Count - 1 & ")"
-                hoja.Cell(filaExcel + dtgDatos.Rows.Count, 13).FormulaA1 = "=SUM(N" & filaExcel & ":N" & filaExcel + dtgDatos.Rows.Count - 1 & ")"
+                hoja.Cell(filaExcel + dtgDatos.Rows.Count, 14).FormulaA1 = "=SUM(N" & filaExcel & ":N" & filaExcel + dtgDatos.Rows.Count - 1 & ")"
                 hoja.Cell(filaExcel + dtgDatos.Rows.Count, 15).FormulaA1 = "=SUM(O" & filaExcel & ":O" & filaExcel + dtgDatos.Rows.Count - 1 & ")"
                 hoja.Cell(filaExcel + dtgDatos.Rows.Count, 16).FormulaA1 = "=SUM(P" & filaExcel & ":P" & filaExcel + dtgDatos.Rows.Count - 1 & ")"
                 hoja.Cell(filaExcel + dtgDatos.Rows.Count, 17).FormulaA1 = "=SUM(Q" & filaExcel & ":Q" & filaExcel + dtgDatos.Rows.Count - 1 & ")"

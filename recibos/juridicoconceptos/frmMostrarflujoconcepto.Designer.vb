@@ -33,8 +33,8 @@ Partial Class frmMostrarflujoconcepto
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtpfechainicio = New System.Windows.Forms.DateTimePicker()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.rdbInterno = New System.Windows.Forms.RadioButton()
         Me.rdbExterno = New System.Windows.Forms.RadioButton()
+        Me.rdbInterno = New System.Windows.Forms.RadioButton()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -51,7 +51,7 @@ Partial Class frmMostrarflujoconcepto
         'cbonumflujo
         '
         Me.cbonumflujo.FormattingEnabled = True
-        Me.cbonumflujo.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"})
+        Me.cbonumflujo.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35"})
         Me.cbonumflujo.Location = New System.Drawing.Point(318, 24)
         Me.cbonumflujo.Name = "cbonumflujo"
         Me.cbonumflujo.Size = New System.Drawing.Size(62, 27)
@@ -152,6 +152,17 @@ Partial Class frmMostrarflujoconcepto
         Me.Panel1.Size = New System.Drawing.Size(187, 34)
         Me.Panel1.TabIndex = 62
         '
+        'rdbExterno
+        '
+        Me.rdbExterno.AutoSize = True
+        Me.rdbExterno.Location = New System.Drawing.Point(107, 5)
+        Me.rdbExterno.Name = "rdbExterno"
+        Me.rdbExterno.Size = New System.Drawing.Size(76, 23)
+        Me.rdbExterno.TabIndex = 1
+        Me.rdbExterno.TabStop = True
+        Me.rdbExterno.Text = "Externo"
+        Me.rdbExterno.UseVisualStyleBackColor = True
+        '
         'rdbInterno
         '
         Me.rdbInterno.AutoSize = True
@@ -163,17 +174,6 @@ Partial Class frmMostrarflujoconcepto
         Me.rdbInterno.TabStop = True
         Me.rdbInterno.Text = "Interno"
         Me.rdbInterno.UseVisualStyleBackColor = True
-        '
-        'rdbExterno
-        '
-        Me.rdbExterno.AutoSize = True
-        Me.rdbExterno.Location = New System.Drawing.Point(107, 5)
-        Me.rdbExterno.Name = "rdbExterno"
-        Me.rdbExterno.Size = New System.Drawing.Size(76, 23)
-        Me.rdbExterno.TabIndex = 1
-        Me.rdbExterno.TabStop = True
-        Me.rdbExterno.Text = "Externo"
-        Me.rdbExterno.UseVisualStyleBackColor = True
         '
         'frmMostrarflujoconcepto
         '
