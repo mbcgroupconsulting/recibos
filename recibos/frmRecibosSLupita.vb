@@ -66,6 +66,35 @@
                 forma.opcion = 5
 
             End If
+            'Nuevos
+            If rdbconstruccion.Checked Then
+                forma.opcion = 6
+
+            End If
+            If rdbnoviembre.Checked Then
+                forma.opcion = 7
+
+            End If
+            If rdbcarmen.Checked Then
+                forma.opcion = 8
+
+            End If
+            If rdbindustria.Checked Then
+                forma.opcion = 9
+
+            End If
+            If rdbobrerosindustria.Checked Then
+                forma.opcion = 10
+
+            End If
+            If rdbsolidario.Checked Then
+                forma.opcion = 11
+
+            End If
+            If rdbenero.Checked Then
+                forma.opcion = 12
+
+            End If
 
             forma.dsReporte.Tables("Tabla").Columns.Add("nombre")
             forma.dsReporte.Tables("Tabla").Columns.Add("cantidad")
@@ -266,4 +295,7 @@
     Private Sub cmdCerrar_Click(sender As Object, e As EventArgs) Handles cmdCerrar.Click
         Me.Close()
     End Sub
+
+    
+   
 End Class
