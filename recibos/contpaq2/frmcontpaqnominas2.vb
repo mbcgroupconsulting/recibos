@@ -3327,7 +3327,7 @@ Public Class frmcontpaqnominas2
                         Exit Sub
                     End If
 
-                    If Double.Parse(dtgDatos.Rows(x).Cells(13).Value) > 0 Then
+                    If Double.Parse(dtgDatos.Rows(x).Cells(14).Value) > 0 Then
 
                         sql = "select * from Prestamo where fkiIdEmpleado=" & dtgDatos.Rows(x).Cells(3).Value & " and iEstatus=1"
 
@@ -3336,7 +3336,7 @@ Public Class frmcontpaqnominas2
                         If rwPrestamos Is Nothing = False Then
                             sql = "EXEC setPagoPrestamoInsertar 0"
                             sql &= "," & rwPrestamos(0)("iIdPrestamo").ToString
-                            sql &= "," & dtgDatos.Rows(x).Cells(13).Value
+                            sql &= "," & dtgDatos.Rows(x).Cells(14).Value
                             sql &= ",'" & Date.Now.ToShortDateString
                             sql &= "',1"
                             sql &= "," & cboperiodo.SelectedValue
@@ -3362,7 +3362,11 @@ Public Class frmcontpaqnominas2
                                 If Double.Parse(rwMontoPrestamo(0)("monto").ToString) >= Double.Parse(rwPrestamos(0)("montototal").ToString) Then
                                     'Actualizamos el status
                                     sql = "update prestamo set iEstatus=0 where iIdPrestamo=" & rwPrestamos(0)("iIdPrestamo").ToString
-
+                                    If nExecute(sql) = False Then
+                                        MessageBox.Show("Ocurrio un error insertar pago prestamo ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                        'pnlProgreso.Visible = False
+                                        Exit Sub
+                                    End If
                                 End If
 
 
