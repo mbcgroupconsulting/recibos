@@ -80,8 +80,10 @@ Public Class frmExportarNominaTMM
                             SQL = "EXEC setpagoInsertar  0," & rwUsuarioK(0)("IdUsuario").ToString() & ",'" & Date.Parse(Trim(producto.SubItems(1).Text)).ToShortDateString() & "',1,"
                             SQL &= Double.Parse(Trim(producto.SubItems(4).Text).Replace(",", "").Replace("$", "").ToString()) & ","
                             SQL &= Double.Parse(Trim(producto.SubItems(6).Text).Replace(",", "").Replace("$", "").ToString()) & ",'"
-                            SQL &= Trim(producto.SubItems(5).Text) & "','','','" & Trim(producto.SubItems(7).Text) & "',''"
-
+                            SQL &= Trim(producto.SubItems(5).Text)
+                            SQL &= "','','','"
+                            SQL &= Trim(producto.SubItems(7).Text) & "',"
+                            SQL &= IIf(chkNominaB.Checked = True, txtcarpeta.Text, "")  'dsa es igual a nominaB
 
 
                             If nExecuteKiosko(SQL) = False Then
