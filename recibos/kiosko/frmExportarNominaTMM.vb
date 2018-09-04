@@ -82,8 +82,8 @@ Public Class frmExportarNominaTMM
                             SQL &= Double.Parse(Trim(producto.SubItems(6).Text).Replace(",", "").Replace("$", "").ToString()) & ",'"
                             SQL &= Trim(producto.SubItems(5).Text)
                             SQL &= "','','" & Trim(producto.SubItems(8).Text) & "','"
-                            SQL &= Trim(producto.SubItems(7).Text) & "',"
-                            SQL &= IIf(chkNominaB.Checked = True, txtcarpeta.Text, "")  'dsa es igual a nominaB
+                            SQL &= Trim(producto.SubItems(7).Text) & "','"
+                            SQL &= IIf(chkNominaB.Checked = True, txtcarpeta.Text, "") & "'" 'dsa es igual a nominaB
 
 
                             If nExecuteKiosko(SQL) = False Then
@@ -114,13 +114,16 @@ Public Class frmExportarNominaTMM
                             SQL &= Double.Parse(Trim(producto.SubItems(6).Text).Replace(",", "").Replace("$", "").ToString()) & ",'"
                             SQL &= Trim(producto.SubItems(5).Text) & "',"
                             SQL &= "','','" & Trim(producto.SubItems(8).Text) & "','" ' Simple en dxml
-                            SQL &= Trim(producto.SubItems(7).Text) & "',"
-                            SQL &= IIf(chkNominaB.Checked = True, txtcarpeta.Text, "")  'dsa es igual a nominaB
+                            SQL &= Trim(producto.SubItems(7).Text) & "','"
+                            SQL &= IIf(chkNominaB.Checked = True, txtcarpeta.Text, "") & "'"   'dsa es igual a nominaB
 
 
                             If nExecuteKiosko(SQL) = False Then
 
                                 MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(1).Text) & " trabajador:" & Trim(producto.SubItems(3).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                pnlProgreso.Visible = False
+
+                                DesconectarKiosko()
                                 Exit Sub
 
                             End If
