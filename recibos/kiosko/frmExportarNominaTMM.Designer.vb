@@ -32,6 +32,8 @@ Partial Class frmExportarNominaTMM
         Me.tsbProcesar = New System.Windows.Forms.ToolStripButton()
         Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.txtcarpeta = New System.Windows.Forms.TextBox()
+        Me.chkNominaB = New System.Windows.Forms.CheckBox()
         Me.chkAll = New System.Windows.Forms.CheckBox()
         Me.lsvLista = New System.Windows.Forms.ListView()
         Me.pnlProgreso = New System.Windows.Forms.Panel()
@@ -129,9 +131,12 @@ Partial Class frmExportarNominaTMM
         'pnlCatalogo
         '
         Me.pnlCatalogo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlCatalogo.Controls.Add(Me.pnlProgreso)
+        Me.pnlCatalogo.Controls.Add(Me.txtcarpeta)
+        Me.pnlCatalogo.Controls.Add(Me.chkNominaB)
         Me.pnlCatalogo.Controls.Add(Me.chkAll)
         Me.pnlCatalogo.Controls.Add(Me.lsvLista)
         Me.pnlCatalogo.Enabled = False
@@ -139,6 +144,26 @@ Partial Class frmExportarNominaTMM
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Size = New System.Drawing.Size(808, 426)
         Me.pnlCatalogo.TabIndex = 29
+        '
+        'txtcarpeta
+        '
+        Me.txtcarpeta.Location = New System.Drawing.Point(304, 0)
+        Me.txtcarpeta.Name = "txtcarpeta"
+        Me.txtcarpeta.Size = New System.Drawing.Size(221, 27)
+        Me.txtcarpeta.TabIndex = 9
+        Me.txtcarpeta.Text = "NOMINAB"
+        '
+        'chkNominaB
+        '
+        Me.chkNominaB.AutoSize = True
+        Me.chkNominaB.BackColor = System.Drawing.Color.Transparent
+        Me.chkNominaB.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkNominaB.Location = New System.Drawing.Point(160, 2)
+        Me.chkNominaB.Name = "chkNominaB"
+        Me.chkNominaB.Size = New System.Drawing.Size(137, 22)
+        Me.chkNominaB.TabIndex = 8
+        Me.chkNominaB.Text = "Nomina Adicional"
+        Me.chkNominaB.UseVisualStyleBackColor = False
         '
         'chkAll
         '
@@ -155,8 +180,8 @@ Partial Class frmExportarNominaTMM
         'lsvLista
         '
         Me.lsvLista.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lsvLista.CheckBoxes = True
         Me.lsvLista.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvLista.FullRowSelect = True
@@ -175,7 +200,7 @@ Partial Class frmExportarNominaTMM
         Me.pnlProgreso.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.pnlProgreso.Controls.Add(Me.Label2)
         Me.pnlProgreso.Controls.Add(Me.pgbProgreso)
-        Me.pnlProgreso.Location = New System.Drawing.Point(180, 224)
+        Me.pnlProgreso.Location = New System.Drawing.Point(170, 172)
         Me.pnlProgreso.Name = "pnlProgreso"
         Me.pnlProgreso.Size = New System.Drawing.Size(449, 84)
         Me.pnlProgreso.TabIndex = 33
@@ -201,7 +226,6 @@ Partial Class frmExportarNominaTMM
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(808, 533)
-        Me.Controls.Add(Me.pnlProgreso)
         Me.Controls.Add(Me.lblRuta)
         Me.Controls.Add(Me.cmdCerrar)
         Me.Controls.Add(Me.ToolStrip1)
@@ -235,5 +259,7 @@ Partial Class frmExportarNominaTMM
     Friend WithEvents lsvLista As ListView
     Friend WithEvents pnlProgreso As Panel
     Friend WithEvents Label2 As Label
-    Friend WithEvents pgbProgreso As ProgressBar
+    Friend WithEvents txtcarpeta As System.Windows.Forms.TextBox
+    Friend WithEvents chkNominaB As System.Windows.Forms.CheckBox
+    Friend WithEvents pgbProgreso As System.Windows.Forms.ProgressBar
 End Class

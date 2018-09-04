@@ -82,5 +82,113 @@
                 End Try
             End With
         End If
+
+        'Nuevos
+        If opcion = 6 Then
+            Dim sReporte As String = "ctmconstruccion.rpt"
+            With UcVisor1
+                Try
+
+                    .DataSource = dsReporte
+                    '.Reporte = sReporte
+                    .crReporte = New ctmconstruccion
+                    .ShowReport()
+
+                Catch ex As Exception
+
+                End Try
+            End With
+        End If
+        If opcion = 7 Then
+            Dim sReporte As String = "ctm20noviembre.rpt"
+            With UcVisor1
+                Try
+
+                    .DataSource = dsReporte
+                    '.Reporte = sReporte
+                    .crReporte = New ctm20noviembre
+                    .ShowReport()
+
+                Catch ex As Exception
+
+                End Try
+            End With
+        End If
+        If opcion = 8 Then
+            Dim sReporte As String = "ctmcarmenserdan.rpt"
+            With UcVisor1
+                Try
+
+                    .DataSource = dsReporte
+                    '.Reporte = sReporte
+                    .crReporte = New ctmcarmenserdan
+                    .ShowReport()
+
+                Catch ex As Exception
+
+                End Try
+            End With
+        End If
+        If opcion = 9 Then
+            Dim sReporte As String = "ctmindustriaalimenticia.rpt"
+            With UcVisor1
+                Try
+
+                    .DataSource = dsReporte
+                    '.Reporte = sReporte
+                    .crReporte = New ctmindustriaalimenticia
+                    .ShowReport()
+
+                Catch ex As Exception
+
+                End Try
+            End With
+        End If
+        If opcion = 10 Then
+            Dim sReporte As String = "ctmtrabajadoresobreros.rpt"
+            With UcVisor1
+                Try
+
+                    .DataSource = dsReporte
+                    '.Reporte = sReporte
+                    .crReporte = New ctmtrabajadoresobreros
+                    .ShowReport()
+
+                Catch ex As Exception
+
+                End Try
+            End With
+        End If
+        If opcion = 11 Then
+            Dim sReporte As String = "ctmsolidaridad.rpt"
+            With UcVisor1
+                Try
+
+                    .DataSource = dsReporte
+                    '.Reporte = sReporte
+                    .crReporte = New ctmsolidaridad
+                    .ShowReport()
+
+                Catch ex As Exception
+
+                End Try
+            End With
+        End If
+        If opcion = 12 Then
+            Dim sReporte As String = "ctm7enero.rpt"
+            With UcVisor1
+                Try
+
+                    .DataSource = dsReporte
+                    '.Reporte = sReporte
+                    .crReporte = New ctm7enero
+                    .ShowReport()
+
+                Catch ex As Exception
+
+                End Try
+            End With
+        End If
+
     End Sub
 End Class
