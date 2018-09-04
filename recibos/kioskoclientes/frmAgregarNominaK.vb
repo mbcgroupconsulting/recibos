@@ -439,19 +439,28 @@
    
     Private Sub cmdDeleted_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeleted.Click
         Dim datos As ListView.SelectedListViewItemCollection = lsvArchivo.SelectedItems
-        'If datos.Count = 1 Then
-        Dim resultado As Integer = MessageBox.Show("¿Desea borrar el documento, se eliminara del sistema " & datos(0).SubItems(0).Text & "?", "Pregunta", MessageBoxButtons.YesNo)
+        If datos.Count < 0 Then
+            Dim resultado As Integer = MessageBox.Show("¿Desea borrar el documento, se eliminara del sistema " & datos(0).SubItems(0).Text & "?", "Pregunta", MessageBoxButtons.YesNo)
 
 
-        If resultado = DialogResult.Yes Then
-
-            'datos(0).Remove()
-            MessageBox.Show("Datos borrados correctamente " & datos(0).SubItems(1).Text, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            If resultado = DialogResult.Yes Then
 
 
+                SQL = "DELETE FROM InfoKiosko where nombrearchivo like '%" & datos(0).SubItems(0).Text & "%'"
+                If nExecute(SQL) = False Then
+
+                    MessageBox.Show("Hubo un problema al borrar, revise sus datos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    datos(0).Remove()
+                    MessageBox.Show("Datos borrados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    cmdbuscar_Click(sender, e)
+                End If
+
+
+
+            End If
+        Else
+            MessageBox.Show("Seleccione un archivo para borrar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
-        'Else
-        'MessageBox.Show("No hay una empresa seleccionada para borrar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-        'End If
     End Sub
 End Class
