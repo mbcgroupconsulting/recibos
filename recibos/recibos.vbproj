@@ -822,15 +822,14 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-<<<<<<< HEAD
+
     <Compile Include="reportes\BanamexNomina.vb">
-=======
-<<<<<<< HEAD
-    <Compile Include="reportes\BanamexNomina1.vb">
-=======
-    <Compile Include="reportes\BanamexNomina.vb">
->>>>>>> Ayudando a Omar
->>>>>>> origin/master
+
+
+    <!--<Compile Include="reportes\BanamexNomina1.vb">
+
+    <Compile Include="reportes\BanamexNomina.vb">-->
+
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BanamexNomina.rpt</DependentUpon>
@@ -1390,15 +1389,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\BanamexNomina.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-<<<<<<< HEAD
+
       <LastGenOutput>BanamexNomina.vb</LastGenOutput>
-=======
-<<<<<<< HEAD
-      <LastGenOutput>BanamexNomina1.vb</LastGenOutput>
-=======
-      <LastGenOutput>BanamexNomina.vb</LastGenOutput>
->>>>>>> Ayudando a Omar
->>>>>>> origin/master
+
+      <!--<LastGenOutput>BanamexNomina1.vb</LastGenOutput>
+
+      <LastGenOutput>BanamexNomina.vb</LastGenOutput>-->
+
+
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\comprobantebancomer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
