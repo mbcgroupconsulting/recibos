@@ -822,6 +822,7 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+<<<<<<< HEAD
 
     <Compile Include="reportes\BanamexNomina.vb">
 
@@ -830,6 +831,9 @@
 
     <Compile Include="reportes\BanamexNomina.vb">-->
 
+=======
+    <Compile Include="reportes\BanamexNomina1.vb">
+>>>>>>> origin/master
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BanamexNomina.rpt</DependentUpon>
@@ -845,48 +849,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>comprobantenominabancomer.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="reportes\ctm7enero.vb">
-      <DependentUpon>ctm7enero.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="reportes\ctmsolidaridad.vb">
-      <DependentUpon>ctmsolidaridad.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="reportes\ctmtrabajadoresobreros.vb">
-      <DependentUpon>ctmtrabajadoresobreros.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="reportes\ctmindustriaalimenticia.vb">
-      <DependentUpon>ctmindustriaalimenticia.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="reportes\ctmcarmenserdan.vb">
-      <DependentUpon>ctmcarmenserdan.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="reportes\ctm20noviembre.vb">
-      <DependentUpon>ctm20noviembre.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="reportes\ctmconstruccion.vb">
-      <DependentUpon>ctmconstruccion.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="reportes\recibosfiscalviaxurtep.vb">
@@ -1389,6 +1351,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\BanamexNomina.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+<<<<<<< HEAD
 
       <LastGenOutput>BanamexNomina.vb</LastGenOutput>
 
@@ -1397,6 +1360,9 @@
       <LastGenOutput>BanamexNomina.vb</LastGenOutput>-->
 
 
+=======
+      <LastGenOutput>BanamexNomina1.vb</LastGenOutput>
+>>>>>>> origin/master
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\comprobantebancomer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1405,34 +1371,6 @@
     <EmbeddedResource Include="reportes\comprobantenominabancomer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>comprobantenominabancomer.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="reportes\ctm7enero.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ctm7enero.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="reportes\ctmsolidaridad.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ctmsolidaridad.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="reportes\ctmtrabajadoresobreros.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ctmtrabajadoresobreros.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="reportes\ctmindustriaalimenticia.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ctmindustriaalimenticia.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="reportes\ctmcarmenserdan.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ctmcarmenserdan.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="reportes\ctm20noviembre.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ctm20noviembre.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="reportes\ctmconstruccion.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ctmconstruccion.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\recibosfiscalviaxurtep.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
