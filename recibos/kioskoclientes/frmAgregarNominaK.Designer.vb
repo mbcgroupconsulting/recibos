@@ -24,6 +24,7 @@ Partial Class frmAgregarNominaK
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAgregarNominaK))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.cmdDeleted = New System.Windows.Forms.Button()
         Me.cmdcancelar = New System.Windows.Forms.Button()
         Me.cmdbuscar = New System.Windows.Forms.Button()
         Me.cmdnuevo = New System.Windows.Forms.Button()
@@ -56,6 +57,7 @@ Partial Class frmAgregarNominaK
         '
         Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.cmdDeleted)
         Me.Panel1.Controls.Add(Me.cmdcancelar)
         Me.Panel1.Controls.Add(Me.cmdbuscar)
         Me.Panel1.Controls.Add(Me.cmdnuevo)
@@ -65,6 +67,18 @@ Partial Class frmAgregarNominaK
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(105, 462)
         Me.Panel1.TabIndex = 71
+        '
+        'cmdDeleted
+        '
+        Me.cmdDeleted.Image = CType(resources.GetObject("cmdDeleted.Image"), System.Drawing.Image)
+        Me.cmdDeleted.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdDeleted.Location = New System.Drawing.Point(8, 302)
+        Me.cmdDeleted.Name = "cmdDeleted"
+        Me.cmdDeleted.Size = New System.Drawing.Size(87, 72)
+        Me.cmdDeleted.TabIndex = 38
+        Me.cmdDeleted.Text = "Eliminar"
+        Me.cmdDeleted.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdDeleted.UseVisualStyleBackColor = True
         '
         'cmdcancelar
         '
@@ -107,7 +121,7 @@ Partial Class frmAgregarNominaK
         '
         Me.cmdsalir.Image = CType(resources.GetObject("cmdsalir.Image"), System.Drawing.Image)
         Me.cmdsalir.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdsalir.Location = New System.Drawing.Point(7, 299)
+        Me.cmdsalir.Location = New System.Drawing.Point(8, 380)
         Me.cmdsalir.Name = "cmdsalir"
         Me.cmdsalir.Size = New System.Drawing.Size(87, 72)
         Me.cmdsalir.TabIndex = 37
@@ -358,4 +372,5 @@ Partial Class frmAgregarNominaK
     Friend WithEvents cboDocumento As System.Windows.Forms.ComboBox
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
     Private WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents cmdDeleted As System.Windows.Forms.Button
 End Class

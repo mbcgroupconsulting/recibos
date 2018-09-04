@@ -436,4 +436,22 @@
     '    End Try
     'End Sub
 
+   
+    Private Sub cmdDeleted_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeleted.Click
+        Dim datos As ListView.SelectedListViewItemCollection = lsvArchivo.SelectedItems
+        'If datos.Count = 1 Then
+        Dim resultado As Integer = MessageBox.Show("¿Desea borrar el documento, se eliminara del sistema " & datos(0).SubItems(0).Text & "?", "Pregunta", MessageBoxButtons.YesNo)
+
+
+        If resultado = DialogResult.Yes Then
+
+            'datos(0).Remove()
+            MessageBox.Show("Datos borrados correctamente " & datos(0).SubItems(1).Text, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+
+        End If
+        'Else
+        'MessageBox.Show("No hay una empresa seleccionada para borrar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        'End If
+    End Sub
 End Class
