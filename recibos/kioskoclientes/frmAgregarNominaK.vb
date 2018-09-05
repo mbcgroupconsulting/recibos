@@ -211,7 +211,8 @@
                         Alter = Not Alter
 
                     Next
-
+                Else
+                    MessageBox.Show("No hay archivos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
             End If
            
@@ -230,6 +231,7 @@
     Private Sub frmAgregarNominaK_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cmdguardar.Enabled = False
         cmdcancelar.Enabled = False
+        cmdDeleted.Enabled = False
         MostrarClientes()
         MostrarDocumentos()
         ''TabIndex()
@@ -269,6 +271,7 @@
         cmdguardar.Enabled = pnlProveedores.Enabled
         cmdcancelar.Enabled = pnlProveedores.Enabled
         cmdbuscar.Enabled = pnlProveedores.Enabled
+        cmdDeleted.Enabled = pnlProveedores.Enabled
     End Sub
 
     Private Sub cboclientes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboclientes.SelectedIndexChanged
@@ -438,29 +441,41 @@
 
    
     Private Sub cmdDeleted_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeleted.Click
-        Dim datos As ListView.SelectedListViewItemCollection = lsvArchivo.SelectedItems
-        If datos.Count < 0 Then
-            Dim resultado As Integer = MessageBox.Show("¿Desea borrar el documento, se eliminara del sistema " & datos(0).SubItems(0).Text & "?", "Pregunta", MessageBoxButtons.YesNo)
+
+       
+        Try
+            
+
+            Dim datos As ListView.SelectedListViewItemCollection = lsvArchivo.SelectedItems
+            If datos.Count > 0 Then
+                Dim resultado As Integer = MessageBox.Show("¿Desea borrar el documento, se eliminara del sistema " & datos(0).SubItems(0).Text & "?", "Pregunta", MessageBoxButtons.YesNo)
 
 
-            If resultado = DialogResult.Yes Then
+                If resultado = DialogResult.Yes Then
 
+                            SQL = "DELETE FROM InfoKiosko where nombrearchivo like '%" & datos(0).SubItems(0).Text & "%'"
 
-                SQL = "DELETE FROM InfoKiosko where nombrearchivo like '%" & datos(0).SubItems(0).Text & "%'"
-                If nExecute(SQL) = False Then
+                            If nExecute(SQL) = False Then
+                                MessageBox.Show("Hubo un problema al borrar, revise sus datos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Else
+                                datos(0).Remove()
+                                MessageBox.Show("Datos borrados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                cmdbuscar_Click(sender, e)
+                            End If
 
-                    MessageBox.Show("Hubo un problema al borrar, revise sus datos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Else
-                    datos(0).Remove()
-                    MessageBox.Show("Datos borrados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    cmdbuscar_Click(sender, e)
                 End If
 
+                    Else
+
+                        MessageBox.Show("Seleccione un archivo para borrar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    End If
+             
 
 
-            End If
-        Else
-            MessageBox.Show("Seleccione un archivo para borrar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 End Class

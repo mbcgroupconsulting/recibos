@@ -246,7 +246,7 @@ Partial Class frmPrincipal
         Me.MenuInicio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContpaqToolStripMenuItem, Me.ImssToolStripMenuItem, Me.FlujoBToolStripMenuItem, Me.FlujoCToolStripMenuItem, Me.AltaNominasToolStripMenuItem, Me.CatalogosToolStripMenuItem, Me.PlaneaciónToolStripMenuItem, Me.FacturacionToolStripMenuItem, Me.ControlTesoreriaToolStripMenuItem, Me.NominaToolStripMenuItem, Me.JuridicoToolStripMenuItem, Me.ComisionesToolStripMenuItem, Me.ConciliacionToolStripMenuItem, Me.GastosToolStripMenuItem, Me.KioskoClientesToolStripMenuItem, Me.mnuSalir})
         Me.MenuInicio.Name = "MenuInicio"
         Me.MenuInicio.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuInicio.Size = New System.Drawing.Size(203, 634)
+        Me.MenuInicio.Size = New System.Drawing.Size(203, 612)
         '
         'ContpaqToolStripMenuItem
         '
@@ -396,13 +396,13 @@ Partial Class frmPrincipal
         'SAToolStripMenuItem
         '
         Me.SAToolStripMenuItem.Name = "SAToolStripMenuItem"
-        Me.SAToolStripMenuItem.Size = New System.Drawing.Size(151, 24)
+        Me.SAToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
         Me.SAToolStripMenuItem.Text = "SA"
         '
         'ASIMILADOSToolStripMenuItem
         '
         Me.ASIMILADOSToolStripMenuItem.Name = "ASIMILADOSToolStripMenuItem"
-        Me.ASIMILADOSToolStripMenuItem.Size = New System.Drawing.Size(151, 24)
+        Me.ASIMILADOSToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
         Me.ASIMILADOSToolStripMenuItem.Text = "Asimilados"
         '
         'FacturacionToolStripMenuItem
