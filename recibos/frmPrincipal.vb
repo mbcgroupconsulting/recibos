@@ -508,7 +508,7 @@ Public Class frmPrincipal
 
 
                 Dim Fila As DataRow = rwFilas(0)
-                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "3" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5" Or Fila.Item("fkIdPerfil") = "8") Then
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "3" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5" Or Fila.Item("fkIdPerfil") = "8" Or Fila.Item("fkIdPerfil") = "9") Then
 
                     Forma.ShowDialog()
                 Else
@@ -1301,5 +1301,9 @@ Public Class frmPrincipal
         Catch ex As Exception
 
         End Try
+    End Sub
+
+    Private Sub lsvPanel_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lsvPanel.SelectedIndexChanged
+
     End Sub
 End Class

@@ -396,13 +396,13 @@ Partial Class frmPrincipal
         'SAToolStripMenuItem
         '
         Me.SAToolStripMenuItem.Name = "SAToolStripMenuItem"
-        Me.SAToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
+        Me.SAToolStripMenuItem.Size = New System.Drawing.Size(151, 24)
         Me.SAToolStripMenuItem.Text = "SA"
         '
         'ASIMILADOSToolStripMenuItem
         '
         Me.ASIMILADOSToolStripMenuItem.Name = "ASIMILADOSToolStripMenuItem"
-        Me.ASIMILADOSToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
+        Me.ASIMILADOSToolStripMenuItem.Size = New System.Drawing.Size(151, 24)
         Me.ASIMILADOSToolStripMenuItem.Text = "Asimilados"
         '
         'FacturacionToolStripMenuItem

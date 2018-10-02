@@ -28,6 +28,9 @@ Partial Class frmComprobanteBancomer
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.cmdCerrar = New System.Windows.Forms.Button()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.rdbSindicato = New System.Windows.Forms.RadioButton()
+        Me.rdbPatrona = New System.Windows.Forms.RadioButton()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtFolio = New System.Windows.Forms.TextBox()
         Me.dtpHora = New System.Windows.Forms.DateTimePicker()
@@ -58,17 +61,15 @@ Partial Class frmComprobanteBancomer
         Me.tsbProcesar = New System.Windows.Forms.ToolStripButton()
         Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         Me.lblRuta = New System.Windows.Forms.Label()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.rdbPatrona = New System.Windows.Forms.RadioButton()
-        Me.rdbSindicato = New System.Windows.Forms.RadioButton()
+        Me.rdbAsimilados = New System.Windows.Forms.RadioButton()
         Me.pnlProgreso.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.NudCuenta, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudImporte, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudNombre, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlProgreso
@@ -114,8 +115,8 @@ Partial Class frmComprobanteBancomer
         'pnlCatalogo
         '
         Me.pnlCatalogo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pnlCatalogo.Controls.Add(Me.Panel1)
         Me.pnlCatalogo.Controls.Add(Me.Label8)
@@ -140,6 +141,39 @@ Partial Class frmComprobanteBancomer
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Size = New System.Drawing.Size(945, 501)
         Me.pnlCatalogo.TabIndex = 43
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.rdbAsimilados)
+        Me.Panel1.Controls.Add(Me.rdbSindicato)
+        Me.Panel1.Controls.Add(Me.rdbPatrona)
+        Me.Panel1.Location = New System.Drawing.Point(627, 71)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(148, 81)
+        Me.Panel1.TabIndex = 69
+        '
+        'rdbSindicato
+        '
+        Me.rdbSindicato.AutoSize = True
+        Me.rdbSindicato.Location = New System.Drawing.Point(18, 33)
+        Me.rdbSindicato.Name = "rdbSindicato"
+        Me.rdbSindicato.Size = New System.Drawing.Size(83, 22)
+        Me.rdbSindicato.TabIndex = 1
+        Me.rdbSindicato.TabStop = True
+        Me.rdbSindicato.Text = "Sindicato"
+        Me.rdbSindicato.UseVisualStyleBackColor = True
+        '
+        'rdbPatrona
+        '
+        Me.rdbPatrona.AutoSize = True
+        Me.rdbPatrona.Checked = True
+        Me.rdbPatrona.Location = New System.Drawing.Point(18, 6)
+        Me.rdbPatrona.Name = "rdbPatrona"
+        Me.rdbPatrona.Size = New System.Drawing.Size(74, 22)
+        Me.rdbPatrona.TabIndex = 0
+        Me.rdbPatrona.TabStop = True
+        Me.rdbPatrona.Text = "Patrona"
+        Me.rdbPatrona.UseVisualStyleBackColor = True
         '
         'Label8
         '
@@ -352,8 +386,8 @@ Partial Class frmComprobanteBancomer
         'lsvLista
         '
         Me.lsvLista.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lsvLista.CheckBoxes = True
         Me.lsvLista.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvLista.FullRowSelect = True
@@ -439,37 +473,16 @@ Partial Class frmComprobanteBancomer
         Me.lblRuta.Size = New System.Drawing.Size(604, 39)
         Me.lblRuta.TabIndex = 45
         '
-        'Panel1
+        'rdbAsimilados
         '
-        Me.Panel1.Controls.Add(Me.rdbSindicato)
-        Me.Panel1.Controls.Add(Me.rdbPatrona)
-        Me.Panel1.Location = New System.Drawing.Point(627, 71)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(148, 58)
-        Me.Panel1.TabIndex = 69
-        '
-        'rdbPatrona
-        '
-        Me.rdbPatrona.AutoSize = True
-        Me.rdbPatrona.Checked = True
-        Me.rdbPatrona.Location = New System.Drawing.Point(18, 6)
-        Me.rdbPatrona.Name = "rdbPatrona"
-        Me.rdbPatrona.Size = New System.Drawing.Size(74, 22)
-        Me.rdbPatrona.TabIndex = 0
-        Me.rdbPatrona.TabStop = True
-        Me.rdbPatrona.Text = "Patrona"
-        Me.rdbPatrona.UseVisualStyleBackColor = True
-        '
-        'rdbSindicato
-        '
-        Me.rdbSindicato.AutoSize = True
-        Me.rdbSindicato.Location = New System.Drawing.Point(18, 33)
-        Me.rdbSindicato.Name = "rdbSindicato"
-        Me.rdbSindicato.Size = New System.Drawing.Size(83, 22)
-        Me.rdbSindicato.TabIndex = 1
-        Me.rdbSindicato.TabStop = True
-        Me.rdbSindicato.Text = "Sindicato"
-        Me.rdbSindicato.UseVisualStyleBackColor = True
+        Me.rdbAsimilados.AutoSize = True
+        Me.rdbAsimilados.Location = New System.Drawing.Point(18, 56)
+        Me.rdbAsimilados.Name = "rdbAsimilados"
+        Me.rdbAsimilados.Size = New System.Drawing.Size(94, 22)
+        Me.rdbAsimilados.TabIndex = 2
+        Me.rdbAsimilados.TabStop = True
+        Me.rdbAsimilados.Text = "Asimilados"
+        Me.rdbAsimilados.UseVisualStyleBackColor = True
         '
         'frmComprobanteBancomer
         '
@@ -489,6 +502,8 @@ Partial Class frmComprobanteBancomer
         Me.pnlProgreso.PerformLayout()
         Me.pnlCatalogo.ResumeLayout(False)
         Me.pnlCatalogo.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.NudCuenta, System.ComponentModel.ISupportInitialize).EndInit()
@@ -496,8 +511,6 @@ Partial Class frmComprobanteBancomer
         CType(Me.NudNombre, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -540,4 +553,5 @@ Partial Class frmComprobanteBancomer
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents rdbSindicato As System.Windows.Forms.RadioButton
     Friend WithEvents rdbPatrona As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbAsimilados As System.Windows.Forms.RadioButton
 End Class
