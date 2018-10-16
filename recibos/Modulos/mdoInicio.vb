@@ -149,7 +149,7 @@ Module mdoInicio
                 Servidor.Nombre = "Equipo1\sqlexpress"
                 Servidor.Base = "unificacion"
                 Servidor.User = "sa"
-                ' Servidor.PWD = "123456"
+                'Servidor.PWD = "1123581321"
                 Servidor.PWD = "kiosko2016"
 
             End If

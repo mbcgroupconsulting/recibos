@@ -508,7 +508,7 @@ Public Class frmPrincipal
 
 
                 Dim Fila As DataRow = rwFilas(0)
-                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "3" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5" Or Fila.Item("fkIdPerfil") = "8" Or Fila.Item("fkIdPerfil") = "9") Then
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "3" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5" Or Fila.Item("fkIdPerfil") = "8") Then
 
                     Forma.ShowDialog()
                 Else
@@ -1303,7 +1303,29 @@ Public Class frmPrincipal
         End Try
     End Sub
 
-    Private Sub lsvPanel_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lsvPanel.SelectedIndexChanged
+    Private Sub CapturaDeChequesAsignadosToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CapturaDeChequesAsignadosToolStripMenuItem.Click
+        SQL = "select * from usuarios where idUsuario = " & idUsuario
+        Dim rwFilas As DataRow() = nConsulta(SQL)
+        Dim Forma As New frmCapturaChequesAsignados
 
+        Try
+            If rwFilas Is Nothing = False Then
+
+
+                Dim Fila As DataRow = rwFilas(0)
+                If (Fila.Item("fkIdPerfil") = "1") Then
+
+                    Forma.ShowDialog()
+                Else
+                    MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
     End Sub
+
+    
 End Class

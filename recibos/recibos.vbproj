@@ -422,6 +422,12 @@
     <Compile Include="contpaq\frmSindicato.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Control D\frmCapturaChequesAsignados.Designer.vb">
+      <DependentUpon>frmCapturaChequesAsignados.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Control D\frmCapturaChequesAsignados.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="facturacion\filtrofacturacion.Designer.vb">
       <DependentUpon>filtrofacturacion.vb</DependentUpon>
     </Compile>
@@ -822,11 +828,7 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="reportes\BanamexNomina.vb">
-      <!--<Compile Include="reportes\BanamexNomina1.vb">
-
-    <Compile Include="reportes\BanamexNomina.vb">-->
-      <!--<Compile Include="reportes\BanamexNomina1.vb">-->
+    <Compile Include="reportes\BanamexNomina1.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BanamexNomina.rpt</DependentUpon>
@@ -850,7 +852,7 @@
       <DependentUpon>ctm20noviembre.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="reportes\ctm7enero.vb">
+    <Compile Include="reportes\ctm7enero1.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ctm7enero.rpt</DependentUpon>
@@ -1190,6 +1192,9 @@
     <EmbeddedResource Include="contpaq\frmSindicato.resx">
       <DependentUpon>frmSindicato.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Control D\frmCapturaChequesAsignados.resx">
+      <DependentUpon>frmCapturaChequesAsignados.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="facturacion\filtrofacturacion.resx">
       <DependentUpon>filtrofacturacion.vb</DependentUpon>
     </EmbeddedResource>
@@ -1386,11 +1391,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\BanamexNomina.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>BanamexNomina.vb</LastGenOutput>
-      <!--<LastGenOutput>BanamexNomina1.vb</LastGenOutput>
-
-      <LastGenOutput>BanamexNomina.vb</LastGenOutput>-->
-      <!--<LastGenOutput>BanamexNomina1.vb</LastGenOutput>-->
+      <LastGenOutput>BanamexNomina1.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\comprobantebancomer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1406,7 +1407,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\ctm7enero.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ctm7enero.vb</LastGenOutput>
+      <LastGenOutput>ctm7enero1.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\ctmcarmenserdan.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1534,6 +1535,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LOGO.ico" />
+    <Content Include="LOGO_RECIBOS.ico" />
+    <Content Include="LOGO_RECIBOS_APP.ico" />
     <Content Include="Resources\1300210270_BuildingManagement.png" />
     <Content Include="Resources\1358748081_3floppy_unmount.png" />
     <Content Include="Resources\1358748164_document-new.png" />
@@ -1550,6 +1553,7 @@
     <Content Include="Resources\1361622577_find.png" />
     <None Include="Resources\bloggif_5aa81d204bc8d.png" />
     <None Include="Resources\cubo-de-basura.png" />
+    <None Include="Resources\1428662_70548557.jpg" />
     <Content Include="Resources\GF1.png" />
     <Content Include="Resources\GF3.png" />
     <None Include="Resources\material-escolar.png" />
