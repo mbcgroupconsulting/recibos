@@ -258,12 +258,20 @@ Public Class frmComprobanteBancomer
                         fila.Item("Nombretrabajdor") = producto.SubItems(CInt(NudNombre.Value)).Text
                         fila.Item("CuentaTrabajador") = producto.SubItems(CInt(NudCuenta.Value)).Text
                         fila.Item("Importe") = Math.Round(importe, 2).ToString("######.00")
-                        fila.Item("MotivoPago") = IIf(rdbPatrona.Checked, "SUELDO", "BENEFICIOSOCIALPROMOYDIFSINDIC")
+                        Dim motivopago As String
+                        If rdbPatrona.Checked Then
+                            motivopago = "SUELDO"
+                        ElseIf rdbSindicato.Checked Then
+                            motivopago = "BENEFICIOSOCIALPROMOYDIFSINDIC"
+                        ElseIf rdbAsimilados.Checked Then
+                            motivopago = "RECIBO ASIMILADO"
+                        End If
+                        fila.Item("MotivoPago") = motivopago
                         dsReporte.Tables("Tabla").Rows.Add(fila)
 
                         'Dim Archivo As String = IO.Path.GetTempFileName.Replace(".tmp", ".xml")
                         'dsReporte.WriteXml(Archivo, XmlWriteMode.WriteSchema)
-                        
+
 
 
                         pgbProgreso.Value += 1

@@ -118,6 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="cmdDeleted.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAC0AAAAtCAYAAAA6GuKaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA37AAAN+wELdzWbAAAAGXRF
+        WHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAs1JREFUaEPt2c3rDVEcx/GfpzwtUErYSFkR
+        S2QjLGxlQzb+APKQtVhgYWGBhdhJsrIVSkRZKAvsRFFKETbyzOeluTVNV/fhd2fuL82n3k3nzPecz6d7
+        Z+7MOXdihJod1oeL4XH4WBy19Ts/5XQkPA+/wu8S2vqdnzKaEXaGr0FIAS+HY8VRW7/z6tSPXSvDwyDY
+        k7ApdII5aut3Xp36RuR6nPsPdoVPwTW8N8wL5fPa+p1Xp758vsykr/tZYWvYH86Ec104Hx4En+L7cDV0
+        q9PvvDr1xnWr48OPL/+BtDicDG/Ct8CsKfjx5S9HX5offBLfw8/wMtwJtxuADz++/OWQp6fcOK4/A68X
+        7eVhaQPw4ceXvxzaPXU0+JrehiU6xiC+/OWQp6euBMWP/rbGJ/5yyNNT7mLFr0Jf11MN4stfDnl6ak/w
+        6P0SDgW/s02KH1/+csjTU8vCveBG8DC4FU4Ej+W64cOPL3855OmpaWFDuB98PeOCvxzy9KXpYVW4Fkzw
+        I3wI72rE/Hz48eUvx0AywLVlkqdhXfBorQvz8+HHd+DAVA7tLW11qFPm77wNtqHrVBv6vws9M7jzq/Lb
+        Oqc4VqXeuKoaCb0oHA77wkIdJW0Mp4tjWerUG2d8WY2E3hasMLzY2NfoyLvDheBB4Vh+d1Gn3jjjy2ok
+        9I5g3YfNOgotCNaExjlqd6SuM8b4strQbejQhq6qDV2oDd1NbehCbehuakMXGntoexLPgn+w1uooZDf/
+        VLDh4lje3Ven3jjjyxpZ6APBJJb2a0JZwmwPdu298Je1IuwujmWpU29c9a8K83e2EPgOFZoYfw6vwxYd
+        Ncr8fPjxHVq+whfBC/2lUF2hjErmNT8fftVLZyBZdZwNdi99AjfD8WC5NCrMZ17z8+E36Z1aa7kbwaSu
+        t7owP5/q2nFo2W49GO4G/4N0Mx0W85nX/H1s605M/AH7hQ63SzeGkQAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="cmdcancelar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAD75JREFUaEO9
