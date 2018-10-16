@@ -94,6 +94,13 @@ Partial Class frmPrincipal
         Me.GastosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ImportarGastosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MostrarGastosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ControlDToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CapturaDeChequesAsignadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VerChequesAsginadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.IngresoDeEfectivoCajaChicaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VerResumenCajaChicaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.IngresoGastosEfectivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VerGastosEfectivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.KioskoClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AsociarClientesEmpresasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AgregarDatoContabilidadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -243,10 +250,10 @@ Partial Class frmPrincipal
         Me.MenuInicio.Font = New System.Drawing.Font("Segoe UI", 11.0!)
         Me.MenuInicio.ImageScalingSize = New System.Drawing.Size(32, 32)
         Me.MenuInicio.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.MenuInicio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContpaqToolStripMenuItem, Me.ImssToolStripMenuItem, Me.FlujoBToolStripMenuItem, Me.FlujoCToolStripMenuItem, Me.AltaNominasToolStripMenuItem, Me.CatalogosToolStripMenuItem, Me.PlaneaciónToolStripMenuItem, Me.FacturacionToolStripMenuItem, Me.ControlTesoreriaToolStripMenuItem, Me.NominaToolStripMenuItem, Me.JuridicoToolStripMenuItem, Me.ComisionesToolStripMenuItem, Me.ConciliacionToolStripMenuItem, Me.GastosToolStripMenuItem, Me.KioskoClientesToolStripMenuItem, Me.mnuSalir})
+        Me.MenuInicio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContpaqToolStripMenuItem, Me.ImssToolStripMenuItem, Me.FlujoBToolStripMenuItem, Me.FlujoCToolStripMenuItem, Me.AltaNominasToolStripMenuItem, Me.CatalogosToolStripMenuItem, Me.PlaneaciónToolStripMenuItem, Me.FacturacionToolStripMenuItem, Me.ControlTesoreriaToolStripMenuItem, Me.NominaToolStripMenuItem, Me.JuridicoToolStripMenuItem, Me.ComisionesToolStripMenuItem, Me.ConciliacionToolStripMenuItem, Me.GastosToolStripMenuItem, Me.ControlDToolStripMenuItem, Me.KioskoClientesToolStripMenuItem, Me.mnuSalir})
         Me.MenuInicio.Name = "MenuInicio"
         Me.MenuInicio.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuInicio.Size = New System.Drawing.Size(203, 634)
+        Me.MenuInicio.Size = New System.Drawing.Size(203, 650)
         '
         'ContpaqToolStripMenuItem
         '
@@ -523,6 +530,49 @@ Partial Class frmPrincipal
         Me.MostrarGastosToolStripMenuItem.Size = New System.Drawing.Size(183, 24)
         Me.MostrarGastosToolStripMenuItem.Text = "Mostrar gastos"
         '
+        'ControlDToolStripMenuItem
+        '
+        Me.ControlDToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CapturaDeChequesAsignadosToolStripMenuItem, Me.VerChequesAsginadosToolStripMenuItem, Me.IngresoDeEfectivoCajaChicaToolStripMenuItem, Me.VerResumenCajaChicaToolStripMenuItem, Me.IngresoGastosEfectivoToolStripMenuItem, Me.VerGastosEfectivoToolStripMenuItem})
+        Me.ControlDToolStripMenuItem.Name = "ControlDToolStripMenuItem"
+        Me.ControlDToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
+        Me.ControlDToolStripMenuItem.Text = "Control D"
+        '
+        'CapturaDeChequesAsignadosToolStripMenuItem
+        '
+        Me.CapturaDeChequesAsignadosToolStripMenuItem.Name = "CapturaDeChequesAsignadosToolStripMenuItem"
+        Me.CapturaDeChequesAsignadosToolStripMenuItem.Size = New System.Drawing.Size(280, 24)
+        Me.CapturaDeChequesAsignadosToolStripMenuItem.Text = "Captura de cheques asignados"
+        '
+        'VerChequesAsginadosToolStripMenuItem
+        '
+        Me.VerChequesAsginadosToolStripMenuItem.Name = "VerChequesAsginadosToolStripMenuItem"
+        Me.VerChequesAsginadosToolStripMenuItem.Size = New System.Drawing.Size(280, 24)
+        Me.VerChequesAsginadosToolStripMenuItem.Text = "Ver cheques asignados"
+        '
+        'IngresoDeEfectivoCajaChicaToolStripMenuItem
+        '
+        Me.IngresoDeEfectivoCajaChicaToolStripMenuItem.Name = "IngresoDeEfectivoCajaChicaToolStripMenuItem"
+        Me.IngresoDeEfectivoCajaChicaToolStripMenuItem.Size = New System.Drawing.Size(280, 24)
+        Me.IngresoDeEfectivoCajaChicaToolStripMenuItem.Text = "Ingreso de efectivo caja chica"
+        '
+        'VerResumenCajaChicaToolStripMenuItem
+        '
+        Me.VerResumenCajaChicaToolStripMenuItem.Name = "VerResumenCajaChicaToolStripMenuItem"
+        Me.VerResumenCajaChicaToolStripMenuItem.Size = New System.Drawing.Size(280, 24)
+        Me.VerResumenCajaChicaToolStripMenuItem.Text = "Ver resumen caja chica"
+        '
+        'IngresoGastosEfectivoToolStripMenuItem
+        '
+        Me.IngresoGastosEfectivoToolStripMenuItem.Name = "IngresoGastosEfectivoToolStripMenuItem"
+        Me.IngresoGastosEfectivoToolStripMenuItem.Size = New System.Drawing.Size(280, 24)
+        Me.IngresoGastosEfectivoToolStripMenuItem.Text = "Ingreso gastos efectivo"
+        '
+        'VerGastosEfectivoToolStripMenuItem
+        '
+        Me.VerGastosEfectivoToolStripMenuItem.Name = "VerGastosEfectivoToolStripMenuItem"
+        Me.VerGastosEfectivoToolStripMenuItem.Size = New System.Drawing.Size(280, 24)
+        Me.VerGastosEfectivoToolStripMenuItem.Text = "Ver gastos efectivo"
+        '
         'KioskoClientesToolStripMenuItem
         '
         Me.KioskoClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AsociarClientesEmpresasToolStripMenuItem, Me.AgregarDatoContabilidadToolStripMenuItem, Me.AgregarDatosNominasToolStripMenuItem, Me.AgregarDatosJuridicoToolStripMenuItem})
@@ -565,7 +615,8 @@ Partial Class frmPrincipal
         'PictureBox1
         '
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.PictureBox1.Location = New System.Drawing.Point(449, 170)
+        Me.PictureBox1.Image = Global.recibos.My.Resources.Resources._1428662_70548557
+        Me.PictureBox1.Location = New System.Drawing.Point(387, 167)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(309, 213)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -653,5 +704,12 @@ Partial Class frmPrincipal
 
     Friend WithEvents ContratToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ImportarFlujosConceptosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ControlDToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents CapturaDeChequesAsignadosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents VerChequesAsginadosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents IngresoDeEfectivoCajaChicaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents VerResumenCajaChicaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents IngresoGastosEfectivoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents VerGastosEfectivoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

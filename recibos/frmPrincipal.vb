@@ -1302,4 +1302,30 @@ Public Class frmPrincipal
 
         End Try
     End Sub
+
+    Private Sub CapturaDeChequesAsignadosToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CapturaDeChequesAsignadosToolStripMenuItem.Click
+        SQL = "select * from usuarios where idUsuario = " & idUsuario
+        Dim rwFilas As DataRow() = nConsulta(SQL)
+        Dim Forma As New frmCapturaChequesAsignados
+
+        Try
+            If rwFilas Is Nothing = False Then
+
+
+                Dim Fila As DataRow = rwFilas(0)
+                If (Fila.Item("fkIdPerfil") = "1") Then
+
+                    Forma.ShowDialog()
+                Else
+                    MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    
 End Class
