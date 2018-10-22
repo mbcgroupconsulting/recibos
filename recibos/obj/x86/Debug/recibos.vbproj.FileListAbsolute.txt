@@ -268,3 +268,4 @@ C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\bin\Debug\recibos.xml
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.exe
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmCapturaChequesAsignados.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmCapturaChequesAsignados.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
