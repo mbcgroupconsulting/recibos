@@ -62,7 +62,7 @@
         Dim tiempo As TimeSpan = fin - inicio
         If (tiempo.Days >= 0) Then
             SQL = "Select iIdGastoCheques, fkiIdEmpresa,empresa.nombre As nombreempresa  ,fkiIdBanco, bancos.cBanco, "
-            SQL &= "FechaMov, FacturaCheques, persona "
+            SQL &= "FechaMov, FacturaCheques, persona,Monto,UsuarioC,UsuarioM "
             SQL &= " from ((GastosCheques "
             SQL &= "inner Join empresa on GastosCheques.fkiIdEmpresa= empresa.iIdEmpresa) "
             SQL &= "inner Join bancos On GastosCheques.fkiIdBanco =  bancos.iIdBanco) "
@@ -84,9 +84,15 @@
             lsvLista.Columns(2).Width = 350
             lsvLista.Columns.Add("Num cheques")
             lsvLista.Columns(3).Width = 350
+            lsvLista.Columns.Add("Monto")
+            lsvLista.Columns(4).Width = 100
+            lsvLista.Columns(4).TextAlign = HorizontalAlignment.Right
             lsvLista.Columns.Add("Persona Asignada")
-            lsvLista.Columns(4).Width = 350
-            
+            lsvLista.Columns(5).Width = 350
+            lsvLista.Columns.Add("Capturo")
+            lsvLista.Columns(6).Width = 350
+            lsvLista.Columns.Add("Modifico")
+            lsvLista.Columns(7).Width = 350
 
             contador = 0
 
@@ -99,13 +105,14 @@
 
                     
                     item = lsvLista.Items.Add(Fila.Item("FechaMov"))
-
-                    
                     item.SubItems.Add("" & Fila.Item("nombreempresa"))
-
                     item.SubItems.Add("" & Fila.Item("cBanco"))
                     item.SubItems.Add("" & Fila.Item("FacturaCheques"))
+                    item.SubItems.Add("" & Fila.Item("Monto"))
                     item.SubItems.Add("" & Fila.Item("persona"))
+                    item.SubItems.Add("" & Fila.Item("UsuarioC"))
+                    item.SubItems.Add("" & Fila.Item("UsuarioM"))
+
                     item.Tag = Fila.Item("iIdGastoCheques")
                     Alter = Not Alter
 
@@ -191,7 +198,7 @@
                 SQL &= "','" & Format(dtpfecha.Value.Date, "yyyy/dd/MM")
                 SQL &= "','" & Date.Now.ToShortDateString() & "'"
                 SQL &= ",'" & nombresistema & "','" & nombresistema
-                SQL &= "',1"
+                SQL &= "',1," & IIf(txtMonto.Text = "", "0.00", txtMonto.Text)
 
 
                 If Execute(SQL, IdFactura1) = False Then
@@ -209,7 +216,7 @@
                 SQL &= "','" & Format(dtpfecha.Value.Date, "yyyy/dd/MM")
                 SQL &= "','" & Date.Now.ToShortDateString() & "'"
                 SQL &= ",'" & UsuarioCreador & "','" & nombresistema
-                SQL &= "',1"
+                SQL &= "',1," & IIf(txtMonto.Text = "", "0.00", txtMonto.Text)
                 
 
 
@@ -244,26 +251,28 @@
         blnNuevo = True
         txtpersona.Text = ""
         txtcheques.Text = ""
+        txtMonto.Text = "0.00"
         
     End Sub
 
     Private Sub lsvLista_ItemActivate(sender As Object, e As System.EventArgs) Handles lsvLista.ItemActivate
-        SQL = "select * from usuarios where idUsuario = " & idUsuario
-        Dim rwFilas As DataRow() = nConsulta(SQL)
+        'SQL = "select * from usuarios where idUsuario = " & idUsuario
+        'Dim rwFilas As DataRow() = nConsulta(SQL)
 
 
         Try
-            If rwFilas Is Nothing = False Then
+            EditarFactura(lsvLista.SelectedItems(0).Tag)
+            'If rwFilas Is Nothing = False Then
 
 
-                Dim Fila As DataRow = rwFilas(0)
+            '    Dim Fila As DataRow = rwFilas(0)
 
-                If (Fila.Item("fkIdPerfil") = "1") Then
+            '    If (Fila.Item("fkIdPerfil") = "1") Then
 
-                    EditarFactura(lsvLista.SelectedItems(0).Tag)
-                
-                End If
-            End If
+            '        EditarFactura(lsvLista.SelectedItems(0).Tag)
+
+            '    End If
+            'End If
         Catch ex As Exception
 
         End Try
@@ -272,6 +281,7 @@
     Private Sub limpiar2()
         txtpersona.Text = ""
         txtcheques.Text = ""
+        txtMonto.Text = "0.00"
     End Sub
     Private Sub EditarFactura(id As String)
         Limpiar2()
@@ -286,7 +296,7 @@
                 cbobanco.SelectedValue = Fila.Item("fkiIdBanco")
                 txtcheques.Text = Fila.Item("FacturaCheques")
                 txtpersona.Text = Fila.Item("Persona")
-
+                txtMonto.Text = Fila.Item("Monto")
                 dtpfecha.Value = Fila.Item("FechaMov")
 
                 
@@ -312,5 +322,13 @@
         If cboempresa.SelectedIndex > -1 Then
             cargarlista()
         End If
+    End Sub
+
+    Private Sub txtMonto_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtMonto.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtMonto_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtMonto.TextChanged
+
     End Sub
 End Class
