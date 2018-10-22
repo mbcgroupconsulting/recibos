@@ -183,10 +183,12 @@
                 MessageBox.Show("Seleccione año y mes.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             Else
-                SQL = " SELECT * FROM InfoKiosko WHERE"
-                SQL &= " InfoKiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & cboclientes.SelectedValue & " AND"
-                SQL &= " InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & "  and infokiosko.anio=" & cboanio.Text
-                SQL &= " and fkiIdPerfil =5 "
+                'SQL = " SELECT * FROM InfoKiosko WHERE"
+                'SQL &= " InfoKiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & cboclientes.SelectedValue & " AND"
+                'SQL &= " InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & "  and infokiosko.anio=" & cboanio.Text
+                'SQL &= " and fkiIdPerfil IN(5,9) "
+
+                SQL = "EXEC getDocNominasMesAno_KC " & cboclientes.SelectedValue & ", " & datos(0).Tag & ", " & cbomes.SelectedIndex + 1 & ", " & cboanio.Text
 
                 Dim rwFilas As DataRow() = nConsulta(SQL)
                 Dim item As ListViewItem
