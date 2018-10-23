@@ -428,6 +428,12 @@
     <Compile Include="Control D\frmCapturaChequesAsignados.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Control D\frmListarCheques.Designer.vb">
+      <DependentUpon>frmListarCheques.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Control D\frmListarCheques.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="facturacion\filtrofacturacion.Designer.vb">
       <DependentUpon>filtrofacturacion.vb</DependentUpon>
     </Compile>
@@ -1194,6 +1200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control D\frmCapturaChequesAsignados.resx">
       <DependentUpon>frmCapturaChequesAsignados.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control D\frmListarCheques.resx">
+      <DependentUpon>frmListarCheques.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="facturacion\filtrofacturacion.resx">
       <DependentUpon>filtrofacturacion.vb</DependentUpon>
