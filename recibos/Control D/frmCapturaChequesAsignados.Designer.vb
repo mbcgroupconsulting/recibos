@@ -27,6 +27,8 @@ Partial Class frmCapturaChequesAsignados
         Me.tsbNuevo = New System.Windows.Forms.ToolStripButton()
         Me.tsbAbono = New System.Windows.Forms.ToolStripButton()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.txtMonto = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.txtcheques = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dtpfechafin = New System.Windows.Forms.DateTimePicker()
@@ -44,8 +46,10 @@ Partial Class frmCapturaChequesAsignados
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtpfecha = New System.Windows.Forms.DateTimePicker()
-        Me.txtMonto = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtOcupado = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.cborecibio = New System.Windows.Forms.ComboBox()
         Me.ToolStrip1.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         Me.SuspendLayout()
@@ -88,6 +92,10 @@ Partial Class frmCapturaChequesAsignados
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlCatalogo.Controls.Add(Me.cborecibio)
+        Me.pnlCatalogo.Controls.Add(Me.txtOcupado)
+        Me.pnlCatalogo.Controls.Add(Me.Label5)
+        Me.pnlCatalogo.Controls.Add(Me.Label7)
         Me.pnlCatalogo.Controls.Add(Me.txtMonto)
         Me.pnlCatalogo.Controls.Add(Me.Label4)
         Me.pnlCatalogo.Controls.Add(Me.txtcheques)
@@ -112,12 +120,30 @@ Partial Class frmCapturaChequesAsignados
         Me.pnlCatalogo.Size = New System.Drawing.Size(1146, 579)
         Me.pnlCatalogo.TabIndex = 60
         '
+        'txtMonto
+        '
+        Me.txtMonto.Location = New System.Drawing.Point(934, 76)
+        Me.txtMonto.Name = "txtMonto"
+        Me.txtMonto.Size = New System.Drawing.Size(113, 26)
+        Me.txtMonto.TabIndex = 5
+        Me.txtMonto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(934, 54)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(51, 19)
+        Me.Label4.TabIndex = 58
+        Me.Label4.Text = "Monto"
+        '
         'txtcheques
         '
         Me.txtcheques.Location = New System.Drawing.Point(523, 76)
         Me.txtcheques.Name = "txtcheques"
         Me.txtcheques.Size = New System.Drawing.Size(396, 26)
-        Me.txtcheques.TabIndex = 9
+        Me.txtcheques.TabIndex = 4
         Me.txtcheques.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label2
@@ -133,7 +159,7 @@ Partial Class frmCapturaChequesAsignados
         'dtpfechafin
         '
         Me.dtpfechafin.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpfechafin.Location = New System.Drawing.Point(585, 132)
+        Me.dtpfechafin.Location = New System.Drawing.Point(585, 182)
         Me.dtpfechafin.Name = "dtpfechafin"
         Me.dtpfechafin.Size = New System.Drawing.Size(96, 26)
         Me.dtpfechafin.TabIndex = 55
@@ -142,7 +168,7 @@ Partial Class frmCapturaChequesAsignados
         '
         Me.Label22.AutoSize = True
         Me.Label22.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label22.Location = New System.Drawing.Point(581, 113)
+        Me.Label22.Location = New System.Drawing.Point(581, 163)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(67, 19)
         Me.Label22.TabIndex = 54
@@ -152,7 +178,7 @@ Partial Class frmCapturaChequesAsignados
         '
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.Location = New System.Drawing.Point(472, 113)
+        Me.Label23.Location = New System.Drawing.Point(472, 163)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(86, 19)
         Me.Label23.TabIndex = 53
@@ -161,7 +187,7 @@ Partial Class frmCapturaChequesAsignados
         'dtpfechainicio
         '
         Me.dtpfechainicio.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpfechainicio.Location = New System.Drawing.Point(476, 132)
+        Me.dtpfechainicio.Location = New System.Drawing.Point(476, 182)
         Me.dtpfechainicio.Name = "dtpfechainicio"
         Me.dtpfechainicio.Size = New System.Drawing.Size(96, 26)
         Me.dtpfechainicio.TabIndex = 52
@@ -175,10 +201,10 @@ Partial Class frmCapturaChequesAsignados
         Me.lsvLista.FullRowSelect = True
         Me.lsvLista.GridLines = True
         Me.lsvLista.HideSelection = False
-        Me.lsvLista.Location = New System.Drawing.Point(3, 184)
+        Me.lsvLista.Location = New System.Drawing.Point(3, 235)
         Me.lsvLista.MultiSelect = False
         Me.lsvLista.Name = "lsvLista"
-        Me.lsvLista.Size = New System.Drawing.Size(1136, 388)
+        Me.lsvLista.Size = New System.Drawing.Size(1136, 337)
         Me.lsvLista.TabIndex = 34
         Me.lsvLista.UseCompatibleStateImageBehavior = False
         Me.lsvLista.View = System.Windows.Forms.View.Details
@@ -186,20 +212,20 @@ Partial Class frmCapturaChequesAsignados
         'cmdcancelar
         '
         Me.cmdcancelar.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdcancelar.Location = New System.Drawing.Point(321, 118)
+        Me.cmdcancelar.Location = New System.Drawing.Point(321, 168)
         Me.cmdcancelar.Name = "cmdcancelar"
         Me.cmdcancelar.Size = New System.Drawing.Size(131, 43)
-        Me.cmdcancelar.TabIndex = 12
+        Me.cmdcancelar.TabIndex = 9
         Me.cmdcancelar.Text = "Cancelar"
         Me.cmdcancelar.UseVisualStyleBackColor = True
         '
         'cmdagregar
         '
         Me.cmdagregar.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdagregar.Location = New System.Drawing.Point(113, 118)
+        Me.cmdagregar.Location = New System.Drawing.Point(113, 168)
         Me.cmdagregar.Name = "cmdagregar"
         Me.cmdagregar.Size = New System.Drawing.Size(202, 43)
-        Me.cmdagregar.TabIndex = 11
+        Me.cmdagregar.TabIndex = 8
         Me.cmdagregar.Text = "Agregar/Modificar"
         Me.cmdagregar.UseVisualStyleBackColor = True
         '
@@ -208,7 +234,7 @@ Partial Class frmCapturaChequesAsignados
         Me.txtpersona.Location = New System.Drawing.Point(113, 76)
         Me.txtpersona.Name = "txtpersona"
         Me.txtpersona.Size = New System.Drawing.Size(396, 26)
-        Me.txtpersona.TabIndex = 8
+        Me.txtpersona.TabIndex = 3
         '
         'Label11
         '
@@ -226,7 +252,7 @@ Partial Class frmCapturaChequesAsignados
         Me.cbobanco.Location = New System.Drawing.Point(523, 25)
         Me.cbobanco.Name = "cbobanco"
         Me.cbobanco.Size = New System.Drawing.Size(396, 26)
-        Me.cbobanco.TabIndex = 7
+        Me.cbobanco.TabIndex = 2
         '
         'cboempresa
         '
@@ -234,7 +260,7 @@ Partial Class frmCapturaChequesAsignados
         Me.cboempresa.Location = New System.Drawing.Point(113, 25)
         Me.cboempresa.Name = "cboempresa"
         Me.cboempresa.Size = New System.Drawing.Size(396, 26)
-        Me.cboempresa.TabIndex = 6
+        Me.cboempresa.TabIndex = 1
         '
         'Label6
         '
@@ -272,25 +298,44 @@ Partial Class frmCapturaChequesAsignados
         Me.dtpfecha.Location = New System.Drawing.Point(7, 25)
         Me.dtpfecha.Name = "dtpfecha"
         Me.dtpfecha.Size = New System.Drawing.Size(96, 26)
-        Me.dtpfecha.TabIndex = 5
+        Me.dtpfecha.TabIndex = 0
         '
-        'txtMonto
+        'txtOcupado
         '
-        Me.txtMonto.Location = New System.Drawing.Point(934, 76)
-        Me.txtMonto.Name = "txtMonto"
-        Me.txtMonto.Size = New System.Drawing.Size(113, 26)
-        Me.txtMonto.TabIndex = 10
-        Me.txtMonto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtOcupado.Location = New System.Drawing.Point(327, 130)
+        Me.txtOcupado.Name = "txtOcupado"
+        Me.txtOcupado.Size = New System.Drawing.Size(592, 26)
+        Me.txtOcupado.TabIndex = 7
+        Me.txtOcupado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'Label4
+        'Label5
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(934, 54)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(51, 19)
-        Me.Label4.TabIndex = 58
-        Me.Label4.Text = "Monto"
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(327, 108)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(104, 19)
+        Me.Label5.TabIndex = 62
+        Me.Label5.Text = "Ocupado para:"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(116, 108)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(163, 19)
+        Me.Label7.TabIndex = 61
+        Me.Label7.Text = "Quien recibio el cheque"
+        '
+        'cborecibio
+        '
+        Me.cborecibio.FormattingEnabled = True
+        Me.cborecibio.Items.AddRange(New Object() {"Cliente", "Mbcgroup"})
+        Me.cborecibio.Location = New System.Drawing.Point(113, 130)
+        Me.cborecibio.Name = "cborecibio"
+        Me.cborecibio.Size = New System.Drawing.Size(202, 26)
+        Me.cborecibio.TabIndex = 6
         '
         'frmCapturaChequesAsignados
         '
@@ -333,4 +378,8 @@ Partial Class frmCapturaChequesAsignados
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents txtMonto As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents cborecibio As System.Windows.Forms.ComboBox
+    Friend WithEvents txtOcupado As System.Windows.Forms.TextBox
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents Label7 As System.Windows.Forms.Label
 End Class

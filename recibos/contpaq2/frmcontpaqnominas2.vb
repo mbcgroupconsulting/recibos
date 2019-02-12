@@ -1491,6 +1491,7 @@ Public Class frmcontpaqnominas2
 
 
                                 fila.Item("costosocial") = fCostoSA
+
                                 fila.Item("ISPT") = "0.00"
                                 fila.Item("departamento") = Trim(row("depto"))
 
@@ -1717,6 +1718,7 @@ Public Class frmcontpaqnominas2
 
                                 fila.Item("costosocial") = fCostoSA
 
+
                                 fila.Item("ISPT") = "0.00"
 
                                 fila.Item("departamento") = Trim(row("depto"))
@@ -1786,6 +1788,7 @@ Public Class frmcontpaqnominas2
                                         fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper()
                                         fila.Item("Sueldo") = rwNominaGuardada(z)("fSueldoOrd").ToString
                                         fila.Item("Neto_SA") = "0.00"
+                                        fila.Item("P_Alimenticia") = "0.00"
                                         fila.Item("Infonavit") = "0.00"
                                         fila.Item("Prima_SA") = "0.00"
                                         fila.Item("Aguinaldo_SA") = rwNominaGuardada(z)("fAguinaldoSA").ToString
@@ -1793,7 +1796,7 @@ Public Class frmcontpaqnominas2
 
 
                                         fila.Item("Prestamo") = "0.00"
-
+                                        fila.Item("P_Alimenticia_S") = "0.00"
                                         'fila.Item("Prestamo") = rwNominaGuardada(z)("fPrestamo").ToString
                                         'fila.Item("pRIM") = "0.00"
                                         fila.Item("Sindicato") = "0.00"
@@ -1933,6 +1936,7 @@ Public Class frmcontpaqnominas2
                                     fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper()
                                     fila.Item("Sueldo") = dsSASindicato.Tables("Tabla").Rows(x)("sueldo").ToString
                                     fila.Item("Neto_SA") = "0.00"
+                                    fila.Item("P_Alimenticia") = "0.00"
                                     fila.Item("Infonavit") = "0.00"
                                     fila.Item("Prima_SA") = "0.00"
                                     fila.Item("Aguinaldo_SA") = dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString
@@ -1969,7 +1973,7 @@ Public Class frmcontpaqnominas2
                                     fila.Item("Extra") = "0.00"
 
 
-
+                                    fila.Item("P_Alimenticia_S") = "0.00"
                                     fila.Item("Sindicato") = "0.00"
                                     'Calculo prima originalmente tenia 0
                                     fila.Item("Prima_Sin") = "0.00"
@@ -2176,14 +2180,38 @@ Public Class frmcontpaqnominas2
                                 fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper
                                 fila.Item("Sueldo") = dsSASindicato.Tables("Tabla").Rows(x)("sueldo").ToString
                                 fila.Item("Neto_SA") = "0.00"
+                                fila.Item("P_Alimenticia") = dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString
                                 fila.Item("Infonavit") = "0.00"
                                 fila.Item("Prima_SA") = "0.00"
-                                fila.Item("Aguinaldo_SA") = dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString
+                                fila.Item("Aguinaldo_SA") = Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString) - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString)
 
                                 fila.Item("Descuento") = "0.00"
 
 
                                 fila.Item("Prestamo") = "0.00"
+
+
+                                'Calculamos  la pension sindicato
+                                sql = "select * from PensionAlimenticia where fkiIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
+
+                                Dim rwDatosPension As DataRow() = nConsulta(sql)
+
+                                If rwDatosPension Is Nothing = False Then
+
+                                    If rwDatosPension(0)("iTipo") = "1" Then
+
+                                    End If
+
+                                    If rwDatosPension(0)("iTipo") = "2" Then
+                                        fila.Item("P_Alimenticia_S") = (Double.Parse(rwDatosPension(0)("MontoCalculo")) * Double.Parse(rwDatosPension(0)("ValorImporte"))) - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString)
+                                    End If
+
+
+                                Else
+                                    fila.Item("P_Alimenticia_S") = "0.00"
+
+                                End If
+
 
 
                                 'Buscamos si existe aguinaldo calculado en este periodo y si es asi lo pasamos a la tabla del dataset
@@ -2201,8 +2229,10 @@ Public Class frmcontpaqnominas2
                                 If AguinaldoSin = 0 Then
                                     fila.Item("Aguinaldo_Sin") = "0.00"
                                 Else
-                                    fila.Item("Aguinaldo_Sin") = AguinaldoSin - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString)
+                                    fila.Item("Aguinaldo_Sin") = AguinaldoSin - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString) - Double.Parse(fila.Item("P_Alimenticia_S"))
                                 End If
+
+                                
 
 
                                 fila.Item("Extra") = "0.00"
@@ -2221,6 +2251,7 @@ Public Class frmcontpaqnominas2
                                 fila.Item("Subtotal") = "0.00"
                                 fila.Item("Iva") = "0.00"
                                 fila.Item("Total") = "0.00"
+                                'fila.Item("P_Alimenticia_S") = "0.00"
                                 fila.Item("Departamento") = Trim(dsSASindicato.Tables("Tabla").Rows(x)("departamento"))
 
 

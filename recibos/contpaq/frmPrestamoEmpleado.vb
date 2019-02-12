@@ -132,9 +132,9 @@ Public Class frmPrestamoEmpleado
                 SQL &= "pagoprestamo.fecha from (empleadosC"
                 SQL &= " inner join prestamo on empleadosC.iIdEmpleadoC = prestamo.fkiIdEmpleado)"
                 SQL &= " inner join PagoPrestamo on prestamo.iIdPrestamo = PagoPrestamo.fkiIdPrestamo"
-                SQL &= " where iIdEmpleadoC =" & gIdEmpleado & "and iIdPrestamo=" & datos(0).Tag
+                SQL &= " where iIdEmpleadoC =" & gIdEmpleado & " and iIdPrestamo=" & datos(0).Tag
                 SQL &= " and prestamo.iEstatus=1 and pagoprestamo.iEstatus=1"
-
+                SQL &= " order by pagoprestamo.fecha"
 
 
                 Dim rwFilas As DataRow() = nConsulta(SQL)

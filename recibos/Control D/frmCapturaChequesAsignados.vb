@@ -199,6 +199,7 @@
                 SQL &= "','" & Date.Now.ToShortDateString() & "'"
                 SQL &= ",'" & nombresistema & "','" & nombresistema
                 SQL &= "',1," & IIf(txtMonto.Text = "", "0.00", txtMonto.Text)
+                SQL &= "," & cborecibio.SelectedIndex & ",'" & txtOcupado.Text & "'"
 
 
                 If Execute(SQL, IdFactura1) = False Then
@@ -217,7 +218,7 @@
                 SQL &= "','" & Date.Now.ToShortDateString() & "'"
                 SQL &= ",'" & UsuarioCreador & "','" & nombresistema
                 SQL &= "',1," & IIf(txtMonto.Text = "", "0.00", txtMonto.Text)
-                
+                SQL &= "," & cborecibio.SelectedIndex & ",'" & txtOcupado.Text & "'"
 
 
                 If nExecute(SQL) = False Then
@@ -247,6 +248,8 @@
         'cboempresa.SelectedIndex = 0
         cboempresa.SelectedIndex = -1
         cbobanco.SelectedIndex = -1
+        cborecibio.SelectedIndex = -1
+        txtOcupado.Text = ""
         dtpfecha.Value = Date.Now.ToShortDateString()
         blnNuevo = True
         txtpersona.Text = ""
@@ -282,6 +285,8 @@
         txtpersona.Text = ""
         txtcheques.Text = ""
         txtMonto.Text = "0.00"
+        cborecibio.SelectedIndex = 0
+        txtOcupado.Text = ""
     End Sub
     Private Sub EditarFactura(id As String)
         Limpiar2()
@@ -298,7 +303,8 @@
                 txtpersona.Text = Fila.Item("Persona")
                 txtMonto.Text = Fila.Item("Monto")
                 dtpfecha.Value = Fila.Item("FechaMov")
-
+                cborecibio.SelectedIndex = Fila.Item("Recibio")
+                txtOcupado.Text = Fila.Item("ocupado")
                 
                 gIdCheque = id
                 If cboempresa.SelectedIndex > -1 Then

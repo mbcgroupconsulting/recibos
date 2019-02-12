@@ -108,6 +108,7 @@ Partial Class frmPrincipal
         Me.AgregarDatosJuridicoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.OpcionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlBar.SuspendLayout()
         Me.MenuInicio.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -253,11 +254,11 @@ Partial Class frmPrincipal
         Me.MenuInicio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContpaqToolStripMenuItem, Me.ImssToolStripMenuItem, Me.FlujoBToolStripMenuItem, Me.FlujoCToolStripMenuItem, Me.AltaNominasToolStripMenuItem, Me.CatalogosToolStripMenuItem, Me.PlaneaciónToolStripMenuItem, Me.FacturacionToolStripMenuItem, Me.ControlTesoreriaToolStripMenuItem, Me.NominaToolStripMenuItem, Me.JuridicoToolStripMenuItem, Me.ComisionesToolStripMenuItem, Me.ConciliacionToolStripMenuItem, Me.GastosToolStripMenuItem, Me.ControlDToolStripMenuItem, Me.KioskoClientesToolStripMenuItem, Me.mnuSalir})
         Me.MenuInicio.Name = "MenuInicio"
         Me.MenuInicio.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuInicio.Size = New System.Drawing.Size(203, 650)
+        Me.MenuInicio.Size = New System.Drawing.Size(203, 672)
         '
         'ContpaqToolStripMenuItem
         '
-        Me.ContpaqToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerEmpresasToolStripMenuItem})
+        Me.ContpaqToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerEmpresasToolStripMenuItem, Me.OpcionToolStripMenuItem})
         Me.ContpaqToolStripMenuItem.Name = "ContpaqToolStripMenuItem"
         Me.ContpaqToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.ContpaqToolStripMenuItem.Text = "Contpaq"
@@ -624,6 +625,12 @@ Partial Class frmPrincipal
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Visible = False
         '
+        'OpcionToolStripMenuItem
+        '
+        Me.OpcionToolStripMenuItem.Name = "OpcionToolStripMenuItem"
+        Me.OpcionToolStripMenuItem.Size = New System.Drawing.Size(166, 24)
+        Me.OpcionToolStripMenuItem.Text = "Opcion"
+        '
         'frmPrincipal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -711,5 +718,6 @@ Partial Class frmPrincipal
     Friend WithEvents VerResumenCajaChicaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents IngresoGastosEfectivoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VerGastosEfectivoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents OpcionToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
