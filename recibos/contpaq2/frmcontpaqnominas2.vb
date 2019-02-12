@@ -105,7 +105,7 @@ Public Class frmcontpaqnominas2
         Dim sql As String
         Try
             sql = "Select (Convert(varchar, dFechaInicio,103) + '-' + Convert(varchar, dFechaFin,103)) as dFechaInicio,iIdPeriodo,dFechaFin "
-            sql &= "from periodos where fkiIdTipoPeriodo=" & gIdTipoPeriodo & " and fkiIdEmpresa=" & gIdEmpresa & " and iEjercicio=" & Date.Now.Year
+            sql &= "from periodos where fkiIdTipoPeriodo=" & gIdTipoPeriodo & " and fkiIdEmpresa=" & gIdEmpresa '& " and iEjercicio=" & Date.Now.Year
             sql &= " order by iEjercicio,iNumeroPeriodo"
             nCargaCBO(cboperiodo, sql, "dFechainicio", "iIdPeriodo")
 

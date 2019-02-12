@@ -53,7 +53,7 @@ Public Class frmExportarNominaTMM
 
                 For Each producto As ListViewItem In lsvLista.CheckedItems
                     'validar si existe o el archivo en el servidor
-                    Ruta = "\\pagina-pc\pagosn\" & Trim(producto.SubItems(5).Text) & ".pdf"
+                    Ruta = "\\pagina-pc\pagosn\" & IIf(chkNominaB.Checked = True, txtcarpeta.Text & "\", "") & Trim(producto.SubItems(5).Text) & ".pdf"
 
 
                     Dim Archivo As System.IO.FileInfo = New System.IO.FileInfo(Ruta)
@@ -83,7 +83,7 @@ Public Class frmExportarNominaTMM
                             SQL &= Trim(producto.SubItems(5).Text)
                             SQL &= "','','" & Trim(producto.SubItems(8).Text) & "','"
                             SQL &= Trim(producto.SubItems(7).Text) & "','"
-                            SQL &= IIf(chkNominaB.Checked = True, txtcarpeta.Text, "") & "'" 'dsa es igual a nominaB
+                            SQL &= IIf(chkNominaB.Checked = True, txtcarpeta.Text, " ") & "'" 'dsa es igual a nominaB
 
 
                             If nExecuteKiosko(SQL) = False Then
