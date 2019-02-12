@@ -271,3 +271,4 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmCapturaChequesAsigna
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmListarCheques.resources
+C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmSubirDatos.resources

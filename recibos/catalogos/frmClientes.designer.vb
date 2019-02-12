@@ -24,6 +24,7 @@ Partial Class frmClientes
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmClientes))
         Me.pnlProveedores = New System.Windows.Forms.Panel()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.txtCargo = New System.Windows.Forms.TextBox()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.txtRepresentante = New System.Windows.Forms.TextBox()
@@ -76,7 +77,6 @@ Partial Class frmClientes
         Me.txtcalle = New System.Windows.Forms.TextBox()
         Me.txtnombre2 = New System.Windows.Forms.TextBox()
         Me.txtnombre = New System.Windows.Forms.TextBox()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -176,6 +176,15 @@ Partial Class frmClientes
         Me.pnlProveedores.Name = "pnlProveedores"
         Me.pnlProveedores.Size = New System.Drawing.Size(689, 700)
         Me.pnlProveedores.TabIndex = 0
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(72, 13)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(61, 19)
+        Me.Label13.TabIndex = 12
+        Me.Label13.Text = "Estatus:"
         '
         'txtCargo
         '
@@ -597,15 +606,6 @@ Partial Class frmClientes
         Me.txtnombre.Name = "txtnombre"
         Me.txtnombre.Size = New System.Drawing.Size(544, 27)
         Me.txtnombre.TabIndex = 1
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(72, 13)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(61, 19)
-        Me.Label13.TabIndex = 12
-        Me.Label13.Text = "Estatus:"
         '
         'Label11
         '

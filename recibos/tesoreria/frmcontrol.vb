@@ -469,6 +469,7 @@ Public Class frmcontrol
                     item.SubItems.Add("" & Fila.Item("costosocial"))
                     item.SubItems.Add("" & Fila.Item("retencion"))
                     item.Tag = Fila.Item("iIdFacturasNomina")
+                    item.ToolTipText = Fila.Item("iIdFacturasNomina")
                     item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
                     Alter = Not Alter
 

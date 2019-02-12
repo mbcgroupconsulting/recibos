@@ -985,6 +985,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Settings.vb" />
+    <Compile Include="Subirdatos\frmSubirDatos.Designer.vb">
+      <DependentUpon>frmSubirDatos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Subirdatos\frmSubirDatos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="tesoreria\frmcontrol.Designer.vb">
       <DependentUpon>frmcontrol.vb</DependentUpon>
     </Compile>
@@ -1492,6 +1498,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\ucVisor.resx">
       <DependentUpon>ucVisor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Subirdatos\frmSubirDatos.resx">
+      <DependentUpon>frmSubirDatos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tesoreria\frmcontrol.resx">
       <DependentUpon>frmcontrol.vb</DependentUpon>

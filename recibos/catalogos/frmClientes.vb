@@ -476,4 +476,7 @@ Public Class frmClientes
     End Sub
 
 
+    Private Sub cbotipocliente_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cbotipocliente.SelectedIndexChanged
+
+    End Sub
 End Class
