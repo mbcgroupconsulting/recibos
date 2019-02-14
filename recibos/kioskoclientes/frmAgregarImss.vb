@@ -168,19 +168,20 @@
             Else
                 MessageBox.Show("No hay una empresa seleccionada para asociar los archivos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
+            'Trae los documentos que se guardaron en recibos, tambien los no asignados
+            SQL = "EXEC getDocImssMesAno_Recibos "
+            SQL &= cboclientes.SelectedValue & ","
+            SQL &= datos(0).Tag & ","
+            SQL &= cbomes.SelectedIndex + 1 & ","
+            SQL &= cboanio.Text
 
-            'SQL = "SELECT * FROM  DOCUMENTOS AS D"
-            'SQL &= " WHERE  cArea=" & 2 & "AND iEstatus=1 and d.iIdDocumentos IN (SELECT fkiIdDocumentos FROM InfoKiosko inner join documentos"
-            'SQL &= " ON infokiosko.fkiIdDocumentos = documentos.iIdDocumentos "
-            'SQL &= " WHERE InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & " and infokiosko.anio=" & cboanio.Text & " and documentos.cArea=" & 2
-            'SQL &= " AND infokiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & cboclientes.SelectedValue & ")"
-            'SQL &= " or cPeriOdicidad='BIMESTRAL' AND iTMM =" & tmm
 
-            SQL = " SELECT * FROM InfoKiosko WHERE"
-            SQL &= " InfoKiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & cboclientes.SelectedValue & " AND"
-            SQL &= " InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & "  and infokiosko.anio=" & cboanio.Text
-            SQL &= " and fkiIdDocumentos IN"
-            SQL &= " (SELECT iIdDocumentos FROM Documentos where iTMM=" & tmm & " and iEstatus=1 and cArea=2)"
+
+            'SQL = " SELECT * FROM InfoKiosko WHERE"
+            'SQL &= " InfoKiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & cboclientes.SelectedValue & " AND"
+            'SQL &= " InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & "  and infokiosko.anio=" & cboanio.Text
+            'SQL &= " and fkiIdDocumentos IN"
+            'SQL &= " (SELECT iIdDocumentos FROM Documentos where iTMM=" & tmm & " and iEstatus=1 and cArea=2)"
 
             Dim rwFilas As DataRow() = nConsulta(SQL)
             Dim item As ListViewItem
@@ -188,6 +189,7 @@
 
             If rwFilas Is Nothing = False Then
                 For Each Fila In rwFilas
+
                     item = lsvArchivo.Items.Add(Fila.Item("nombrearchivo"))
 
                     ' item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
@@ -323,6 +325,7 @@
     Private Sub frmAgregarImss_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         cmdguardar.Enabled = False
         cmdcancelar.Enabled = False
+        cmdDeleted.Enabled = False
         MostrarClientes()
         MostrarDocumentos()
         ''TabIndex()
@@ -368,6 +371,7 @@
         cmdguardar.Enabled = pnlProveedores.Enabled
         cmdcancelar.Enabled = pnlProveedores.Enabled
         cmdbuscar.Enabled = pnlProveedores.Enabled
+        cmdDeleted.Enabled = pnlProveedores.Enabled
     End Sub
 
     Private Sub cboclientes_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cboclientes.SelectedIndexChanged
@@ -450,4 +454,40 @@
     'End Sub
 
 
+    Private Sub cmdDeleted_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeleted.Click
+
+        Try
+
+
+            Dim datos As ListView.SelectedListViewItemCollection = lsvArchivo.SelectedItems
+            If datos.Count > 0 Then
+                Dim resultado As Integer = MessageBox.Show("¿Desea borrar el documento, se eliminara del sistema " & datos(0).SubItems(0).Text & "?", "Pregunta", MessageBoxButtons.YesNo)
+
+
+                If resultado = DialogResult.Yes Then
+
+                    SQL = "DELETE FROM InfoKiosko where nombrearchivo like '%" & datos(0).SubItems(0).Text & "%'"
+
+                    If nExecute(SQL) = False Then
+                        MessageBox.Show("Hubo un problema al borrar, revise sus datos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Else
+                        datos(0).Remove()
+                        MessageBox.Show("Datos borrados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        cmdbuscar_Click(sender, e)
+                    End If
+
+                End If
+
+            Else
+
+                MessageBox.Show("Seleccione un archivo para borrar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            End If
+
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

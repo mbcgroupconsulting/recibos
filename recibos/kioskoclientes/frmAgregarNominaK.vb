@@ -77,8 +77,8 @@
 
                         FileCopy(archivo.SubItems(0).Text, "C:\Temp\" & nombrearchivocompleto)
 
-                        My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
-
+                        My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://facturacion.elchingon.net/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
+                        ' My.Computer.Network.UploadFile("C:\Temp\" & nombrearchivocompleto, "ftp://192.168.1.222/" & nombrearchivocompleto, "infodown", "rkd4e33lr4")
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Ocurrio un error," & SQL, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                             Exit Sub
@@ -188,7 +188,7 @@
                 'SQL &= " InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & "  and infokiosko.anio=" & cboanio.Text
                 'SQL &= " and fkiIdPerfil IN(5,9) "
 
-                SQL = "EXEC getDocNominasMesAno_KC " & cboclientes.SelectedValue & ", " & datos(0).Tag & ", " & cbomes.SelectedIndex + 1 & ", " & cboanio.Text
+                SQL = "EXEC getDocNominasMesAno_Recibos " & cboclientes.SelectedValue & ", " & datos(0).Tag & ", " & cbomes.SelectedIndex + 1 & ", " & cboanio.Text & ", " & idperfil
 
                 Dim rwFilas As DataRow() = nConsulta(SQL)
                 Dim item As ListViewItem

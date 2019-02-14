@@ -48,6 +48,7 @@ Partial Class frmAgregarImss
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cboclientes = New System.Windows.Forms.ComboBox()
         Me.Label23 = New System.Windows.Forms.Label()
+        Me.cmdDeleted = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.pnlProveedores.SuspendLayout()
         Me.SuspendLayout()
@@ -56,6 +57,7 @@ Partial Class frmAgregarImss
         '
         Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.cmdDeleted)
         Me.Panel1.Controls.Add(Me.cmdcancelar)
         Me.Panel1.Controls.Add(Me.cmdbuscar)
         Me.Panel1.Controls.Add(Me.cmdnuevo)
@@ -107,7 +109,7 @@ Partial Class frmAgregarImss
         '
         Me.cmdsalir.Image = CType(resources.GetObject("cmdsalir.Image"), System.Drawing.Image)
         Me.cmdsalir.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdsalir.Location = New System.Drawing.Point(7, 313)
+        Me.cmdsalir.Location = New System.Drawing.Point(8, 401)
         Me.cmdsalir.Name = "cmdsalir"
         Me.cmdsalir.Size = New System.Drawing.Size(87, 72)
         Me.cmdsalir.TabIndex = 37
@@ -313,6 +315,18 @@ Partial Class frmAgregarImss
         Me.Label23.TabIndex = 49
         Me.Label23.Text = "Clientes:"
         '
+        'cmdDeleted
+        '
+        Me.cmdDeleted.Image = CType(resources.GetObject("cmdDeleted.Image"), System.Drawing.Image)
+        Me.cmdDeleted.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdDeleted.Location = New System.Drawing.Point(3, 313)
+        Me.cmdDeleted.Name = "cmdDeleted"
+        Me.cmdDeleted.Size = New System.Drawing.Size(87, 72)
+        Me.cmdDeleted.TabIndex = 39
+        Me.cmdDeleted.Text = "Eliminar"
+        Me.cmdDeleted.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdDeleted.UseVisualStyleBackColor = True
+        '
         'frmAgregarImss
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -355,4 +369,5 @@ Partial Class frmAgregarImss
     Private WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
     Friend WithEvents cboDocumento As System.Windows.Forms.ComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents cmdDeleted As System.Windows.Forms.Button
 End Class

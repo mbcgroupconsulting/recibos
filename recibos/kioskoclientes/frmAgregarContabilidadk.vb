@@ -177,18 +177,21 @@
                 MessageBox.Show("No hay una empresa seleccionada para asociar los archivos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
-            'SQL = "SELECT * FROM  DOCUMENTOS AS D"
-            'SQL &= " WHERE  cArea=" & 2 & "AND iEstatus=1 and d.iIdDocumentos IN (SELECT fkiIdDocumentos FROM InfoKiosko inner join documentos"
-            'SQL &= " ON infokiosko.fkiIdDocumentos = documentos.iIdDocumentos "
-            'SQL &= " WHERE InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & " and infokiosko.anio=" & cboanio.Text & " and documentos.cArea=" & 2
-            'SQL &= " AND infokiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & cboclientes.SelectedValue & ")"
-            'SQL &= " or cPeriOdicidad='BIMESTRAL' AND iTMM =" & tmm
+           
+            'SQL = " SELECT * FROM InfoKiosko WHERE"
+            'SQL &= " InfoKiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & 0 & " AND"
+            'SQL &= " InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & "  and infokiosko.anio=" & cboanio.Text
+            'SQL &= " and fkiIdDocumentos IN"
+            'SQL &= " (SELECT iIdDocumentos FROM Documentos where iTMM IN (1," & tmm & ") and iEstatus IN (1,2) and cArea=1)"
 
-            SQL = " SELECT * FROM InfoKiosko WHERE"
-            SQL &= " InfoKiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & 0 & " AND"
-            SQL &= " InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & "  and infokiosko.anio=" & cboanio.Text
-            SQL &= " and fkiIdDocumentos IN"
-            SQL &= " (SELECT iIdDocumentos FROM Documentos where iTMM IN (1," & tmm & ") and iEstatus IN (1,2) and cArea=1)"
+            'Trae los documentos que se guardaron en recibos, tambien los no asignados
+            SQL = "EXEC getDocContaMesAno_Recibos "
+            SQL &= 0 & ","
+            SQL &= datos(0).Tag & ","
+            SQL &= cbomes.SelectedIndex + 1 & ","
+            SQL &= cboanio.Text & ","
+            SQL &= tmm
+
 
             Dim rwFilas As DataRow() = nConsulta(SQL)
             Dim item As ListViewItem
