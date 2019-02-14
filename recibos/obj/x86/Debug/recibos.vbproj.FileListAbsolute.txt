@@ -271,5 +271,9 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmCapturaChequesAsigna
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmListarCheques.resources
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmSubirDatos.resources
+<<<<<<< HEAD
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmListarCheques.resources
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmSubirDatos.resources
+=======
+C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmImportarCheques.resources
+>>>>>>> origin/master

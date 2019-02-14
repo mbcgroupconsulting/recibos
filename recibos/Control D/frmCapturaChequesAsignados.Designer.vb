@@ -22,11 +22,14 @@ Partial Class frmCapturaChequesAsignados
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCapturaChequesAsignados))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbNuevo = New System.Windows.Forms.ToolStripButton()
         Me.tsbAbono = New System.Windows.Forms.ToolStripButton()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.cborecibio = New System.Windows.Forms.ComboBox()
+        Me.txtOcupado = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.txtMonto = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtcheques = New System.Windows.Forms.TextBox()
@@ -46,10 +49,6 @@ Partial Class frmCapturaChequesAsignados
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtpfecha = New System.Windows.Forms.DateTimePicker()
-        Me.txtOcupado = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.cborecibio = New System.Windows.Forms.ComboBox()
         Me.ToolStrip1.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         Me.SuspendLayout()
@@ -63,7 +62,7 @@ Partial Class frmCapturaChequesAsignados
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbAbono})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 1)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(193, 48)
+        Me.ToolStrip1.Size = New System.Drawing.Size(317, 48)
         Me.ToolStrip1.Stretch = True
         Me.ToolStrip1.TabIndex = 61
         Me.ToolStrip1.Text = "ToolStrip1"
@@ -79,11 +78,11 @@ Partial Class frmCapturaChequesAsignados
         '
         'tsbAbono
         '
-        Me.tsbAbono.Image = CType(resources.GetObject("tsbAbono.Image"), System.Drawing.Image)
+        Me.tsbAbono.Image = Global.recibos.My.Resources.Resources._1361008137_export_excel
         Me.tsbAbono.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbAbono.Name = "tsbAbono"
-        Me.tsbAbono.Size = New System.Drawing.Size(67, 45)
-        Me.tsbAbono.Text = "Abono S/F"
+        Me.tsbAbono.Size = New System.Drawing.Size(57, 45)
+        Me.tsbAbono.Text = "Importar"
         Me.tsbAbono.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'pnlCatalogo
@@ -119,6 +118,43 @@ Partial Class frmCapturaChequesAsignados
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Size = New System.Drawing.Size(1146, 579)
         Me.pnlCatalogo.TabIndex = 60
+        '
+        'cborecibio
+        '
+        Me.cborecibio.FormattingEnabled = True
+        Me.cborecibio.Items.AddRange(New Object() {"Cliente", "Mbcgroup"})
+        Me.cborecibio.Location = New System.Drawing.Point(113, 130)
+        Me.cborecibio.Name = "cborecibio"
+        Me.cborecibio.Size = New System.Drawing.Size(202, 26)
+        Me.cborecibio.TabIndex = 6
+        '
+        'txtOcupado
+        '
+        Me.txtOcupado.Location = New System.Drawing.Point(327, 130)
+        Me.txtOcupado.Name = "txtOcupado"
+        Me.txtOcupado.Size = New System.Drawing.Size(592, 26)
+        Me.txtOcupado.TabIndex = 7
+        Me.txtOcupado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(327, 108)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(104, 19)
+        Me.Label5.TabIndex = 62
+        Me.Label5.Text = "Ocupado para:"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(116, 108)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(163, 19)
+        Me.Label7.TabIndex = 61
+        Me.Label7.Text = "Quien recibio el cheque"
         '
         'txtMonto
         '
@@ -299,43 +335,6 @@ Partial Class frmCapturaChequesAsignados
         Me.dtpfecha.Name = "dtpfecha"
         Me.dtpfecha.Size = New System.Drawing.Size(96, 26)
         Me.dtpfecha.TabIndex = 0
-        '
-        'txtOcupado
-        '
-        Me.txtOcupado.Location = New System.Drawing.Point(327, 130)
-        Me.txtOcupado.Name = "txtOcupado"
-        Me.txtOcupado.Size = New System.Drawing.Size(592, 26)
-        Me.txtOcupado.TabIndex = 7
-        Me.txtOcupado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(327, 108)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(104, 19)
-        Me.Label5.TabIndex = 62
-        Me.Label5.Text = "Ocupado para:"
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(116, 108)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(163, 19)
-        Me.Label7.TabIndex = 61
-        Me.Label7.Text = "Quien recibio el cheque"
-        '
-        'cborecibio
-        '
-        Me.cborecibio.FormattingEnabled = True
-        Me.cborecibio.Items.AddRange(New Object() {"Cliente", "Mbcgroup"})
-        Me.cborecibio.Location = New System.Drawing.Point(113, 130)
-        Me.cborecibio.Name = "cborecibio"
-        Me.cborecibio.Size = New System.Drawing.Size(202, 26)
-        Me.cborecibio.TabIndex = 6
         '
         'frmCapturaChequesAsignados
         '

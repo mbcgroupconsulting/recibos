@@ -983,339 +983,350 @@ Public Class frmFondeoPatrona
                 If rwFilas Is Nothing = False Then
                     Dim Fila As DataRow = rwFilas(0)
                     nombresistema = Fila.Item("nombre")
+                    If Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5" Then
+                        For Each producto As ListViewItem In lsvLista.CheckedItems
+                            pgbProgreso.Value += 1
+                            If producto.SubItems(11).Text = "1" Then
+                                If producto.SubItems(8).Tag Is Nothing = False Then
+                                    valorFactura = IIf(producto.SubItems(8).Tag.ToString = "", "0", producto.SubItems(8).Tag.ToString)
+                                Else
+                                    valorFactura = "0"
+                                End If
+
+                                ids = valorFactura.Split(",")
+
+                                fkiIdFactura0 = "0"
+                                fkiIdFactura1 = "0"
+                                fkiIdFactura2 = "0"
+                                fkiIdFactura3 = "0"
+                                fkiIdFactura4 = "0"
+                                fkiIdFactura5 = "0"
+                                fkiIdFactura6 = "0"
+                                fkiIdFactura7 = "0"
+                                fkiIdFactura8 = "0"
+                                fkiIdFactura9 = "0"
+                                fkiIdFactura10 = "0"
+                                fkiIdFactura11 = "0"
+                                fkiIdFactura12 = "0"
+                                fkiIdFactura13 = "0"
+                                fkiIdFactura14 = "0"
+
+                                If ids.Length = 1 Then
+                                    fkiIdFactura0 = ids(0)
+                                ElseIf ids.Length = 2 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                ElseIf ids.Length = 3 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+
+                                ElseIf ids.Length = 4 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+                                    fkiIdFactura3 = ids(3)
+                                ElseIf ids.Length = 5 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+                                    fkiIdFactura3 = ids(3)
+                                    fkiIdFactura4 = ids(4)
+
+                                ElseIf ids.Length = 6 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+                                    fkiIdFactura3 = ids(3)
+                                    fkiIdFactura4 = ids(4)
+                                    fkiIdFactura5 = ids(5)
+
+                                ElseIf ids.Length = 7 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+                                    fkiIdFactura3 = ids(3)
+                                    fkiIdFactura4 = ids(4)
+                                    fkiIdFactura5 = ids(5)
+                                    fkiIdFactura6 = ids(6)
+
+
+                                ElseIf ids.Length = 8 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+                                    fkiIdFactura3 = ids(3)
+                                    fkiIdFactura4 = ids(4)
+                                    fkiIdFactura5 = ids(5)
+                                    fkiIdFactura6 = ids(6)
+                                    fkiIdFactura7 = ids(7)
+
+                                ElseIf ids.Length = 9 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+                                    fkiIdFactura3 = ids(3)
+                                    fkiIdFactura4 = ids(4)
+                                    fkiIdFactura5 = ids(5)
+                                    fkiIdFactura6 = ids(6)
+                                    fkiIdFactura7 = ids(7)
+                                    fkiIdFactura8 = ids(8)
+
+                                ElseIf ids.Length = 10 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+                                    fkiIdFactura3 = ids(3)
+                                    fkiIdFactura4 = ids(4)
+                                    fkiIdFactura5 = ids(5)
+                                    fkiIdFactura6 = ids(6)
+                                    fkiIdFactura7 = ids(7)
+                                    fkiIdFactura8 = ids(8)
+                                    fkiIdFactura9 = ids(9)
+
+                                ElseIf ids.Length = 11 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+                                    fkiIdFactura3 = ids(3)
+                                    fkiIdFactura4 = ids(4)
+                                    fkiIdFactura5 = ids(5)
+                                    fkiIdFactura6 = ids(6)
+                                    fkiIdFactura7 = ids(7)
+                                    fkiIdFactura8 = ids(8)
+                                    fkiIdFactura9 = ids(9)
+                                    fkiIdFactura10 = ids(10)
+
+                                ElseIf ids.Length = 12 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+                                    fkiIdFactura3 = ids(3)
+                                    fkiIdFactura4 = ids(4)
+                                    fkiIdFactura5 = ids(5)
+                                    fkiIdFactura6 = ids(6)
+                                    fkiIdFactura7 = ids(7)
+                                    fkiIdFactura8 = ids(8)
+                                    fkiIdFactura9 = ids(9)
+                                    fkiIdFactura10 = ids(10)
+                                    fkiIdFactura11 = ids(11)
+
+                                ElseIf ids.Length = 13 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+                                    fkiIdFactura3 = ids(3)
+                                    fkiIdFactura4 = ids(4)
+                                    fkiIdFactura5 = ids(5)
+                                    fkiIdFactura6 = ids(6)
+                                    fkiIdFactura7 = ids(7)
+                                    fkiIdFactura8 = ids(8)
+                                    fkiIdFactura9 = ids(9)
+                                    fkiIdFactura10 = ids(10)
+                                    fkiIdFactura11 = ids(11)
+                                    fkiIdFactura12 = ids(12)
+
+                                ElseIf ids.Length = 14 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+                                    fkiIdFactura3 = ids(3)
+                                    fkiIdFactura4 = ids(4)
+                                    fkiIdFactura5 = ids(5)
+                                    fkiIdFactura6 = ids(6)
+                                    fkiIdFactura7 = ids(7)
+                                    fkiIdFactura8 = ids(8)
+                                    fkiIdFactura9 = ids(9)
+                                    fkiIdFactura10 = ids(10)
+                                    fkiIdFactura11 = ids(11)
+                                    fkiIdFactura12 = ids(12)
+                                    fkiIdFactura13 = ids(13)
+
+                                ElseIf ids.Length >= 15 Then
+                                    fkiIdFactura0 = ids(0)
+                                    fkiIdFactura1 = ids(1)
+                                    fkiIdFactura2 = ids(2)
+                                    fkiIdFactura3 = ids(3)
+                                    fkiIdFactura4 = ids(4)
+                                    fkiIdFactura5 = ids(5)
+                                    fkiIdFactura6 = ids(6)
+                                    fkiIdFactura7 = ids(7)
+                                    fkiIdFactura8 = ids(8)
+                                    fkiIdFactura9 = ids(9)
+                                    fkiIdFactura10 = ids(10)
+                                    fkiIdFactura11 = ids(11)
+                                    fkiIdFactura12 = ids(12)
+                                    fkiIdFactura13 = ids(13)
+                                    fkiIdFactura14 = ids(14)
+
+                                End If
+
+
+                                If rdbTodos.Checked Then
+                                    SQL = "update conciliacion set  fkIdUsuario2=" & idUsuario
+                                    SQL &= ",cUsuario2='" & nombresistema
+                                    SQL &= "',cDatosFactura='" & producto.SubItems(8).Text
+                                    SQL &= "',fkiIdFactura=" & fkiIdFactura0
+                                    SQL &= ",fkiIdFactura2=" & fkiIdFactura1
+                                    SQL &= ",fkiIdFactura3=" & fkiIdFactura2
+                                    SQL &= ",fkiIdFactura4=" & fkiIdFactura3
+                                    SQL &= ",fkiIdFactura5=" & fkiIdFactura4
+                                    SQL &= ",fkiIdFactura6=" & fkiIdFactura5
+                                    SQL &= ",fkiIdFactura7=" & fkiIdFactura6
+                                    SQL &= ",fkiIdFactura8=" & fkiIdFactura7
+                                    SQL &= ",fkiIdFactura9=" & fkiIdFactura8
+                                    SQL &= ",fkiIdFactura10=" & fkiIdFactura9
+                                    SQL &= ",fkiIdFactura11=" & fkiIdFactura10
+                                    SQL &= ",fkiIdFactura12=" & fkiIdFactura11
+                                    SQL &= ",fkiIdFactura13=" & fkiIdFactura12
+                                    SQL &= ",fkiIdFactura14=" & fkiIdFactura13
+                                    SQL &= ",fkiIdFactura15=" & fkiIdFactura14
+                                    SQL &= ",iEstatus2=2"
+                                    SQL &= " where iIdConciliacion=" & producto.Tag
+
+                                    If nExecute(SQL) = False Then
+                                        MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(4).Text) & " Cargo:" & Trim(producto.SubItems(5).Text) & " Abono:" & Trim(producto.SubItems(6).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                        Exit Sub
+                                    End If
+
+                                    producto.SubItems(10).Text = nombresistema
+                                ElseIf rdbAbonos.Checked And producto.SubItems(6).Text <> "0.00" Then
+                                    SQL = "update conciliacion set  fkIdUsuario2=" & idUsuario
+                                    SQL &= ",cUsuario2='" & nombresistema
+                                    SQL &= "',cDatosFactura='" & producto.SubItems(8).Text
+                                    SQL &= "',fkiIdFactura=" & fkiIdFactura0
+                                    SQL &= ",fkiIdFactura2=" & fkiIdFactura1
+                                    SQL &= ",fkiIdFactura3=" & fkiIdFactura2
+                                    SQL &= ",fkiIdFactura4=" & fkiIdFactura3
+                                    SQL &= ",fkiIdFactura5=" & fkiIdFactura4
+                                    SQL &= ",fkiIdFactura6=" & fkiIdFactura5
+                                    SQL &= ",fkiIdFactura7=" & fkiIdFactura6
+                                    SQL &= ",fkiIdFactura8=" & fkiIdFactura7
+                                    SQL &= ",fkiIdFactura9=" & fkiIdFactura8
+                                    SQL &= ",fkiIdFactura10=" & fkiIdFactura9
+                                    SQL &= ",fkiIdFactura11=" & fkiIdFactura10
+                                    SQL &= ",fkiIdFactura12=" & fkiIdFactura11
+                                    SQL &= ",fkiIdFactura13=" & fkiIdFactura12
+                                    SQL &= ",fkiIdFactura14=" & fkiIdFactura13
+                                    SQL &= ",fkiIdFactura15=" & fkiIdFactura14
+                                    SQL &= ",iEstatus2=2"
+                                    SQL &= " where iIdConciliacion=" & producto.Tag
+
+                                    If nExecute(SQL) = False Then
+                                        MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(4).Text) & " Cargo:" & Trim(producto.SubItems(5).Text) & " Abono:" & Trim(producto.SubItems(6).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                        Exit Sub
+                                    End If
+
+                                    producto.SubItems(10).Text = nombresistema
+                                ElseIf rdbCargos.Checked And producto.SubItems(5).Text <> "0.00" Then
+                                    SQL = "update conciliacion set  fkIdUsuario2=" & idUsuario
+                                    SQL &= ",cUsuario2='" & nombresistema
+                                    SQL &= "',cDatosFactura='" & producto.SubItems(8).Text
+                                    SQL &= "',fkiIdFactura=" & fkiIdFactura0
+                                    SQL &= ",fkiIdFactura2=" & fkiIdFactura1
+                                    SQL &= ",fkiIdFactura3=" & fkiIdFactura2
+                                    SQL &= ",fkiIdFactura4=" & fkiIdFactura3
+                                    SQL &= ",fkiIdFactura5=" & fkiIdFactura4
+                                    SQL &= ",fkiIdFactura6=" & fkiIdFactura5
+                                    SQL &= ",fkiIdFactura7=" & fkiIdFactura6
+                                    SQL &= ",fkiIdFactura8=" & fkiIdFactura7
+                                    SQL &= ",fkiIdFactura9=" & fkiIdFactura8
+                                    SQL &= ",fkiIdFactura10=" & fkiIdFactura9
+                                    SQL &= ",fkiIdFactura11=" & fkiIdFactura10
+                                    SQL &= ",fkiIdFactura12=" & fkiIdFactura11
+                                    SQL &= ",fkiIdFactura13=" & fkiIdFactura12
+                                    SQL &= ",fkiIdFactura14=" & fkiIdFactura13
+                                    SQL &= ",fkiIdFactura15=" & fkiIdFactura14
+                                    SQL &= ",iEstatus2=2"
+                                    SQL &= " where iIdConciliacion=" & producto.Tag
+
+                                    If nExecute(SQL) = False Then
+                                        MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(4).Text) & " Cargo:" & Trim(producto.SubItems(5).Text) & " Abono:" & Trim(producto.SubItems(6).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                        Exit Sub
+                                    End If
+
+                                    producto.SubItems(10).Text = nombresistema
+                                End If
+
+                                'Pones las facturas en verde en forma automatica
+
+                                For z As Integer = 0 To ids.Length - 1
+                                    SQL = "select isnull(sum(importe),0) as importe from pagos where iEstatus=1 and fkiIdfactura=" & ids(z)
+                                    Dim rwFilasAbonos As DataRow() = nConsulta(SQL)
+                                    abonos = 0
+
+                                    If rwFilasAbonos Is Nothing = False Then
+                                        abonos = Double.Parse(rwFilasAbonos(0).Item("importe"))
+                                    End If
+                                    SQL = "select * from facturas where iIdFactura=" & ids(z)
+
+                                    Dim rwDatosFactura As DataRow() = nConsulta(SQL)
+                                    If rwDatosFactura Is Nothing = False Then
+                                        If abonos = 0 Then
+                                            'Factura sin abonos
+                                            'Dim resultadoabono As Integer = MessageBox.Show("Guardar la factura en color verde, significa que dicha factura esta pagada en su totalidad, por lo cual se hara de manera automatica un abono por la cantidad total de la factura y quedara saldada, ¿Desea continuar?", "Pregunta", MessageBoxButtons.YesNo)
+
+                                            'Hacer el detalle automatico
+                                            SQL = "EXEC setpagosInsertar  0," & ids(z)
+                                            SQL &= ",'" & Date.Parse(rwDatosFactura(0)("fecha").ToString).ToShortDateString
+                                            SQL &= "'," & rwDatosFactura(0)("Total").ToString
+                                            SQL &= ",'" & nombresistema
+                                            SQL &= "','Abono automatico'"
+                                            SQL &= ",'" & Date.Now.ToShortDateString()
+                                            SQL &= "',1"
+
+                                            If nExecute(SQL) = False Then
+                                                Exit Sub
+                                            End If
+
+                                            SQL = "update facturas set  color=2 where iIdFactura=" & ids(z)
+                                            If nExecute(SQL) = False Then
+                                                Exit Sub
+                                            End If
+                                            'bandera = True
+                                            'MessageBox.Show("Abono por el total de la factura realizado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                                            'EditarColores(lsvLista.SelectedItems(0).Tag)
+
+                                            'ElseIf (Double.Parse(totalfactura) - abonos) <= 1 Or (abonos - Double.Parse(totalfactura)) <= 1 Then
+                                            '    'Factura saldada
+
+                                            '    MessageBox.Show("La factura ya fue abonada en sus totalidad", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                                            '    bandera = True
+                                            'ElseIf (Double.Parse(totalfactura) - abonos) > 1 Then
+                                            '    'Factura con abonos pendientes
+                                            '    MessageBox.Show("La factura ya fue abonada pero tiene saldo pendiente, por favor de verificar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+                                        End If
+                                    End If
+
+
+
+                                Next
+
+                            End If
+                        Next
+                        pnlProgreso.Visible = False
+                        pnlCatalogo.Enabled = True
+
+                        tsbCancelar_Click(sender, e)
+
+                        MessageBox.Show("Datos guardados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Else
+                        pnlProgreso.Visible = False
+                        pnlCatalogo.Enabled = True
+
+                        'tsbCancelar_Click(sender, e)
+                        MessageBox.Show("Su perfil de usuario, no tienes permisos para esta acción", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+
+                    End If
                 End If
 
 
 
-                For Each producto As ListViewItem In lsvLista.CheckedItems
-                    pgbProgreso.Value += 1
-                    If producto.SubItems(11).Text = "1" Then
-                        If producto.SubItems(8).Tag Is Nothing = False Then
-                            valorFactura = IIf(producto.SubItems(8).Tag.ToString = "", "0", producto.SubItems(8).Tag.ToString)
-                        Else
-                            valorFactura = "0"
-                        End If
-
-                        ids = valorFactura.Split(",")
-
-                        fkiIdFactura0 = "0"
-                        fkiIdFactura1 = "0"
-                        fkiIdFactura2 = "0"
-                        fkiIdFactura3 = "0"
-                        fkiIdFactura4 = "0"
-                        fkiIdFactura5 = "0"
-                        fkiIdFactura6 = "0"
-                        fkiIdFactura7 = "0"
-                        fkiIdFactura8 = "0"
-                        fkiIdFactura9 = "0"
-                        fkiIdFactura10 = "0"
-                        fkiIdFactura11 = "0"
-                        fkiIdFactura12 = "0"
-                        fkiIdFactura13 = "0"
-                        fkiIdFactura14 = "0"
-
-                        If ids.Length = 1 Then
-                            fkiIdFactura0 = ids(0)
-                        ElseIf ids.Length = 2 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                        ElseIf ids.Length = 3 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-
-                        ElseIf ids.Length = 4 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-                            fkiIdFactura3 = ids(3)
-                        ElseIf ids.Length = 5 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-                            fkiIdFactura3 = ids(3)
-                            fkiIdFactura4 = ids(4)
-
-                        ElseIf ids.Length = 6 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-                            fkiIdFactura3 = ids(3)
-                            fkiIdFactura4 = ids(4)
-                            fkiIdFactura5 = ids(5)
-
-                        ElseIf ids.Length = 7 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-                            fkiIdFactura3 = ids(3)
-                            fkiIdFactura4 = ids(4)
-                            fkiIdFactura5 = ids(5)
-                            fkiIdFactura6 = ids(6)
-
-
-                        ElseIf ids.Length = 8 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-                            fkiIdFactura3 = ids(3)
-                            fkiIdFactura4 = ids(4)
-                            fkiIdFactura5 = ids(5)
-                            fkiIdFactura6 = ids(6)
-                            fkiIdFactura7 = ids(7)
-
-                        ElseIf ids.Length = 9 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-                            fkiIdFactura3 = ids(3)
-                            fkiIdFactura4 = ids(4)
-                            fkiIdFactura5 = ids(5)
-                            fkiIdFactura6 = ids(6)
-                            fkiIdFactura7 = ids(7)
-                            fkiIdFactura8 = ids(8)
-
-                        ElseIf ids.Length = 10 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-                            fkiIdFactura3 = ids(3)
-                            fkiIdFactura4 = ids(4)
-                            fkiIdFactura5 = ids(5)
-                            fkiIdFactura6 = ids(6)
-                            fkiIdFactura7 = ids(7)
-                            fkiIdFactura8 = ids(8)
-                            fkiIdFactura9 = ids(9)
-
-                        ElseIf ids.Length = 11 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-                            fkiIdFactura3 = ids(3)
-                            fkiIdFactura4 = ids(4)
-                            fkiIdFactura5 = ids(5)
-                            fkiIdFactura6 = ids(6)
-                            fkiIdFactura7 = ids(7)
-                            fkiIdFactura8 = ids(8)
-                            fkiIdFactura9 = ids(9)
-                            fkiIdFactura10 = ids(10)
-
-                        ElseIf ids.Length = 12 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-                            fkiIdFactura3 = ids(3)
-                            fkiIdFactura4 = ids(4)
-                            fkiIdFactura5 = ids(5)
-                            fkiIdFactura6 = ids(6)
-                            fkiIdFactura7 = ids(7)
-                            fkiIdFactura8 = ids(8)
-                            fkiIdFactura9 = ids(9)
-                            fkiIdFactura10 = ids(10)
-                            fkiIdFactura11 = ids(11)
-
-                        ElseIf ids.Length = 13 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-                            fkiIdFactura3 = ids(3)
-                            fkiIdFactura4 = ids(4)
-                            fkiIdFactura5 = ids(5)
-                            fkiIdFactura6 = ids(6)
-                            fkiIdFactura7 = ids(7)
-                            fkiIdFactura8 = ids(8)
-                            fkiIdFactura9 = ids(9)
-                            fkiIdFactura10 = ids(10)
-                            fkiIdFactura11 = ids(11)
-                            fkiIdFactura12 = ids(12)
-
-                        ElseIf ids.Length = 14 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-                            fkiIdFactura3 = ids(3)
-                            fkiIdFactura4 = ids(4)
-                            fkiIdFactura5 = ids(5)
-                            fkiIdFactura6 = ids(6)
-                            fkiIdFactura7 = ids(7)
-                            fkiIdFactura8 = ids(8)
-                            fkiIdFactura9 = ids(9)
-                            fkiIdFactura10 = ids(10)
-                            fkiIdFactura11 = ids(11)
-                            fkiIdFactura12 = ids(12)
-                            fkiIdFactura13 = ids(13)
-
-                        ElseIf ids.Length >= 15 Then
-                            fkiIdFactura0 = ids(0)
-                            fkiIdFactura1 = ids(1)
-                            fkiIdFactura2 = ids(2)
-                            fkiIdFactura3 = ids(3)
-                            fkiIdFactura4 = ids(4)
-                            fkiIdFactura5 = ids(5)
-                            fkiIdFactura6 = ids(6)
-                            fkiIdFactura7 = ids(7)
-                            fkiIdFactura8 = ids(8)
-                            fkiIdFactura9 = ids(9)
-                            fkiIdFactura10 = ids(10)
-                            fkiIdFactura11 = ids(11)
-                            fkiIdFactura12 = ids(12)
-                            fkiIdFactura13 = ids(13)
-                            fkiIdFactura14 = ids(14)
-
-                        End If
-
-
-                        If rdbTodos.Checked Then
-                            SQL = "update conciliacion set  fkIdUsuario2=" & idUsuario
-                            SQL &= ",cUsuario2='" & nombresistema
-                            SQL &= "',cDatosFactura='" & producto.SubItems(8).Text
-                            SQL &= "',fkiIdFactura=" & fkiIdFactura0
-                            SQL &= ",fkiIdFactura2=" & fkiIdFactura1
-                            SQL &= ",fkiIdFactura3=" & fkiIdFactura2
-                            SQL &= ",fkiIdFactura4=" & fkiIdFactura3
-                            SQL &= ",fkiIdFactura5=" & fkiIdFactura4
-                            SQL &= ",fkiIdFactura6=" & fkiIdFactura5
-                            SQL &= ",fkiIdFactura7=" & fkiIdFactura6
-                            SQL &= ",fkiIdFactura8=" & fkiIdFactura7
-                            SQL &= ",fkiIdFactura9=" & fkiIdFactura8
-                            SQL &= ",fkiIdFactura10=" & fkiIdFactura9
-                            SQL &= ",fkiIdFactura11=" & fkiIdFactura10
-                            SQL &= ",fkiIdFactura12=" & fkiIdFactura11
-                            SQL &= ",fkiIdFactura13=" & fkiIdFactura12
-                            SQL &= ",fkiIdFactura14=" & fkiIdFactura13
-                            SQL &= ",fkiIdFactura15=" & fkiIdFactura14
-                            SQL &= ",iEstatus2=2"
-                            SQL &= " where iIdConciliacion=" & producto.Tag
-
-                            If nExecute(SQL) = False Then
-                                MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(4).Text) & " Cargo:" & Trim(producto.SubItems(5).Text) & " Abono:" & Trim(producto.SubItems(6).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                                Exit Sub
-                            End If
-
-                            producto.SubItems(10).Text = nombresistema
-                        ElseIf rdbAbonos.Checked And producto.SubItems(6).Text <> "0.00" Then
-                            SQL = "update conciliacion set  fkIdUsuario2=" & idUsuario
-                            SQL &= ",cUsuario2='" & nombresistema
-                            SQL &= "',cDatosFactura='" & producto.SubItems(8).Text
-                            SQL &= "',fkiIdFactura=" & fkiIdFactura0
-                            SQL &= ",fkiIdFactura2=" & fkiIdFactura1
-                            SQL &= ",fkiIdFactura3=" & fkiIdFactura2
-                            SQL &= ",fkiIdFactura4=" & fkiIdFactura3
-                            SQL &= ",fkiIdFactura5=" & fkiIdFactura4
-                            SQL &= ",fkiIdFactura6=" & fkiIdFactura5
-                            SQL &= ",fkiIdFactura7=" & fkiIdFactura6
-                            SQL &= ",fkiIdFactura8=" & fkiIdFactura7
-                            SQL &= ",fkiIdFactura9=" & fkiIdFactura8
-                            SQL &= ",fkiIdFactura10=" & fkiIdFactura9
-                            SQL &= ",fkiIdFactura11=" & fkiIdFactura10
-                            SQL &= ",fkiIdFactura12=" & fkiIdFactura11
-                            SQL &= ",fkiIdFactura13=" & fkiIdFactura12
-                            SQL &= ",fkiIdFactura14=" & fkiIdFactura13
-                            SQL &= ",fkiIdFactura15=" & fkiIdFactura14
-                            SQL &= ",iEstatus2=2"
-                            SQL &= " where iIdConciliacion=" & producto.Tag
-
-                            If nExecute(SQL) = False Then
-                                MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(4).Text) & " Cargo:" & Trim(producto.SubItems(5).Text) & " Abono:" & Trim(producto.SubItems(6).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                                Exit Sub
-                            End If
-
-                            producto.SubItems(10).Text = nombresistema
-                        ElseIf rdbCargos.Checked And producto.SubItems(5).Text <> "0.00" Then
-                            SQL = "update conciliacion set  fkIdUsuario2=" & idUsuario
-                            SQL &= ",cUsuario2='" & nombresistema
-                            SQL &= "',cDatosFactura='" & producto.SubItems(8).Text
-                            SQL &= "',fkiIdFactura=" & fkiIdFactura0
-                            SQL &= ",fkiIdFactura2=" & fkiIdFactura1
-                            SQL &= ",fkiIdFactura3=" & fkiIdFactura2
-                            SQL &= ",fkiIdFactura4=" & fkiIdFactura3
-                            SQL &= ",fkiIdFactura5=" & fkiIdFactura4
-                            SQL &= ",fkiIdFactura6=" & fkiIdFactura5
-                            SQL &= ",fkiIdFactura7=" & fkiIdFactura6
-                            SQL &= ",fkiIdFactura8=" & fkiIdFactura7
-                            SQL &= ",fkiIdFactura9=" & fkiIdFactura8
-                            SQL &= ",fkiIdFactura10=" & fkiIdFactura9
-                            SQL &= ",fkiIdFactura11=" & fkiIdFactura10
-                            SQL &= ",fkiIdFactura12=" & fkiIdFactura11
-                            SQL &= ",fkiIdFactura13=" & fkiIdFactura12
-                            SQL &= ",fkiIdFactura14=" & fkiIdFactura13
-                            SQL &= ",fkiIdFactura15=" & fkiIdFactura14
-                            SQL &= ",iEstatus2=2"
-                            SQL &= " where iIdConciliacion=" & producto.Tag
-
-                            If nExecute(SQL) = False Then
-                                MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(4).Text) & " Cargo:" & Trim(producto.SubItems(5).Text) & " Abono:" & Trim(producto.SubItems(6).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                                Exit Sub
-                            End If
-
-                            producto.SubItems(10).Text = nombresistema
-                        End If
-
-                        'Pones las facturas en verde en forma automatica
-
-                        For z As Integer = 0 To ids.Length - 1
-                            SQL = "select isnull(sum(importe),0) as importe from pagos where iEstatus=1 and fkiIdfactura=" & ids(z)
-                            Dim rwFilasAbonos As DataRow() = nConsulta(SQL)
-                            abonos = 0
-
-                            If rwFilasAbonos Is Nothing = False Then
-                                abonos = Double.Parse(rwFilasAbonos(0).Item("importe"))
-                            End If
-                            SQL = "select * from facturas where iIdFactura=" & ids(z)
-
-                            Dim rwDatosFactura As DataRow() = nConsulta(SQL)
-                            If rwDatosFactura Is Nothing = False Then
-                                If abonos = 0 Then
-                                    'Factura sin abonos
-                                    'Dim resultadoabono As Integer = MessageBox.Show("Guardar la factura en color verde, significa que dicha factura esta pagada en su totalidad, por lo cual se hara de manera automatica un abono por la cantidad total de la factura y quedara saldada, ¿Desea continuar?", "Pregunta", MessageBoxButtons.YesNo)
-
-                                    'Hacer el detalle automatico
-                                    SQL = "EXEC setpagosInsertar  0," & ids(z)
-                                    SQL &= ",'" & Date.Parse(rwDatosFactura(0)("fecha").ToString).ToShortDateString
-                                    SQL &= "'," & rwDatosFactura(0)("Total").ToString
-                                    SQL &= ",'" & nombresistema
-                                    SQL &= "','Abono automatico'"
-                                    SQL &= ",'" & Date.Now.ToShortDateString()
-                                    SQL &= "',1"
-
-                                    If nExecute(SQL) = False Then
-                                        Exit Sub
-                                    End If
-
-                                    SQL = "update facturas set  color=2 where iIdFactura=" & ids(z)
-                                    If nExecute(SQL) = False Then
-                                        Exit Sub
-                                    End If
-                                    'bandera = True
-                                    'MessageBox.Show("Abono por el total de la factura realizado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                                    'EditarColores(lsvLista.SelectedItems(0).Tag)
-
-                                    'ElseIf (Double.Parse(totalfactura) - abonos) <= 1 Or (abonos - Double.Parse(totalfactura)) <= 1 Then
-                                    '    'Factura saldada
-
-                                    '    MessageBox.Show("La factura ya fue abonada en sus totalidad", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                                    '    bandera = True
-                                    'ElseIf (Double.Parse(totalfactura) - abonos) > 1 Then
-                                    '    'Factura con abonos pendientes
-                                    '    MessageBox.Show("La factura ya fue abonada pero tiene saldo pendiente, por favor de verificar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-                                End If
-                            End If
-
-
-
-                        Next
-
-                    End If
-                Next
-                pnlProgreso.Visible = False
-                pnlCatalogo.Enabled = True
-
-                tsbCancelar_Click(sender, e)
-
-                MessageBox.Show("Datos guardados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                
             End If
             'For Each producto As ListViewItem In lsvLista.CheckedItems
             '    If producto.SubItems(11).Text = "1" Then
