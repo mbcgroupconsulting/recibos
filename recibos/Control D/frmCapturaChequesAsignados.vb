@@ -179,6 +179,9 @@
                 Mensaje = "Por favor seleccione un banco"
             End If
 
+            If cborecibio.SelectedIndex = -1 Then
+                Mensaje = "Por favor seleccione un banco"
+            End If
             If Mensaje <> "" Then
                 MessageBox.Show(Mensaje, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Exit Sub
@@ -336,5 +339,25 @@
 
     Private Sub txtMonto_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtMonto.TextChanged
 
+    End Sub
+
+    Private Sub tsbNuevo_Click(sender As System.Object, e As System.EventArgs) Handles tsbNuevo.Click
+        Try
+            Dim Forma As New frmListarCheques
+            Forma.ShowDialog()
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub tsbAbono_Click(sender As System.Object, e As System.EventArgs) Handles tsbAbono.Click
+        Try
+            Dim Forma As New frmImportarCheques
+            Forma.ShowDialog()
+
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

@@ -428,6 +428,12 @@
     <Compile Include="Control D\frmCapturaChequesAsignados.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Control D\frmImportarCheques.Designer.vb">
+      <DependentUpon>frmImportarCheques.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Control D\frmImportarCheques.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Control D\frmListarCheques.Designer.vb">
       <DependentUpon>frmListarCheques.vb</DependentUpon>
     </Compile>
@@ -1206,6 +1212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control D\frmCapturaChequesAsignados.resx">
       <DependentUpon>frmCapturaChequesAsignados.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control D\frmImportarCheques.resx">
+      <DependentUpon>frmImportarCheques.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Control D\frmListarCheques.resx">
       <DependentUpon>frmListarCheques.vb</DependentUpon>
