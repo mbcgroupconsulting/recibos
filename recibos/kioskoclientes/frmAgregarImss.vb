@@ -204,7 +204,8 @@
                     Alter = Not Alter
 
                 Next
-
+            Else
+                MessageBox.Show("No se encontro algun documento, revise la información", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
         Catch

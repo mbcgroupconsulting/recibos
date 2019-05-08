@@ -53,17 +53,37 @@ Public Class frmExportarNominaTMM
 
                 For Each producto As ListViewItem In lsvLista.CheckedItems
                     'validar si existe o el archivo en el servidor
-                    Ruta = "\\pagina-pc\pagosn\" & IIf(chkNominaB.Checked = True, txtcarpeta.Text & "\", "") & Trim(producto.SubItems(5).Text) & ".pdf"
+                    Dim Archivo As System.IO.FileInfo
+
+                    If Trim(producto.SubItems(4).Text) <> 0 Then
+                        Ruta = "\\pagina-pc\pagosn\" & IIf(chkNominaB.Checked = True, txtcarpeta.Text & "\", "") & Trim(producto.SubItems(5).Text) & ".pdf"
 
 
-                    Dim Archivo As System.IO.FileInfo = New System.IO.FileInfo(Ruta)
-                    If (Archivo.Exists) Then
+                        Archivo = New System.IO.FileInfo(Ruta)
+                        If (Archivo.Exists) Then
 
-                    Else
-                        bSubir = False
-                        MessageBox.Show("Error: el nombre del archivo no coincide con el almacenado en el servidor: Trabajador:" & Trim(producto.SubItems(3).Text) & ". La validación concluira en ese registro y no se subira ningun dato ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        Exit For
+                        Else
+                            bSubir = False
+                            MessageBox.Show("Error: el nombre del archivo no coincide con el almacenado en el servidor: Trabajador:" & Trim(producto.SubItems(3).Text) & ". La validación concluira en ese registro y no se subira ningun dato ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            Exit For
+                        End If
                     End If
+
+                    'Archivos asimilados
+                    If Trim(producto.SubItems(6).Text) <> 0 Then
+                        Ruta = "\\pagina-pc\pagosn\" & IIf(chkNominaB.Checked = True, txtcarpeta.Text & "\", "") & Trim(producto.SubItems(8).Text) & ".pdf"
+                        Archivo = New System.IO.FileInfo(Ruta)
+                        If (Archivo.Exists) Then
+
+                        Else
+
+                            bSubir = False
+                            MessageBox.Show("Error: el nombre del archivo pdf Asimilados no coincide con el almacenado en el servidor: Trabajador:" & Trim(producto.SubItems(3).Text) & ". La validación concluira en ese registro y no se subira ningun dato ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            Exit For
+                        End If
+                    End If
+
+
 
                 Next
 
@@ -84,7 +104,7 @@ Public Class frmExportarNominaTMM
                             SQL &= "','','" & Trim(producto.SubItems(8).Text) & "','"
                             SQL &= Trim(producto.SubItems(7).Text) & "','"
                             SQL &= IIf(chkNominaB.Checked = True, txtcarpeta.Text, " ") & "'" 'dsa es igual a nominaB
-
+                            SQL &= " , '" & Trim(producto.SubItems(9).Text) & "'"
 
                             If nExecuteKiosko(SQL) = False Then
 
@@ -216,15 +236,18 @@ Public Class frmExportarNominaTMM
                 lsvLista.Columns.Add("Archivo SA")
                 lsvLista.Columns(5).Width = 200
 
-                lsvLista.Columns.Add("Importe Sin")
+                lsvLista.Columns.Add("Importe ASIM")
                 lsvLista.Columns(6).Width = 100
                 lsvLista.Columns(6).TextAlign = 1
-                lsvLista.Columns.Add("Archivo Sin")
+
+                lsvLista.Columns.Add("Archivo PDF ASIM")
                 lsvLista.Columns(7).Width = 200
 
-                lsvLista.Columns.Add("Simple")
-                lsvLista.Columns(8).Width = 80
-                
+                lsvLista.Columns.Add("TIMBRADO PDF ASIM")
+                lsvLista.Columns(8).Width = 200
+
+                lsvLista.Columns.Add("TIMBRADO XML ASIM")
+                lsvLista.Columns(9).Width = 200
 
 
 

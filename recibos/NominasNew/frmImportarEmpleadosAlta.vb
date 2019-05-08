@@ -427,7 +427,7 @@ Public Class frmImportarEmpleadosAlta
                         Dim ep As String = Trim(empleadofull.SubItems(42).Text)
                         Dim empresapa As Integer
                         If ep <> "" Then
-                            Dim empc As DataRow() = nConsulta("SELECT * FROM empresa  WHERE nombre like '%" & ep & "%'")
+                            Dim empc As DataRow() = nConsulta("SELECT * FROM empresa  WHERE nombrefiscal like '%" & ep & "%'")
                             If empc Is Nothing Then
                                 mensa += "| Revise el nombre del la empresa patrona"
                                 bandera = False
@@ -484,12 +484,12 @@ Public Class frmImportarEmpleadosAlta
                         Dim dFechaNac, dFechaCap, dFechaPatrona, dFechaTerminoContrato, dFechaSindicato, dFechaAntiguedad As String
                         ''   Dim _fecha As String
 
-                        dFechaNac = Date.Parse(Trim(empleadofull.SubItems(18).Text.ToString)) ''Format(Trim(empleadofull.SubItems(18).Text), "yyyy/dd/MM")
-                        dFechaCap = Date.Parse(Trim(empleadofull.SubItems(43).Text.ToString))
-                        dFechaPatrona = Date.Parse(Trim(empleadofull.SubItems(13).Text.ToString))
-                        dFechaTerminoContrato = Date.Parse((Trim(empleadofull.SubItems(44).Text))) ''No asignado
-                        dFechaSindicato = Date.Parse(Trim(empleadofull.SubItems(14).Text))
-                        dFechaAntiguedad = Date.Parse(Trim(empleadofull.SubItems(30).Text))
+                        dFechaNac = Trim(empleadofull.SubItems(18).Text.ToString) ''Format(Trim(empleadofull.SubItems(18).Text), "yyyy/dd/MM")
+                        dFechaCap = Trim(empleadofull.SubItems(43).Text.ToString) 'Date.Parse(Trim(empleadofull.SubItems(43).Text.ToString))
+                        dFechaPatrona = Trim(empleadofull.SubItems(13).Text.ToString) 'Date.Parse(Trim(empleadofull.SubItems(13).Text.ToString))
+                        dFechaTerminoContrato = Trim(empleadofull.SubItems(44).Text) 'Date.Parse((Trim(empleadofull.SubItems(44).Text))) ''No asignado
+                        dFechaSindicato = Trim(empleadofull.SubItems(14).Text) 'Date.Parse(Trim(empleadofull.SubItems(14).Text))
+                        dFechaAntiguedad = Trim(empleadofull.SubItems(30).Text) 'Date.Parse(Trim(empleadofull.SubItems(30).Text))
 
                         '***********************************'
                         SQL = "select max(iIdEmpleadoAlta) as id from empleadosAlta"
@@ -502,13 +502,13 @@ Public Class frmImportarEmpleadosAlta
                         'CUANDO SE AGREGA EL SUELDO ORDINARIO
                         Dim rwFilas2 As DataRow() = nConsulta(SQL)
 
-                        If rwFilas2 Is Nothing = False Then
-                            Dim Fila As DataRow = rwFilas2(0)
-                            SQL = "EXEC setSueldoAltaInsertar  0," & IIf(salario = "", 0, salario) & ",'" & dFechaPatrona ' Format(dtppatrona.Value.Date, "yyyy/dd/MM")
-                            SQL += "',0,''," & IIf(sd = "", 0, sd) & "," & IIf(sdi = "", 0, sdi) & "," & Fila.Item("id")
-                            SQL += ",'01/01/1900',''"
+                        'If rwFilas2 Is Nothing = False Then
+                        '    Dim Fila As DataRow = rwFilas2(0)
+                        '    SQL = "EXEC setSueldoAltaInsertar  0," & IIf(salario = "", 0, salario) & ",'" & dFechaPatrona ' Format(dtppatrona.Value.Date, "yyyy/dd/MM")
+                        '    SQL += "',0,''," & IIf(sd = "", 0, sd) & "," & IIf(sdi = "", 0, sdi) & "," & Fila.Item("id")
+                        '    SQL += ",'01/01/1900',''"
 
-                        End If
+                        'End If
 
                         If SQL <> "" Then
                             If nExecute(SQL) = False Then
@@ -569,7 +569,7 @@ Public Class frmImportarEmpleadosAlta
                             SQL = "EXEC setIngresoBajaAltaInsertar  0," & Fila.Item("id") & ",'" & status & "','" & dFechaPatrona & "','01/01/1900','',''"
                             'Enviar correo
 
-                            Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), correo, "Empleado Alta")
+                            'Enviar_Mail(GenerarCorreo2(epat, ec, Trim(empleadofull.SubItems(1).Text), list), correo, "Empleado Alta")
                             'Enviar_Mail(GenerarCorreo(gIdEmpresa, cboclientefiscal.SelectedValue, Fila.Item("id")), "p.isidro@mbcgroup.mx;l.aquino@mbcgroup.mx;r.garcia@mbcgroup.mx", "Alta de empleado")
                         End If
 
