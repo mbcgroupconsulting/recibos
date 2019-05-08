@@ -983,7 +983,7 @@ Public Class frmFondeoPatrona
                 If rwFilas Is Nothing = False Then
                     Dim Fila As DataRow = rwFilas(0)
                     nombresistema = Fila.Item("nombre")
-                    If Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5" Then
+                    If Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5" Or Fila.Item("fkIdPerfil") = "9" Then
                         For Each producto As ListViewItem In lsvLista.CheckedItems
                             pgbProgreso.Value += 1
                             If producto.SubItems(11).Text = "1" Then

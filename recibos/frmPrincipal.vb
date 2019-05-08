@@ -65,7 +65,7 @@ Public Class frmPrincipal
 
         End Try
 
-        
+
     End Sub
 
     Private Sub frmPrincipal_SizeChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.SizeChanged
@@ -369,7 +369,7 @@ Public Class frmPrincipal
         End Try
     End Sub
 
-   
+
 
     Private Sub lsvPanel_SizeChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lsvPanel.SizeChanged
         Dim sRuta As String
@@ -1138,7 +1138,7 @@ Public Class frmPrincipal
                 End If
             End If
 
-                  Catch ex As Exception
+        Catch ex As Exception
 
         End Try
     End Sub
