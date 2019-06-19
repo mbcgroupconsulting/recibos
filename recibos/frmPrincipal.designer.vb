@@ -52,6 +52,7 @@ Partial Class frmPrincipal
         Me.MenuInicio = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ContpaqToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.VerEmpresasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OpcionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ImssToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.VerEmpresasToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.FlujoBToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -108,7 +109,7 @@ Partial Class frmPrincipal
         Me.AgregarDatosJuridicoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.OpcionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AgregarDatosFacturaciónToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlBar.SuspendLayout()
         Me.MenuInicio.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -268,6 +269,12 @@ Partial Class frmPrincipal
         Me.VerEmpresasToolStripMenuItem.Name = "VerEmpresasToolStripMenuItem"
         Me.VerEmpresasToolStripMenuItem.Size = New System.Drawing.Size(166, 24)
         Me.VerEmpresasToolStripMenuItem.Text = "Ver Empresas"
+        '
+        'OpcionToolStripMenuItem
+        '
+        Me.OpcionToolStripMenuItem.Name = "OpcionToolStripMenuItem"
+        Me.OpcionToolStripMenuItem.Size = New System.Drawing.Size(166, 24)
+        Me.OpcionToolStripMenuItem.Text = "Opcion"
         '
         'ImssToolStripMenuItem
         '
@@ -576,7 +583,7 @@ Partial Class frmPrincipal
         '
         'KioskoClientesToolStripMenuItem
         '
-        Me.KioskoClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AsociarClientesEmpresasToolStripMenuItem, Me.AgregarDatoContabilidadToolStripMenuItem, Me.AgregarDatosNominasToolStripMenuItem, Me.AgregarDatosJuridicoToolStripMenuItem})
+        Me.KioskoClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AsociarClientesEmpresasToolStripMenuItem, Me.AgregarDatoContabilidadToolStripMenuItem, Me.AgregarDatosNominasToolStripMenuItem, Me.AgregarDatosJuridicoToolStripMenuItem, Me.AgregarDatosFacturaciónToolStripMenuItem})
         Me.KioskoClientesToolStripMenuItem.Name = "KioskoClientesToolStripMenuItem"
         Me.KioskoClientesToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.KioskoClientesToolStripMenuItem.Text = "Kiosko Clientes"
@@ -625,11 +632,11 @@ Partial Class frmPrincipal
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Visible = False
         '
-        'OpcionToolStripMenuItem
+        'AgregarDatosFacturaciónToolStripMenuItem
         '
-        Me.OpcionToolStripMenuItem.Name = "OpcionToolStripMenuItem"
-        Me.OpcionToolStripMenuItem.Size = New System.Drawing.Size(166, 24)
-        Me.OpcionToolStripMenuItem.Text = "Opcion"
+        Me.AgregarDatosFacturaciónToolStripMenuItem.Name = "AgregarDatosFacturaciónToolStripMenuItem"
+        Me.AgregarDatosFacturaciónToolStripMenuItem.Size = New System.Drawing.Size(261, 24)
+        Me.AgregarDatosFacturaciónToolStripMenuItem.Text = "Agregar datos Facturación"
         '
         'frmPrincipal
         '
@@ -719,5 +726,6 @@ Partial Class frmPrincipal
     Friend WithEvents IngresoGastosEfectivoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VerGastosEfectivoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OpcionToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AgregarDatosFacturaciónToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

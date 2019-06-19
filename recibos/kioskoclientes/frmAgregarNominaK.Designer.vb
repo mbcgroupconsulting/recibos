@@ -195,7 +195,7 @@ Partial Class frmAgregarNominaK
         'cboanio
         '
         Me.cboanio.FormattingEnabled = True
-        Me.cboanio.Items.AddRange(New Object() {"2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"})
+        Me.cboanio.Items.AddRange(New Object() {"2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"})
         Me.cboanio.Location = New System.Drawing.Point(237, 245)
         Me.cboanio.Name = "cboanio"
         Me.cboanio.Size = New System.Drawing.Size(82, 27)
