@@ -124,7 +124,7 @@
                 MessageBox.Show("Datos Guardados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 pnlProveedores.Enabled = False
                 'Limpiar(pnlProveedores)
-             
+
             End If
 
 
@@ -180,39 +180,39 @@
 
             If cboanio.SelectedIndex > 0 Then
 
-            
-            'Trae los documentos que se guardaron en recibos, tambien los no asignados
-            SQL = "EXEC getDocFactMesAno_KC "
-            SQL &= cboclientes.SelectedValue & ","
-            SQL &= datos(0).Tag & ","
-            SQL &= cbomes.SelectedIndex + 1 & ","
-            SQL &= cboanio.Text
+
+                'Trae los documentos que se guardaron en recibos, tambien los no asignados
+                SQL = "EXEC getDocFactMesAno_KC "
+                SQL &= cboclientes.SelectedValue & ","
+                SQL &= datos(0).Tag & ","
+                SQL &= cbomes.SelectedIndex + 1 & ","
+                SQL &= cboanio.Text
 
 
 
-            Dim rwFilas As DataRow() = nConsulta(SQL)
-            Dim item As ListViewItem
-            lsvArchivo.Items.Clear()
+                Dim rwFilas As DataRow() = nConsulta(SQL)
+                Dim item As ListViewItem
+                lsvArchivo.Items.Clear()
 
-            If rwFilas Is Nothing = False Then
-                For Each Fila In rwFilas
+                If rwFilas Is Nothing = False Then
+                    For Each Fila In rwFilas
 
-                    item = lsvArchivo.Items.Add(Fila.Item("nombrearchivo"))
+                        item = lsvArchivo.Items.Add(Fila.Item("nombrearchivo"))
 
-                    ' item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
+                        ' item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
 
-                    item.SubItems.Add("Facturación")
+                        item.SubItems.Add("Facturación")
 
 
-                    'Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where cArea=2 and iIdDocumentos=" & Fila.Item("fkiIdDocumentos"))
-                    item.SubItems.Add("Facturas")
+                        'Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where cArea=2 and iIdDocumentos=" & Fila.Item("fkiIdDocumentos"))
+                        item.SubItems.Add("Facturas")
 
-                    item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
-                    Alter = Not Alter
+                        item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
+                        Alter = Not Alter
 
-                Next
-            Else
-                MessageBox.Show("No se encontro algun documento, revise la información", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Next
+                Else
+                    MessageBox.Show("No se encontro algun documento, revise la información", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
             Else
                 MessageBox.Show("Porfavor seleccione un año", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -326,7 +326,7 @@
         End If
     End Sub
 
-   
+
 
     Private Sub TabIndex()
         cboclientes.TabIndex = 1

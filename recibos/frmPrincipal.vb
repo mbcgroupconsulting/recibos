@@ -1420,7 +1420,7 @@ Public Class frmPrincipal
 
 
                 Dim Fila As DataRow = rwFilas(0)
-                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4") Then
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "8") Then
 
                     Forma.ShowDialog()
                 Else
