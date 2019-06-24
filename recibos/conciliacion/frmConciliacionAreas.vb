@@ -1642,4 +1642,105 @@ Public Class frmFondeoPatrona
     End Sub
 
 
+    Private Sub ToolStrip1_ItemClicked(sender As System.Object, e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
+
+    End Sub
+
+    Private Sub tsbRegistros_Click(sender As System.Object, e As System.EventArgs) Handles tsbRegistros.Click
+        Try
+            Dim filaExcel As Integer = 5
+            Dim dialogo As New SaveFileDialog()
+            Dim idtipo As Integer
+            Dim Alter As Boolean = False
+            Dim inicio As DateTime = dtpfechainicio.Value
+            Dim fin As DateTime = dtpfechafin.Value
+            Dim tiempo As TimeSpan = fin - inicio
+
+            Dim libro As New ClosedXML.Excel.XLWorkbook
+            Dim hoja As IXLWorksheet = libro.Worksheets.Add("Flujo")
+            hoja.Column("A").Width = 20
+            hoja.Column("B").Width = 15
+            hoja.Column("C").Width = 15
+            hoja.Column("D").Width = 12
+            hoja.Column("E").Width = 25
+            hoja.Column("F").Width = 15
+            hoja.Column("G").Width = 15
+            hoja.Column("H").Width = 15
+            hoja.Column("I").Width = 25
+            
+
+            hoja.Range(1, 1, 1, 9).Style.Font.FontSize = 10
+            hoja.Range(1, 1, 1, 9).Style.Font.SetBold(True)
+            hoja.Range(1, 1, 1, 9).Style.Alignment.WrapText = True
+            hoja.Range(1, 1, 1, 9).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+            hoja.Range(1, 1, 1, 9).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+            'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
+            hoja.Range(1, 1, 1, 9).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
+            hoja.Range(1, 1, 1, 9).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
+
+            'hoja.Cell(4, 1).Value = "Num"
+
+            hoja.Cell(1, 1).Value = "iIdConciliación"
+            hoja.Cell(1, 2).Value = "Banco"
+            hoja.Cell(1, 3).Value = "Empresa"
+            hoja.Cell(1, 4).Value = "Fecha"
+            hoja.Cell(1, 5).Value = "Concepto"
+            hoja.Cell(1, 6).Value = "Cargo"
+            hoja.Cell(1, 7).Value = "Abono"
+            hoja.Cell(1, 8).Value = "Saldo"
+            hoja.Cell(1, 9).Value = "Datos Factura"
+            
+
+
+            filaExcel = 1
+
+            For Each producto As ListViewItem In lsvLista.CheckedItems
+
+                If producto.SubItems(5).Text <> "0.00" And (producto.SubItems(6).Text = "" Or producto.SubItems(6).Text = "0.00") Then
+                    filaExcel = filaExcel + 1
+
+                    hoja.Cell(filaExcel, 1).Value = producto.SubItems(0).Text
+                    hoja.Cell(filaExcel, 2).Value = producto.SubItems(1).Text
+                    hoja.Cell(filaExcel, 3).Value = producto.SubItems(2).Text
+                    hoja.Cell(filaExcel, 4).Value = producto.SubItems(3).Text
+                    hoja.Cell(filaExcel, 5).Value = producto.SubItems(4).Text
+                    hoja.Cell(filaExcel, 6).Value = producto.SubItems(5).Text
+                    hoja.Cell(filaExcel, 7).Value = producto.SubItems(6).Text
+                    hoja.Cell(filaExcel, 8).Value = producto.SubItems(7).Text
+                    hoja.Cell(filaExcel, 9).Value = producto.SubItems(8).Text
+
+                    hoja.Range(2, 9, 1500, 11).Style.NumberFormat.SetFormat("###,###,##0.#0")
+                End If
+                
+
+            Next
+
+            dialogo.DefaultExt = "*.xlsx"
+            dialogo.FileName = "Datos conciliacion " & cboempresa.Text & " en el banco " & cbobanco.Text
+            dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
+            dialogo.ShowDialog()
+            libro.SaveAs(dialogo.FileName)
+            'libro.SaveAs("c:\temp\control.xlsx")
+            'libro.SaveAs(dialogo.FileName)
+            'apExcel.Quit()
+            libro = Nothing
+            MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Sub tsbSubirRegistro_Click(sender As System.Object, e As System.EventArgs) Handles tsbSubirRegistro.Click
+        Dim Forma As New ImportarSueldosConciliacion
+        Forma.ShowDialog()
+
+        'Forma.gIdEmpresa = gIdEmpresa
+        'If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
+        '    gIdEmpleado = Forma.gIdEmpleado
+        '    MostrarEmpleado(Forma.gIdEmpleado)
+
+        'End If
+    End Sub
 End Class

@@ -302,6 +302,12 @@
     <Compile Include="conciliacion\frmSubirInfoBancosConciliacion.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="conciliacion\ImportarSueldosConciliacion.Designer.vb">
+      <DependentUpon>ImportarSueldosConciliacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="conciliacion\ImportarSueldosConciliacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="contpaq2\frmcontpaqnominas2.Designer.vb">
       <DependentUpon>frmcontpaqnominas2.vb</DependentUpon>
     </Compile>
@@ -1149,6 +1155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="conciliacion\frmSubirInfoBancosConciliacion.resx">
       <DependentUpon>frmSubirInfoBancosConciliacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="conciliacion\ImportarSueldosConciliacion.resx">
+      <DependentUpon>ImportarSueldosConciliacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="contpaq2\frmcontpaqnominas2.resx">
       <DependentUpon>frmcontpaqnominas2.vb</DependentUpon>

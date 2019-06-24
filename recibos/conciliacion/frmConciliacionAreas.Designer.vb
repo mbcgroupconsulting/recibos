@@ -59,6 +59,8 @@ Partial Class frmFondeoPatrona
         Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         Me.tsbreportes = New System.Windows.Forms.ToolStripButton()
         Me.tsbDeleted = New System.Windows.Forms.ToolStripButton()
+        Me.tsbRegistros = New System.Windows.Forms.ToolStripButton()
+        Me.tsbSubirRegistro = New System.Windows.Forms.ToolStripButton()
         Me.pnlProgreso = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
@@ -86,8 +88,8 @@ Partial Class frmFondeoPatrona
         'pnlCatalogo
         '
         Me.pnlCatalogo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pnlCatalogo.Controls.Add(Me.grbGuardar)
         Me.pnlCatalogo.Controls.Add(Me.txtidempresa)
@@ -340,8 +342,8 @@ Partial Class frmFondeoPatrona
         'lsvLista
         '
         Me.lsvLista.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lsvLista.CheckBoxes = True
         Me.lsvLista.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvLista.FullRowSelect = True
@@ -368,7 +370,7 @@ Partial Class frmFondeoPatrona
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbImportar, Me.tsbConciliar, Me.tsbGuardar, Me.tsbProcesar, Me.tsbCancelar, Me.tsbreportes, Me.tsbDeleted})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbConciliar, Me.tsbImportar, Me.tsbGuardar, Me.tsbProcesar, Me.tsbDeleted, Me.tsbCancelar, Me.tsbreportes, Me.tsbRegistros, Me.tsbSubirRegistro})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1208, 54)
@@ -460,6 +462,24 @@ Partial Class frmFondeoPatrona
         Me.tsbDeleted.Text = "Borrar"
         Me.tsbDeleted.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
+        'tsbRegistros
+        '
+        Me.tsbRegistros.Image = Global.recibos.My.Resources.Resources._1361008137_export_excel
+        Me.tsbRegistros.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbRegistros.Name = "tsbRegistros"
+        Me.tsbRegistros.Size = New System.Drawing.Size(114, 51)
+        Me.tsbRegistros.Text = "Descargar Registros"
+        Me.tsbRegistros.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'tsbSubirRegistro
+        '
+        Me.tsbSubirRegistro.Image = Global.recibos.My.Resources.Resources._1359876031_folder_search
+        Me.tsbSubirRegistro.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbSubirRegistro.Name = "tsbSubirRegistro"
+        Me.tsbSubirRegistro.Size = New System.Drawing.Size(84, 51)
+        Me.tsbSubirRegistro.Text = "Subir Registro"
+        Me.tsbSubirRegistro.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
         'pnlProgreso
         '
         Me.pnlProgreso.Anchor = System.Windows.Forms.AnchorStyles.None
@@ -487,7 +507,7 @@ Partial Class frmFondeoPatrona
         Me.pgbProgreso.Size = New System.Drawing.Size(413, 30)
         Me.pgbProgreso.TabIndex = 0
         '
-        'frmConciliacionAreas
+        'frmFondeoPatrona
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1208, 613)
@@ -497,7 +517,7 @@ Partial Class frmFondeoPatrona
         Me.Controls.Add(Me.lblRuta)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Name = "frmConciliacionAreas"
+        Me.Name = "frmFondeoPatrona"
         Me.Text = "Realizar conciliación"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.pnlCatalogo.ResumeLayout(False)
@@ -554,4 +574,6 @@ Partial Class frmFondeoPatrona
     Friend WithEvents rdbAbonos As System.Windows.Forms.RadioButton
     Friend WithEvents rdbCargos As System.Windows.Forms.RadioButton
     Friend WithEvents tsbDeleted As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tsbRegistros As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tsbSubirRegistro As System.Windows.Forms.ToolStripButton
 End Class

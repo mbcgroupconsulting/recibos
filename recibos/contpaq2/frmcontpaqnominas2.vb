@@ -15,6 +15,8 @@ Public Class frmcontpaqnominas2
     Dim gdFechaFin As String
     Dim valorsubsidio As Integer
     Dim calculosubsidio As Integer
+    Dim OrdinarioAbsoluto As Integer
+
 
 
     Public Sub New()
@@ -78,11 +80,13 @@ Public Class frmcontpaqnominas2
                 gIdClienteAsignada = rwCliente(0)("fkIdCliente").ToString
                 valorsubsidio = rwCliente(0)("TipoSubsidio").ToString
                 calculosubsidio = rwCliente(0)("CalculoSubsidio").ToString
+                OrdinarioAbsoluto = rwCliente(0)("OrdinarioAbsoluto").ToString
             Else
                 lblCliente.Text = "No existe cliente asignado, favor de realizar la asignación"
                 gIdClienteAsignada = "0"
                 valorsubsidio = 0
                 calculosubsidio = 0
+                OrdinarioAbsoluto = 0
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -556,6 +560,9 @@ Public Class frmcontpaqnominas2
                 Dim rwEmpleadosC As DataRow() = nConsultaContpaq(sql)
                 If rwEmpleadosC Is Nothing = False Then
 
+                    Dim resultado As Integer = MessageBox.Show("¿Tomar en cuenta el campo de cuentas bancarias para realizar la actualización?", "Pregunta", MessageBoxButtons.YesNo)
+                    
+
                     sql = "Select * from empleadosC where fkiIdEmpresa=" & gIdEmpresa
 
 
@@ -569,8 +576,13 @@ Public Class frmcontpaqnominas2
                             For y As Integer = 0 To rwEmpleados.Length - 1
                                 If (rwEmpleadosC(x)("codigoempleado").ToString() = rwEmpleados(y)("cCodigoEmpleado").ToString) Then
 
+
+
                                     If rwEmpleadosC(x)("estadoempleado").ToString() = "B" Then
+
+
                                         sql = "update empleadosC set fkiIdClienteInter = 1,fSueldoBase=" & rwEmpleadosC(x)("sueldodiario") & ",fSueldoIntegrado=" & rwEmpleadosC(x)("sueldointegrado")
+                                        sql &= ",dFechaCap='" & Date.Parse(rwEmpleadosC(x)("fechabaja").ToString()).ToShortDateString & "'"
                                         sql &= " where iIdEmpleadoC=" & rwEmpleados(y)("iIdEmpleadoC").ToString
 
                                         If nExecute(sql) = False Then
@@ -580,9 +592,46 @@ Public Class frmcontpaqnominas2
 
                                         End If
                                     Else
-                                        sql = "update empleadosC set fSueldoBase=" & rwEmpleadosC(x)("sueldodiario") & ",fSueldoIntegrado=" & rwEmpleadosC(x)("sueldointegrado")
-                                        sql &= " where iIdEmpleadoC=" & rwEmpleados(y)("iIdEmpleadoC").ToString
+                                        'banco
+                                        'hay que buscar el banco
 
+                                        If resultado = DialogResult.Yes Then
+                                            sql2 = "select * from bancos where clave='" & rwEmpleadosC(x)("bancopagoelectronico") & "'"
+
+                                            Dim cadenaiIdBanco As String
+                                            Dim rwBanco As DataRow() = nConsulta(sql2)
+
+                                            If rwBanco Is Nothing = False Then
+                                                cadenaiIdBanco = rwBanco(0)("iIdBanco")
+                                            Else
+                                                cadenaiIdBanco = "1"
+                                            End If
+
+                                            sql = "update empleadosC set fSueldoBase=" & rwEmpleadosC(x)("sueldodiario") & ",fSueldoIntegrado=" & rwEmpleadosC(x)("sueldointegrado")
+                                            sql &= ",fkiIdBanco=" & cadenaiIdBanco & ",Numcuenta='" & rwEmpleadosC(x)("cuentapagoelectronico") & "',Clabe='" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
+                                            sql &= ",fkiIdBanco2=" & cadenaiIdBanco & ",cuenta2='" & rwEmpleadosC(x)("cuentapagoelectronico") & "',clabe2='" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
+                                            sql &= " where iIdEmpleadoC=" & rwEmpleados(y)("iIdEmpleadoC").ToString
+
+                                        Else
+                                            'sql2 = "select * from bancos where clave='" & rwEmpleadosC(x)("bancopagoelectronico") & "'"
+
+                                            'Dim cadenaiIdBanco As String
+                                            'Dim rwBanco As DataRow() = nConsulta(sql2)
+
+                                            'If rwBanco Is Nothing = False Then
+                                            '    cadenaiIdBanco = rwBanco(0)("iIdBanco")
+                                            'Else
+                                            '    cadenaiIdBanco = "1"
+                                            'End If
+
+                                            sql = "update empleadosC set fSueldoBase=" & rwEmpleadosC(x)("sueldodiario") & ",fSueldoIntegrado=" & rwEmpleadosC(x)("sueldointegrado")
+                                            'sql &= ",fkiIdBanco=" & cadenaiIdBanco & ",Numcuenta='" & rwEmpleadosC(x)("cuentapagoelectronico") & "',Clabe='" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
+                                            'sql &= ",fkiIdBanco2=" & cadenaiIdBanco & ",cuenta2='" & rwEmpleadosC(x)("cuentapagoelectronico") & "',clabe2='" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
+                                            sql &= " where iIdEmpleadoC=" & rwEmpleados(y)("iIdEmpleadoC").ToString
+
+                                        End If
+
+                                        
                                         If nExecute(sql) = False Then
                                             MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                                             'pnlProgreso.Visible = False
@@ -671,8 +720,23 @@ Public Class frmcontpaqnominas2
                                 sql &= ",0.00"
                                 sql &= ",-1"
                                 sql &= ",1"
-                                sql &= ",1"
-                                sql &= ",''"
+
+                                'banco
+                                'hay que buscar el banco
+
+                                sql2 = "select * from bancos where clave='" & rwEmpleadosC(x)("bancopagoelectronico") & "'"
+
+
+                                Dim rwBanco As DataRow() = nConsulta(sql2)
+
+                                If rwBanco Is Nothing = False Then
+                                    sql &= "," & rwBanco(0)("iIdBanco")
+                                Else
+                                    sql &= ",1"
+                                End If
+                                'sql &= ",1"
+                                'cuenta
+                                sql &= ",'" & rwEmpleadosC(x)("cuentapagoelectronico") & "'"
                                 sql &= ",1"
                                 sql &= ",''"
                                 sql &= ",''"
@@ -683,7 +747,8 @@ Public Class frmcontpaqnominas2
                                 sql &= "','" & Date.Parse(rwEmpleadosC(x)("fechaalta").ToString()).ToShortDateString
                                 sql &= "','" & Date.Parse(rwEmpleadosC(x)("fechaalta").ToString()).ToShortDateString
                                 sql &= "',1"
-                                sql &= ",''"
+                                'clabe
+                                sql &= ",'" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
                                 'integrar
                                 sql &= ",''"
                                 sql &= ",1"
@@ -726,12 +791,15 @@ Public Class frmcontpaqnominas2
 
                                 sql &= ",1"
                                 'Banco2
-                                sql &= ",1"
+                                If rwBanco Is Nothing = False Then
+                                    sql &= "," & rwBanco(0)("iIdBanco")
+                                Else
+                                    sql &= ",1"
+                                End If
                                 'cuenta2
-                                sql &= ",''"
-
+                                sql &= ",'" & rwEmpleadosC(x)("cuentapagoelectronico") & "'"
                                 'clabe2
-                                sql &= ",''"
+                                sql &= ",'" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
                                 'SindicatoExtra
                                 sql &= ",0"
 
@@ -820,8 +888,23 @@ Public Class frmcontpaqnominas2
                             sql &= ",0.00"
                             sql &= ",-1"
                             sql &= ",1"
-                            sql &= ",1"
-                            sql &= ",''"
+                            'banco
+                            'hay que buscar el banco
+
+                            sql2 = "select * from bancos where clave='" & rwEmpleadosC(x)("bancopagoelectronico") & "'"
+
+
+                            Dim rwBanco As DataRow() = nConsulta(sql2)
+
+                            If rwBanco Is Nothing = False Then
+                                sql &= "," & rwBanco(0)("iIdBanco")
+                            Else
+                                sql &= ",1"
+                            End If
+
+                            'sql &= ",1"
+                            'cuenta
+                            sql &= ",'" & rwEmpleadosC(x)("cuentapagoelectronico") & "'"
                             sql &= ",1"
                             sql &= ",''"
                             sql &= ",''"
@@ -832,7 +915,8 @@ Public Class frmcontpaqnominas2
                             sql &= "','" & Date.Parse(rwEmpleadosC(x)("fechaalta").ToString()).ToShortDateString
                             sql &= "','" & Date.Parse(rwEmpleadosC(x)("fechaalta").ToString()).ToShortDateString
                             sql &= "',1"
-                            sql &= ",''"
+                            'clabe
+                            sql &= ",'" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
                             'integrar
                             sql &= ",''"
                             sql &= ",1"
@@ -874,11 +958,15 @@ Public Class frmcontpaqnominas2
                             sql &= ",1"
 
                             'Banco2
-                            sql &= ",1"
+                            If rwBanco Is Nothing = False Then
+                                sql &= "," & rwBanco(0)("iIdBanco")
+                            Else
+                                sql &= ",1"
+                            End If
                             'cuenta2
-                            sql &= ",''"
+                            sql &= ",'" & rwEmpleadosC(x)("cuentapagoelectronico") & "'"
                             'clabe2
-                            sql &= ",''"
+                            sql &= ",'" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
                             'SindicatoExtra
                             sql &= ",0"
                             If nExecute(sql) = False Then
@@ -1308,6 +1396,9 @@ Public Class frmcontpaqnominas2
 
                                 If Trim(row("fkiIdClienteInter")) = "1" Then
                                     fila.Item("nombre") = (Trim(row("nombre")) & "<finiquito>").ToUpper()
+                                    fila.Item("info") = "Baja"
+                                Else
+                                    fila.Item("info") = "Alta"
                                 End If
                                 'Pension Alimenticia
                                 fila.Item("P_Alimenticia") = "0.00"
@@ -1421,73 +1512,120 @@ Public Class frmcontpaqnominas2
                                 fila.Item("subsidiado") = SubsidioSA
 
 
+
+
+
+
+                                '############################################################### Parte modificada el 23 de Mayo de 2019
+
+
+
+
+
                                 'Costo Social
+
+
+
+                                'If dt.Columns.IndexOf("Invalidez y Vida") <> -1 Then
+                                '    If (Not (row("Invalidez y Vida") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("Invalidez y Vida")) = "", "0.00", Trim(row("Invalidez y Vida")))
+                                '    End If
+                                'End If
+
+
+                                'If dt.Columns.IndexOf("Cesantia y Vejez") <> -1 Then
+                                '    If (Not (row("Cesantia y Vejez") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("Cesantia y Vejez")) = "", "0.00", Trim(row("Cesantia y Vejez")))
+                                '    End If
+                                'End If
+
+
+                                'If dt.Columns.IndexOf("Enf. y Mat. Patron") <> -1 Then
+                                '    If (Not (row("Enf. y Mat. Patron") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("Enf. y Mat. Patron")) = "", "0.00", Trim(row("Enf. y Mat. Patron")))
+                                '    End If
+                                'End If
+                                'If dt.Columns.IndexOf("2% Fondo retiro SAR (8)") <> -1 Then
+                                '    If (Not (row("2% Fondo retiro SAR (8)") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("2% Fondo retiro SAR (8)")) = "", "0.00", Trim(row("2% Fondo retiro SAR (8)")))
+                                '    End If
+                                'End If
+
+                                'If dt.Columns.IndexOf("2% Impuesto estatal") <> -1 Then
+                                '    If (Not (row("2% Impuesto estatal") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("2% Impuesto estatal")) = "", "0.00", Trim(row("2% Impuesto estatal")))
+                                '    End If
+                                'End If
+
+                                'If dt.Columns.IndexOf("Riesgo de trabajo (9)") <> -1 Then
+                                '    If (Not (row("Riesgo de trabajo (9)") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("Riesgo de trabajo (9)")) = "", "0.00", Trim(row("Riesgo de trabajo (9)")))
+                                '    End If
+                                'End If
+
+                                ''If dt.Columns.IndexOf("I.M.S.S. empresa") <> -1 Then
+                                ''    If (Not (row("I.M.S.S. empresa") Is DBNull.Value)) Then
+                                ''        fCostoSA = fCostoSA + IIf(Trim(row("I.M.S.S. empresa")) = "", "0.00", Trim(row("I.M.S.S. empresa")))
+                                ''    End If
+                                ''End If
+
+                                'If dt.Columns.IndexOf("Infonavit empresa") <> -1 Then
+                                '    If (Not (row("Infonavit empresa") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("Infonavit empresa")) = "", "0.00", Trim(row("Infonavit empresa")))
+                                '    End If
+                                'End If
+
+                                'If dt.Columns.IndexOf("Guarderia I.M.S.S. (7)") <> -1 Then
+                                '    If (Not (row("Guarderia I.M.S.S. (7)") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("Guarderia I.M.S.S. (7)")) = "", "0.00", Trim(row("Guarderia I.M.S.S. (7)")))
+                                '    End If
+                                'End If
+                                '############################################################### Parte modificada el 23 de Mayo de 2019
 
                                 fCostoSA = 0
 
-                                If dt.Columns.IndexOf("Invalidez y Vida") <> -1 Then
-                                    If (Not (row("Invalidez y Vida") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("Invalidez y Vida")) = "", "0.00", Trim(row("Invalidez y Vida")))
+                                sql = "select * from EmpleadosC where iIdEmpleadoC=" & Trim(row("fkiIdEmpleado"))
+
+                                Dim rwCostoTrabajador As DataRow() = nConsulta(sql)
+
+                                If rwCostoTrabajador Is Nothing = False Then
+                                    Dim dias As Integer
+                                    dias = 0
+                                    If Double.Parse(rwCostoTrabajador(0)("fCosto")) > 0 Then
+                                        'sueldodiario = Double.Parse(IIf(dtgDatos.Rows(x).Cells(7).Value = "", "0", dtgDatos.Rows(x).Cells(7).Value)) / diasperiodo
+                                        sql = "select * from periodos where iIdPeriodo= " & cboperiodo.SelectedValue
+                                        Dim rwPeriodo As DataRow() = nConsulta(sql)
+
+                                        If rwPeriodo Is Nothing = False Then
+                                            Dim FechaBuscar As Date = Date.Parse(rwCostoTrabajador(0)("dFechaSindicato"))
+                                            Dim FechaInicial As Date = Date.Parse(rwPeriodo(0)("dFechaInicio"))
+                                            Dim FechaFinal As Date = Date.Parse(rwPeriodo(0)("dFechaFin"))
+                                            Dim FechaTermino As Date = Date.Parse(rwCostoTrabajador(0)("dFechaCap"))
+
+                                            If FechaBuscar.CompareTo(FechaInicial) > 0 And FechaBuscar.CompareTo(FechaFinal) <= 0 Then
+
+                                                If Trim(row("fkiIdClienteInter")) = "1" And FechaTermino.CompareTo(FechaFinal) < 0 Then
+                                                    dias = (DateDiff("y", FechaBuscar, FechaTermino)) + 1
+                                                Else
+                                                    dias = (DateDiff("y", FechaBuscar, FechaFinal)) + 1
+                                                End If
+
+
+
+
+                                            Else
+                                                If Trim(row("fkiIdClienteInter")) = "1" And FechaTermino.CompareTo(FechaFinal) <= 0 Then
+                                                    dias = (DateDiff("y", FechaInicial, FechaTermino)) + 1
+                                                Else
+                                                    dias = (DateDiff("y", FechaInicial, FechaFinal)) + 1
+                                                End If
+                                            End If
+                                        End If
+                                        fCostoSA = dias * Double.Parse(rwCostoTrabajador(0)("fCosto"))
+
                                     End If
                                 End If
 
-
-                                If dt.Columns.IndexOf("Cesantia y Vejez") <> -1 Then
-                                    If (Not (row("Cesantia y Vejez") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("Cesantia y Vejez")) = "", "0.00", Trim(row("Cesantia y Vejez")))
-                                    End If
-                                End If
-
-
-                                If dt.Columns.IndexOf("Enf. y Mat. Patron") <> -1 Then
-                                    If (Not (row("Enf. y Mat. Patron") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("Enf. y Mat. Patron")) = "", "0.00", Trim(row("Enf. y Mat. Patron")))
-                                    End If
-                                End If
-                                If dt.Columns.IndexOf("2% Fondo retiro SAR (8)") <> -1 Then
-                                    If (Not (row("2% Fondo retiro SAR (8)") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("2% Fondo retiro SAR (8)")) = "", "0.00", Trim(row("2% Fondo retiro SAR (8)")))
-                                    End If
-                                End If
-
-                                If dt.Columns.IndexOf("2% Impuesto estatal") <> -1 Then
-                                    If (Not (row("2% Impuesto estatal") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("2% Impuesto estatal")) = "", "0.00", Trim(row("2% Impuesto estatal")))
-                                    End If
-                                End If
-
-                                If dt.Columns.IndexOf("Riesgo de trabajo (9)") <> -1 Then
-                                    If (Not (row("Riesgo de trabajo (9)") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("Riesgo de trabajo (9)")) = "", "0.00", Trim(row("Riesgo de trabajo (9)")))
-                                    End If
-                                End If
-
-                                'If dt.Columns.IndexOf("I.M.S.S. empresa") <> -1 Then
-                                '    If (Not (row("I.M.S.S. empresa") Is DBNull.Value)) Then
-                                '        fCostoSA = fCostoSA + IIf(Trim(row("I.M.S.S. empresa")) = "", "0.00", Trim(row("I.M.S.S. empresa")))
-                                '    End If
-                                'End If
-
-                                If dt.Columns.IndexOf("Infonavit empresa") <> -1 Then
-                                    If (Not (row("Infonavit empresa") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("Infonavit empresa")) = "", "0.00", Trim(row("Infonavit empresa")))
-                                    End If
-                                End If
-
-                                If dt.Columns.IndexOf("Guarderia I.M.S.S. (7)") <> -1 Then
-                                    If (Not (row("Guarderia I.M.S.S. (7)") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("Guarderia I.M.S.S. (7)")) = "", "0.00", Trim(row("Guarderia I.M.S.S. (7)")))
-                                    End If
-                                End If
-
-
-
-
-                                'If dt.Columns.IndexOf("fCosto") <> -1 Then
-                                '    If (Not (row("fCosto") Is DBNull.Value)) Then
-                                '        fCostoSA = IIf(Trim(row("fCosto")) = "", "0.00", Trim(row("fCosto")))
-                                '    End If
-                                'End If
 
 
                                 fila.Item("costosocial") = fCostoSA
@@ -1509,6 +1647,7 @@ Public Class frmcontpaqnominas2
                             fila.Item("idempleado") = rwDatosSindicato(x)("iIdEmpleadoC")
                             fila.Item("numcuenta") = rwDatosSindicato(x)("NumCuenta")
                             fila.Item("nombre") = rwDatosSindicato(x)("nombre").ToString.ToUpper()
+                            fila.Item("info") = "Alta"
                             fila.Item("sueldo") = rwDatosSindicato(x)("fSueldoOrd")
                             fila.Item("neto") = "0.00"
                             fila.Item("P_Alimenticia") = "0.00"
@@ -1551,6 +1690,10 @@ Public Class frmcontpaqnominas2
 
                                 If Trim(row("fkiIdClienteInter")) = "1" Then
                                     fila.Item("nombre") = (Trim(row("nombre")) & "<finiquito>").ToUpper()
+
+                                    fila.Item("info") = "Baja"
+                                Else
+                                    fila.Item("info") = "Alta"
                                 End If
                                 'Pension alimenticia
                                 fila.Item("P_Alimenticia") = "0.00"
@@ -1647,73 +1790,115 @@ Public Class frmcontpaqnominas2
                                 fila.Item("subsidiado") = SubsidioSA
 
 
+                                '############################################################### Parte modificada el 23 de Mayo de 2019
+
+
+
+
+
                                 'Costo Social
+
+
+
+                                'If dt.Columns.IndexOf("Invalidez y Vida") <> -1 Then
+                                '    If (Not (row("Invalidez y Vida") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("Invalidez y Vida")) = "", "0.00", Trim(row("Invalidez y Vida")))
+                                '    End If
+                                'End If
+
+
+                                'If dt.Columns.IndexOf("Cesantia y Vejez") <> -1 Then
+                                '    If (Not (row("Cesantia y Vejez") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("Cesantia y Vejez")) = "", "0.00", Trim(row("Cesantia y Vejez")))
+                                '    End If
+                                'End If
+
+
+                                'If dt.Columns.IndexOf("Enf. y Mat. Patron") <> -1 Then
+                                '    If (Not (row("Enf. y Mat. Patron") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("Enf. y Mat. Patron")) = "", "0.00", Trim(row("Enf. y Mat. Patron")))
+                                '    End If
+                                'End If
+                                'If dt.Columns.IndexOf("2% Fondo retiro SAR (8)") <> -1 Then
+                                '    If (Not (row("2% Fondo retiro SAR (8)") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("2% Fondo retiro SAR (8)")) = "", "0.00", Trim(row("2% Fondo retiro SAR (8)")))
+                                '    End If
+                                'End If
+
+                                'If dt.Columns.IndexOf("2% Impuesto estatal") <> -1 Then
+                                '    If (Not (row("2% Impuesto estatal") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("2% Impuesto estatal")) = "", "0.00", Trim(row("2% Impuesto estatal")))
+                                '    End If
+                                'End If
+
+                                'If dt.Columns.IndexOf("Riesgo de trabajo (9)") <> -1 Then
+                                '    If (Not (row("Riesgo de trabajo (9)") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("Riesgo de trabajo (9)")) = "", "0.00", Trim(row("Riesgo de trabajo (9)")))
+                                '    End If
+                                'End If
+
+                                ''If dt.Columns.IndexOf("I.M.S.S. empresa") <> -1 Then
+                                ''    If (Not (row("I.M.S.S. empresa") Is DBNull.Value)) Then
+                                ''        fCostoSA = fCostoSA + IIf(Trim(row("I.M.S.S. empresa")) = "", "0.00", Trim(row("I.M.S.S. empresa")))
+                                ''    End If
+                                ''End If
+
+                                'If dt.Columns.IndexOf("Infonavit empresa") <> -1 Then
+                                '    If (Not (row("Infonavit empresa") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("Infonavit empresa")) = "", "0.00", Trim(row("Infonavit empresa")))
+                                '    End If
+                                'End If
+
+                                'If dt.Columns.IndexOf("Guarderia I.M.S.S. (7)") <> -1 Then
+                                '    If (Not (row("Guarderia I.M.S.S. (7)") Is DBNull.Value)) Then
+                                '        fCostoSA = fCostoSA + IIf(Trim(row("Guarderia I.M.S.S. (7)")) = "", "0.00", Trim(row("Guarderia I.M.S.S. (7)")))
+                                '    End If
+                                'End If
+                                '############################################################### Parte modificada el 23 de Mayo de 2019
 
                                 fCostoSA = 0
 
-                                If dt.Columns.IndexOf("Invalidez y Vida") <> -1 Then
-                                    If (Not (row("Invalidez y Vida") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("Invalidez y Vida")) = "", "0.00", Trim(row("Invalidez y Vida")))
+                                sql = "select * from EmpleadosC where iIdEmpleadoC=" & Trim(row("fkiIdEmpleado"))
+
+                                Dim rwCostoTrabajador As DataRow() = nConsulta(sql)
+
+                                If rwCostoTrabajador Is Nothing = False Then
+                                    Dim dias As Integer
+                                    dias = 0
+                                    If Double.Parse(rwCostoTrabajador(0)("fCosto")) > 0 Then
+                                        'sueldodiario = Double.Parse(IIf(dtgDatos.Rows(x).Cells(7).Value = "", "0", dtgDatos.Rows(x).Cells(7).Value)) / diasperiodo
+                                        sql = "select * from periodos where iIdPeriodo= " & cboperiodo.SelectedValue
+                                        Dim rwPeriodo As DataRow() = nConsulta(sql)
+
+                                        If rwPeriodo Is Nothing = False Then
+                                            Dim FechaBuscar As Date = Date.Parse(rwCostoTrabajador(0)("dFechaSindicato"))
+                                            Dim FechaInicial As Date = Date.Parse(rwPeriodo(0)("dFechaInicio"))
+                                            Dim FechaFinal As Date = Date.Parse(rwPeriodo(0)("dFechaFin"))
+                                            Dim FechaTermino As Date = Date.Parse(rwCostoTrabajador(0)("dFechaCap"))
+
+                                            If FechaBuscar.CompareTo(FechaInicial) > 0 And FechaBuscar.CompareTo(FechaFinal) <= 0 Then
+
+                                                If Trim(row("fkiIdClienteInter")) = "1" And FechaTermino.CompareTo(FechaFinal) < 0 Then
+                                                    dias = (DateDiff("y", FechaBuscar, FechaTermino)) + 1
+                                                Else
+                                                    dias = (DateDiff("y", FechaBuscar, FechaFinal)) + 1
+                                                End If
+
+
+
+
+                                            Else
+                                                If Trim(row("fkiIdClienteInter")) = "1" And FechaTermino.CompareTo(FechaFinal) <= 0 Then
+                                                    dias = (DateDiff("y", FechaInicial, FechaTermino)) + 1
+                                                Else
+                                                    dias = (DateDiff("y", FechaInicial, FechaFinal)) + 1
+                                                End If
+                                            End If
+                                        End If
+                                        fCostoSA = dias * Double.Parse(rwCostoTrabajador(0)("fCosto"))
+
                                     End If
                                 End If
-
-
-                                If dt.Columns.IndexOf("Cesantia y Vejez") <> -1 Then
-                                    If (Not (row("Cesantia y Vejez") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("Cesantia y Vejez")) = "", "0.00", Trim(row("Cesantia y Vejez")))
-                                    End If
-                                End If
-
-
-                                If dt.Columns.IndexOf("Enf. y Mat. Patron") <> -1 Then
-                                    If (Not (row("Enf. y Mat. Patron") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("Enf. y Mat. Patron")) = "", "0.00", Trim(row("Enf. y Mat. Patron")))
-                                    End If
-                                End If
-                                If dt.Columns.IndexOf("2% Fondo retiro SAR (8)") <> -1 Then
-                                    If (Not (row("2% Fondo retiro SAR (8)") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("2% Fondo retiro SAR (8)")) = "", "0.00", Trim(row("2% Fondo retiro SAR (8)")))
-                                    End If
-                                End If
-
-                                If dt.Columns.IndexOf("2% Impuesto estatal") <> -1 Then
-                                    If (Not (row("2% Impuesto estatal") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("2% Impuesto estatal")) = "", "0.00", Trim(row("2% Impuesto estatal")))
-                                    End If
-                                End If
-
-                                If dt.Columns.IndexOf("Riesgo de trabajo (9)") <> -1 Then
-                                    If (Not (row("Riesgo de trabajo (9)") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("Riesgo de trabajo (9)")) = "", "0.00", Trim(row("Riesgo de trabajo (9)")))
-                                    End If
-                                End If
-
-                                'If dt.Columns.IndexOf("I.M.S.S. empresa") <> -1 Then
-                                '    If (Not (row("I.M.S.S. empresa") Is DBNull.Value)) Then
-                                '        fCostoSA = fCostoSA + IIf(Trim(row("I.M.S.S. empresa")) = "", "0.00", Trim(row("I.M.S.S. empresa")))
-                                '    End If
-                                'End If
-
-                                If dt.Columns.IndexOf("Infonavit empresa") <> -1 Then
-                                    If (Not (row("Infonavit empresa") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("Infonavit empresa")) = "", "0.00", Trim(row("Infonavit empresa")))
-                                    End If
-                                End If
-
-                                If dt.Columns.IndexOf("Guarderia I.M.S.S. (7)") <> -1 Then
-                                    If (Not (row("Guarderia I.M.S.S. (7)") Is DBNull.Value)) Then
-                                        fCostoSA = fCostoSA + IIf(Trim(row("Guarderia I.M.S.S. (7)")) = "", "0.00", Trim(row("Guarderia I.M.S.S. (7)")))
-                                    End If
-                                End If
-
-
-
-
-                                'If dt.Columns.IndexOf("fCosto") <> -1 Then
-                                '    If (Not (row("fCosto") Is DBNull.Value)) Then
-                                '        fCostoSA = IIf(Trim(row("fCosto")) = "", "0.00", Trim(row("fCosto")))
-                                '    End If
-                                'End If
 
 
                                 fila.Item("costosocial") = fCostoSA
@@ -1740,36 +1925,188 @@ Public Class frmcontpaqnominas2
                     Dim rwNominaGuardada As DataRow() = nConsulta(sql)
                     If rwNominaGuardada Is Nothing = False Then
                         For x As Integer = 0 To dsSASindicato.Tables("Tabla").Rows.Count - 1
-                            Dim subsidio, retencion, resultado As Double
-                            If dsSASindicato.Tables("Tabla").Rows(x)("subsidiado").ToString = "" Then
-                                subsidio = 0
-                            Else
-                                subsidio = Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("subsidiado").ToString)
-                            End If
+                            If Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("neto").ToString) > 0 Or dsSASindicato.Tables("Tabla").Rows(x)("departamento") = "Sindicato" Or dsSASindicato.Tables("Tabla").Rows(x)("info") = "Alta" Then
 
-                            If dsSASindicato.Tables("Tabla").Rows(x)("ISPT").ToString = "" Then
-                                retencion = 0
-                            Else
-                                retencion = Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("ISPT").ToString)
-                            End If
-                            If subsidio = 0 Then
-                                resultado = retencion
-                            ElseIf subsidio >= retencion Then
-                                resultado = 0
-                            Else
-                                resultado = retencion - subsidio
-                            End If
-                            'bandera 
-                            Dim ban As Integer = 0
+                                Dim subsidio, retencion, resultado As Double
+                                If dsSASindicato.Tables("Tabla").Rows(x)("subsidiado").ToString = "" Then
+                                    subsidio = 0
+                                Else
+                                    subsidio = Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("subsidiado").ToString)
+                                End If
 
-                            For z As Integer = 0 To rwNominaGuardada.Length - 1
+                                If dsSASindicato.Tables("Tabla").Rows(x)("ISPT").ToString = "" Then
+                                    retencion = 0
+                                Else
+                                    retencion = Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("ISPT").ToString)
+                                End If
+                                If subsidio = 0 Then
+                                    resultado = retencion
+                                ElseIf subsidio >= retencion Then
+                                    resultado = 0
+                                Else
+                                    resultado = retencion - subsidio
+                                End If
+                                'bandera 
+                                Dim ban As Integer = 0
 
-                                If dsSASindicato.Tables("Tabla").Rows(x)("idempleado").ToString = rwNominaGuardada(z)("fkiIdempleado").ToString Then
+                                For z As Integer = 0 To rwNominaGuardada.Length - 1
+
+                                    If dsSASindicato.Tables("Tabla").Rows(x)("idempleado").ToString = rwNominaGuardada(z)("fkiIdempleado").ToString Then
+                                        Dim fila As DataRow = dsPeriodo.Tables("Tabla").NewRow
+                                        Dim InfoEmpleado As String
+                                        'buscamos info del trabajador
+
+                                        sql = "select * from InfoEmpleadoPeriodoContpaq where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idempleado").ToString
+                                        sql &= " and fkiIdPeriodo=" & cboperiodo.SelectedValue
+
+                                        Dim rwInfoEmpleado As DataRow() = nConsulta(sql)
+                                        If rwInfoEmpleado Is Nothing = False Then
+                                            InfoEmpleado = IIf(rwInfoEmpleado(0)("igualar0") = "1", "Igualar 0", "")
+                                        Else
+                                            InfoEmpleado = ""
+                                        End If
+
+
+                                        If chkAguinaldo.Checked Then
+                                            fila.Item("Consecutivo") = consecutivo
+                                            fila.Item("Info") = InfoEmpleado
+                                            fila.Item("Id_empleado") = dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
+                                            fila.Item("Num_Cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
+                                            fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper()
+                                            fila.Item("Sueldo") = rwNominaGuardada(z)("fSueldoOrd").ToString
+                                            fila.Item("Neto_SA") = "0.00"
+                                            fila.Item("P_Alimenticia") = "0.00"
+                                            fila.Item("Infonavit") = "0.00"
+                                            fila.Item("Prima_SA") = "0.00"
+                                            fila.Item("Aguinaldo_SA") = rwNominaGuardada(z)("fAguinaldoSA").ToString
+                                            fila.Item("Descuento") = "0.00"
+
+
+                                            fila.Item("Prestamo") = "0.00"
+                                            fila.Item("P_Alimenticia_S") = "0.00"
+                                            'fila.Item("Prestamo") = rwNominaGuardada(z)("fPrestamo").ToString
+                                            'fila.Item("pRIM") = "0.00"
+                                            fila.Item("Sindicato") = "0.00"
+                                            fila.Item("Prima_Sin") = "0.00"
+                                            fila.Item("Aguinaldo_Sin") = rwNominaGuardada(z)("fAguinaldoSin").ToString
+                                            fila.Item("Extra") = "0.00"
+                                            fila.Item("Neto_pagar") = "0.00"
+                                            fila.Item("Imss") = "0.00"
+                                            fila.Item("Subsidiado") = "0.00"
+                                            fila.Item("Costo_social") = "0.00"
+                                            fila.Item("Costo_social2") = "0.00"
+                                            fila.Item("Comision_SA") = "0.00"
+                                            fila.Item("Comision_Sindicato") = "0.00"
+                                            fila.Item("Subtotal") = "0.00"
+                                            fila.Item("Iva") = "0.00"
+                                            fila.Item("Total") = "0.00"
+                                            fila.Item("Departamento") = Trim(dsSASindicato.Tables("Tabla").Rows(x)("departamento"))
+
+                                            fila.Item("Departamento") &= TipoCuentaBanco(dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString, 0)
+
+                                            dsPeriodo.Tables("Tabla").Rows.Add(fila)
+
+                                            ban = 1
+                                            consecutivo = consecutivo + 1
+                                        Else
+                                            fila.Item("Consecutivo") = consecutivo
+                                            fila.Item("Info") = InfoEmpleado
+                                            fila.Item("Id_empleado") = dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
+                                            fila.Item("Num_Cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
+                                            fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper()
+                                            fila.Item("Sueldo") = rwNominaGuardada(z)("fSueldoOrd").ToString
+                                            fila.Item("Neto_SA") = dsSASindicato.Tables("Tabla").Rows(x)("neto").ToString
+                                            fila.Item("P_Alimenticia") = dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString
+                                            fila.Item("Infonavit") = dsSASindicato.Tables("Tabla").Rows(x)("infonavit").ToString
+                                            fila.Item("Prima_SA") = rwNominaGuardada(z)("fPrimaSA").ToString
+                                            fila.Item("Aguinaldo_SA") = rwNominaGuardada(z)("fAguinaldoSA").ToString
+                                            fila.Item("Descuento") = rwNominaGuardada(z)("fDescuento").ToString
+
+                                            'Calculamos  la pension sindicato
+                                            sql = "select * from PensionAlimenticia where fkiIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
+
+                                            Dim rwDatosPension As DataRow() = nConsulta(sql)
+
+                                            If rwDatosPension Is Nothing = False Then
+
+                                                If rwDatosPension(0)("iTipo") = "1" Then
+
+                                                End If
+
+                                                If rwDatosPension(0)("iTipo") = "2" Then
+                                                    fila.Item("P_Alimenticia_S") = (Double.Parse(rwDatosPension(0)("MontoCalculo")) * Double.Parse(rwDatosPension(0)("ValorImporte"))) - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString)
+                                                End If
+
+
+                                            Else
+                                                fila.Item("P_Alimenticia_S") = "0.00"
+
+                                            End If
+
+
+                                            'Calculamos el prestamos 28/08/2017
+
+                                            sql = "select * from Prestamo where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString & " and iEstatus=1"
+
+                                            Dim rwPrestamos As DataRow() = nConsulta(sql)
+                                            prestamo = 0
+
+                                            If rwPrestamos Is Nothing = False Then
+                                                sql = "select isnull(sum(monto),0) as monto from pagoprestamo where fkiIdPrestamo=" & rwPrestamos(0)("iIdPrestamo").ToString
+                                                Dim rwMontoPrestamo As DataRow() = nConsulta(sql)
+                                                If rwMontoPrestamo Is Nothing = False Then
+
+                                                    If Double.Parse(rwMontoPrestamo(0)("monto").ToString) < Double.Parse(rwPrestamos(0)("montototal").ToString) Then
+                                                        If (Double.Parse(rwPrestamos(0)("montototal").ToString) - Double.Parse(rwMontoPrestamo(0)("monto").ToString)) >= Double.Parse(rwPrestamos(0)("descuento").ToString) Then
+                                                            prestamo = Double.Parse(rwPrestamos(0)("descuento").ToString)
+                                                        Else
+                                                            prestamo = Double.Parse(rwPrestamos(0)("montototal").ToString) - Double.Parse(rwMontoPrestamo(0)("monto").ToString)
+                                                        End If
+                                                    End If
+
+
+                                                End If
+                                            End If
+
+                                            fila.Item("Prestamo") = Math.Round(prestamo, 2).ToString("##0.00")
+
+                                            'fila.Item("Prestamo") = rwNominaGuardada(z)("fPrestamo").ToString
+                                            'fila.Item("pRIM") = "0.00"
+                                            fila.Item("Sindicato") = "0.00"
+                                            fila.Item("Prima_Sin") = rwNominaGuardada(z)("fPrimaSin").ToString
+                                            fila.Item("Aguinaldo_Sin") = rwNominaGuardada(z)("fAguinaldoSin").ToString
+                                            fila.Item("Extra") = rwNominaGuardada(z)("fImporteSin1").ToString
+                                            fila.Item("Neto_pagar") = "0.00"
+                                            fila.Item("Imss") = dsSASindicato.Tables("Tabla").Rows(x)("imss").ToString
+                                            fila.Item("Subsidiado") = resultado.ToString("###,###,###,##0.00")
+                                            fila.Item("Costo_social") = rwNominaGuardada(z)("fCostoSocial").ToString
+                                            fila.Item("Costo_social2") = "0.00"
+                                            fila.Item("Comision_SA") = "0.00"
+                                            fila.Item("Comision_Sindicato") = "0.00"
+                                            fila.Item("Subtotal") = "0.00"
+                                            fila.Item("Iva") = "0.00"
+                                            fila.Item("Total") = "0.00"
+                                            fila.Item("Departamento") = Trim(dsSASindicato.Tables("Tabla").Rows(x)("departamento"))
+
+                                            fila.Item("Departamento") &= TipoCuentaBanco(dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString, 0)
+
+                                            dsPeriodo.Tables("Tabla").Rows.Add(fila)
+
+                                            ban = 1
+                                            consecutivo = consecutivo + 1
+                                        End If
+
+
+                                    End If
+
+                                Next
+
+                                If ban = 0 Then
                                     Dim fila As DataRow = dsPeriodo.Tables("Tabla").NewRow
                                     Dim InfoEmpleado As String
                                     'buscamos info del trabajador
 
-                                    sql = "select * from InfoEmpleadoPeriodoContpaq where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idempleado").ToString
+                                    sql = "select * from InfoEmpleadoPeriodoContpaq where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
                                     sql &= " and fkiIdPeriodo=" & cboperiodo.SelectedValue
 
                                     Dim rwInfoEmpleado As DataRow() = nConsulta(sql)
@@ -1778,31 +2115,56 @@ Public Class frmcontpaqnominas2
                                     Else
                                         InfoEmpleado = ""
                                     End If
-
-
                                     If chkAguinaldo.Checked Then
                                         fila.Item("Consecutivo") = consecutivo
                                         fila.Item("Info") = InfoEmpleado
                                         fila.Item("Id_empleado") = dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
                                         fila.Item("Num_Cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
                                         fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper()
-                                        fila.Item("Sueldo") = rwNominaGuardada(z)("fSueldoOrd").ToString
+                                        fila.Item("Sueldo") = dsSASindicato.Tables("Tabla").Rows(x)("sueldo").ToString
                                         fila.Item("Neto_SA") = "0.00"
                                         fila.Item("P_Alimenticia") = "0.00"
                                         fila.Item("Infonavit") = "0.00"
                                         fila.Item("Prima_SA") = "0.00"
-                                        fila.Item("Aguinaldo_SA") = rwNominaGuardada(z)("fAguinaldoSA").ToString
+                                        fila.Item("Aguinaldo_SA") = dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString
+
+
+
                                         fila.Item("Descuento") = "0.00"
+
+                                        'buscamos prestamos y los agregamos
+
 
 
                                         fila.Item("Prestamo") = "0.00"
-                                        fila.Item("P_Alimenticia_S") = "0.00"
-                                        'fila.Item("Prestamo") = rwNominaGuardada(z)("fPrestamo").ToString
-                                        'fila.Item("pRIM") = "0.00"
-                                        fila.Item("Sindicato") = "0.00"
-                                        fila.Item("Prima_Sin") = "0.00"
-                                        fila.Item("Aguinaldo_Sin") = rwNominaGuardada(z)("fAguinaldoSin").ToString
+
+
+                                        'Buscamos si existe aguinaldo calculado en este periodo y si es asi lo pasamos a la tabla del dataset
+
+                                        sql = "select * from AguinaldoC where fkiIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
+                                        sql &= " and fkiIdEmpresaC=" & gIdEmpresa & " and fkiIdPeriodo=" & cboperiodo.SelectedValue
+
+                                        Dim rwAguinaldo As DataRow() = nConsulta(sql)
+                                        AguinaldoSin = 0
+                                        If rwAguinaldo Is Nothing = False Then
+                                            AguinaldoSin = Double.Parse(rwAguinaldo(0)("Cantidad").ToString)
+                                        End If
+
+                                        If AguinaldoSin = 0 Then
+                                            fila.Item("Aguinaldo_Sin") = "0.00"
+                                        Else
+                                            fila.Item("Aguinaldo_Sin") = AguinaldoSin - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString)
+                                        End If
+
+
                                         fila.Item("Extra") = "0.00"
+
+
+                                        fila.Item("P_Alimenticia_S") = "0.00"
+                                        fila.Item("Sindicato") = "0.00"
+                                        'Calculo prima originalmente tenia 0
+                                        fila.Item("Prima_Sin") = "0.00"
+                                        fila.Item("Total_Sindicato") = "0.00"
                                         fila.Item("Neto_pagar") = "0.00"
                                         fila.Item("Imss") = "0.00"
                                         fila.Item("Subsidiado") = "0.00"
@@ -1817,9 +2179,9 @@ Public Class frmcontpaqnominas2
 
                                         fila.Item("Departamento") &= TipoCuentaBanco(dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString, 0)
 
+
                                         dsPeriodo.Tables("Tabla").Rows.Add(fila)
 
-                                        ban = 1
                                         consecutivo = consecutivo + 1
                                     Else
                                         fila.Item("Consecutivo") = consecutivo
@@ -1827,13 +2189,71 @@ Public Class frmcontpaqnominas2
                                         fila.Item("Id_empleado") = dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
                                         fila.Item("Num_Cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
                                         fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper()
-                                        fila.Item("Sueldo") = rwNominaGuardada(z)("fSueldoOrd").ToString
+                                        fila.Item("Sueldo") = dsSASindicato.Tables("Tabla").Rows(x)("sueldo").ToString
                                         fila.Item("Neto_SA") = dsSASindicato.Tables("Tabla").Rows(x)("neto").ToString
+
                                         fila.Item("P_Alimenticia") = dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString
                                         fila.Item("Infonavit") = dsSASindicato.Tables("Tabla").Rows(x)("infonavit").ToString
-                                        fila.Item("Prima_SA") = rwNominaGuardada(z)("fPrimaSA").ToString
-                                        fila.Item("Aguinaldo_SA") = rwNominaGuardada(z)("fAguinaldoSA").ToString
-                                        fila.Item("Descuento") = rwNominaGuardada(z)("fDescuento").ToString
+                                        fila.Item("Prima_SA") = dsSASindicato.Tables("Tabla").Rows(x)("Prima_SA").ToString
+                                        fila.Item("Aguinaldo_SA") = dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString
+
+                                        'Buscamos incidencias
+
+                                        'Buscamos incidencias
+
+                                        sql = "select * from incidencias where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString & "and fkiIdEmpresa=" & gIdEmpresa
+                                        sql &= " and fkiIdPeriodo=" & cboperiodo.SelectedValue & " and iEstatus=1"
+                                        incidencia = 0
+                                        Dim rwIncidencias As DataRow() = nConsulta(sql)
+                                        If rwIncidencias Is Nothing = False Then
+                                            incidencia = (Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("sueldo").ToString) / diasperiodo) * Double.Parse(rwIncidencias(0)("numdias").ToString)
+                                        End If
+
+                                        fila.Item("Descuento") = Math.Round(incidencia, 2).ToString("##0.00")
+
+                                        'buscamos prestamos y los agregamos
+
+                                        sql = "select * from Prestamo where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString & " and iEstatus=1"
+
+                                        Dim rwPrestamos As DataRow() = nConsulta(sql)
+
+                                        If rwPrestamos Is Nothing = False Then
+                                            sql = "select isnull(sum(monto),0) as monto from pagoprestamo where fkiIdPrestamo=" & rwPrestamos(0)("iIdPrestamo").ToString
+                                            Dim rwMontoPrestamo As DataRow() = nConsulta(sql)
+                                            If rwMontoPrestamo Is Nothing = False Then
+
+                                                If Double.Parse(rwMontoPrestamo(0)("monto").ToString) < Double.Parse(rwPrestamos(0)("montototal").ToString) Then
+                                                    If (Double.Parse(rwPrestamos(0)("montototal").ToString) - Double.Parse(rwMontoPrestamo(0)("monto").ToString)) >= Double.Parse(rwPrestamos(0)("descuento").ToString) Then
+                                                        prestamo = Double.Parse(rwPrestamos(0)("descuento").ToString)
+                                                    Else
+                                                        prestamo = Double.Parse(rwPrestamos(0)("montototal").ToString) - Double.Parse(rwMontoPrestamo(0)("monto").ToString)
+                                                    End If
+                                                End If
+
+
+                                            End If
+                                        End If
+
+                                        fila.Item("Prestamo") = Math.Round(prestamo, 2).ToString("##0.00")
+
+
+                                        'Buscamos si existe aguinaldo calculado en este periodo y si es asi lo pasamos a la tabla del dataset
+
+                                        sql = "select * from AguinaldoC where fkiIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
+                                        sql &= " and fkiIdEmpresaC=" & gIdEmpresa & " and fkiIdPeriodo=" & cboperiodo.SelectedValue
+
+                                        Dim rwAguinaldo As DataRow() = nConsulta(sql)
+                                        AguinaldoSin = 0
+                                        If rwAguinaldo Is Nothing = False Then
+                                            AguinaldoSin = Double.Parse(rwAguinaldo(0)("Cantidad").ToString)
+                                        End If
+
+                                        If AguinaldoSin = 0 Then
+                                            fila.Item("Aguinaldo_Sin") = "0.00"
+                                        Else
+                                            fila.Item("Aguinaldo_Sin") = AguinaldoSin - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString)
+                                        End If
+
 
                                         'Calculamos  la pension sindicato
                                         sql = "select * from PensionAlimenticia where fkiIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
@@ -1857,42 +2277,36 @@ Public Class frmcontpaqnominas2
                                         End If
 
 
-                                        'Calculamos el prestamos 28/08/2017
+                                        'Buscamos si hay importe extra y si el pago es mensual
 
-                                        sql = "select * from Prestamo where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString & " and iEstatus=1"
+                                        sql = "select * from empleadosC where iIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
 
-                                        Dim rwPrestamos As DataRow() = nConsulta(sql)
-                                        prestamo = 0
 
-                                        If rwPrestamos Is Nothing = False Then
-                                            sql = "select isnull(sum(monto),0) as monto from pagoprestamo where fkiIdPrestamo=" & rwPrestamos(0)("iIdPrestamo").ToString
-                                            Dim rwMontoPrestamo As DataRow() = nConsulta(sql)
-                                            If rwMontoPrestamo Is Nothing = False Then
+                                        Dim rwDatosEmpleado As DataRow() = nConsulta(sql)
 
-                                                If Double.Parse(rwMontoPrestamo(0)("monto").ToString) < Double.Parse(rwPrestamos(0)("montototal").ToString) Then
-                                                    If (Double.Parse(rwPrestamos(0)("montototal").ToString) - Double.Parse(rwMontoPrestamo(0)("monto").ToString)) >= Double.Parse(rwPrestamos(0)("descuento").ToString) Then
-                                                        prestamo = Double.Parse(rwPrestamos(0)("descuento").ToString)
-                                                    Else
-                                                        prestamo = Double.Parse(rwPrestamos(0)("montototal").ToString) - Double.Parse(rwMontoPrestamo(0)("monto").ToString)
-                                                    End If
+                                        If rwDatosEmpleado Is Nothing = False Then
+                                            If Double.Parse(rwDatosEmpleado(0)("fsindicatoExtra").ToString) > 0 Then
+                                                'Preguntamos si ponemos el importe extra o no
+                                                Dim respuesta As Integer = MessageBox.Show("Existe registrado un pago extra para el trabajador: " & dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper() & ", ¿Desea aplicarlo?", "Pregunta", MessageBoxButtons.YesNo)
+                                                If respuesta = DialogResult.Yes Then
+                                                    fila.Item("Extra") = rwDatosEmpleado(0)("fsindicatoExtra").ToString
+                                                Else
+                                                    fila.Item("Extra") = "0.00"
                                                 End If
-
-
+                                            Else
+                                                fila.Item("Extra") = rwDatosEmpleado(0)("fsindicatoExtra").ToString
                                             End If
                                         End If
 
-                                        fila.Item("Prestamo") = Math.Round(prestamo, 2).ToString("##0.00")
 
-                                        'fila.Item("Prestamo") = rwNominaGuardada(z)("fPrestamo").ToString
-                                        'fila.Item("pRIM") = "0.00"
                                         fila.Item("Sindicato") = "0.00"
-                                        fila.Item("Prima_Sin") = rwNominaGuardada(z)("fPrimaSin").ToString
-                                        fila.Item("Aguinaldo_Sin") = rwNominaGuardada(z)("fAguinaldoSin").ToString
-                                        fila.Item("Extra") = rwNominaGuardada(z)("fImporteSin1").ToString
+                                        'Calculo prima originalmente tenia 0
+                                        fila.Item("Prima_Sin") = (Double.Parse(CalculoPrimaSindicato(dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString, 0))) - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Prima_SA").ToString)
+                                        fila.Item("Total_Sindicato") = "0.00"
                                         fila.Item("Neto_pagar") = "0.00"
                                         fila.Item("Imss") = dsSASindicato.Tables("Tabla").Rows(x)("imss").ToString
                                         fila.Item("Subsidiado") = resultado.ToString("###,###,###,##0.00")
-                                        fila.Item("Costo_social") = rwNominaGuardada(z)("fCostoSocial").ToString
+                                        fila.Item("Costo_social") = dsSASindicato.Tables("Tabla").Rows(x)("costosocial").ToString
                                         fila.Item("Costo_social2") = "0.00"
                                         fila.Item("Comision_SA") = "0.00"
                                         fila.Item("Comision_Sindicato") = "0.00"
@@ -1903,53 +2317,92 @@ Public Class frmcontpaqnominas2
 
                                         fila.Item("Departamento") &= TipoCuentaBanco(dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString, 0)
 
+
                                         dsPeriodo.Tables("Tabla").Rows.Add(fila)
 
-                                        ban = 1
                                         consecutivo = consecutivo + 1
                                     End If
 
 
+
                                 End If
+                            End If
 
-                            Next
+                            
 
-                            If ban = 0 Then
-                                Dim fila As DataRow = dsPeriodo.Tables("Tabla").NewRow
-                                Dim InfoEmpleado As String
-                                'buscamos info del trabajador
+                        Next
 
-                                sql = "select * from InfoEmpleadoPeriodoContpaq where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
-                                sql &= " and fkiIdPeriodo=" & cboperiodo.SelectedValue
+                    Else
+                        For x As Integer = 0 To dsSASindicato.Tables("Tabla").Rows.Count - 1
+                            If Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("neto").ToString) > 0 Or dsSASindicato.Tables("Tabla").Rows(x)("departamento") = "Sindicato" Or dsSASindicato.Tables("Tabla").Rows(x)("info") = "Alta" Then
+                                'Subsidio
+                                Dim subsidio, retencion, resultado As Double
+                                prestamo = 0
 
-                                Dim rwInfoEmpleado As DataRow() = nConsulta(sql)
-                                If rwInfoEmpleado Is Nothing = False Then
-                                    InfoEmpleado = IIf(rwInfoEmpleado(0)("igualar0") = "1", "Igualar 0", "")
+                                If dsSASindicato.Tables("Tabla").Rows(x)("subsidiado").ToString = "" Then
+                                    subsidio = 0
                                 Else
-                                    InfoEmpleado = ""
+                                    subsidio = Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("subsidiado").ToString)
                                 End If
+
+                                If dsSASindicato.Tables("Tabla").Rows(x)("ISPT").ToString = "" Then
+                                    retencion = 0
+                                Else
+                                    retencion = Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("ISPT").ToString)
+                                End If
+                                If subsidio = 0 Then
+                                    resultado = retencion
+                                ElseIf subsidio >= retencion Then
+                                    resultado = 0
+                                Else
+                                    resultado = retencion - subsidio
+                                End If
+
+
+                                'Llenamos la tabla
+
+                                Dim fila As DataRow = dsPeriodo.Tables("Tabla").NewRow
+
                                 If chkAguinaldo.Checked Then
-                                    fila.Item("Consecutivo") = consecutivo
-                                    fila.Item("Info") = InfoEmpleado
+                                    fila.Item("Consecutivo") = (x + 1).ToString
+                                    fila.Item("Info") = ""
                                     fila.Item("Id_empleado") = dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
-                                    fila.Item("Num_Cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
-                                    fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper()
+                                    fila.Item("Num_cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
+                                    fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper
                                     fila.Item("Sueldo") = dsSASindicato.Tables("Tabla").Rows(x)("sueldo").ToString
                                     fila.Item("Neto_SA") = "0.00"
-                                    fila.Item("P_Alimenticia") = "0.00"
+                                    fila.Item("P_Alimenticia") = dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString
                                     fila.Item("Infonavit") = "0.00"
                                     fila.Item("Prima_SA") = "0.00"
-                                    fila.Item("Aguinaldo_SA") = dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString
-
-
+                                    fila.Item("Aguinaldo_SA") = Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString) - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString)
 
                                     fila.Item("Descuento") = "0.00"
 
-                                    'buscamos prestamos y los agregamos
-
-
 
                                     fila.Item("Prestamo") = "0.00"
+
+
+                                    'Calculamos  la pension sindicato
+                                    sql = "select * from PensionAlimenticia where fkiIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
+
+                                    Dim rwDatosPension As DataRow() = nConsulta(sql)
+
+                                    If rwDatosPension Is Nothing = False Then
+
+                                        If rwDatosPension(0)("iTipo") = "1" Then
+
+                                        End If
+
+                                        If rwDatosPension(0)("iTipo") = "2" Then
+                                            fila.Item("P_Alimenticia_S") = (Double.Parse(rwDatosPension(0)("MontoCalculo")) * Double.Parse(rwDatosPension(0)("ValorImporte"))) - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString)
+                                        End If
+
+
+                                    Else
+                                        fila.Item("P_Alimenticia_S") = "0.00"
+
+                                    End If
+
 
 
                                     'Buscamos si existe aguinaldo calculado en este periodo y si es asi lo pasamos a la tabla del dataset
@@ -1963,21 +2416,22 @@ Public Class frmcontpaqnominas2
                                         AguinaldoSin = Double.Parse(rwAguinaldo(0)("Cantidad").ToString)
                                     End If
 
+
                                     If AguinaldoSin = 0 Then
                                         fila.Item("Aguinaldo_Sin") = "0.00"
                                     Else
-                                        fila.Item("Aguinaldo_Sin") = AguinaldoSin - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString)
+                                        fila.Item("Aguinaldo_Sin") = AguinaldoSin - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString) - Double.Parse(fila.Item("P_Alimenticia_S"))
                                     End If
 
 
+
+
                                     fila.Item("Extra") = "0.00"
-
-
-                                    fila.Item("P_Alimenticia_S") = "0.00"
                                     fila.Item("Sindicato") = "0.00"
-                                    'Calculo prima originalmente tenia 0
+
                                     fila.Item("Prima_Sin") = "0.00"
                                     fila.Item("Total_Sindicato") = "0.00"
+
                                     fila.Item("Neto_pagar") = "0.00"
                                     fila.Item("Imss") = "0.00"
                                     fila.Item("Subsidiado") = "0.00"
@@ -1988,20 +2442,20 @@ Public Class frmcontpaqnominas2
                                     fila.Item("Subtotal") = "0.00"
                                     fila.Item("Iva") = "0.00"
                                     fila.Item("Total") = "0.00"
+                                    'fila.Item("P_Alimenticia_S") = "0.00"
                                     fila.Item("Departamento") = Trim(dsSASindicato.Tables("Tabla").Rows(x)("departamento"))
+
 
                                     fila.Item("Departamento") &= TipoCuentaBanco(dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString, 0)
 
 
                                     dsPeriodo.Tables("Tabla").Rows.Add(fila)
-
-                                    consecutivo = consecutivo + 1
                                 Else
-                                    fila.Item("Consecutivo") = consecutivo
-                                    fila.Item("Info") = InfoEmpleado
+                                    fila.Item("Consecutivo") = (x + 1).ToString
+                                    fila.Item("Info") = ""
                                     fila.Item("Id_empleado") = dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
-                                    fila.Item("Num_Cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
-                                    fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper()
+                                    fila.Item("Num_cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
+                                    fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper
                                     fila.Item("Sueldo") = dsSASindicato.Tables("Tabla").Rows(x)("sueldo").ToString
                                     fila.Item("Neto_SA") = dsSASindicato.Tables("Tabla").Rows(x)("neto").ToString
 
@@ -2009,13 +2463,10 @@ Public Class frmcontpaqnominas2
                                     fila.Item("Infonavit") = dsSASindicato.Tables("Tabla").Rows(x)("infonavit").ToString
                                     fila.Item("Prima_SA") = dsSASindicato.Tables("Tabla").Rows(x)("Prima_SA").ToString
                                     fila.Item("Aguinaldo_SA") = dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString
-
-                                    'Buscamos incidencias
-
                                     'Buscamos incidencias
 
                                     sql = "select * from incidencias where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString & "and fkiIdEmpresa=" & gIdEmpresa
-                                    sql &= " and fkiIdPeriodo=" & cboperiodo.SelectedValue & " and iEstatus=1"
+                                    sql &= " and fkiIdPeriodo=" & cboperiodo.SelectedValue & "and iEstatus=1"
                                     incidencia = 0
                                     Dim rwIncidencias As DataRow() = nConsulta(sql)
                                     If rwIncidencias Is Nothing = False Then
@@ -2047,6 +2498,7 @@ Public Class frmcontpaqnominas2
                                         End If
                                     End If
 
+
                                     fila.Item("Prestamo") = Math.Round(prestamo, 2).ToString("##0.00")
 
 
@@ -2061,12 +2513,12 @@ Public Class frmcontpaqnominas2
                                         AguinaldoSin = Double.Parse(rwAguinaldo(0)("Cantidad").ToString)
                                     End If
 
+
                                     If AguinaldoSin = 0 Then
                                         fila.Item("Aguinaldo_Sin") = "0.00"
                                     Else
                                         fila.Item("Aguinaldo_Sin") = AguinaldoSin - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString)
                                     End If
-
 
                                     'Calculamos  la pension sindicato
                                     sql = "select * from PensionAlimenticia where fkiIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
@@ -2090,6 +2542,7 @@ Public Class frmcontpaqnominas2
                                     End If
 
 
+
                                     'Buscamos si hay importe extra y si el pago es mensual
 
                                     sql = "select * from empleadosC where iIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
@@ -2111,11 +2564,11 @@ Public Class frmcontpaqnominas2
                                         End If
                                     End If
 
-
                                     fila.Item("Sindicato") = "0.00"
-                                    'Calculo prima originalmente tenia 0
+
                                     fila.Item("Prima_Sin") = (Double.Parse(CalculoPrimaSindicato(dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString, 0))) - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Prima_SA").ToString)
                                     fila.Item("Total_Sindicato") = "0.00"
+
                                     fila.Item("Neto_pagar") = "0.00"
                                     fila.Item("Imss") = dsSASindicato.Tables("Tabla").Rows(x)("imss").ToString
                                     fila.Item("Subsidiado") = resultado.ToString("###,###,###,##0.00")
@@ -2128,275 +2581,16 @@ Public Class frmcontpaqnominas2
                                     fila.Item("Total") = "0.00"
                                     fila.Item("Departamento") = Trim(dsSASindicato.Tables("Tabla").Rows(x)("departamento"))
 
+
                                     fila.Item("Departamento") &= TipoCuentaBanco(dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString, 0)
 
 
                                     dsPeriodo.Tables("Tabla").Rows.Add(fila)
-
-                                    consecutivo = consecutivo + 1
                                 End If
-
-
 
                             End If
 
-                        Next
-
-                    Else
-                        For x As Integer = 0 To dsSASindicato.Tables("Tabla").Rows.Count - 1
-                            'Subsidio
-                            Dim subsidio, retencion, resultado As Double
-                            prestamo = 0
-
-                            If dsSASindicato.Tables("Tabla").Rows(x)("subsidiado").ToString = "" Then
-                                subsidio = 0
-                            Else
-                                subsidio = Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("subsidiado").ToString)
-                            End If
-
-                            If dsSASindicato.Tables("Tabla").Rows(x)("ISPT").ToString = "" Then
-                                retencion = 0
-                            Else
-                                retencion = Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("ISPT").ToString)
-                            End If
-                            If subsidio = 0 Then
-                                resultado = retencion
-                            ElseIf subsidio >= retencion Then
-                                resultado = 0
-                            Else
-                                resultado = retencion - subsidio
-                            End If
-
-
-                            'Llenamos la tabla
-
-                            Dim fila As DataRow = dsPeriodo.Tables("Tabla").NewRow
-
-                            If chkAguinaldo.Checked Then
-                                fila.Item("Consecutivo") = (x + 1).ToString
-                                fila.Item("Info") = ""
-                                fila.Item("Id_empleado") = dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
-                                fila.Item("Num_cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
-                                fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper
-                                fila.Item("Sueldo") = dsSASindicato.Tables("Tabla").Rows(x)("sueldo").ToString
-                                fila.Item("Neto_SA") = "0.00"
-                                fila.Item("P_Alimenticia") = dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString
-                                fila.Item("Infonavit") = "0.00"
-                                fila.Item("Prima_SA") = "0.00"
-                                fila.Item("Aguinaldo_SA") = Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString) - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString)
-
-                                fila.Item("Descuento") = "0.00"
-
-
-                                fila.Item("Prestamo") = "0.00"
-
-
-                                'Calculamos  la pension sindicato
-                                sql = "select * from PensionAlimenticia where fkiIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
-
-                                Dim rwDatosPension As DataRow() = nConsulta(sql)
-
-                                If rwDatosPension Is Nothing = False Then
-
-                                    If rwDatosPension(0)("iTipo") = "1" Then
-
-                                    End If
-
-                                    If rwDatosPension(0)("iTipo") = "2" Then
-                                        fila.Item("P_Alimenticia_S") = (Double.Parse(rwDatosPension(0)("MontoCalculo")) * Double.Parse(rwDatosPension(0)("ValorImporte"))) - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString)
-                                    End If
-
-
-                                Else
-                                    fila.Item("P_Alimenticia_S") = "0.00"
-
-                                End If
-
-
-
-                                'Buscamos si existe aguinaldo calculado en este periodo y si es asi lo pasamos a la tabla del dataset
-
-                                sql = "select * from AguinaldoC where fkiIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
-                                sql &= " and fkiIdEmpresaC=" & gIdEmpresa & " and fkiIdPeriodo=" & cboperiodo.SelectedValue
-
-                                Dim rwAguinaldo As DataRow() = nConsulta(sql)
-                                AguinaldoSin = 0
-                                If rwAguinaldo Is Nothing = False Then
-                                    AguinaldoSin = Double.Parse(rwAguinaldo(0)("Cantidad").ToString)
-                                End If
-
-
-                                If AguinaldoSin = 0 Then
-                                    fila.Item("Aguinaldo_Sin") = "0.00"
-                                Else
-                                    fila.Item("Aguinaldo_Sin") = AguinaldoSin - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString) - Double.Parse(fila.Item("P_Alimenticia_S"))
-                                End If
-
-                                
-
-
-                                fila.Item("Extra") = "0.00"
-                                fila.Item("Sindicato") = "0.00"
-
-                                fila.Item("Prima_Sin") = "0.00"
-                                fila.Item("Total_Sindicato") = "0.00"
-
-                                fila.Item("Neto_pagar") = "0.00"
-                                fila.Item("Imss") = "0.00"
-                                fila.Item("Subsidiado") = "0.00"
-                                fila.Item("Costo_social") = "0.00"
-                                fila.Item("Costo_social2") = "0.00"
-                                fila.Item("Comision_SA") = "0.00"
-                                fila.Item("Comision_Sindicato") = "0.00"
-                                fila.Item("Subtotal") = "0.00"
-                                fila.Item("Iva") = "0.00"
-                                fila.Item("Total") = "0.00"
-                                'fila.Item("P_Alimenticia_S") = "0.00"
-                                fila.Item("Departamento") = Trim(dsSASindicato.Tables("Tabla").Rows(x)("departamento"))
-
-
-                                fila.Item("Departamento") &= TipoCuentaBanco(dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString, 0)
-
-
-                                dsPeriodo.Tables("Tabla").Rows.Add(fila)
-                            Else
-                                fila.Item("Consecutivo") = (x + 1).ToString
-                                fila.Item("Info") = ""
-                                fila.Item("Id_empleado") = dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
-                                fila.Item("Num_cuenta") = dsSASindicato.Tables("Tabla").Rows(x)("numcuenta").ToString
-                                fila.Item("Nombre") = dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper
-                                fila.Item("Sueldo") = dsSASindicato.Tables("Tabla").Rows(x)("sueldo").ToString
-                                fila.Item("Neto_SA") = dsSASindicato.Tables("Tabla").Rows(x)("neto").ToString
-
-                                fila.Item("P_Alimenticia") = dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString
-                                fila.Item("Infonavit") = dsSASindicato.Tables("Tabla").Rows(x)("infonavit").ToString
-                                fila.Item("Prima_SA") = dsSASindicato.Tables("Tabla").Rows(x)("Prima_SA").ToString
-                                fila.Item("Aguinaldo_SA") = dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString
-                                'Buscamos incidencias
-
-                                sql = "select * from incidencias where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString & "and fkiIdEmpresa=" & gIdEmpresa
-                                sql &= " and fkiIdPeriodo=" & cboperiodo.SelectedValue & "and iEstatus=1"
-                                incidencia = 0
-                                Dim rwIncidencias As DataRow() = nConsulta(sql)
-                                If rwIncidencias Is Nothing = False Then
-                                    incidencia = (Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("sueldo").ToString) / diasperiodo) * Double.Parse(rwIncidencias(0)("numdias").ToString)
-                                End If
-
-                                fila.Item("Descuento") = Math.Round(incidencia, 2).ToString("##0.00")
-
-                                'buscamos prestamos y los agregamos
-
-                                sql = "select * from Prestamo where fkiIdEmpleado=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString & " and iEstatus=1"
-
-                                Dim rwPrestamos As DataRow() = nConsulta(sql)
-
-                                If rwPrestamos Is Nothing = False Then
-                                    sql = "select isnull(sum(monto),0) as monto from pagoprestamo where fkiIdPrestamo=" & rwPrestamos(0)("iIdPrestamo").ToString
-                                    Dim rwMontoPrestamo As DataRow() = nConsulta(sql)
-                                    If rwMontoPrestamo Is Nothing = False Then
-
-                                        If Double.Parse(rwMontoPrestamo(0)("monto").ToString) < Double.Parse(rwPrestamos(0)("montototal").ToString) Then
-                                            If (Double.Parse(rwPrestamos(0)("montototal").ToString) - Double.Parse(rwMontoPrestamo(0)("monto").ToString)) >= Double.Parse(rwPrestamos(0)("descuento").ToString) Then
-                                                prestamo = Double.Parse(rwPrestamos(0)("descuento").ToString)
-                                            Else
-                                                prestamo = Double.Parse(rwPrestamos(0)("montototal").ToString) - Double.Parse(rwMontoPrestamo(0)("monto").ToString)
-                                            End If
-                                        End If
-
-
-                                    End If
-                                End If
-
-
-                                fila.Item("Prestamo") = Math.Round(prestamo, 2).ToString("##0.00")
-
-
-                                'Buscamos si existe aguinaldo calculado en este periodo y si es asi lo pasamos a la tabla del dataset
-
-                                sql = "select * from AguinaldoC where fkiIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
-                                sql &= " and fkiIdEmpresaC=" & gIdEmpresa & " and fkiIdPeriodo=" & cboperiodo.SelectedValue
-
-                                Dim rwAguinaldo As DataRow() = nConsulta(sql)
-                                AguinaldoSin = 0
-                                If rwAguinaldo Is Nothing = False Then
-                                    AguinaldoSin = Double.Parse(rwAguinaldo(0)("Cantidad").ToString)
-                                End If
-
-
-                                If AguinaldoSin = 0 Then
-                                    fila.Item("Aguinaldo_Sin") = "0.00"
-                                Else
-                                    fila.Item("Aguinaldo_Sin") = AguinaldoSin - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Aguinaldo_SA").ToString)
-                                End If
-
-                                'Calculamos  la pension sindicato
-                                sql = "select * from PensionAlimenticia where fkiIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
-
-                                Dim rwDatosPension As DataRow() = nConsulta(sql)
-
-                                If rwDatosPension Is Nothing = False Then
-
-                                    If rwDatosPension(0)("iTipo") = "1" Then
-
-                                    End If
-
-                                    If rwDatosPension(0)("iTipo") = "2" Then
-                                        fila.Item("P_Alimenticia_S") = (Double.Parse(rwDatosPension(0)("MontoCalculo")) * Double.Parse(rwDatosPension(0)("ValorImporte"))) - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("P_Alimenticia").ToString)
-                                    End If
-
-
-                                Else
-                                    fila.Item("P_Alimenticia_S") = "0.00"
-
-                                End If
-
-
-
-                                'Buscamos si hay importe extra y si el pago es mensual
-
-                                sql = "select * from empleadosC where iIdEmpleadoC=" & dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString
-
-
-                                Dim rwDatosEmpleado As DataRow() = nConsulta(sql)
-
-                                If rwDatosEmpleado Is Nothing = False Then
-                                    If Double.Parse(rwDatosEmpleado(0)("fsindicatoExtra").ToString) > 0 Then
-                                        'Preguntamos si ponemos el importe extra o no
-                                        Dim respuesta As Integer = MessageBox.Show("Existe registrado un pago extra para el trabajador: " & dsSASindicato.Tables("Tabla").Rows(x)("nombre").ToString.ToUpper() & ", ¿Desea aplicarlo?", "Pregunta", MessageBoxButtons.YesNo)
-                                        If respuesta = DialogResult.Yes Then
-                                            fila.Item("Extra") = rwDatosEmpleado(0)("fsindicatoExtra").ToString
-                                        Else
-                                            fila.Item("Extra") = "0.00"
-                                        End If
-                                    Else
-                                        fila.Item("Extra") = rwDatosEmpleado(0)("fsindicatoExtra").ToString
-                                    End If
-                                End If
-
-                                fila.Item("Sindicato") = "0.00"
-
-                                fila.Item("Prima_Sin") = (Double.Parse(CalculoPrimaSindicato(dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString, 0))) - Double.Parse(dsSASindicato.Tables("Tabla").Rows(x)("Prima_SA").ToString)
-                                fila.Item("Total_Sindicato") = "0.00"
-
-                                fila.Item("Neto_pagar") = "0.00"
-                                fila.Item("Imss") = dsSASindicato.Tables("Tabla").Rows(x)("imss").ToString
-                                fila.Item("Subsidiado") = resultado.ToString("###,###,###,##0.00")
-                                fila.Item("Costo_social") = dsSASindicato.Tables("Tabla").Rows(x)("costosocial").ToString
-                                fila.Item("Costo_social2") = "0.00"
-                                fila.Item("Comision_SA") = "0.00"
-                                fila.Item("Comision_Sindicato") = "0.00"
-                                fila.Item("Subtotal") = "0.00"
-                                fila.Item("Iva") = "0.00"
-                                fila.Item("Total") = "0.00"
-                                fila.Item("Departamento") = Trim(dsSASindicato.Tables("Tabla").Rows(x)("departamento"))
-
-
-                                fila.Item("Departamento") &= TipoCuentaBanco(dsSASindicato.Tables("Tabla").Rows(x)("idEmpleado").ToString, 0)
-
-
-                                dsPeriodo.Tables("Tabla").Rows.Add(fila)
-                            End If
-
+                            
 
 
 
@@ -2941,7 +3135,7 @@ Public Class frmcontpaqnominas2
                         Exit Sub
                     End If
 
-                    sql = "update empleadosC set fSueldoOrd=" & dtgDatos.Rows(x).Cells(7).Value & ", fCosto =" & dtgDatos.Rows(x).Cells(22).Value
+                    sql = "update empleadosC set fSueldoOrd=" & dtgDatos.Rows(x).Cells(7).Value '& ", fCosto =" & dtgDatos.Rows(x).Cells(22).Value
                     sql &= " where iIdEmpleadoC = " & dtgDatos.Rows(x).Cells(3).Value
 
                     If nExecute(sql) = False Then
@@ -3037,49 +3231,66 @@ Public Class frmcontpaqnominas2
                     If rwDatosBanco Is Nothing = False Then
 
                         'If Double.Parse(rwDatosBanco(0)("fsueldoOrd")) > 0 Then
+
+                        
+
+
                         If Double.Parse(IIf(dtgDatos.Rows(x).Cells(7).Value = "", "0", dtgDatos.Rows(x).Cells(7).Value)) > 0 Then
-                            BanSueldoOrd = True
 
-                            'verificar el periodo para saber si queda entre el rango de fecha
+                            'validamos la tabla del cliente para validar si tiene el sueldo ordinario como absoluto
 
-                            'sueldodiario = Double.Parse(rwDatosBanco(0)("fsueldoOrd")) / diasperiodo
-                            sueldodiario = Double.Parse(IIf(dtgDatos.Rows(x).Cells(7).Value = "", "0", dtgDatos.Rows(x).Cells(7).Value)) / diasperiodo
-                            sql = "select * from periodos where iIdPeriodo= " & cboperiodo.SelectedValue
-                            Dim rwPeriodo As DataRow() = nConsulta(sql)
+                            If OrdinarioAbsoluto = 1 Then
+                                sindicato = IIf(sueldoord - neto - pensionpatrona - infonavit - descuento - prestamo >= 0, sueldoord - neto - pensionpatrona - infonavit - descuento - prestamo, 0)
+                                dtgDatos.Rows(x).Cells(17).Value = "0.00"
+                                dtgDatos.Rows(x).Cells(18).Value = "0.00"
+                                BanSueldoOrd = True
+                            Else
+                                BanSueldoOrd = True
 
-                            If rwPeriodo Is Nothing = False Then
-                                Dim FechaBuscar As Date = Date.Parse(rwDatosBanco(0)("dFechaSindicato"))
-                                Dim FechaInicial As Date = Date.Parse(rwPeriodo(0)("dFechaInicio"))
-                                Dim FechaFinal As Date = Date.Parse(rwPeriodo(0)("dFechaFin"))
-                                Dim FechaAntiguedad As Date = Date.Parse(rwDatosBanco(0)("dFechaAntiguedad"))
+                                'verificar el periodo para saber si queda entre el rango de fecha
 
-                                If FechaBuscar.CompareTo(FechaInicial) > 0 And FechaBuscar.CompareTo(FechaFinal) <= 0 Then
-                                    'Estamos dentro del rango 
-                                    'Calculamos la prima
+                                'sueldodiario = Double.Parse(rwDatosBanco(0)("fsueldoOrd")) / diasperiodo
+                                sueldodiario = Double.Parse(IIf(dtgDatos.Rows(x).Cells(7).Value = "", "0", dtgDatos.Rows(x).Cells(7).Value)) / diasperiodo
+                                sql = "select * from periodos where iIdPeriodo= " & cboperiodo.SelectedValue
+                                Dim rwPeriodo As DataRow() = nConsulta(sql)
 
-                                    dias = (DateDiff("y", FechaBuscar, FechaFinal)) + 1
-                                    If Igualar0 Then
-                                        sindicato = (sueldodiario * dias) - neto - pensionpatrona - infonavit - descuento - prestamo
-                                    Else
-                                        sindicato = (sueldodiario * dias) - neto - pensionpatrona - infonavit - descuento - prestamo + primasa + aguinaldosa
+                                If rwPeriodo Is Nothing = False Then
+                                    Dim FechaBuscar As Date = Date.Parse(rwDatosBanco(0)("dFechaSindicato"))
+                                    Dim FechaInicial As Date = Date.Parse(rwPeriodo(0)("dFechaInicio"))
+                                    Dim FechaFinal As Date = Date.Parse(rwPeriodo(0)("dFechaFin"))
+                                    Dim FechaAntiguedad As Date = Date.Parse(rwDatosBanco(0)("dFechaAntiguedad"))
+
+                                    If FechaBuscar.CompareTo(FechaInicial) > 0 And FechaBuscar.CompareTo(FechaFinal) <= 0 Then
+                                        'Estamos dentro del rango 
+                                        'Calculamos la prima
+
+                                        dias = (DateDiff("y", FechaBuscar, FechaFinal)) + 1
+                                        If Igualar0 Then
+                                            sindicato = (sueldodiario * dias) - neto - pensionpatrona - infonavit - descuento - prestamo
+                                        Else
+                                            sindicato = (sueldodiario * dias) - neto - pensionpatrona - infonavit - descuento - prestamo + primasa + aguinaldosa
+                                        End If
+
+                                        BanPeriodo = True
+
+                                    ElseIf FechaBuscar.CompareTo(FechaInicial) <= 0 Then
+                                        If Igualar0 Then
+                                            sindicato = IIf(sueldoord - neto - pensionpatrona - infonavit - descuento - prestamo >= 0, sueldoord - neto - pensionpatrona - infonavit - descuento - prestamo, 0)
+                                        Else
+                                            sindicato = IIf(sueldoord - neto - pensionpatrona - infonavit - descuento - prestamo + primasa + aguinaldosa >= 0, sueldoord - neto - pensionpatrona - infonavit - descuento - prestamo + primasa + aguinaldosa, 0)
+                                        End If
+
+
+                                        BanPeriodo = False
+
                                     End If
 
-                                    BanPeriodo = True
-
-                                ElseIf FechaBuscar.CompareTo(FechaInicial) <= 0 Then
-                                    If Igualar0 Then
-                                        sindicato = IIf(sueldoord - neto - pensionpatrona - infonavit - descuento - prestamo >= 0, sueldoord - neto - pensionpatrona - infonavit - descuento - prestamo, 0)
-                                    Else
-                                        sindicato = IIf(sueldoord - neto - pensionpatrona - infonavit - descuento - prestamo + primasa + aguinaldosa >= 0, sueldoord - neto - pensionpatrona - infonavit - descuento - prestamo + primasa + aguinaldosa, 0)
-                                    End If
-
-
-                                    BanPeriodo = False
 
                                 End If
-
-
                             End If
+
+
+                            
                         Else
                             BanSueldoOrd = False
 
@@ -3095,33 +3306,42 @@ Public Class frmcontpaqnominas2
                         dtgDatos.Rows(x).Cells(15).Value = Math.Round(sindicato, 2).ToString("##0.00")
 
 
-                        primasin = dtgDatos.Rows(x).Cells(17).Value
+                        If OrdinarioAbsoluto = 1 Then
 
-                        totalsindicato = sindicato - pensionsindicato + primasin + aguinaldosin + Extra
+                            totalsindicato = sindicato - pensionsindicato + primasin + aguinaldosin + Extra
+                            netopagar = neto + totalsindicato
+                            dtgDatos.Rows(x).Cells(20).Value = Math.Round(totalsindicato, 2).ToString("##0.00")
+                        Else
+                            primasin = dtgDatos.Rows(x).Cells(17).Value
 
-                        dtgDatos.Rows(x).Cells(20).Value = Math.Round(totalsindicato, 2).ToString("##0.00")
+                            totalsindicato = sindicato - pensionsindicato + primasin + aguinaldosin + Extra
 
-                        If BanSueldoOrd Then
-                            If BanPeriodo Then
+                            dtgDatos.Rows(x).Cells(20).Value = Math.Round(totalsindicato, 2).ToString("##0.00")
 
-                                If Igualar0 Then
-                                    netopagar = (sueldodiario * dias) - pensionpatrona - infonavit - descuento - prestamo - pensionsindicato + primasin + aguinaldosin + Extra
+                            If BanSueldoOrd Then
+                                If BanPeriodo Then
+
+                                    If Igualar0 Then
+                                        netopagar = (sueldodiario * dias) - pensionpatrona - infonavit - descuento - prestamo - pensionsindicato + primasin + aguinaldosin + Extra
+                                    Else
+                                        netopagar = (sueldodiario * dias) - pensionpatrona - infonavit - descuento - prestamo - pensionsindicato + primasa + primasin + aguinaldosa + aguinaldosin + Extra
+                                    End If
+
                                 Else
-                                    netopagar = (sueldodiario * dias) - pensionpatrona - infonavit - descuento - prestamo - pensionsindicato + primasa + primasin + aguinaldosa + aguinaldosin + Extra
-                                End If
+                                    If Igualar0 Then
+                                        netopagar = IIf(sueldoord - pensionpatrona - infonavit - descuento - prestamo - pensionsindicato + primasin + aguinaldosin + Extra >= 0, sueldoord - pensionpatrona - infonavit - descuento - prestamo - pensionsindicato + primasin + aguinaldosin + Extra, 0)
+                                    Else
+                                        netopagar = IIf(sueldoord - pensionpatrona - infonavit - descuento - prestamo - pensionsindicato + primasa + primasin + aguinaldosa + aguinaldosin + Extra >= 0, sueldoord - pensionpatrona - infonavit - descuento - prestamo - pensionsindicato + primasa + primasin + aguinaldosa + aguinaldosin + Extra, 0)
+                                    End If
 
+                                End If
                             Else
-                                If Igualar0 Then
-                                    netopagar = IIf(sueldoord - pensionpatrona - infonavit - descuento - prestamo - pensionsindicato + primasin + aguinaldosin + Extra >= 0, sueldoord - pensionpatrona - infonavit - descuento - prestamo - pensionsindicato + primasin + aguinaldosin + Extra, 0)
-                                Else
-                                    netopagar = IIf(sueldoord - pensionpatrona - infonavit - descuento - prestamo - pensionsindicato + primasa + primasin + aguinaldosa + aguinaldosin + Extra >= 0, sueldoord - pensionpatrona - infonavit - descuento - prestamo - pensionsindicato + primasa + primasin + aguinaldosa + aguinaldosin + Extra, 0)
-                                End If
+                                netopagar = neto
 
                             End If
-                        Else
-                            netopagar = neto
-
                         End If
+
+                        
                         'netopagar = IIf(sueldoord - infonavit - descuento - prestamo + primasa + primasin >= 0, sueldoord - infonavit - descuento - prestamo + primasa + primasin, 0)
 
                         dtgDatos.Rows(x).Cells(21).Value = Math.Round(netopagar, 2).ToString("##0.00")

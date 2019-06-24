@@ -25,7 +25,7 @@
             End If
             chkSubsidio.Checked = IIf(rwCliente(0)("SubsidioReporte") = "1", True, False)
             chkCalcularOrdinario.Checked = IIf(rwCliente(0)("CalcularOrdinario") = "1", True, False)
-
+            chkOrdinarioAbsoluto.Checked = IIf(rwCliente(0)("OrdinarioAbsoluto") = "1", True, False)
             existe = True
         End If
 
@@ -61,6 +61,7 @@
                 sql &= "," & valor
                 sql &= "," & IIf(chkSubsidio.Checked, 1, 0)
                 sql &= "," & IIf(chkCalcularOrdinario.Checked, 1, 0)
+                sql &= "," & IIf(chkOrdinarioAbsoluto.Checked, 1, 0)
 
             Else
                 sql = "EXEC setIntClienteEmpresaContpaqInsertar   0," & gidEmpresa
@@ -77,7 +78,7 @@
                 sql &= "," & valor
                 sql &= "," & IIf(chkSubsidio.Checked, 1, 0)
                 sql &= "," & IIf(chkCalcularOrdinario.Checked, 1, 0)
-
+                sql &= "," & IIf(chkOrdinarioAbsoluto.Checked, 1, 0)
             End If
 
             If nExecute(sql) = False Then

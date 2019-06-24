@@ -36,6 +36,7 @@ Partial Class frmAsignarCliente
         Me.rdbNada = New System.Windows.Forms.RadioButton()
         Me.chkSubsidio = New System.Windows.Forms.CheckBox()
         Me.chkCalcularOrdinario = New System.Windows.Forms.CheckBox()
+        Me.chkOrdinarioAbsoluto = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
         Me.grbSubsidio.SuspendLayout()
         Me.SuspendLayout()
@@ -168,10 +169,21 @@ Partial Class frmAsignarCliente
         Me.chkCalcularOrdinario.Text = "Calcular sueldo ordinario"
         Me.chkCalcularOrdinario.UseVisualStyleBackColor = True
         '
+        'chkOrdinarioAbsoluto
+        '
+        Me.chkOrdinarioAbsoluto.AutoSize = True
+        Me.chkOrdinarioAbsoluto.Location = New System.Drawing.Point(324, 242)
+        Me.chkOrdinarioAbsoluto.Name = "chkOrdinarioAbsoluto"
+        Me.chkOrdinarioAbsoluto.Size = New System.Drawing.Size(219, 22)
+        Me.chkOrdinarioAbsoluto.TabIndex = 48
+        Me.chkOrdinarioAbsoluto.Text = "Tomar el sueldo como absoluto"
+        Me.chkOrdinarioAbsoluto.UseVisualStyleBackColor = True
+        '
         'frmAsignarCliente
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(650, 274)
+        Me.Controls.Add(Me.chkOrdinarioAbsoluto)
         Me.Controls.Add(Me.chkCalcularOrdinario)
         Me.Controls.Add(Me.chkSubsidio)
         Me.Controls.Add(Me.grbSubsidio)
@@ -206,4 +218,5 @@ Partial Class frmAsignarCliente
     Friend WithEvents rdbNada As System.Windows.Forms.RadioButton
     Friend WithEvents chkSubsidio As System.Windows.Forms.CheckBox
     Friend WithEvents chkCalcularOrdinario As System.Windows.Forms.CheckBox
+    Friend WithEvents chkOrdinarioAbsoluto As System.Windows.Forms.CheckBox
 End Class
