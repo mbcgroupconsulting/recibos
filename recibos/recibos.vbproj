@@ -686,6 +686,12 @@
     <Compile Include="kioskoclientes\frmAgregarContabilidadk.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="kioskoclientes\frmAgregarFacturasK.Designer.vb">
+      <DependentUpon>frmAgregarFacturasK.vb</DependentUpon>
+    </Compile>
+    <Compile Include="kioskoclientes\frmAgregarFacturasK.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="kioskoclientes\frmAgregarImss.Designer.vb">
       <DependentUpon>frmAgregarImss.vb</DependentUpon>
     </Compile>
@@ -1348,6 +1354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="kioskoclientes\frmAgregarContabilidadk.resx">
       <DependentUpon>frmAgregarContabilidadk.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="kioskoclientes\frmAgregarFacturasK.resx">
+      <DependentUpon>frmAgregarFacturasK.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="kioskoclientes\frmAgregarImss.resx">
       <DependentUpon>frmAgregarImss.vb</DependentUpon>

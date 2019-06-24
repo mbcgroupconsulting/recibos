@@ -103,7 +103,7 @@ Public Class frmExportarNominaTMM
                             SQL &= Trim(producto.SubItems(5).Text)
                             SQL &= "','','" & Trim(producto.SubItems(8).Text) & "','"
                             SQL &= Trim(producto.SubItems(7).Text) & "','"
-                            SQL &= IIf(chkNominaB.Checked = True, txtcarpeta.Text, " ") & "'" 'dsa es igual a nominaB
+                            SQL &= IIf(chkNominaB.Checked = True, Trim(txtcarpeta.Text), "") & "'" 'dsa es igual a nominaB
                             SQL &= " , '" & Trim(producto.SubItems(9).Text) & "'"
 
                             If nExecuteKiosko(SQL) = False Then
