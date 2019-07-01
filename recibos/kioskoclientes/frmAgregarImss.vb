@@ -197,8 +197,8 @@
                     item.SubItems.Add("IMSS")
 
 
-                    Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where cArea=2 and iIdDocumentos=" & Fila.Item("fkiIdDocumentos"))
-                    item.SubItems.Add(doc(0).Item("Documentos"))
+                    'Dim doc As DataRow() = nConsulta("SELECT * FROM Documentos where cArea=2 and iIdDocumentos=" & IIf(Fila.Item("fkiIdDocumentos") = "", "64", Fila.Item("fkiIdDocumentos")))
+                    'item.SubItems.Add(doc(0).Item("Documentos"))
 
                     item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
                     Alter = Not Alter

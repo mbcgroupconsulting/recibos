@@ -136,7 +136,6 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbproj.GenerateResource
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.xml
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.pdb
-D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\bin\Debug\recibos.exe.config
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\bin\Debug\recibos.exe
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\bin\Debug\recibos.pdb
@@ -276,3 +275,5 @@ C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.exe
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.xml
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.pdb
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.ImportarSueldosConciliacion.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.ImportarSueldosConciliacion.resources
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.frmAgregarFacturasK.resources
