@@ -1,10 +1,10 @@
-﻿Public Class frmAgregarContabilidadk
+﻿Public Class frmAgregarJuridicok
     Dim SQL As String
     Dim blnNuevo As Boolean
     Dim gIdClienteEmpresa As String
     Dim tmm As Integer
 
-    Private Sub frmAgregarContabilidadk_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmAgregarContabilidadk_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         cmdguardar.Enabled = False
         cmdcancelar.Enabled = False
         MostrarEmpresa()
@@ -34,7 +34,7 @@
         blnNuevo = True
     End Sub
 
-    Private Sub cmdguardar_Click(sender As Object, e As EventArgs) Handles cmdguardar.Click
+    Private Sub cmdguardar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdguardar.Click
         Dim SQL As String, Mensaje As String = "", nombresistema As String = ""
         Dim usuario As String = "", idperfil As String = "", nombrearchivocompleto As String
 
@@ -131,7 +131,7 @@
         End Try
     End Sub
 
-    Private Sub cmdcancelar_Click(sender As Object, e As EventArgs) Handles cmdcancelar.Click
+    Private Sub cmdcancelar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdcancelar.Click
         pnlProveedores.Enabled = False
         Limpiar(pnlProveedores)
     End Sub
@@ -163,7 +163,7 @@
 
         Next
     End Sub
-    Private Sub cmdbuscar_Click(sender As Object, e As EventArgs) Handles cmdbuscar.Click
+    Private Sub cmdbuscar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdbuscar.Click
         Dim Alter As Boolean = False
         'lsvArchivo.Clear()
 
@@ -177,7 +177,7 @@
                 MessageBox.Show("No hay una empresa seleccionada para asociar los archivos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
-           
+
             'SQL = " SELECT * FROM InfoKiosko WHERE"
             'SQL &= " InfoKiosko.fkiIdEmpresa=" & datos(0).Tag & " and infokiosko.fkiIdCliente=" & 0 & " AND"
             'SQL &= " InfoKiosko.mes=" & cbomes.SelectedIndex + 1 & "  and infokiosko.anio=" & cboanio.Text
@@ -222,18 +222,18 @@
 
     End Sub
 
-    Private Sub cmdsalir_Click(sender As Object, e As EventArgs) Handles cmdsalir.Click
+    Private Sub cmdsalir_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdsalir.Click
         Me.Close()
     End Sub
 
-    Private Sub pnlProveedores_EnabledChanged(sender As Object, e As EventArgs) Handles pnlProveedores.EnabledChanged
+    Private Sub pnlProveedores_EnabledChanged(ByVal sender As Object, ByVal e As EventArgs) Handles pnlProveedores.EnabledChanged
         cmdnuevo.Enabled = Not pnlProveedores.Enabled
         cmdguardar.Enabled = pnlProveedores.Enabled
         cmdcancelar.Enabled = pnlProveedores.Enabled
         cmdbuscar.Enabled = pnlProveedores.Enabled
     End Sub
 
-    Private Sub cmdagregar_Click(sender As Object, e As EventArgs) Handles cmdagregar.Click
+    Private Sub cmdagregar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdagregar.Click
         Dim item As ListViewItem
         Dim Alter As Boolean = False
         Dim validacion As Boolean
@@ -266,7 +266,7 @@
         End Try
     End Sub
 
-    Private Sub cmdborrarfactura_Click(sender As Object, e As EventArgs) Handles cmdborrarfactura.Click
+    Private Sub cmdborrarfactura_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdborrarfactura.Click
         Dim datos As ListView.SelectedListViewItemCollection = lsvLista.SelectedItems
         If datos.Count = 1 Then
             Dim resultado As Integer = MessageBox.Show("¿Desea borrar la empresa " & datos(0).SubItems(0).Text & "?", "Pregunta", MessageBoxButtons.YesNo)
@@ -284,7 +284,7 @@
         End If
     End Sub
 
-    Private Sub cmdarchivo_Click(sender As Object, e As EventArgs) Handles cmdarchivo.Click
+    Private Sub cmdarchivo_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdarchivo.Click
         Dim dialogo As New OpenFileDialog()
         Dim item As ListViewItem
         Dim Alter As Boolean = False
@@ -329,7 +329,7 @@
         End Try
     End Sub
 
-    Private Sub cmdBorrarArchivo_Click(sender As Object, e As EventArgs) Handles cmdBorrarArchivo.Click
+    Private Sub cmdBorrarArchivo_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdBorrarArchivo.Click
         Dim datos As ListView.SelectedListViewItemCollection = lsvArchivo.SelectedItems
         If datos.Count = 1 Then
             Dim resultado As Integer = MessageBox.Show("¿Desea borrar la empresa " & datos(0).SubItems(0).Text & "?", "Pregunta", MessageBoxButtons.YesNo)
@@ -388,7 +388,7 @@
                 tmm = 25
                 Return "OR iTMM=25 order by iIdDocumentos"
 
-           
+
             Case 18, 19, 69
                 tmm = 18
                 Return "OR iTMM=18 OR iTMM=19 OR iTMM=69 order by iIdDocumentos"

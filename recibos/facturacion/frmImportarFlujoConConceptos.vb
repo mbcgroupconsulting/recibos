@@ -265,7 +265,7 @@ Public Class frmImportarFlujoConConceptos
                         SQL = "EXEC setfacturasInsertar 0," & Trim(producto.SubItems(8).Text) & "," & Trim(producto.SubItems(5).Text)
                         SQL &= ",'" & Format(Date.Parse(Mid((Trim(producto.SubItems(4).Text)), 1, 10)), "yyyy/dd/MM")
 
-                        If Trim(nombresistema) = "Guadalupe" Or Trim(nombresistema) = "David" Then
+                        If Trim(nombresistema) = "Guadalupe" Or Trim(nombresistema) = "Ingrid" Then
                             SQL &= "'," & IIf(Trim(producto.SubItems(15).Text) = "", 0, Trim(producto.SubItems(15).Text))
                         Else
                             SQL &= "',0" '& IIf(Trim(producto.SubItems(12).Text) = "", 0, Trim(producto.SubItems(12).Text))

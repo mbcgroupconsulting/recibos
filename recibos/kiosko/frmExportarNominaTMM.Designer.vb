@@ -32,13 +32,13 @@ Partial Class frmExportarNominaTMM
         Me.tsbProcesar = New System.Windows.Forms.ToolStripButton()
         Me.tsbCancelar = New System.Windows.Forms.ToolStripButton()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.pnlProgreso = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.txtcarpeta = New System.Windows.Forms.TextBox()
         Me.chkNominaB = New System.Windows.Forms.CheckBox()
         Me.chkAll = New System.Windows.Forms.CheckBox()
         Me.lsvLista = New System.Windows.Forms.ListView()
-        Me.pnlProgreso = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.ToolStrip1.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         Me.pnlProgreso.SuspendLayout()
@@ -102,7 +102,7 @@ Partial Class frmExportarNominaTMM
         Me.tsbGuardar.Image = CType(resources.GetObject("tsbGuardar.Image"), System.Drawing.Image)
         Me.tsbGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbGuardar.Name = "tsbGuardar"
-        Me.tsbGuardar.Size = New System.Drawing.Size(100, 51)
+        Me.tsbGuardar.Size = New System.Drawing.Size(101, 51)
         Me.tsbGuardar.Text = "Exportar Nomina"
         Me.tsbGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -144,6 +144,33 @@ Partial Class frmExportarNominaTMM
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Size = New System.Drawing.Size(808, 426)
         Me.pnlCatalogo.TabIndex = 29
+        '
+        'pnlProgreso
+        '
+        Me.pnlProgreso.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.pnlProgreso.Controls.Add(Me.Label2)
+        Me.pnlProgreso.Controls.Add(Me.pgbProgreso)
+        Me.pnlProgreso.Location = New System.Drawing.Point(170, 172)
+        Me.pnlProgreso.Name = "pnlProgreso"
+        Me.pnlProgreso.Size = New System.Drawing.Size(449, 84)
+        Me.pnlProgreso.TabIndex = 33
+        Me.pnlProgreso.Visible = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(154, 55)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(145, 19)
+        Me.Label2.TabIndex = 1
+        Me.Label2.Text = "Procesando registros"
+        '
+        'pgbProgreso
+        '
+        Me.pgbProgreso.Location = New System.Drawing.Point(17, 12)
+        Me.pgbProgreso.Name = "pgbProgreso"
+        Me.pgbProgreso.Size = New System.Drawing.Size(413, 30)
+        Me.pgbProgreso.TabIndex = 0
         '
         'txtcarpeta
         '
@@ -194,33 +221,6 @@ Partial Class frmExportarNominaTMM
         Me.lsvLista.TabIndex = 2
         Me.lsvLista.UseCompatibleStateImageBehavior = False
         Me.lsvLista.View = System.Windows.Forms.View.Details
-        '
-        'pnlProgreso
-        '
-        Me.pnlProgreso.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.pnlProgreso.Controls.Add(Me.Label2)
-        Me.pnlProgreso.Controls.Add(Me.pgbProgreso)
-        Me.pnlProgreso.Location = New System.Drawing.Point(170, 172)
-        Me.pnlProgreso.Name = "pnlProgreso"
-        Me.pnlProgreso.Size = New System.Drawing.Size(449, 84)
-        Me.pnlProgreso.TabIndex = 33
-        Me.pnlProgreso.Visible = False
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(154, 55)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(145, 19)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Procesando registros"
-        '
-        'pgbProgreso
-        '
-        Me.pgbProgreso.Location = New System.Drawing.Point(17, 12)
-        Me.pgbProgreso.Name = "pgbProgreso"
-        Me.pgbProgreso.Size = New System.Drawing.Size(413, 30)
-        Me.pgbProgreso.TabIndex = 0
         '
         'frmExportarNominaTMM
         '

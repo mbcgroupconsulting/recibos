@@ -124,7 +124,7 @@
                 MessageBox.Show("Datos Guardados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 pnlProveedores.Enabled = False
                 'Limpiar(pnlProveedores)
-
+                ' lsvArchivo.Clear()
             End If
 
 
@@ -275,26 +275,31 @@
             With dialogo
                 .Title = "Búsqueda de archivos."
                 .Filter = "Archivos RAR (Rar)|*.rar;*.zip;"
+                .Multiselect = True
                 .CheckFileExists = True
                 If .ShowDialog = Windows.Forms.DialogResult.OK Then
-                    ' item.SubItems.Clear()
 
-                    files = files + 1
-                    SQL = "SELECT * FROM Documentos where cArea=2 and iIdDocumentos=" & cboDocumento.SelectedValue
-                    Dim doc As DataRow() = nConsulta(SQL)
+                    For Each filetmp In dialogo.FileNames
+                        files = files + 1
+                        SQL = "SELECT * FROM Documentos where cArea=2 and iIdDocumentos=" & cboDocumento.SelectedValue
+                        Dim doc As DataRow() = nConsulta(SQL)
 
 
-                    item = lsvArchivo.Items.Add(.FileName)
+                        item = lsvArchivo.Items.Add(filetmp)
 
-                    item.Tag = System.IO.Path.GetFileNameWithoutExtension(.FileName) & System.IO.Path.GetExtension(.FileName)
+                        item.Tag = System.IO.Path.GetFileNameWithoutExtension(filetmp) & System.IO.Path.GetExtension(filetmp)
 
-                    item.SubItems.Add("FACTURACION")
-                    item.SubItems.Add("Doc")
+                        item.SubItems.Add("FACTURACION")
+                        item.SubItems.Add("Doc")
 
+                    Next
+                   
+
+                End If
                     item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
                     Alter = Not Alter
 
-                End If
+
 
             End With
 

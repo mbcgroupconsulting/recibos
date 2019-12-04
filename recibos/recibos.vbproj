@@ -680,6 +680,12 @@
     <Compile Include="juridico\frmJuridico.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="kioskoclientes\frmAgregarJuridico.Designer.vb">
+      <DependentUpon>frmAgregarJuridico.vb</DependentUpon>
+    </Compile>
+    <Compile Include="kioskoclientes\frmAgregarJuridico.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="kioskoclientes\frmAgregarContabilidadk.Designer.vb">
       <DependentUpon>frmAgregarContabilidadk.vb</DependentUpon>
     </Compile>
@@ -761,6 +767,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="NominaComprobantes\frmComprobanteScotiabank.Designer.vb">
+      <DependentUpon>frmComprobanteScotiabank.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NominaComprobantes\frmComprobanteScotiabank.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="NominaComprobantes\frmComprobanteBanamex.Designer.vb">
       <DependentUpon>frmComprobanteBanamex.vb</DependentUpon>
@@ -869,6 +881,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>comprobantenominabancomer.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="reportes\ScotiabankNomina.vb">
+      <DependentUpon>ScotiabankNomina.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="reportes\ctm20noviembre.vb">
       <AutoGen>True</AutoGen>
@@ -1352,6 +1370,9 @@
     <EmbeddedResource Include="juridico\frmJuridico.resx">
       <DependentUpon>frmJuridico.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="kioskoclientes\frmAgregarJuridico.resx">
+      <DependentUpon>frmAgregarJuridico.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="kioskoclientes\frmAgregarContabilidadk.resx">
       <DependentUpon>frmAgregarContabilidadk.vb</DependentUpon>
     </EmbeddedResource>
@@ -1384,6 +1405,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NominaComprobantes\frmComprobanteScotiabank.resx">
+      <DependentUpon>frmComprobanteScotiabank.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NominaComprobantes\frmComprobanteBanamex.resx">
       <DependentUpon>frmComprobanteBanamex.vb</DependentUpon>
@@ -1442,6 +1466,10 @@
     <EmbeddedResource Include="reportes\comprobantenominabancomer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>comprobantenominabancomer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reportes\ScotiabankNomina.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ScotiabankNomina.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="reportes\ctm20noviembre.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

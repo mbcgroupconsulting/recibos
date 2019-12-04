@@ -41,6 +41,7 @@ Partial Class frmPrincipal
         Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Simple Maecco Sindicato"}, 0, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
         Dim ListViewItem16 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Bancomer nomina"}, 19, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
         Dim ListViewItem17 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Citibanamex Nomina"}, 20, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
+        Dim ListViewItem18 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Scotiabank Nomina"}, 21, System.Drawing.Color.Black, System.Drawing.Color.Empty, Nothing)
         Me.pnlBar = New System.Windows.Forms.Panel()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.chkCBB = New System.Windows.Forms.CheckBox()
@@ -107,9 +108,10 @@ Partial Class frmPrincipal
         Me.AgregarDatoContabilidadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AgregarDatosNominasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AgregarDatosJuridicoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AgregarDatosFacturaciónToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.AgregarDatosFacturaciónToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AgregarDatosJuridicoToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlBar.SuspendLayout()
         Me.MenuInicio.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -210,7 +212,7 @@ Partial Class frmPrincipal
         ListViewItem2.ToolTipText = "Crear recibos via fiscal"
         ListViewItem3.ToolTipText = "Crear recibos sindicato Lupita"
         ListViewItem5.ToolTipText = "Genera recibos aguinaldo"
-        Me.lsvPanel.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13, ListViewItem14, ListViewItem15, ListViewItem16, ListViewItem17})
+        Me.lsvPanel.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13, ListViewItem14, ListViewItem15, ListViewItem16, ListViewItem17, ListViewItem18})
         Me.lsvPanel.LargeImageList = Me.ImageList1
         Me.lsvPanel.Location = New System.Drawing.Point(0, 0)
         Me.lsvPanel.Name = "lsvPanel"
@@ -244,6 +246,7 @@ Partial Class frmPrincipal
         Me.ImageList1.Images.SetKeyName(18, "1474867277_web.png")
         Me.ImageList1.Images.SetKeyName(19, "BANCOMERNOMINA.png")
         Me.ImageList1.Images.SetKeyName(20, "bana.jpg")
+        Me.ImageList1.Images.SetKeyName(21, "scotia.jpg")
         '
         'MenuInicio
         '
@@ -255,7 +258,7 @@ Partial Class frmPrincipal
         Me.MenuInicio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContpaqToolStripMenuItem, Me.ImssToolStripMenuItem, Me.FlujoBToolStripMenuItem, Me.FlujoCToolStripMenuItem, Me.AltaNominasToolStripMenuItem, Me.CatalogosToolStripMenuItem, Me.PlaneaciónToolStripMenuItem, Me.FacturacionToolStripMenuItem, Me.ControlTesoreriaToolStripMenuItem, Me.NominaToolStripMenuItem, Me.JuridicoToolStripMenuItem, Me.ComisionesToolStripMenuItem, Me.ConciliacionToolStripMenuItem, Me.GastosToolStripMenuItem, Me.ControlDToolStripMenuItem, Me.KioskoClientesToolStripMenuItem, Me.mnuSalir})
         Me.MenuInicio.Name = "MenuInicio"
         Me.MenuInicio.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuInicio.Size = New System.Drawing.Size(203, 672)
+        Me.MenuInicio.Size = New System.Drawing.Size(203, 650)
         '
         'ContpaqToolStripMenuItem
         '
@@ -583,7 +586,7 @@ Partial Class frmPrincipal
         '
         'KioskoClientesToolStripMenuItem
         '
-        Me.KioskoClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AsociarClientesEmpresasToolStripMenuItem, Me.AgregarDatoContabilidadToolStripMenuItem, Me.AgregarDatosNominasToolStripMenuItem, Me.AgregarDatosJuridicoToolStripMenuItem, Me.AgregarDatosFacturaciónToolStripMenuItem})
+        Me.KioskoClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AsociarClientesEmpresasToolStripMenuItem, Me.AgregarDatoContabilidadToolStripMenuItem, Me.AgregarDatosNominasToolStripMenuItem, Me.AgregarDatosJuridicoToolStripMenuItem, Me.AgregarDatosFacturaciónToolStripMenuItem, Me.AgregarDatosJuridicoToolStripMenuItem1})
         Me.KioskoClientesToolStripMenuItem.Name = "KioskoClientesToolStripMenuItem"
         Me.KioskoClientesToolStripMenuItem.Size = New System.Drawing.Size(202, 38)
         Me.KioskoClientesToolStripMenuItem.Text = "Kiosko Clientes"
@@ -612,6 +615,12 @@ Partial Class frmPrincipal
         Me.AgregarDatosJuridicoToolStripMenuItem.Size = New System.Drawing.Size(261, 24)
         Me.AgregarDatosJuridicoToolStripMenuItem.Text = "Agregar datos imss"
         '
+        'AgregarDatosFacturaciónToolStripMenuItem
+        '
+        Me.AgregarDatosFacturaciónToolStripMenuItem.Name = "AgregarDatosFacturaciónToolStripMenuItem"
+        Me.AgregarDatosFacturaciónToolStripMenuItem.Size = New System.Drawing.Size(261, 24)
+        Me.AgregarDatosFacturaciónToolStripMenuItem.Text = "Agregar datos Facturación"
+        '
         'mnuSalir
         '
         Me.mnuSalir.Image = CType(resources.GetObject("mnuSalir.Image"), System.Drawing.Image)
@@ -632,11 +641,11 @@ Partial Class frmPrincipal
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Visible = False
         '
-        'AgregarDatosFacturaciónToolStripMenuItem
+        'AgregarDatosJuridicoToolStripMenuItem1
         '
-        Me.AgregarDatosFacturaciónToolStripMenuItem.Name = "AgregarDatosFacturaciónToolStripMenuItem"
-        Me.AgregarDatosFacturaciónToolStripMenuItem.Size = New System.Drawing.Size(261, 24)
-        Me.AgregarDatosFacturaciónToolStripMenuItem.Text = "Agregar datos Facturación"
+        Me.AgregarDatosJuridicoToolStripMenuItem1.Name = "AgregarDatosJuridicoToolStripMenuItem1"
+        Me.AgregarDatosJuridicoToolStripMenuItem1.Size = New System.Drawing.Size(261, 24)
+        Me.AgregarDatosJuridicoToolStripMenuItem1.Text = "Agregar Datos Juridico"
         '
         'frmPrincipal
         '
@@ -727,5 +736,6 @@ Partial Class frmPrincipal
     Friend WithEvents VerGastosEfectivoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OpcionToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AgregarDatosFacturaciónToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AgregarDatosJuridicoToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
 
 End Class

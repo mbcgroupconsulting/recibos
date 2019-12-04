@@ -1711,7 +1711,7 @@ Public Class frmFondeoPatrona
 
                     hoja.Range(2, 9, 1500, 11).Style.NumberFormat.SetFormat("###,###,##0.#0")
                 End If
-                
+
 
             Next
 

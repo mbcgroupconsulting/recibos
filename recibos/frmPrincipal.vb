@@ -362,6 +362,26 @@ Public Class frmPrincipal
 
                     Catch ex As Exception
                     End Try
+                Case "Scotiabank Nomina"
+                    SQL = "select * from usuarios where idUsuario = " & idUsuario
+                    Dim rwFilas As DataRow() = nConsulta(SQL)
+
+                    Try
+                        If rwFilas Is Nothing = False Then
+                            Dim forma As New frmComprobanteScotiabank
+
+                            Dim Fila As DataRow = rwFilas(0)
+                            If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "4" Or Fila.Item("fkIdPerfil") = "5") Then
+
+                                forma.ShowDialog()
+                            Else
+                                MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                            End If
+                        End If
+
+                    Catch ex As Exception
+                    End Try
             End Select
 
         Catch ex As Exception
@@ -832,7 +852,7 @@ Public Class frmPrincipal
     Private Sub AgregarDatoContabilidadToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles AgregarDatoContabilidadToolStripMenuItem.Click
         SQL = "select * from usuarios where idUsuario = " & idUsuario
         Dim rwFilas As DataRow() = nConsulta(SQL)
-        Dim Forma As New frmAgregarContabilidadk
+        Dim Forma As New frmAgregarJuridicok
 
         Try
             If rwFilas Is Nothing = False Then
@@ -1014,8 +1034,6 @@ Public Class frmPrincipal
         Dim rwFilas As DataRow() = nConsulta(SQL)
         Dim Forma As New frmIngresarDatosFlujoC
 
-
-
         Try
             If rwFilas Is Nothing = False Then
 
@@ -1050,7 +1068,7 @@ Public Class frmPrincipal
 
 
                 Dim Fila As DataRow = rwFilas(0)
-                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "6") Then
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "6" Or Fila.Item("fkIdPerfil") = "4") Then
 
                     Forma.ShowDialog()
                 Else
@@ -1421,6 +1439,29 @@ Public Class frmPrincipal
 
                 Dim Fila As DataRow = rwFilas(0)
                 If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "8") Then
+
+                    Forma.ShowDialog()
+                Else
+                    MessageBox.Show("No tiene permisos para esta ventana" & vbCrLf & "Comuniquese con el administrador del sistema", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub AgregarDatosJuridicoToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AgregarDatosJuridicoToolStripMenuItem1.Click
+        Dim rwFilas As DataRow() = nConsulta(SQL)
+        Dim Forma As New frmAgregarJuridico
+
+        Try
+            If rwFilas Is Nothing = False Then
+
+
+                Dim Fila As DataRow = rwFilas(0)
+                If (Fila.Item("fkIdPerfil") = "1" Or Fila.Item("fkIdPerfil") = "6") Then
 
                     Forma.ShowDialog()
                 Else
