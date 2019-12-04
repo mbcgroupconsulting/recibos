@@ -387,14 +387,22 @@ Public Class frmPlaneacionAsi
                                     propuesta = propuesta + 0.3
                                 ElseIf diferencia > 3 And diferencia < 4.999 Then
                                     propuesta = propuesta + 0.2
-                                ElseIf diferencia > 1 And diferencia < 2.999 Then
-                                    propuesta = propuesta + 0.15
-                                ElseIf diferencia > 0.5 And diferencia < 0.999 Then
+                                ElseIf diferencia > 3 And diferencia < 4.499 Then
                                     propuesta = propuesta + 0.1
+                                ElseIf diferencia > 3 And diferencia < 3.999 Then
+                                    propuesta = propuesta + 0.001
+                                ElseIf diferencia > 3 And diferencia < 3.699 Then
+                                    propuesta = propuesta + 0.002
+                                ElseIf diferencia > 1 And diferencia < 2.599 Then
+                                    propuesta = propuesta + 0.003
+                                ElseIf diferencia > 1 And diferencia < 1.799 Then
+                                    propuesta = propuesta + 0.004
+                                ElseIf diferencia > 0.5 And diferencia < 0.999 Then
+                                    propuesta = propuesta + 0.006
                                 ElseIf diferencia > 0.2 And diferencia < 0.49 Then
-                                    propuesta = propuesta + 0.05
+                                    propuesta = propuesta + 0.005
                                 ElseIf diferencia > 0.1 And diferencia < 0.19 Then
-                                    propuesta = propuesta + 0.01
+                                    propuesta = propuesta + 0.001
                                 Else
                                     propuesta = propuesta + 0.0001
 

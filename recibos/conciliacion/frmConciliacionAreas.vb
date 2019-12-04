@@ -236,25 +236,26 @@ Public Class frmFondeoPatrona
 
                                             'Buscamos a las empresas relacionadas con los cargos
                                             If InStr(Trim(producto.SubItems(4).Text).ToUpper, "SUELDO") > 0 Then
-                                                producto.SubItems(8).Text = "NOMINA"
-                                                'producto.SubItems.Add("NOMINA")
-                                                producto.SubItems(11).Text = "1"
-                                                'producto.SubItems.Add("1")
-                                                producto.BackColor = Color.Green
+                                                'esto lo quite porque a maribel no le gusto
+                                                'producto.SubItems(8).Text = "NOMINA"
+                                                ''producto.SubItems.Add("NOMINA")
+                                                'producto.SubItems(11).Text = "1"
+                                                ''producto.SubItems.Add("1")
+                                                'producto.BackColor = Color.Green
 
                                             ElseIf InStr(Trim(producto.SubItems(4).Text).Replace(",", ""), "DISPERSION") > 0 Then
-                                                producto.SubItems(8).Text = "NOMINA"
-                                                'producto.SubItems.Add("NOMINA")
-                                                producto.SubItems(11).Text = "1"
-                                                'producto.SubItems.Add("1")
-                                                producto.BackColor = Color.Green
+                                                'producto.SubItems(8).Text = "NOMINA"
+                                                ''producto.SubItems.Add("NOMINA")
+                                                'producto.SubItems(11).Text = "1"
+                                                ''producto.SubItems.Add("1")
+                                                'producto.BackColor = Color.Green
 
                                             ElseIf InStr(Trim(producto.SubItems(4).Text).Replace(",", ""), "AGUINALDO") > 0 Then
-                                                producto.SubItems(8).Text = "NOMINA"
-                                                'producto.SubItems.Add("NOMINA")
-                                                producto.SubItems(11).Text = "1"
-                                                'producto.SubItems.Add("1")
-                                                producto.BackColor = Color.Green
+                                                'producto.SubItems(8).Text = "NOMINA"
+                                                ''producto.SubItems.Add("NOMINA")
+                                                'producto.SubItems(11).Text = "1"
+                                                ''producto.SubItems.Add("1")
+                                                'producto.BackColor = Color.Green
 
                                             ElseIf txtidempresa.Text <> "" Then
 

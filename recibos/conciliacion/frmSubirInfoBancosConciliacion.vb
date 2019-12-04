@@ -279,6 +279,7 @@ Public Class frmSubirInfoBancosConciliacion
                     SQL &= "' and fCargo=" & Math.Round(Double.Parse(IIf(producto.SubItems(CInt(NudCargo.Value)).Text = "", "0", producto.SubItems(CInt(NudCargo.Value)).Text)), 2)
                     SQL &= " and fAbono=" & Math.Round(Double.Parse(IIf(producto.SubItems(CInt(NudAbono.Value)).Text = "", "0", producto.SubItems(CInt(NudAbono.Value)).Text)), 2)
                     SQL &= " and fSaldo=" & Math.Round(Double.Parse(IIf(producto.SubItems(CInt(NudSaldo.Value)).Text = "", "0", producto.SubItems(CInt(NudSaldo.Value)).Text)), 2)
+                    SQL &= " and cConcepto='" & Trim(producto.SubItems(CInt(NudConcepto.Value)).Text) & "'"
 
                     Dim rwEncontrar As DataRow() = nConsulta(SQL)
 

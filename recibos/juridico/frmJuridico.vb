@@ -1,7 +1,10 @@
 ﻿Imports Microsoft.Office.Interop.Word 'control de office
 Imports Microsoft.Office.Interop.Excel
-Imports System.IO 'sistema de archivos
+
+
 Imports Microsoft.Office.Interop
+Imports System.IO 'sistema de archivos
+
 Imports System.Data
 Imports System.Data.SqlClient
 Public Class frmJuridico

@@ -276,3 +276,5 @@ C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.exe
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.xml
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.pdb
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.ImportarSueldosConciliacion.resources
+C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmAgregarFacturasK.resources
+C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
