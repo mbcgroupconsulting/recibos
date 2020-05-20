@@ -152,9 +152,12 @@ Public Class frmListarCheques
                     hoja.Column("A").Width = 15
                     hoja.Column("B").Width = 15
                     hoja.Column("C").Width = 50
-                    hoja.Column("D").Width = 30
-                    hoja.Column("E").Width = 15
-                    hoja.Column("F").Width = 50
+                    hoja.Column("D").Width = 20
+                    hoja.Column("E").Width = 35
+                    hoja.Column("F").Width = 15
+                    hoja.Column("G").Width = 35
+                    hoja.Column("H").Width = 20
+                    hoja.Column("H").Width = 20
 
                     hoja.Cell(2, 2).Value = "Fecha: " & Date.Now.ToShortDateString()
 
@@ -162,22 +165,25 @@ Public Class frmListarCheques
                     'hoja.Cell(3, 2).Value = ":"
                     'hoja.Cell(3, 3).Value = ""
 
-                    hoja.Range(4, 1, 4, 6).Style.Font.FontSize = 10
-                    hoja.Range(4, 1, 4, 6).Style.Font.SetBold(True)
-                    hoja.Range(4, 1, 4, 6).Style.Alignment.WrapText = True
-                    hoja.Range(4, 1, 4, 6).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
-                    hoja.Range(4, 1, 4, 6).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                    hoja.Range(4, 1, 4, 9).Style.Font.FontSize = 10
+                    hoja.Range(4, 1, 4, 9).Style.Font.SetBold(True)
+                    hoja.Range(4, 1, 4, 9).Style.Alignment.WrapText = True
+                    hoja.Range(4, 1, 4, 9).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                    hoja.Range(4, 1, 4, 9).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
                     'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
-                    hoja.Range(4, 1, 4, 6).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
-                    hoja.Range(4, 1, 4, 6).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
+                    hoja.Range(4, 1, 4, 9).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
+                    hoja.Range(4, 1, 4, 9).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
 
                     'hoja.Cell(4, 1).Value = "Num"
-                    hoja.Cell(4, 1).Value = "Factura"
-                    hoja.Cell(4, 2).Value = "Feccha Exp"
-                    hoja.Cell(4, 3).Value = "Proveedor"
-                    hoja.Cell(4, 4).Value = "Total"
-                    hoja.Cell(4, 5).Value = "Fecha Pago"
-                    hoja.Cell(4, 6).Value = "Empresa Plaza"
+                    hoja.Cell(4, 1).Value = "Empresa"
+                    hoja.Cell(4, 2).Value = "Banco"
+                    hoja.Cell(4, 3).Value = "Numero Cheque"
+                    hoja.Cell(4, 4).Value = "Monto"
+                    hoja.Cell(4, 5).Value = "Recibio"
+                    hoja.Cell(4, 6).Value = "Estatus"
+                    hoja.Cell(4, 7).Value = "Ocupado para"
+                    hoja.Cell(4, 8).Value = "Usuario Captura"
+                    hoja.Cell(4, 9).Value = "Usuario Modif"
 
 
 
@@ -190,8 +196,16 @@ Public Class frmListarCheques
                         hoja.Cell(filaExcel, 3).Value = Fila.Item("FacturaCheques")
                         hoja.Cell(filaExcel, 4).Value = Fila.Item("Monto")
                         hoja.Cell(filaExcel, 5).Value = Fila.Item("persona")
-                        hoja.Cell(filaExcel, 6).Value = Fila.Item("UsuarioC")
-                        hoja.Cell(filaExcel, 7).Value = Fila.Item("UsuarioM")
+                        If (Not (Fila.Item("estatuscheque") Is DBNull.Value)) Then
+                            hoja.Cell(filaExcel, 6).Value = IIf(Fila.Item("estatuscheque") = "0", "Cobrado", "No Cobrado")
+                        Else
+                            hoja.Cell(filaExcel, 6).Value = "No Cobrado"
+
+                        End If
+
+                        hoja.Cell(filaExcel, 7).Value = Fila.Item("ocupado")
+                        hoja.Cell(filaExcel, 8).Value = Fila.Item("UsuarioC")
+                        hoja.Cell(filaExcel, 9).Value = Fila.Item("UsuarioM")
                         hoja.Range(5, 4, 1500, 4).Style.NumberFormat.SetFormat("###,###,##0.#0")
 
 

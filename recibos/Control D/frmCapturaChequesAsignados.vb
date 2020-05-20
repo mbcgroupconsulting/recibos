@@ -62,7 +62,7 @@
         Dim tiempo As TimeSpan = fin - inicio
         If (tiempo.Days >= 0) Then
             SQL = "Select iIdGastoCheques, fkiIdEmpresa,empresa.nombre As nombreempresa  ,fkiIdBanco, bancos.cBanco, "
-            SQL &= "FechaMov, FacturaCheques, persona,Monto,UsuarioC,UsuarioM "
+            SQL &= "FechaMov, FacturaCheques, persona,Monto,UsuarioC,UsuarioM,isnull(estatuscheque,1) as estatuscheque"
             SQL &= " from ((GastosCheques "
             SQL &= "inner Join empresa on GastosCheques.fkiIdEmpresa= empresa.iIdEmpresa) "
             SQL &= "inner Join bancos On GastosCheques.fkiIdBanco =  bancos.iIdBanco) "
@@ -87,12 +87,14 @@
             lsvLista.Columns.Add("Monto")
             lsvLista.Columns(4).Width = 100
             lsvLista.Columns(4).TextAlign = HorizontalAlignment.Right
-            lsvLista.Columns.Add("Persona Asignada")
+            lsvLista.Columns.Add("Estatus Cheque")
             lsvLista.Columns(5).Width = 350
-            lsvLista.Columns.Add("Capturo")
+            lsvLista.Columns.Add("Persona Asignada")
             lsvLista.Columns(6).Width = 350
-            lsvLista.Columns.Add("Modifico")
+            lsvLista.Columns.Add("Capturo")
             lsvLista.Columns(7).Width = 350
+            lsvLista.Columns.Add("Modifico")
+            lsvLista.Columns(8).Width = 350
 
             contador = 0
 
@@ -109,6 +111,7 @@
                     item.SubItems.Add("" & Fila.Item("cBanco"))
                     item.SubItems.Add("" & Fila.Item("FacturaCheques"))
                     item.SubItems.Add("" & Fila.Item("Monto"))
+                    item.SubItems.Add("" & IIf(Fila.Item("estatuscheque") = "0", "Cobrado", "No cobrado"))
                     item.SubItems.Add("" & Fila.Item("persona"))
                     item.SubItems.Add("" & Fila.Item("UsuarioC"))
                     item.SubItems.Add("" & Fila.Item("UsuarioM"))
@@ -203,7 +206,7 @@
                 SQL &= ",'" & nombresistema & "','" & nombresistema
                 SQL &= "',1," & IIf(txtMonto.Text = "", "0.00", txtMonto.Text)
                 SQL &= "," & cborecibio.SelectedIndex & ",'" & txtOcupado.Text & "'"
-
+                SQL &= "," & cboestatus.SelectedIndex
 
                 If Execute(SQL, IdFactura1) = False Then
                     'MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(4).Text) & " Cliente:" & Trim(producto.SubItems(6).Text) & " Intermediaria/pagadora:" & Trim(producto.SubItems(9).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -222,7 +225,7 @@
                 SQL &= ",'" & UsuarioCreador & "','" & nombresistema
                 SQL &= "',1," & IIf(txtMonto.Text = "", "0.00", txtMonto.Text)
                 SQL &= "," & cborecibio.SelectedIndex & ",'" & txtOcupado.Text & "'"
-
+                SQL &= "," & cboestatus.SelectedIndex
 
                 If nExecute(SQL) = False Then
                     Exit Sub
@@ -252,6 +255,7 @@
         cboempresa.SelectedIndex = -1
         cbobanco.SelectedIndex = -1
         cborecibio.SelectedIndex = -1
+        cboestatus.SelectedIndex = -1
         txtOcupado.Text = ""
         dtpfecha.Value = Date.Now.ToShortDateString()
         blnNuevo = True
@@ -308,7 +312,7 @@
                 dtpfecha.Value = Fila.Item("FechaMov")
                 cborecibio.SelectedIndex = Fila.Item("Recibio")
                 txtOcupado.Text = Fila.Item("ocupado")
-                
+                cboestatus.SelectedIndex = IIf(Fila.Item("estatuscheque") Is DBNull.Value, 1, Fila.Item("estatuscheque"))
                 gIdCheque = id
                 If cboempresa.SelectedIndex > -1 Then
                     cargarlista()

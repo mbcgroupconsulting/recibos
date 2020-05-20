@@ -49,6 +49,8 @@ Partial Class frmCapturaChequesAsignados
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtpfecha = New System.Windows.Forms.DateTimePicker()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.cboestatus = New System.Windows.Forms.ComboBox()
         Me.ToolStrip1.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         Me.SuspendLayout()
@@ -91,6 +93,8 @@ Partial Class frmCapturaChequesAsignados
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlCatalogo.Controls.Add(Me.cboestatus)
+        Me.pnlCatalogo.Controls.Add(Me.Label8)
         Me.pnlCatalogo.Controls.Add(Me.cborecibio)
         Me.pnlCatalogo.Controls.Add(Me.txtOcupado)
         Me.pnlCatalogo.Controls.Add(Me.Label5)
@@ -336,6 +340,25 @@ Partial Class frmCapturaChequesAsignados
         Me.dtpfecha.Size = New System.Drawing.Size(96, 26)
         Me.dtpfecha.TabIndex = 0
         '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(934, 108)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(57, 19)
+        Me.Label8.TabIndex = 63
+        Me.Label8.Text = "Estatus"
+        '
+        'cboestatus
+        '
+        Me.cboestatus.FormattingEnabled = True
+        Me.cboestatus.Items.AddRange(New Object() {"Cobrado", "No cobrado"})
+        Me.cboestatus.Location = New System.Drawing.Point(934, 130)
+        Me.cboestatus.Name = "cboestatus"
+        Me.cboestatus.Size = New System.Drawing.Size(131, 26)
+        Me.cboestatus.TabIndex = 64
+        '
         'frmCapturaChequesAsignados
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -381,4 +404,6 @@ Partial Class frmCapturaChequesAsignados
     Friend WithEvents txtOcupado As System.Windows.Forms.TextBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents cboestatus As System.Windows.Forms.ComboBox
+    Friend WithEvents Label8 As System.Windows.Forms.Label
 End Class

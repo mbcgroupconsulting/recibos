@@ -178,23 +178,25 @@
 
                 For Each producto As ListViewItem In lsvLista.CheckedItems
                     
-                        'Insertar nuevo
-                        SQL = "EXEC setGastosChequesInsertar 0," & Trim(producto.SubItems(3).Text) & "," & Trim(producto.SubItems(4).Text)
-                        SQL &= ",'" & Trim(producto.SubItems(2).Text)
-                        SQL &= "','" & Trim(producto.SubItems(5).Text)
-                        SQL &= "','" & Format(Date.Parse(Mid((Trim(producto.SubItems(1).Text)), 1, 10)), "yyyy/dd/MM")
-                        SQL &= "','" & Date.Now.ToShortDateString() & "'"
-                        SQL &= ",'" & nombresistema & "','" & nombresistema
-                        SQL &= "',1," & ((IIf(Trim(producto.SubItems(6).Text) = "", 0, Trim(producto.SubItems(6).Text))).ToString.Replace(",", "")).Replace(" ", "")
-                        SQL &= "," & Trim(producto.SubItems(7).Text) & ",'" & Trim(producto.SubItems(8).Text) & "'"
 
+                    'Insertar nuevo
 
-                        If nExecute(SQL) = False Then
-                            MessageBox.Show("Error en el registro con los siguiente datos: fecha expedición:" & Trim(producto.SubItems(1).Text) & " Nombre:" & Trim(producto.SubItems(5).Text) & " Recibio:" & Trim(producto.SubItems(7).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                            pnlProgreso.Visible = False
-                            Exit Sub
+                    SQL = "EXEC setGastosChequesInsertar 0," & Trim(producto.SubItems(3).Text) & "," & Trim(producto.SubItems(4).Text)
+                    SQL &= ",'" & Trim(producto.SubItems(2).Text)
+                    SQL &= "','" & Trim(producto.SubItems(5).Text)
+                    SQL &= "','" & Format(Date.Parse(Mid((Trim(producto.SubItems(1).Text)), 1, 10)), "yyyy/dd/MM")
+                    SQL &= "','" & Date.Now.ToShortDateString() & "'"
+                    SQL &= ",'" & nombresistema & "','" & nombresistema
+                    SQL &= "',1," & ((IIf(Trim(producto.SubItems(6).Text) = "", 0, Trim(producto.SubItems(6).Text))).ToString.Replace(",", "")).Replace(" ", "")
+                    SQL &= "," & Trim(producto.SubItems(7).Text) & ",'" & Trim(producto.SubItems(8).Text) & "'"
+                    SQL &= "," & Trim(producto.SubItems(9).Text)
 
-                        End If
+                    If nExecute(SQL) = False Then
+                        MessageBox.Show("Error en el registro con los siguiente datos: fecha expedición:" & Trim(producto.SubItems(1).Text) & " Nombre:" & Trim(producto.SubItems(5).Text) & " Recibio:" & Trim(producto.SubItems(7).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        pnlProgreso.Visible = False
+                        Exit Sub
+
+                    End If
                         pgbProgreso.Value += 1
                         Application.DoEvents()
 
