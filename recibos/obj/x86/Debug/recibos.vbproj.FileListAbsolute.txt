@@ -140,3 +140,5 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbproj.GenerateResource
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.xml
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.pdb
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbproj.ResolveComReference.cache
