@@ -140,6 +140,10 @@ D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbproj.GenerateResource
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.exe
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.xml
 D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.pdb
+<<<<<<< HEAD
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbproj.ResolveComReference.cache
+=======
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\bin\Debug\recibos.exe.config
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.exe
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.xml
@@ -283,3 +287,4 @@ C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmTM
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmTMMFiscalAuto.resources
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmTMMSindicatoAuto.resources
 C:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.vbproj.GenerateResource.Cache
+>>>>>>> origin/master

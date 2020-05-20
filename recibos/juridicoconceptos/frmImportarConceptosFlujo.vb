@@ -97,12 +97,12 @@ Public Class frmImportarConceptosFlujo
                     lsvLista.Columns(6).Width = 200
                     lsvLista.Columns(7).Width = 150
                     lsvLista.Columns(7).TextAlign = 1
-                    lsvLista.Columns(8).Width = 150
-                    lsvLista.Columns(8).TextAlign = 1
-                    lsvLista.Columns(9).Width = 150
-                    lsvLista.Columns(9).TextAlign = 1
-                    lsvLista.Columns(10).Width = 100
-                    lsvLista.Columns(11).Width = 400
+                    '  lsvLista.Columns(8).Width = 150
+                    '  lsvLista.Columns(8).TextAlign = 1
+                    '  lsvLista.Columns(9).Width = 150
+                    ' lsvLista.Columns(9).TextAlign = 1
+                    ' lsvLista.Columns(10).Width = 100
+                    'lsvLista.Columns(11).Width = 400
 
 
 
@@ -187,6 +187,7 @@ Public Class frmImportarConceptosFlujo
             End If
 
         Catch ex As Exception
+            MessageBox.Show(ex.Message, Me.Text, Nothing, MessageBoxIcon.Warning)
 
         End Try
     End Sub
