@@ -415,6 +415,12 @@
     <Compile Include="contpaq\frmPrestamoEmpleado.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="contpaq\frmSantander.Designer.vb">
+      <DependentUpon>frmSantander.vb</DependentUpon>
+    </Compile>
+    <Compile Include="contpaq\frmSantander.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="contpaq\frmscotiabank.Designer.vb">
       <DependentUpon>frmscotiabank.vb</DependentUpon>
     </Compile>
@@ -1235,6 +1241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="contpaq\frmPrestamoEmpleado.resx">
       <DependentUpon>frmPrestamoEmpleado.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="contpaq\frmSantander.resx">
+      <DependentUpon>frmSantander.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="contpaq\frmscotiabank.resx">
       <DependentUpon>frmscotiabank.vb</DependentUpon>
