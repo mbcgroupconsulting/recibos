@@ -544,7 +544,7 @@ Public Class frmcontpaqnominas3
         Next
     End Sub
 
-    Function CalcularPensionSindicato(idempleado As String, montoSA As String) As Double
+    Function CalcularPensionSindicato(ByVal idempleado As String, ByVal montoSA As String) As Double
         Dim sql As String
         Dim montoSin As Double
         sql = "select * from PensionAlimenticia where fkiIdEmpleadoC=" & idempleado
@@ -568,7 +568,7 @@ Public Class frmcontpaqnominas3
         Return montoSin
     End Function
 
-    Function AguinaldoSindicato(idempleado As String, montoAguinaldoSA As String) As Double
+    Function AguinaldoSindicato(ByVal idempleado As String, ByVal montoAguinaldoSA As String) As Double
         Dim sql As String
         Dim aguinaldosin As Double
 
@@ -590,7 +590,7 @@ Public Class frmcontpaqnominas3
 
     End Function
 
-    Function CalcularPrestamoSin(idempleado As String) As Double
+    Function CalcularPrestamoSin(ByVal idempleado As String) As Double
         Dim sql As String
         Dim prestamo As Double
         sql = "select * from Prestamo where fkiIdEmpleado=" & idempleado & " and iEstatus=1"
@@ -617,7 +617,7 @@ Public Class frmcontpaqnominas3
         Return prestamo
     End Function
 
-    Function CalcularExtra(idempleado As String, nombre As String) As Double
+    Function CalcularExtra(ByVal idempleado As String, ByVal nombre As String) As Double
         Dim sql As String
         Dim extra As Double
 
@@ -642,7 +642,7 @@ Public Class frmcontpaqnominas3
         Return extra
     End Function
 
-    Function CalcularIncidencias(idempleado As String, sueldo As String) As Double
+    Function CalcularIncidencias(ByVal idempleado As String, ByVal sueldo As String) As Double
         Dim sql As String
         Dim incidencia As Double
 
@@ -657,7 +657,7 @@ Public Class frmcontpaqnominas3
     End Function
 
 
-    Private Sub cmdverdatos_Click_1(sender As System.Object, e As System.EventArgs) Handles cmdverdatos.Click
+    Private Sub cmdverdatos_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdverdatos.Click
         Try
             'If cargado Then
 
@@ -701,7 +701,7 @@ Public Class frmcontpaqnominas3
             dtgDatos.Columns.Add(chk)
             chk.HeaderText = ""
             chk.Name = "chk"
-            
+
             dsPeriodo.Tables.Clear()
 
             dsPeriodo.Tables.Add("Tabla")
@@ -839,7 +839,7 @@ Public Class frmcontpaqnominas3
                 gridcolumnas()
 
 
-                
+
 
 
                 Dim sindicato, primasin, pensionsindicato, totalsindicato, ExtraSindicato As Double
@@ -1670,7 +1670,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub cboperiodo_SelectedIndexChanged(sender As Object, e As EventArgs)
+    Private Sub cboperiodo_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
         Try
             dtgDatos.DataSource = ""
             dtgDatos.Columns.Clear()
@@ -1684,7 +1684,7 @@ Public Class frmcontpaqnominas3
     End Sub
 
 
-    Private Sub dtgDatos_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
+    Private Sub dtgDatos_CellContentClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs)
         If e.RowIndex = -1 And e.ColumnIndex = 0 Then
             Return
         Else
@@ -1696,7 +1696,7 @@ Public Class frmcontpaqnominas3
 
 
 
-    Private Sub dtgDatos_KeyPress(sender As Object, e As KeyPressEventArgs)
+    Private Sub dtgDatos_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs)
         Try
 
             SoloNumero.NumeroDec(e, sender)
@@ -1706,18 +1706,18 @@ Public Class frmcontpaqnominas3
 
     End Sub
 
-    Private Sub dtgDatos_CellClick(sender As Object, e As DataGridViewCellEventArgs)
+    Private Sub dtgDatos_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs)
         If e.ColumnIndex = 0 Then
             dtgDatos.Rows(e.RowIndex).Cells(0).Value = Not dtgDatos.Rows(e.RowIndex).Cells(0).Value
         End If
 
     End Sub
 
-    Private Sub dtgDatos_CellEnter(sender As Object, e As DataGridViewCellEventArgs)
+    Private Sub dtgDatos_CellEnter(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs)
         'MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
     End Sub
 
-    Private Sub TextboxNumeric_KeyPress(sender As Object, e As KeyPressEventArgs)
+    Private Sub TextboxNumeric_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs)
         Dim nonNumberEntered As Boolean
 
         nonNumberEntered = True
@@ -1741,13 +1741,13 @@ Public Class frmcontpaqnominas3
 
     End Sub
 
-    Private Sub dtgDatos_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs)
+    Private Sub dtgDatos_CellEndEdit(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs)
         If Not m_currentControl Is Nothing Then
             RemoveHandler m_currentControl.KeyPress, AddressOf TextboxNumeric_KeyPress
         End If
     End Sub
 
-    Private Sub dtgDatos_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs)
+    Private Sub dtgDatos_EditingControlShowing(ByVal sender As Object, ByVal e As DataGridViewEditingControlShowingEventArgs)
         Dim columna As Integer
         m_currentControl = Nothing
         columna = CInt(DirectCast(sender, System.Windows.Forms.DataGridView).CurrentCell.ColumnIndex)
@@ -1757,7 +1757,7 @@ Public Class frmcontpaqnominas3
         End If
     End Sub
 
-    Private Sub dtgDatos_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs)
+    Private Sub dtgDatos_ColumnHeaderMouseClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs)
         Try
             Dim newColumn As DataGridViewColumn = dtgDatos.Columns(e.ColumnIndex)
 
@@ -1771,14 +1771,14 @@ Public Class frmcontpaqnominas3
 
     End Sub
 
-    Private Sub chkAll_CheckedChanged(sender As Object, e As EventArgs)
+    Private Sub chkAll_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs)
         For x As Integer = 0 To dtgDatos.Rows.Count - 1
             dtgDatos.Rows(x).Cells(0).Value = Not dtgDatos.Rows(x).Cells(0).Value
         Next
         chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
     End Sub
 
-    Function RemoverBasura(nombre As String) As String
+    Function RemoverBasura(ByVal nombre As String) As String
         Dim COMPSTR As String = "áéíóúÁÉÍÓÚ.ñÑ"
         Dim REPLSTR As String = "aeiouAEIOU nN"
         Dim Posicion As Integer
@@ -1795,7 +1795,7 @@ Public Class frmcontpaqnominas3
         Return cadena
     End Function
 
-    Function TipoCuentaBanco(idempleado As String, idempresa As String) As String
+    Function TipoCuentaBanco(ByVal idempleado As String, ByVal idempresa As String) As String
         'Agregar el banco y el tipo de cuenta ya sea a terceros o interbancaria
         'Buscamos el banco y verificarmos el tipo de cuenta a tercero o interbancaria
         Dim Sql As String
@@ -1860,7 +1860,7 @@ Public Class frmcontpaqnominas3
         Return cadenabanco
     End Function
 
-    Function CalculoPrimaSindicato(idempleado As String, idempresa As String) As String
+    Function CalculoPrimaSindicato(ByVal idempleado As String, ByVal idempresa As String) As String
         'Agregar el banco y el tipo de cuenta ya sea a terceros o interbancaria
         'Buscamos el banco y verificarmos el tipo de cuenta a tercero o interbancaria
         Dim Sql As String
@@ -1938,7 +1938,7 @@ Public Class frmcontpaqnominas3
     End Function
 
 
-    Function CalculoDiasVacaciones(anios As Integer) As Integer
+    Function CalculoDiasVacaciones(ByVal anios As Integer) As Integer
         Dim dias As Integer
 
         If anios = 1 Then
@@ -1984,7 +1984,7 @@ Public Class frmcontpaqnominas3
         Return dias
     End Function
 
-    Private Sub ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles Igualar0.Click
+    Private Sub ToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Igualar0.Click
         'MessageBox.Show("Primero")
         Dim sql As String
         Try
@@ -2023,13 +2023,13 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub ToolStripMenuItem2_Click(sender As System.Object, e As System.EventArgs)
+    Private Sub ToolStripMenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim iFila As DataGridViewRow = Me.dtgDatos.CurrentRow()
         MessageBox.Show(iFila.Cells(6).Value)
 
     End Sub
 
-    Private Sub dtgDatos_CellMouseDown(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dtgDatos.CellMouseDown
+    Private Sub dtgDatos_CellMouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dtgDatos.CellMouseDown
         'dtgDatos.Rows(e.RowIndex).Selected = True
         Try
             If e.RowIndex > -1 Then
@@ -2042,7 +2042,7 @@ Public Class frmcontpaqnominas3
 
     End Sub
 
-    Private Sub DesactivarIgualarA0ToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles DesactivarIgualarA0ToolStripMenuItem.Click
+    Private Sub DesactivarIgualarA0ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DesactivarIgualarA0ToolStripMenuItem.Click
         Dim sql As String
         Try
             'insertamos el valor en la base, verificamos si existe para ese empleado en este peridodo
@@ -2075,7 +2075,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub cmdguardarnomina_Click_1(sender As System.Object, e As System.EventArgs) Handles cmdguardarnomina.Click
+    Private Sub cmdguardarnomina_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdguardarnomina.Click
         Try
             Dim sql As String
             sql = "select fkiIdempleado,cCuenta,(cApellidoP + ' ' + cApellidoM + ' ' + empleadosC.cNombre) as nombre,"
@@ -2218,7 +2218,7 @@ Public Class frmcontpaqnominas3
 
     End Sub
 
-    Private Sub cmdcalcular_Click_1(sender As System.Object, e As System.EventArgs) Handles cmdcalcular.Click
+    Private Sub cmdcalcular_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdcalcular.Click
         Try
             calcular()
         Catch ex As Exception
@@ -2226,7 +2226,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub cmdGuardarSueldo_Click_1(sender As System.Object, e As System.EventArgs) Handles cmdGuardarSueldo.Click
+    Private Sub cmdGuardarSueldo_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdGuardarSueldo.Click
         Try
 
 
@@ -2256,7 +2256,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub cmdguardarfinal_Click_1(sender As System.Object, e As System.EventArgs) Handles cmdguardarfinal.Click
+    Private Sub cmdguardarfinal_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdguardarfinal.Click
         Try
 
             If gIdEmpresaAsignada = 0 Then
@@ -2520,7 +2520,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub cmdreciboss_Click_1(sender As System.Object, e As System.EventArgs) Handles cmdreciboss.Click
+    Private Sub cmdreciboss_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdreciboss.Click
         Try
             Dim Forma As New frmSindicato
 
@@ -2626,7 +2626,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub cmdexcel_Click_1(sender As System.Object, e As System.EventArgs) Handles cmdexcel.Click
+    Private Sub cmdexcel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdexcel.Click
         'Enviar datos a excel
         Dim SQL As String, Alter As Boolean = False
 
@@ -2963,7 +2963,7 @@ Public Class frmcontpaqnominas3
 
     End Sub
 
-    Private Sub cmdincidencias_Click_1(sender As System.Object, e As System.EventArgs) Handles cmdincidencias.Click
+    Private Sub cmdincidencias_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdincidencias.Click
         Try
             Dim filaExcel As Integer = 5
             Dim dialogo As New SaveFileDialog()
@@ -3068,7 +3068,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub cmdreiniciar_Click_1(sender As System.Object, e As System.EventArgs) Handles cmdreiniciar.Click
+    Private Sub cmdreiniciar_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdreiniciar.Click
         Try
             Dim sql As String
             Dim resultado As Integer = MessageBox.Show("¿Desea reiniciar la nomina?", "Pregunta", MessageBoxButtons.YesNo)
@@ -3107,7 +3107,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub cmdBorrar_Click(sender As System.Object, e As System.EventArgs) Handles cmdBorrar.Click
+    Private Sub cmdBorrar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdBorrar.Click
         Try
             Dim sql As String
             Dim resultado As Integer = MessageBox.Show("¿Realmente desea borrar la nomina que ya  aun cuando esta ya este guardada como final?", "Pregunta", MessageBoxButtons.YesNo)
@@ -3168,8 +3168,8 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-   
-    Private Sub cmdlayouts_Click_1(sender As System.Object, e As System.EventArgs) Handles cmdlayouts.Click
+
+    Private Sub cmdlayouts_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdlayouts.Click
         Dim dialogo As New SaveFileDialog()
         Dim sRenglon As String = Nothing
         Dim strStreamW As Stream = Nothing
@@ -4957,7 +4957,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub tsbDatos_Click_1(sender As System.Object, e As System.EventArgs) Handles tsbDatos.Click
+    Private Sub tsbDatos_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbDatos.Click
         Dim sql As String
         Dim sql2 As String
         Dim iBan As Integer
@@ -5141,7 +5141,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub tsbEmpleados_Click_1(sender As System.Object, e As System.EventArgs) Handles tsbEmpleados.Click
+    Private Sub tsbEmpleados_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbEmpleados.Click
         Dim sql As String
         Dim sql2 As String
         Dim iBan As Integer
@@ -5592,7 +5592,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub tsbPeriodos_Click_1(sender As System.Object, e As System.EventArgs) Handles tsbPeriodos.Click
+    Private Sub tsbPeriodos_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbPeriodos.Click
         Dim sql As String
         Dim iBan As Integer
 
@@ -5666,7 +5666,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub tsbpuestos_Click_1(sender As System.Object, e As System.EventArgs) Handles tsbpuestos.Click
+    Private Sub tsbpuestos_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbpuestos.Click
         Dim sql As String
         Dim iBan As Integer
 
@@ -5743,7 +5743,7 @@ Public Class frmcontpaqnominas3
 
     End Sub
 
-    Private Sub tsbdeptos_Click_1(sender As System.Object, e As System.EventArgs) Handles tsbdeptos.Click
+    Private Sub tsbdeptos_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbdeptos.Click
         Dim sql As String
         Dim iBan As Integer
 
@@ -5819,7 +5819,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub tsbImportar_Click_1(sender As System.Object, e As System.EventArgs) Handles tsbImportar.Click
+    Private Sub tsbImportar_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbImportar.Click
         Try
             'Agregar incidencias y prestamos
             Dim Forma As New frmIncidencia
@@ -5837,11 +5837,11 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub tsbLayout_Click(sender As System.Object, e As System.EventArgs) Handles tsbLayout.Click
+    Private Sub tsbLayout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbLayout.Click
 
     End Sub
 
-    Private Sub tsbIEmpleados_Click_1(sender As System.Object, e As System.EventArgs) Handles tsbIEmpleados.Click
+    Private Sub tsbIEmpleados_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbIEmpleados.Click
         Try
             Dim Forma As New frmEmpleados
             Forma.gIdEmpresa = gIdEmpresa
@@ -5853,7 +5853,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub tsbAguinaldo_Click_1(sender As System.Object, e As System.EventArgs) Handles tsbAguinaldo.Click
+    Private Sub tsbAguinaldo_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbAguinaldo.Click
         Try
 
             Dim resultado As Integer = MessageBox.Show("Para poder realizar el calculo del aguinaldo es necesario que la parte de SA ya haya sido calculada e importado los importes.¿Desea continuar?", "Pregunta", MessageBoxButtons.YesNo)
@@ -5869,7 +5869,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub tsbCliente_Click_1(sender As System.Object, e As System.EventArgs) Handles tsbCliente.Click
+    Private Sub tsbCliente_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbCliente.Click
         Try
             Dim Forma As New frmAsignarCliente
             Forma.gidEmpresa = gIdEmpresa
@@ -5885,7 +5885,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub tsbEmpresa_Click_1(sender As System.Object, e As System.EventArgs) Handles tsbEmpresa.Click
+    Private Sub tsbEmpresa_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbEmpresa.Click
         Try
             Dim Forma As New frmAsignarEmpresa
             Forma.gidEmpresa = gIdEmpresa
@@ -5900,7 +5900,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub tsbExportarExcelEmpleado_Click(sender As System.Object, e As System.EventArgs) Handles tsbExportarExcelEmpleado.Click
+    Private Sub tsbExportarExcelEmpleado_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbExportarExcelEmpleado.Click
         Dim sql As String
         Dim filaExcel As Integer = 5
         Dim dialogo As New SaveFileDialog()
@@ -5973,4 +5973,317 @@ Public Class frmcontpaqnominas3
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+
+    Private Sub btnReporteExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReporteExcel.Click
+        Try
+            Dim filaExcel As Integer = 0
+            Dim dialogo As New SaveFileDialog()
+            Dim periodo, periodoini, periodofin, diaini As String
+            Dim clienteasignado As String
+            pnlProgreso.Visible = True
+            pnlCatalogo.Enabled = False
+            Application.DoEvents()
+
+            pgbProgreso.Minimum = 0
+            pgbProgreso.Value = 0
+            pgbProgreso.Maximum = dtgDatos.Rows.Count
+
+
+            If dtgDatos.Rows.Count > 0 Then
+
+                Dim sql As String = "select * from IntClienteEmpresaContpaq inner join clientes on fkIdCliente= iIdCliente where fkIdEmpresaC=" & gIdEmpresa
+                Dim rwCliente As DataRow() = nConsulta(sql)
+                If rwCliente Is Nothing = False Then
+                    clienteasignado = rwCliente(0)("nombre")
+                End If
+                periodo = cboperiodo.Text
+                periodoini = CDate(cboperiodo.Text.ToString.Remove(10)).ToLongDateString.Substring(CDate(cboperiodo.Text.ToString.Remove(10)).ToLongDateString.IndexOf(", ") + 2).ToUpper()
+                diaini = CDate(periodoini).Day
+                periodofin = CDate(periodo.Substring(11)).ToLongDateString().Substring(CDate(periodo.Substring(11)).ToLongDateString().IndexOf(", ") + 2).ToUpper()
+
+               
+                'End If
+
+                Dim ruta As String
+                ruta = My.Application.Info.DirectoryPath() & "\Archivos\reportenomina.xlsx"
+                Dim book As New ClosedXML.Excel.XLWorkbook(ruta)
+                Dim libro As New ClosedXML.Excel.XLWorkbook
+
+                book.Worksheet(1).CopyTo(libro, "NOMINA")
+                ' book.Worksheet(2).CopyTo(libro, "PATRONA")
+                book.Worksheet(2).CopyTo(libro, "SINDICATO")
+
+                Dim hoja As IXLWorksheet = libro.Worksheets(0)
+                'Dim hoja2 As IXLWorksheet = libro.Worksheets(1)
+                Dim hoja3 As IXLWorksheet = libro.Worksheets(1)
+
+                filaExcel = 16
+
+
+                '<<<<<<< NOMINA >>>>>>>
+                recorrerFilasColumnas(hoja, 15, 50, 50, "clear")
+
+                hoja.Cell(1, 2).Value = clienteasignado
+                hoja.Cell(2, 2).Value = "SA/SINDICATO"
+                hoja.Cell(3, 2).Value = " DEL " & diaini & " AL " & periodofin
+                hoja.Cell(4, 2).Value = "TRANSFERENCIA"
+
+                hoja.Cell(12, 1).Value = " DEL " & diaini & " AL " & periodofin
+
+                For x As Integer = 0 To dtgDatos.Rows.Count - 1
+
+                    hoja.Cell(filaExcel, 1).Value = dtgDatos.Rows(x).Cells(6).Value 'trabajador
+                    hoja.Cell(filaExcel, 2).Value = dtgDatos.Rows(x).Cells(7).Value 'sueldo ordinario
+                    hoja.Cell(filaExcel, 3).Value = "0" 'sueldo retroactivos
+                    hoja.Cell(filaExcel, 4).Value = "0" 'horas extrasl
+                    hoja.Cell(filaExcel, 5).Value = dtgDatos.Rows(x).Cells(12).Value 'prima vacacional
+                    hoja.Cell(filaExcel, 6).Value = dtgDatos.Rows(x).Cells(20).Value 'otros ingresos
+                    hoja.Cell(filaExcel, 7).Value = dtgDatos.Rows(x).Cells(11).Value 'fonacot
+                    hoja.Cell(filaExcel, 8).Value = dtgDatos.Rows(x).Cells(10).Value 'infonavit
+                    hoja.Cell(filaExcel, 9).Value = "" 'otros descuentos p-sindical
+                    hoja.Cell(filaExcel, 10).Value = "" 'otros decuentosp-asim
+                    hoja.Cell(filaExcel, 11).Value = dtgDatos.Rows(x).Cells(8).Value ' patrona neto
+                    hoja.Cell(filaExcel, 12).Value = 0 'asim
+                    'sindicato
+                    hoja.Cell(filaExcel, 13).FormulaA1 = "=B" & filaExcel & "-K" & filaExcel & "+((C" & filaExcel & "+D" & filaExcel & "+E" & filaExcel & "+F" & filaExcel & ")-(G" & filaExcel & "+H" & filaExcel & "+I" & filaExcel & "))"
+                    hoja.Cell(filaExcel, 14).FormulaA1 = "=+K" & filaExcel & "+L" & filaExcel & "+M" & filaExcel & "-G" & filaExcel
+                    hoja.Cell(filaExcel, 15).Value = dtgDatos.Rows(x).Cells(23).Value  'retencion imss
+                    hoja.Cell(filaExcel, 16).Value = dtgDatos.Rows(x).Cells(24).Value 'retemcion isr
+                    hoja.Cell(filaExcel, 17).Value = dtgDatos.Rows(x).Cells(26).Value
+                    hoja.Cell(filaExcel, 18).FormulaA1 = "=SUM(K" & filaExcel & "+G" & filaExcel & "+H" & filaExcel & ")*4%"
+                    hoja.Cell(filaExcel, 19).FormulaA1 = "=SUM(L" & filaExcel & "+M" & filaExcel & ")*4%"
+                    hoja.Cell(filaExcel, 20).FormulaA1 = "=K" & filaExcel & "+L" & filaExcel & "+M" & filaExcel & "+O" & filaExcel & "+P" & filaExcel & "+Q" & filaExcel & "+R" & filaExcel & "+S" & filaExcel & "+H" & filaExcel & ""
+                    hoja.Cell(filaExcel, 21).FormulaA1 = "=T" & filaExcel & "*16%"
+                    hoja.Cell(filaExcel, 22).FormulaA1 = "=T" & filaExcel & "+U" & filaExcel
+
+                    filaExcel = filaExcel + 1
+                Next x
+
+                recorrerFilasColumnas(hoja, 1, 100, 100, "clear", 23)
+                hoja.Range(filaExcel + 2, 2, filaExcel + 2, 22).Style.Fill.BackgroundColor = XLColor.PowderBlue
+                hoja.Range(filaExcel + 2, 2, filaExcel + 2, 22).Style.Font.SetBold(True)
+                hoja.Range(filaExcel + 4, 7, filaExcel + 4, 22).Style.Fill.BackgroundColor = XLColor.Orange
+                hoja.Range(filaExcel + 4, 7, filaExcel + 4, 22).Style.Font.SetBold(True)
+
+                'SUMATORIA
+                hoja.Cell(filaExcel + 2, 2).FormulaA1 = "=SUM(B16:B" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 3).FormulaA1 = "=SUM(C16:C" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 4).FormulaA1 = "=SUM(D16:D" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 5).FormulaA1 = "=SUM(E16:E" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 6).FormulaA1 = "=SUM(F16:F" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 7).FormulaA1 = "=SUM(G16:G" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 8).FormulaA1 = "=SUM(H16:H" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 9).FormulaA1 = "=SUM(I16:I" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 10).FormulaA1 = "=SUM(J16:J" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 11).FormulaA1 = "=SUM(K16:K" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 12).FormulaA1 = "=SUM(L16:L" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 13).FormulaA1 = "=SUM(M16:M" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 14).FormulaA1 = "=SUM(N16:N" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 15).FormulaA1 = "=SUM(O16:O" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 16).FormulaA1 = "=SUM(P16:P" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 17).FormulaA1 = "=SUM(Q16:Q" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 18).FormulaA1 = "=SUM(R16:R" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 19).FormulaA1 = "=SUM(S16:S" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 20).FormulaA1 = "=SUM(T16:T" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 21).FormulaA1 = "=SUM(U16:U" & filaExcel & ")"
+                hoja.Cell(filaExcel + 2, 22).FormulaA1 = "=SUM(V16:V" & filaExcel & ")"
+
+                'SUMATORIADOS
+                hoja.Cell(filaExcel + 4, 7).FormulaA1 = "=G" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 8).FormulaA1 = "=H" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 9).FormulaA1 = "=I" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 10).FormulaA1 = "=J" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 11).FormulaA1 = "=K" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 12).FormulaA1 = "=L" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 13).FormulaA1 = "=M" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 14).FormulaA1 = "=N" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 15).FormulaA1 = "=O" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 16).FormulaA1 = "=P" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 17).FormulaA1 = "=Q" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 18).FormulaA1 = "=R" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 19).FormulaA1 = "=S" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 20).FormulaA1 = "=T" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 21).FormulaA1 = "=U" & filaExcel + 2
+                hoja.Cell(filaExcel + 4, 22).FormulaA1 = "=V" & filaExcel + 2
+
+
+
+                'Tabla fact
+                hoja.Cell(filaExcel + 6, 1).Value = clienteasignado
+
+                hoja.Cell(filaExcel + 7, 1).Value = "DEPOSITO GADERYRA"
+                hoja.Cell(filaExcel + 8, 1).Value = "IVA"
+                hoja.Cell(filaExcel + 9, 1).Value = "TOTAL NOMINA PARTE SA"
+
+                hoja.Cell(filaExcel + 7, 2).FormulaA1 = "=K" & filaExcel + 2 & "+G" & filaExcel + 2 & "+H" & filaExcel + 2 & "+O" & filaExcel + 2 & "+P" & filaExcel + 2 & "+Q" & filaExcel + 2 & "+R" & filaExcel + 2
+                hoja.Cell(filaExcel + 8, 2).FormulaA1 = "=B" & filaExcel + 7 & "*0.16"
+                hoja.Cell(filaExcel + 9, 2).FormulaA1 = "=B" & filaExcel + 7 & "+B" & filaExcel + 8
+
+                hoja.Cell(filaExcel + 11, 1).Value = "DEPOSITO GADERYRA"
+                hoja.Cell(filaExcel + 12, 1).Value = "IVA"
+                hoja.Cell(filaExcel + 13, 1).Value = "TOTAL NOMINA PARTE SA"
+
+                hoja.Cell(filaExcel + 11, 2).FormulaA1 = "=L" & filaExcel + 2 & "+M" & filaExcel + 2 & "+S" & filaExcel + 2
+                hoja.Cell(filaExcel + 12, 2).FormulaA1 = "=B" & filaExcel + 11 & "*0.16"
+                hoja.Cell(filaExcel + 13, 2).FormulaA1 = "=B" & filaExcel + 11 & "+B" & filaExcel + 12
+
+                hoja.Cell(filaExcel + 15, 1).Value = "TOTAL NOMINA"
+                hoja.Cell(filaExcel + 15, 2).FormulaA1 = "=B" & filaExcel + 9 & "+B" & filaExcel + 13
+
+                'style
+                hoja.Range(2, filaExcel + 6, 2, filaExcel + 15).Style.NumberFormat.NumberFormatId = 4
+                hoja.Range(filaExcel + 6, 1, filaExcel + 6, 2).Style.Fill.BackgroundColor = XLColor.Yellow
+                hoja.Range(filaExcel + 7, 1, filaExcel + 15, 2).Style.Border.InsideBorder = XLBorderStyleValues.Thin
+                hoja.Cell(filaExcel + 7, 2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin
+                hoja.Range(filaExcel + 7, 1, filaExcel + 15, 2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin
+                hoja.Range(filaExcel + 9, 1, filaExcel + 9, 2).Style.Fill.BackgroundColor = XLColor.DarkBlue
+                hoja.Range(filaExcel + 13, 1, filaExcel + 13, 2).Style.Fill.BackgroundColor = XLColor.DarkBlue
+                hoja.Range(filaExcel + 15, 1, filaExcel + 15, 2).Style.Fill.BackgroundColor = XLColor.DarkBlue
+                hoja.Range(filaExcel + 9, 1, filaExcel + 9, 2).Style.Font.FontColor = XLColor.White
+                hoja.Range(filaExcel + 13, 1, filaExcel + 13, 2).Style.Font.FontColor = XLColor.White
+                hoja.Range(filaExcel + 15, 1, filaExcel + 15, 2).Style.Font.FontColor = XLColor.White
+                hoja.Range(filaExcel + 9, 1, filaExcel + 9, 2).Style.Font.SetBold(True)
+                hoja.Range(filaExcel + 13, 1, filaExcel + 13, 2).Style.Font.SetBold(True)
+                hoja.Range(filaExcel + 15, 1, filaExcel + 15, 2).Style.Font.SetBold(True)
+
+                '   <<<<<<<<PATRONA>>>>>>>>>>
+
+
+                '<<<<sindicato>>>>>>
+                '##### HOJA NUMERO 2 RESUMEN PAGO
+                filaExcel = 5
+                hoja3.Column("B").Width = 40
+                hoja3.Column("C").Width = 20
+                hoja3.Column("D").Width = 20
+                hoja3.Column("E").Width = 20
+                hoja3.Column("F").Width = 20
+                hoja3.Column("G").Width = 20
+                hoja3.Column("H").Width = 20
+                hoja3.Column("I").Width = 20
+                hoja3.Column("J").Width = 20
+
+                hoja3.Cell(1, 2).Value = "RESUMEN DE PAGO"
+                hoja3.Range(1, 2, 1, 2).Style.Font.SetBold(True)
+                hoja3.Cell(2, 2).Value = "Fecha:" & Date.Now.ToShortDateString & " " & Date.Now.ToShortTimeString
+                hoja3.Cell(3, 2).Value = "PERIODO: " & cboperiodo.Text
+                hoja3.Range(3, 2, 3, 2).Style.Font.SetBold(True)
+
+                'hoja.Cell(3, 2).Value = ":"
+                'hoja.Cell(3, 3).Value = ""
+
+                hoja3.Range(4, 2, 4, 10).Style.Font.FontSize = 10
+                hoja3.Range(4, 2, 4, 10).Style.Font.SetBold(True)
+                hoja3.Range(4, 2, 4, 10).Style.Alignment.WrapText = True
+                hoja3.Range(4, 2, 4, 10).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                hoja3.Range(4, 1, 4, 10).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                'hoja.Range(4, 1, 4, 18).Style.Fill.BackgroundColor = XLColor.BleuDeFrance
+                hoja3.Range(4, 2, 4, 10).Style.Fill.BackgroundColor = XLColor.FromHtml("#538DD5")
+                hoja3.Range(4, 2, 4, 10).Style.Font.FontColor = XLColor.FromHtml("#FFFFFF")
+
+                hoja3.Range(5, 5, 1000, 26).Style.NumberFormat.NumberFormatId = 49
+                hoja3.Range(5, 6, 1000, 6).Style.NumberFormat.NumberFormatId = 4
+                hoja3.Range(5, 10, 1000, 10).Style.NumberFormat.NumberFormatId = 4
+
+                'Format = ("$ #,###,##0.00")
+                'hoja.Cell(4, 1).Value = "Num"
+                hoja3.Cell(4, 2).Value = "Nombre"
+                hoja3.Cell(4, 3).Value = "Banco"
+                hoja3.Cell(4, 4).Value = "Clabe"
+                hoja3.Cell(4, 5).Value = "Cuenta"
+                hoja3.Cell(4, 6).Value = "Patrona"
+                hoja3.Cell(4, 7).Value = "Banco"
+                hoja3.Cell(4, 8).Value = "Clabe"
+                hoja3.Cell(4, 9).Value = "Cuenta"
+                hoja3.Cell(4, 10).Value = "Sindicato"
+
+
+                filaExcel = 5
+                ' contadorfacturas = 1
+
+                For x As Integer = 0 To dtgDatos.Rows.Count - 1
+
+
+
+                    sql = "select iIdempleadoC,NumCuenta,Clabe,cuenta2,clabe2,fkiIdBanco,bancos.cBanco as banco1,fkiIdBanco2,bancos2.cBanco as banco2"
+                    sql &= " from (empleadosC"
+                    sql &= " inner join bancos on empleadosC.fkiIdBanco= bancos.iIdBanco)"
+                    sql &= " inner join (select iIdBanco,cBanco from bancos) as bancos2 on empleadosC.fkiIdBanco2= bancos2.iIdBanco"
+                    sql &= " where fkiIdEmpresa=" & gIdEmpresa & " and iIdempleadoC=" & dtgDatos.Rows(x).Cells(3).Value
+                    Dim rwEmpleado As DataRow() = nConsulta(sql)
+
+                    If rwEmpleado Is Nothing = False Then
+
+                        'Nombre
+                        hoja3.Cell(filaExcel + x, 2).Value = dtgDatos.Rows(x).Cells(6).Value
+                        'Banco
+                        hoja3.Cell(filaExcel + x, 3).Value = rwEmpleado(0)("banco1").ToString
+                        'Clabe
+                        hoja3.Cell(filaExcel + x, 4).Value = If(rwEmpleado(0)("Clabe").ToString = "", "", "'" & rwEmpleado(0)("Clabe").ToString)
+                        'Cuenta
+                        hoja3.Cell(filaExcel + x, 5).Value = If(rwEmpleado(0)("NumCuenta").ToString = "", "", "'" & rwEmpleado(0)("NumCuenta").ToString)
+                        'Patrona
+                        hoja3.Cell(filaExcel + x, 6).Value = dtgDatos.Rows(x).Cells(8).Value
+                        'Banco
+                        hoja3.Cell(filaExcel + x, 7).Value = rwEmpleado(0)("banco2").ToString
+                        'Clabe
+                        hoja3.Cell(filaExcel + x, 8).Value = If(rwEmpleado(0)("Clabe2").ToString = "", "", "'" & rwEmpleado(0)("Clabe2").ToString)
+                        'Cuenta
+                        hoja3.Cell(filaExcel + x, 9).Value = If(rwEmpleado(0)("cuenta2").ToString = "", "", "'" & rwEmpleado(0)("cuenta2").ToString)
+                        'Sindicato
+                        hoja3.Cell(filaExcel + x, 10).Value = dtgDatos.Rows(x).Cells(21).Value
+
+                    End If
+
+
+
+                Next
+
+                pnlProgreso.Visible = False
+                pnlCatalogo.Enabled = True
+
+                dialogo.FileName = clienteasignado.Trim & " DEL " & diaini & " AL " & periodofin
+                dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
+                ''  dialogo.ShowDialog()
+
+                If dialogo.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+                    ' OK button pressed
+                    libro.SaveAs(dialogo.FileName)
+                    libro = Nothing
+                    MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                Else
+                    MessageBox.Show("No se guardo el archivo", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                End If
+            End If
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            pnlCatalogo.Enabled = True
+            pnlProgreso.Visible = False
+        End Try
+    End Sub
+
+    Public Sub recorrerFilasColumnas(ByRef hoja As IXLWorksheet, ByRef filainicio As Integer, ByRef filafinal As Integer, ByRef colTotal As Integer, ByRef tipo As String, Optional ByVal inicioCol As Integer = 1)
+
+        For f As Integer = filainicio To filafinal
+            For c As Integer = IIf(inicioCol = Nothing, 1, inicioCol) To colTotal
+                Select Case tipo
+                    Case "bold"
+                        hoja.Cell(f, c).Style.Font.SetFontColor(XLColor.Black)
+                    Case "bold false"
+                        hoja.Cell(f, c).Style.Font.SetBold(False)
+                    Case "clear"
+                        hoja.Cell(f, c).Clear()
+                    Case "sin relleno"
+                        hoja.Cell(f, c).Style.Fill.BackgroundColor = XLColor.NoColor
+                    Case "text black"
+                        hoja.Cell(f, c).Style.Font.SetFontColor(XLColor.Black)
+                End Select
+            Next
+        Next
+    End Sub
+
 End Class

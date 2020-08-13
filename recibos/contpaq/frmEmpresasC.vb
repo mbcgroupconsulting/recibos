@@ -215,7 +215,7 @@
 
 
                     Dim Fila As DataRow = rwFilas(0)
-                    If (Fila.Item("fkIdPerfil") = "1" And Fila.Item("Nombre") = "Omar") Then
+                    If (Fila.Item("fkIdPerfil") = "1" And Fila.Item("Nombre") = "Omar" Or Fila.Item("Nombre") = "Eduardo") Then
 
                         Dim Forma As New frmPeriodos
                         Forma.gIEmpresa = id
