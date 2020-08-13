@@ -229,7 +229,7 @@ Public Class frmFondeoPatrona
                                                 producto.SubItems(8).Text = cadena
                                                 'producto.SubItems.Add(cadena)
                                                 'producto.SubItems.Add("2")
-                                                producto.SubItems(11).Text = "2"
+                                                ' producto.SubItems(11).Text = "2"
                                                 producto.BackColor = Color.Yellow
                                             End If
                                         Else
@@ -239,7 +239,7 @@ Public Class frmFondeoPatrona
                                                 'esto lo quite porque a maribel no le gusto
                                                 'producto.SubItems(8).Text = "NOMINA"
                                                 ''producto.SubItems.Add("NOMINA")
-                                                'producto.SubItems(11).Text = "1"
+                                                producto.SubItems(11).Text = "3"
                                                 ''producto.SubItems.Add("1")
                                                 'producto.BackColor = Color.Green
 
@@ -534,7 +534,7 @@ Public Class frmFondeoPatrona
                                                 If InStr(Trim(producto.SubItems(4).Text).ToUpper, "SUELDO") > 0 Then
                                                     producto.SubItems(8).Text = "NOMINA"
                                                     'producto.SubItems.Add("NOMINA")
-                                                    producto.SubItems(11).Text = "1"
+                                                    producto.SubItems(11).Text = "3"
                                                     'producto.SubItems.Add("1")
                                                     producto.BackColor = Color.Green
 
@@ -922,9 +922,7 @@ Public Class frmFondeoPatrona
         End Try
     End Sub
 
-    Private Sub lsvLista_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lsvLista.SelectedIndexChanged
-
-    End Sub
+ 
 
     Private Sub tsbGuardar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbGuardar.Click
         Dim TotalLista As Integer

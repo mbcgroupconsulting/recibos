@@ -30,6 +30,7 @@ Partial Class frmcontpaqnominas3
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pgbProgreso = New System.Windows.Forms.ProgressBar()
         Me.pnlCatalogo = New System.Windows.Forms.Panel()
+        Me.btnReporteExcel = New System.Windows.Forms.Button()
         Me.cmdBorrar = New System.Windows.Forms.Button()
         Me.cmdGuardarSueldo = New System.Windows.Forms.Button()
         Me.chkAguinaldo = New System.Windows.Forms.CheckBox()
@@ -123,9 +124,10 @@ Partial Class frmcontpaqnominas3
         'pnlCatalogo
         '
         Me.pnlCatalogo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlCatalogo.Controls.Add(Me.btnReporteExcel)
         Me.pnlCatalogo.Controls.Add(Me.cmdBorrar)
         Me.pnlCatalogo.Controls.Add(Me.cmdGuardarSueldo)
         Me.pnlCatalogo.Controls.Add(Me.chkAguinaldo)
@@ -150,6 +152,16 @@ Partial Class frmcontpaqnominas3
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Size = New System.Drawing.Size(1497, 390)
         Me.pnlCatalogo.TabIndex = 34
+        '
+        'btnReporteExcel
+        '
+        Me.btnReporteExcel.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReporteExcel.Location = New System.Drawing.Point(956, 33)
+        Me.btnReporteExcel.Name = "btnReporteExcel"
+        Me.btnReporteExcel.Size = New System.Drawing.Size(103, 28)
+        Me.btnReporteExcel.TabIndex = 23
+        Me.btnReporteExcel.Text = "Reporte Excel"
+        Me.btnReporteExcel.UseVisualStyleBackColor = True
         '
         'cmdBorrar
         '
@@ -324,8 +336,8 @@ Partial Class frmcontpaqnominas3
         Me.dtgDatos.AllowUserToAddRows = False
         Me.dtgDatos.AllowUserToDeleteRows = False
         Me.dtgDatos.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtgDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgDatos.Location = New System.Drawing.Point(1, 65)
         Me.dtgDatos.Name = "dtgDatos"
@@ -566,4 +578,5 @@ Partial Class frmcontpaqnominas3
     Friend WithEvents cmenu As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents Igualar0 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DesactivarIgualarA0ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents btnReporteExcel As System.Windows.Forms.Button
 End Class

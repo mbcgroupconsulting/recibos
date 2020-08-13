@@ -57,8 +57,6 @@ Public Class frmExportarNominaTMM
 
                     If Trim(producto.SubItems(4).Text) <> 0 Then
                         Ruta = "\\pagina-pc\pagosn\" & IIf(chkNominaB.Checked = True, txtcarpeta.Text & "\", "") & Trim(producto.SubItems(5).Text) & ".pdf"
-
-
                         Archivo = New System.IO.FileInfo(Ruta)
                         If (Archivo.Exists) Then
 
@@ -132,15 +130,15 @@ Public Class frmExportarNominaTMM
                             SQL = "EXEC setpagoInsertar  0," & idusuario & ",'" & Date.Parse(Trim(producto.SubItems(1).Text)).ToShortDateString() & "',1,"
                             SQL &= Double.Parse(Trim(producto.SubItems(4).Text).Replace(",", "").Replace("$", "").ToString()) & ","
                             SQL &= Double.Parse(Trim(producto.SubItems(6).Text).Replace(",", "").Replace("$", "").ToString()) & ",'"
-                            SQL &= Trim(producto.SubItems(5).Text) & "',"
-                            SQL &= "','','" & Trim(producto.SubItems(8).Text) & "','" ' Simple en dxml
+                            SQL &= Trim(producto.SubItems(5).Text) & "'"
+                            SQL &= "'','','" & Trim(producto.SubItems(8).Text) & "','" ' Simple en dxml
                             SQL &= Trim(producto.SubItems(7).Text) & "','"
                             SQL &= IIf(chkNominaB.Checked = True, txtcarpeta.Text, "") & "'"   'dsa es igual a nominaB
 
 
                             If nExecuteKiosko(SQL) = False Then
 
-                                MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(1).Text) & " trabajador:" & Trim(producto.SubItems(3).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                'MessageBox.Show("Error en el registro con los siguiente datos: fecha:" & Trim(producto.SubItems(1).Text) & " trabajador:" & Trim(producto.SubItems(3).Text) & ". El proceso concluira en ese registro. ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                                 pnlProgreso.Visible = False
 
                                 DesconectarKiosko()
