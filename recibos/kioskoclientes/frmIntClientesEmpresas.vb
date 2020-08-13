@@ -27,7 +27,7 @@
     Private Sub MostrarCliente2()
         'Verificar si se tienen permisos
         Try
-            SQL = "select * from clientes where (iTipo=1 or iTipo=2 or iTipo=3 or iTipo=5) and iIdCliente NOT IN (select iIdCliente from clientes inner join IntClienteEmpresaKiosko on iIdCliente=fkiIdCliente) order by nombre"
+            SQL = "select * from clientes where (iTipo<>6) and iIdCliente NOT IN (select iIdCliente from clientes inner join IntClienteEmpresaKiosko on iIdCliente=fkiIdCliente) order by nombre"
             nCargaCBO(cbocliente, Sql, "nombre", "iIdCliente")
         Catch ex As Exception
         End Try

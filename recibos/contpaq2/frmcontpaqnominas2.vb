@@ -1289,7 +1289,7 @@ Public Class frmcontpaqnominas2
                 'Importe sindicato Extra
                 dtgDatos.Columns(19).Width = 100
                 dtgDatos.Columns(19).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                dtgDatos.Columns(19).ReadOnly = True
+                'dtgDatos.Columns(19).ReadOnly = True
 
                 'Total sindicato Total_Sindicato
                 dtgDatos.Columns(20).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -2681,7 +2681,7 @@ Public Class frmcontpaqnominas2
                     'Importe sindicato Extra
                     dtgDatos.Columns(19).Width = 100
                     dtgDatos.Columns(19).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                    dtgDatos.Columns(19).ReadOnly = True
+                    'dtgDatos.Columns(19).ReadOnly = True
 
                     'Total sindicato Total_Sindicato
                     dtgDatos.Columns(20).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -2944,7 +2944,7 @@ Public Class frmcontpaqnominas2
                         'Importe sindicato Extra
                         dtgDatos.Columns(19).Width = 100
                         dtgDatos.Columns(19).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                        dtgDatos.Columns(19).ReadOnly = True
+                        'dtgDatos.Columns(19).ReadOnly = True
 
                         'Total sindicato Total_Sindicato
                         dtgDatos.Columns(20).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -3359,11 +3359,32 @@ Public Class frmcontpaqnominas2
 
                             Dim rwCliente As DataRow() = nConsulta(sql)
                             If rwCliente Is Nothing = False Then
+                                'Calcular la comision de acuerdo a lo que se metio en en la pantalla de los clientes-empresa contpaq
+                                'verificamos y sumamos
+
+                                Dim CSAneto As Double
+                                Dim CSAinfonavit As Double
+                                Dim CSAFonacot As Double
+                                Dim CSApensionA As Double
+
+                                CSAneto = Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
+                                CSAinfonavit = Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
+                                CSAFonacot = 0
+                                CSApensionA = Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
+
 
                                 If rwCliente(0)("iTipoPor") = "0" Then
+                                    
+                                    
+
+
                                     dtgDatos.Rows(x).Cells(26).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
+
+
+
                                     dtgDatos.Rows(x).Cells(27).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * (Double.Parse(rwCliente(0)("porsindicato").ToString()) / 100), 2).ToString("#,###,##0.00")
                                 Else
+                                    'Calcular la comision de acuerdo a lo que se metio en en la pantalla de los clientes-empresa contpaq
                                     dtgDatos.Rows(x).Cells(26).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
                                     dtgDatos.Rows(x).Cells(27).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
 
@@ -4430,6 +4451,7 @@ Public Class frmcontpaqnominas2
         Dim nombre As String
         Dim PathArchivo As String
         Dim contador As Integer
+        Dim contador2 As Integer
         Dim sql As String
 
         Try
@@ -5836,7 +5858,346 @@ Public Class frmcontpaqnominas2
                             End If
                         End If
 
+                    Case "5"
 
+                        If chkinter.Checked Then
+                            Dim Forma As New frmSantander
+                            Forma.gIdBanco = cbobancos.SelectedValue
+                            Forma.gIdEmpresa = gIdEmpresa
+
+                            If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
+                                'Buscamos datos
+                                sql = "select * from DatosBanco where iIdDatosBanco=" & Forma.gIdDatosBancos
+                                Dim rwDatos As DataRow() = nConsulta(sql)
+
+                                If rwDatos Is Nothing = False Then
+
+
+                                    'Dim Secuencial As Integer = Integer.Parse(Forma.gSecuencial)
+
+                                    dialogo.DefaultExt = "*.txt"
+                                    dialogo.FileName = "Layout santander inter"
+                                    dialogo.Filter = "Archivos de texto (*.txt)|*.txt"
+                                    dialogo.ShowDialog()
+                                    PathArchivo = ""
+                                    PathArchivo = dialogo.FileName
+
+                                    If PathArchivo <> "" Then
+
+                                        strStreamW = File.Create(PathArchivo) ' lo creamos
+                                        strStreamWriter = New StreamWriter(strStreamW, System.Text.Encoding.Default) ' tipo de codificacion para escritura
+
+                                        contador = 1
+                                        sRenglon = ""
+                                        ''## Reglon 1
+                                        'sRenglon = "EEHA"
+                                        'sRenglon &= Long.Parse(rwDatos(0)("numcliente").ToString).ToString("00000")
+                                        'sRenglon &= Secuencial.ToString("00")
+
+                                        'sRenglon &= "000000000000000000000000000"
+                                        'strStreamWriter.WriteLine(sRenglon)
+
+                                        ''## Reglon 2
+                                        'sRenglon = "EEHB000000"
+
+                                        'sRenglon &= Long.Parse(rwDatos(0)("cuentacargo").ToString).ToString("00000000000")
+                                        'sRenglon &= Long.Parse(rwDatos(0)("empresa").ToString).ToString("0000000000")
+                                        'sRenglon &= "000"
+                                        'strStreamWriter.WriteLine(sRenglon)
+
+
+                                        'Suma todos los importes
+                                        Dim suma As Double
+                                        suma = 0
+
+                                        '##Cuerpo del layout
+
+                                        For x As Integer = 0 To dtgDatos.Rows.Count - 1
+
+                                            If dtgDatos.Rows(x).Cells(0).Value Then
+                                                sRenglon = rwDatos(0)("cuentacargo").ToString()
+                                                sRenglon &= "    " '5 espacios
+                                                'sRenglon &= "04"
+                                                sql = "select * from EmpleadosC where iIdEmpleadoC = " & dtgDatos.Rows(x).Cells(3).Value
+                                                Dim rwDatosCuenta As DataRow() = nConsulta(sql)
+
+                                                If rwDatosCuenta Is Nothing = False Then
+                                                    If chkSindicato.Checked Then
+                                                        sRenglon &= IIf(rwDatosCuenta(0)("clabe2") = "", "0", rwDatosCuenta(0)("clabe2").ToString())
+
+                                                    Else
+                                                        sRenglon &= IIf(rwDatosCuenta(0)("Clabe") = "", "0", rwDatosCuenta(0)("Clabe").ToString())
+                                                    End If
+                                                End If
+
+                                                sRenglon &= "  " '2 espacios de la clabe
+                                                sql = "select * from bancos where iIdBanco = "
+
+                                                If chkSindicato.Checked Then
+                                                    sql &= rwDatosCuenta(0)("fkiIdBanco2").ToString()
+                                                Else
+                                                    sql &= rwDatosCuenta(0)("fkiIdBanco").ToString()
+                                                End If
+
+                                                Dim rwDatosBancoCaT As DataRow() = nConsulta(sql)
+                                                If rwDatosBancoCaT Is Nothing = False Then
+                                                    sRenglon &= rwDatosBancoCaT(0)("idSantander").ToString
+                                                End If
+
+                                                nombre = RemoverBasura(dtgDatos.Rows(x).Cells(6).Value)
+                                                If nombre.Length < 41 Then
+                                                    For y As Integer = nombre.Length To 39
+                                                        nombre &= " "
+                                                    Next
+
+                                                Else
+                                                    nombre = nombre.Substring(0, 40)
+                                                End If
+                                                sRenglon &= nombre
+
+                                                sRenglon &= "0001"
+
+                                                'Neto SA 
+                                                If chkSindicato.Checked Then
+                                                    sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * 100).ToString("000000000000000")
+                                                    suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(20).Value)
+                                                Else
+                                                    sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * 100).ToString("000000000000000")
+                                                    suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
+                                                End If
+
+                                                sRenglon &= "01001"
+
+                                                If chkSindicato.Checked Then
+                                                    nombre = "BENEFICIOSINDICALPROMYDIFSINDICAL"
+                                                Else
+                                                    nombre = "SUELDO"
+                                                End If
+                                                For y As Integer = nombre.Length To 39
+                                                    nombre &= " "
+
+                                                Next
+
+                                                sRenglon &= nombre
+                                                nombre = ""
+                                                For y As Integer = 0 To 89
+                                                    nombre &= " "
+
+                                                Next
+
+                                                sRenglon &= nombre
+
+                                                sRenglon &= contador.ToString("0000000")
+
+
+
+
+
+                                                
+
+                                                'escribimos en el archivo
+                                                strStreamWriter.WriteLine(sRenglon)
+
+                                                contador = contador + 1
+                                            End If
+
+
+                                        Next
+
+
+                                        strStreamWriter.Close() ' cerramos
+
+                                        If contador = 1 Then
+                                            MessageBox.Show("Archivo generado correctamente, pero vacio", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                        Else
+                                            MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                        End If
+
+
+
+                                    Else
+                                        MessageBox.Show("No se encontraron datos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                    End If
+
+                                End If
+
+
+
+
+                            End If
+                        Else
+                            Dim Forma As New frmSantander
+                            Forma.gIdBanco = cbobancos.SelectedValue
+                            Forma.gIdEmpresa = gIdEmpresa
+                            If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
+                                'Buscamos datos
+                                sql = "select * from DatosBanco where iIdDatosBanco=" & Forma.gIdDatosBancos
+                                Dim rwDatos As DataRow() = nConsulta(sql)
+
+                                If rwDatos Is Nothing = False Then
+
+                                    dialogo.DefaultExt = "*.txt"
+                                    dialogo.FileName = "Layout santander terceros "
+                                    dialogo.Filter = "Archivos de texto (*.txt)|*.txt"
+                                    dialogo.ShowDialog()
+                                    PathArchivo = ""
+                                    PathArchivo = dialogo.FileName
+
+                                    If PathArchivo <> "" Then
+
+                                        strStreamW = File.Create(PathArchivo) ' lo creamos
+                                        strStreamWriter = New StreamWriter(strStreamW, System.Text.Encoding.Default) ' tipo de codificacion para escritura
+
+                                        contador = 1
+                                        '## Reglon 1
+                                        sRenglon = "1"
+                                        sRenglon &= (contador).ToString("00000")
+                                        sRenglon &= "E"
+                                        sRenglon &= Date.Parse(Forma.gFecha).Month.ToString("00") & Date.Parse(Forma.gFecha).Day.ToString("00") & Date.Parse(Forma.gFecha).Year.ToString("0000")
+
+                                        nombre = rwDatos(0)("cuentacargo").ToString()
+                                        For y As Integer = nombre.Length To 15
+                                            nombre &= " "
+
+                                        Next
+
+                                        sRenglon &= nombre
+                                        sRenglon &= Date.Parse(Forma.gFecha).Month.ToString("00") & Date.Parse(Forma.gFecha).Day.ToString("00") & Date.Parse(Forma.gFecha).Year.ToString("0000")
+
+
+                                        strStreamWriter.WriteLine(sRenglon)
+
+                                        'Suma todos los importes
+                                        Dim suma As Double
+                                        suma = 0
+
+                                        '##Cuerpo del layout
+                                        contador = contador + 1
+                                        contador2 = 1
+
+                                        For x As Integer = 0 To dtgDatos.Rows.Count - 1
+
+                                            If dtgDatos.Rows(x).Cells(0).Value Then
+                                                sRenglon = "2"
+                                                sRenglon &= (contador).ToString("00000")
+                                                nombre = contador2.ToString()
+                                                For y As Integer = nombre.Length To 6
+                                                    nombre &= " "
+
+                                                Next
+                                                sRenglon &= nombre
+                                                'nombre = RemoverBasura(dtgDatos.Rows(x).Cells(6).Value)
+                                                sql = "select * from EmpleadosC where iIdEmpleadoC = " & dtgDatos.Rows(x).Cells(3).Value
+                                                Dim rwDatosCuenta As DataRow() = nConsulta(sql)
+                                                If rwDatosCuenta Is Nothing = False Then
+                                                    nombre = UCase(RemoverBasura(IIf(rwDatosCuenta(0)("cApellidoP") = "", "", rwDatosCuenta(0)("cApellidoP").ToString())))
+                                                    If nombre.Length < 31 Then
+                                                        For y As Integer = nombre.Length To 29
+                                                            nombre &= " "
+                                                        Next
+                                                    Else
+                                                        nombre = nombre.Substring(0, 30)
+                                                    End If
+                                                    sRenglon &= nombre
+
+                                                    nombre = UCase(RemoverBasura(IIf(rwDatosCuenta(0)("cApellidoM") = "", "", rwDatosCuenta(0)("cApellidoM").ToString())))
+                                                    If nombre.Length < 21 Then
+                                                        For y As Integer = nombre.Length To 19
+                                                            nombre &= " "
+                                                        Next
+                                                    Else
+                                                        nombre = nombre.Substring(0, 20)
+                                                    End If
+                                                    sRenglon &= nombre
+
+                                                    nombre = UCase(RemoverBasura(IIf(rwDatosCuenta(0)("cNombre") = "", "", rwDatosCuenta(0)("cNombre").ToString())))
+                                                    If nombre.Length < 31 Then
+                                                        For y As Integer = nombre.Length To 29
+                                                            nombre &= " "
+                                                        Next
+                                                    Else
+                                                        nombre = nombre.Substring(0, 30)
+                                                    End If
+                                                    sRenglon &= nombre
+
+
+                                                    If chkSindicato.Checked Then
+                                                        sRenglon &= IIf(rwDatosCuenta(0)("cuenta2") = "", "0", rwDatosCuenta(0)("cuenta2").ToString())
+
+                                                    Else
+                                                        sRenglon &= IIf(rwDatosCuenta(0)("Numcuenta") = "", "0", rwDatosCuenta(0)("Numcuenta").ToString())
+                                                    End If
+                                                    sRenglon &= "     "
+
+                                                End If
+
+
+
+                                                'Neto SA 
+                                                If chkSindicato.Checked Then
+                                                    If chkAguinaldo.Checked Then
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(18).Value) * 100).ToString("000000000000000000")
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(18).Value)
+                                                    Else
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * 100).ToString("000000000000000000")
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(20).Value)
+                                                    End If
+
+                                                Else
+                                                    If chkAguinaldo.Checked Then
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(12).Value) * 100).ToString("000000000000000000")
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(12).Value)
+                                                    Else
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * 100).ToString("000000000000000000")
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
+                                                    End If
+
+                                                End If
+
+
+                                                sRenglon &= "01"
+
+                                                
+                                                'escribimos en el archivo
+                                                strStreamWriter.WriteLine(sRenglon)
+                                                contador = contador + 1
+                                                contador2 = contador2 + 1
+                                            End If
+
+
+                                        Next
+
+                                        '## Linea Final
+
+                                        sRenglon = "3"
+                                        sRenglon &= (contador).ToString("00000")
+                                        sRenglon &= (contador2 - 1).ToString("00000")
+
+                                        sRenglon &= (suma * 100).ToString("000000000000000000")
+                                        
+                                        strStreamWriter.WriteLine(sRenglon)
+
+                                        strStreamWriter.Close() ' cerramos
+
+                                        If contador = 1 Then
+                                            MessageBox.Show("Archivo generado correctamente, pero vacio", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                        Else
+                                            MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                        End If
+
+
+
+                                    Else
+                                        MessageBox.Show("No se encontraron datos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                    End If
+
+                                End If
+
+
+
+
+                            End If
+                        End If
 
                         'iTipo = Forma.gIdTipo
                 End Select
