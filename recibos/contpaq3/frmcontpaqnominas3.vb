@@ -778,7 +778,7 @@ Public Class frmcontpaqnominas3
             sql = "select fkiIdempleado,cCuenta,(cApellidoP + ' ' + cApellidoM + ' ' + empleadosC.cNombre) as nombre,"
             sql &= " NominaSindicato.fSueldoOrd ,fNeto,fDescuento,fPrestamo,fSindicato,fSueldoNeto,"
             sql &= " fRentencionIMSS,fRetenciones,fCostoSocial,fComision,fSubtotal,fIVA,fTotal,cDepartamento as departamento,fInfonavit,fIncremento"
-            sql &= " ,fPrimaSA,fPrimaSin,fAguinaldoSA,fAguinaldoSin,fImporteSin1,fImporteSa1,fImporteSin2,fImporteSA2,fImporteSin3"
+            sql &= " ,fPrimaSA,fPrimaSin,fAguinaldoSA,fAguinaldoSin,fImporteSin1,fImporteSa1,fImporteSin2,fImporteSA2,fImporteSin3,fImporteSA3,fImporteSA4"
             sql &= " from NominaSindicato"
             sql &= " inner join empleadosC on NominaSindicato.fkiIdempleado= empleadosC.iIdEmpleadoC"
             sql &= " inner join departamentos on empleadosC.fkiIdDepartamento= departamentos.iIdDepartamento "
@@ -1670,18 +1670,6 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub cboperiodo_SelectedIndexChanged(sender As Object, e As EventArgs)
-        Try
-            dtgDatos.DataSource = ""
-            dtgDatos.Columns.Clear()
-            Dim x As Integer = InStr(cboperiodo.Text, "-")
-            gdFechaFin = cboperiodo.Text.Substring(x)
-
-        Catch ex As Exception
-
-        End Try
-
-    End Sub
 
 
     Private Sub dtgDatos_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
@@ -1747,36 +1735,6 @@ Public Class frmcontpaqnominas3
         End If
     End Sub
 
-    Private Sub dtgDatos_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs)
-        Dim columna As Integer
-        m_currentControl = Nothing
-        columna = CInt(DirectCast(sender, System.Windows.Forms.DataGridView).CurrentCell.ColumnIndex)
-        If columna = 7 Or columna = 10 Or columna = 12 Or columna = 13 Or columna = 14 Or columna = 15 Then
-            AddHandler e.Control.KeyPress, AddressOf TextboxNumeric_KeyPress
-            m_currentControl = e.Control
-        End If
-    End Sub
-
-    Private Sub dtgDatos_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs)
-        Try
-            Dim newColumn As DataGridViewColumn = dtgDatos.Columns(e.ColumnIndex)
-
-            If e.ColumnIndex = 0 Then
-                dtgDatos.Columns(0).SortMode = DataGridViewColumnSortMode.NotSortable
-            End If
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-
-
-    End Sub
-
-    Private Sub chkAll_CheckedChanged(sender As Object, e As EventArgs)
-        For x As Integer = 0 To dtgDatos.Rows.Count - 1
-            dtgDatos.Rows(x).Cells(0).Value = Not dtgDatos.Rows(x).Cells(0).Value
-        Next
-        chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
-    End Sub
 
     Function RemoverBasura(nombre As String) As String
         Dim COMPSTR As String = "áéíóúÁÉÍÓÚ.ñÑ"
@@ -2027,6 +1985,19 @@ Public Class frmcontpaqnominas3
         Dim iFila As DataGridViewRow = Me.dtgDatos.CurrentRow()
         MessageBox.Show(iFila.Cells(6).Value)
 
+    End Sub
+
+    Private Sub dtgDatos_CellClick1(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dtgDatos.CellClick
+        If e.ColumnIndex = 0 Then
+            dtgDatos.Rows(e.RowIndex).Cells(0).Value = Not dtgDatos.Rows(e.RowIndex).Cells(0).Value
+        End If
+
+    End Sub
+
+    Private Sub dtgDatos_CellEndEdit1(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dtgDatos.CellEndEdit
+        If Not m_currentControl Is Nothing Then
+            RemoveHandler m_currentControl.KeyPress, AddressOf TextboxNumeric_KeyPress
+        End If
     End Sub
 
     Private Sub dtgDatos_CellMouseDown(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dtgDatos.CellMouseDown
@@ -2410,7 +2381,7 @@ Public Class frmcontpaqnominas3
                         Exit Sub
                     End If
 
-                    If Double.Parse(dtgDatos.Rows(x).Cells(14).Value) > 0 Then
+                    If Double.Parse(dtgDatos.Rows(x).Cells(15).Value) > 0 Then
 
                         sql = "select * from Prestamo where fkiIdEmpleado=" & dtgDatos.Rows(x).Cells(3).Value & " and iEstatus=1"
 
@@ -3110,7 +3081,7 @@ Public Class frmcontpaqnominas3
     Private Sub cmdBorrar_Click(sender As System.Object, e As System.EventArgs) Handles cmdBorrar.Click
         Try
             Dim sql As String
-            Dim resultado As Integer = MessageBox.Show("¿Realmente desea borrar la nomina que ya  aun cuando esta ya este guardada como final?", "Pregunta", MessageBoxButtons.YesNo)
+            Dim resultado As Integer = MessageBox.Show("¿Realmente desea borrar la nomina que ya  aun cuando esta ya este guardada como final, el periodo es :" & cboperiodo.Text & " ?", "Pregunta", MessageBoxButtons.YesNo)
             If resultado = DialogResult.Yes Then
                 sql = "select * from usuarios where idUsuario = " & idUsuario
                 Dim rwFilas As DataRow() = nConsulta(sql)
@@ -5971,6 +5942,64 @@ Public Class frmcontpaqnominas3
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub cboperiodo_SelectedIndexChanged_1(sender As System.Object, e As System.EventArgs) Handles cboperiodo.SelectedIndexChanged
+        Try
+            dtgDatos.DataSource = ""
+            dtgDatos.Columns.Clear()
+            Dim x As Integer = InStr(cboperiodo.Text, "-")
+            gdFechaFin = cboperiodo.Text.Substring(x)
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub dtgDatos_CellMouseEnter(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dtgDatos.CellMouseEnter
+
+    End Sub
+
+    Private Sub ToolStrip1_ItemClicked(sender As System.Object, e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
+
+    End Sub
+
+    Private Sub chkAll_CheckedChanged_1(sender As System.Object, e As System.EventArgs) Handles chkAll.CheckedChanged
+        For x As Integer = 0 To dtgDatos.Rows.Count - 1
+            dtgDatos.Rows(x).Cells(0).Value = Not dtgDatos.Rows(x).Cells(0).Value
+        Next
+        chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
+    End Sub
+
+    Private Sub dtgDatos_ColumnHeaderMouseClick1(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dtgDatos.ColumnHeaderMouseClick
+        Try
+            Dim newColumn As DataGridViewColumn = dtgDatos.Columns(e.ColumnIndex)
+
+            If e.ColumnIndex = 0 Then
+                dtgDatos.Columns(0).SortMode = DataGridViewColumnSortMode.NotSortable
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub dtgDatos_EditingControlShowing1(sender As Object, e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles dtgDatos.EditingControlShowing
+        Dim columna As Integer
+        m_currentControl = Nothing
+        columna = CInt(DirectCast(sender, System.Windows.Forms.DataGridView).CurrentCell.ColumnIndex)
+        If columna = 7 Or columna = 10 Or columna = 12 Or columna = 13 Or columna = 14 Or columna = 15 Then
+            AddHandler e.Control.KeyPress, AddressOf TextboxNumeric_KeyPress
+            m_currentControl = e.Control
+        End If
+    End Sub
+
+    Private Sub dtgDatos_KeyPress1(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles dtgDatos.KeyPress
+        Try
+
+            SoloNumero.NumeroDec(e, sender)
+        Catch ex As Exception
+
         End Try
     End Sub
 End Class
