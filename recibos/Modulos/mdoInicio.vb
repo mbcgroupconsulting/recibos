@@ -91,7 +91,8 @@ Module mdoInicio
             mdoObjetos3.Conectado = False
 
             'KIOSKOCONEXION.ConnectionString = "Server=localhost;uid=sa;Password=1123581321;DataBase=" & Base
-            KIOSKOCONEXION.ConnectionString = "Server=192.168.1.222;uid=sa;Password=kiosko2016;DataBase=" & Base
+            ' KIOSKOCONEXION.ConnectionString = "Server=192.168.1.222;uid=sa;Password=kiosko2016;DataBase=" & Base
+            KIOSKOCONEXION.ConnectionString = "Server=facturacion.elchingon.net;uid=sa;Password=kiosko2016;DataBase=" & Base
             KIOSKOCONEXION.Open()
 
             mdoObjetos3.Conectado = True
