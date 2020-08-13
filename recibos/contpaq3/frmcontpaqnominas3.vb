@@ -6018,6 +6018,7 @@ Public Class frmcontpaqnominas3
                 If rwCliente Is Nothing = False Then
                     clienteasignado = rwCliente(0)("nombre")
                 End If
+
                 periodo = cboperiodo.Text
                 periodoini = CDate(cboperiodo.Text.ToString.Remove(10)).ToLongDateString.Substring(CDate(cboperiodo.Text.ToString.Remove(10)).ToLongDateString.IndexOf(", ") + 2).ToUpper()
                 diaini = CDate(periodoini).Day
