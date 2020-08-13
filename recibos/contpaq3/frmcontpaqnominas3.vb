@@ -1670,7 +1670,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-<<<<<<< HEAD
+
     Private Sub cboperiodo_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
         Try
             dtgDatos.DataSource = ""
@@ -1683,8 +1683,7 @@ Public Class frmcontpaqnominas3
         End Try
 
     End Sub
-=======
->>>>>>> origin/master
+
 
 
     Private Sub dtgDatos_CellContentClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs)
@@ -1750,7 +1749,7 @@ Public Class frmcontpaqnominas3
         End If
     End Sub
 
-<<<<<<< HEAD
+
     Private Sub dtgDatos_EditingControlShowing(ByVal sender As Object, ByVal e As DataGridViewEditingControlShowingEventArgs)
         Dim columna As Integer
         m_currentControl = Nothing
@@ -1781,8 +1780,7 @@ Public Class frmcontpaqnominas3
         Next
         chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
     End Sub
-=======
->>>>>>> origin/master
+
 
     Function RemoverBasura(ByVal nombre As String) As String
         Dim COMPSTR As String = "áéíóúÁÉÍÓÚ.ñÑ"
@@ -2035,10 +2033,9 @@ Public Class frmcontpaqnominas3
 
     End Sub
 
-<<<<<<< HEAD
-    Private Sub dtgDatos_CellMouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dtgDatos.CellMouseDown
-=======
-    Private Sub dtgDatos_CellClick1(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dtgDatos.CellClick
+
+
+    Private Sub dtgDatos_CellClick1(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dtgDatos.CellClick
         If e.ColumnIndex = 0 Then
             dtgDatos.Rows(e.RowIndex).Cells(0).Value = Not dtgDatos.Rows(e.RowIndex).Cells(0).Value
         End If
@@ -2052,7 +2049,7 @@ Public Class frmcontpaqnominas3
     End Sub
 
     Private Sub dtgDatos_CellMouseDown(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dtgDatos.CellMouseDown
->>>>>>> origin/master
+
         'dtgDatos.Rows(e.RowIndex).Selected = True
         Try
             If e.RowIndex > -1 Then
@@ -5997,7 +5994,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-<<<<<<< HEAD
+
 
     Private Sub btnReporteExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReporteExcel.Click
         Try
@@ -6310,7 +6307,7 @@ Public Class frmcontpaqnominas3
         Next
     End Sub
 
-=======
+
     Private Sub cboperiodo_SelectedIndexChanged_1(sender As System.Object, e As System.EventArgs) Handles cboperiodo.SelectedIndexChanged
         Try
             dtgDatos.DataSource = ""
@@ -6368,5 +6365,5 @@ Public Class frmcontpaqnominas3
 
         End Try
     End Sub
->>>>>>> origin/master
+
 End Class
