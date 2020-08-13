@@ -1289,7 +1289,7 @@ Public Class frmcontpaqnominas2
                 'Importe sindicato Extra
                 dtgDatos.Columns(19).Width = 100
                 dtgDatos.Columns(19).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                dtgDatos.Columns(19).ReadOnly = True
+                'dtgDatos.Columns(19).ReadOnly = True
 
                 'Total sindicato Total_Sindicato
                 dtgDatos.Columns(20).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -2681,7 +2681,7 @@ Public Class frmcontpaqnominas2
                     'Importe sindicato Extra
                     dtgDatos.Columns(19).Width = 100
                     dtgDatos.Columns(19).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                    dtgDatos.Columns(19).ReadOnly = True
+                    'dtgDatos.Columns(19).ReadOnly = True
 
                     'Total sindicato Total_Sindicato
                     dtgDatos.Columns(20).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -2944,7 +2944,7 @@ Public Class frmcontpaqnominas2
                         'Importe sindicato Extra
                         dtgDatos.Columns(19).Width = 100
                         dtgDatos.Columns(19).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                        dtgDatos.Columns(19).ReadOnly = True
+                        'dtgDatos.Columns(19).ReadOnly = True
 
                         'Total sindicato Total_Sindicato
                         dtgDatos.Columns(20).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -3359,11 +3359,32 @@ Public Class frmcontpaqnominas2
 
                             Dim rwCliente As DataRow() = nConsulta(sql)
                             If rwCliente Is Nothing = False Then
+                                'Calcular la comision de acuerdo a lo que se metio en en la pantalla de los clientes-empresa contpaq
+                                'verificamos y sumamos
+
+                                Dim CSAneto As Double
+                                Dim CSAinfonavit As Double
+                                Dim CSAFonacot As Double
+                                Dim CSApensionA As Double
+
+                                CSAneto = Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
+                                CSAinfonavit = Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
+                                CSAFonacot = 0
+                                CSApensionA = Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
+
 
                                 If rwCliente(0)("iTipoPor") = "0" Then
+                                    
+                                    
+
+
                                     dtgDatos.Rows(x).Cells(26).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
+
+
+
                                     dtgDatos.Rows(x).Cells(27).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * (Double.Parse(rwCliente(0)("porsindicato").ToString()) / 100), 2).ToString("#,###,##0.00")
                                 Else
+                                    'Calcular la comision de acuerdo a lo que se metio en en la pantalla de los clientes-empresa contpaq
                                     dtgDatos.Rows(x).Cells(26).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
                                     dtgDatos.Rows(x).Cells(27).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
 

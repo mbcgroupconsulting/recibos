@@ -37,8 +37,14 @@ Partial Class frmAsignarCliente
         Me.chkSubsidio = New System.Windows.Forms.CheckBox()
         Me.chkCalcularOrdinario = New System.Windows.Forms.CheckBox()
         Me.chkOrdinarioAbsoluto = New System.Windows.Forms.CheckBox()
+        Me.grbSA = New System.Windows.Forms.GroupBox()
+        Me.chkPension = New System.Windows.Forms.CheckBox()
+        Me.chkFonacot = New System.Windows.Forms.CheckBox()
+        Me.chkInfonavit = New System.Windows.Forms.CheckBox()
+        Me.chkNeto = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
         Me.grbSubsidio.SuspendLayout()
+        Me.grbSA.SuspendLayout()
         Me.SuspendLayout()
         '
         'cboClientes
@@ -99,7 +105,7 @@ Partial Class frmAsignarCliente
         'cboSubsidio
         '
         Me.cboSubsidio.FormattingEnabled = True
-        Me.cboSubsidio.Items.AddRange(New Object() {"Subs al Empleo acreditado", "Subsidio al Empleo (sp)"})
+        Me.cboSubsidio.Items.AddRange(New Object() {"Subs al Empleo acreditado", "Subs al Empleo (mes)"})
         Me.cboSubsidio.Location = New System.Drawing.Point(12, 124)
         Me.cboSubsidio.Name = "cboSubsidio"
         Me.cboSubsidio.Size = New System.Drawing.Size(519, 26)
@@ -179,10 +185,64 @@ Partial Class frmAsignarCliente
         Me.chkOrdinarioAbsoluto.Text = "Tomar el sueldo como absoluto"
         Me.chkOrdinarioAbsoluto.UseVisualStyleBackColor = True
         '
+        'grbSA
+        '
+        Me.grbSA.Controls.Add(Me.chkPension)
+        Me.grbSA.Controls.Add(Me.chkFonacot)
+        Me.grbSA.Controls.Add(Me.chkInfonavit)
+        Me.grbSA.Controls.Add(Me.chkNeto)
+        Me.grbSA.Location = New System.Drawing.Point(15, 270)
+        Me.grbSA.Name = "grbSA"
+        Me.grbSA.Size = New System.Drawing.Size(280, 196)
+        Me.grbSA.TabIndex = 49
+        Me.grbSA.TabStop = False
+        Me.grbSA.Text = "Campos para comisión SA"
+        '
+        'chkPension
+        '
+        Me.chkPension.AutoSize = True
+        Me.chkPension.Location = New System.Drawing.Point(12, 109)
+        Me.chkPension.Name = "chkPension"
+        Me.chkPension.Size = New System.Drawing.Size(93, 22)
+        Me.chkPension.TabIndex = 50
+        Me.chkPension.Text = "Pensión A."
+        Me.chkPension.UseVisualStyleBackColor = True
+        '
+        'chkFonacot
+        '
+        Me.chkFonacot.AutoSize = True
+        Me.chkFonacot.Location = New System.Drawing.Point(12, 81)
+        Me.chkFonacot.Name = "chkFonacot"
+        Me.chkFonacot.Size = New System.Drawing.Size(76, 22)
+        Me.chkFonacot.TabIndex = 49
+        Me.chkFonacot.Text = "Fonacot"
+        Me.chkFonacot.UseVisualStyleBackColor = True
+        '
+        'chkInfonavit
+        '
+        Me.chkInfonavit.AutoSize = True
+        Me.chkInfonavit.Location = New System.Drawing.Point(12, 53)
+        Me.chkInfonavit.Name = "chkInfonavit"
+        Me.chkInfonavit.Size = New System.Drawing.Size(83, 22)
+        Me.chkInfonavit.TabIndex = 48
+        Me.chkInfonavit.Text = "Infonavit"
+        Me.chkInfonavit.UseVisualStyleBackColor = True
+        '
+        'chkNeto
+        '
+        Me.chkNeto.AutoSize = True
+        Me.chkNeto.Location = New System.Drawing.Point(12, 25)
+        Me.chkNeto.Name = "chkNeto"
+        Me.chkNeto.Size = New System.Drawing.Size(58, 22)
+        Me.chkNeto.TabIndex = 47
+        Me.chkNeto.Text = "Neto"
+        Me.chkNeto.UseVisualStyleBackColor = True
+        '
         'frmAsignarCliente
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(650, 274)
+        Me.ClientSize = New System.Drawing.Size(650, 505)
+        Me.Controls.Add(Me.grbSA)
         Me.Controls.Add(Me.chkOrdinarioAbsoluto)
         Me.Controls.Add(Me.chkCalcularOrdinario)
         Me.Controls.Add(Me.chkSubsidio)
@@ -201,6 +261,8 @@ Partial Class frmAsignarCliente
         Me.Panel1.ResumeLayout(False)
         Me.grbSubsidio.ResumeLayout(False)
         Me.grbSubsidio.PerformLayout()
+        Me.grbSA.ResumeLayout(False)
+        Me.grbSA.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -219,4 +281,9 @@ Partial Class frmAsignarCliente
     Friend WithEvents chkSubsidio As System.Windows.Forms.CheckBox
     Friend WithEvents chkCalcularOrdinario As System.Windows.Forms.CheckBox
     Friend WithEvents chkOrdinarioAbsoluto As System.Windows.Forms.CheckBox
+    Friend WithEvents grbSA As System.Windows.Forms.GroupBox
+    Friend WithEvents chkPension As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFonacot As System.Windows.Forms.CheckBox
+    Friend WithEvents chkInfonavit As System.Windows.Forms.CheckBox
+    Friend WithEvents chkNeto As System.Windows.Forms.CheckBox
 End Class

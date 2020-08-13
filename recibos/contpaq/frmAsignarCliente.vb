@@ -26,6 +26,12 @@
             chkSubsidio.Checked = IIf(rwCliente(0)("SubsidioReporte") = "1", True, False)
             chkCalcularOrdinario.Checked = IIf(rwCliente(0)("CalcularOrdinario") = "1", True, False)
             chkOrdinarioAbsoluto.Checked = IIf(rwCliente(0)("OrdinarioAbsoluto") = "1", True, False)
+
+            chkNeto.Checked = IIf(rwCliente(0)("CSAneto") = "1", True, False)
+            chkInfonavit.Checked = IIf(rwCliente(0)("CSAinfonavit") = "1", True, False)
+            chkFonacot.Checked = IIf(rwCliente(0)("CSAFonacot") = "1", True, False)
+            chkPension.Checked = IIf(rwCliente(0)("CSApensionA") = "1", True, False)
+
             existe = True
         End If
 
@@ -62,6 +68,11 @@
                 sql &= "," & IIf(chkSubsidio.Checked, 1, 0)
                 sql &= "," & IIf(chkCalcularOrdinario.Checked, 1, 0)
                 sql &= "," & IIf(chkOrdinarioAbsoluto.Checked, 1, 0)
+                'Calculo comision sa
+                sql &= "," & IIf(chkNeto.Checked, 1, 0)
+                sql &= "," & IIf(chkInfonavit.Checked, 1, 0)
+                sql &= "," & IIf(chkFonacot.Checked, 1, 0)
+                sql &= "," & IIf(chkPension.Checked, 1, 0)
 
             Else
                 sql = "EXEC setIntClienteEmpresaContpaqInsertar   0," & gidEmpresa
@@ -79,6 +90,13 @@
                 sql &= "," & IIf(chkSubsidio.Checked, 1, 0)
                 sql &= "," & IIf(chkCalcularOrdinario.Checked, 1, 0)
                 sql &= "," & IIf(chkOrdinarioAbsoluto.Checked, 1, 0)
+
+                'Calculo comision sa
+                sql &= "," & IIf(chkNeto.Checked, 1, 0)
+                sql &= "," & IIf(chkInfonavit.Checked, 1, 0)
+                sql &= "," & IIf(chkFonacot.Checked, 1, 0)
+                sql &= "," & IIf(chkPension.Checked, 1, 0)
+
             End If
 
             If nExecute(sql) = False Then

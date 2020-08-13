@@ -313,6 +313,12 @@
     <Compile Include="contpaq2\frmcontpaqnominas2.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="contpaq3\frmcontpaqnominas3.Designer.vb">
+      <DependentUpon>frmcontpaqnominas3.vb</DependentUpon>
+    </Compile>
+    <Compile Include="contpaq3\frmcontpaqnominas3.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="contpaq\frmAguinaldo.Designer.vb">
       <DependentUpon>frmAguinaldo.vb</DependentUpon>
     </Compile>
@@ -1190,6 +1196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="contpaq2\frmcontpaqnominas2.resx">
       <DependentUpon>frmcontpaqnominas2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="contpaq3\frmcontpaqnominas3.resx">
+      <DependentUpon>frmcontpaqnominas3.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="contpaq\frmAguinaldo.resx">
       <DependentUpon>frmAguinaldo.vb</DependentUpon>
