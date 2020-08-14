@@ -3259,14 +3259,14 @@ Public Class frmcontpaqnominas3
                                     'Neto SA 
                                     If chkSindicato.Checked Then
                                         If chkAguinaldo.Checked Then
-                                            sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(18).Value) * 100).ToString("000000000000000")
+                                            sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(19).Value) * 100).ToString("000000000000000")
                                         Else
-                                            sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * 100).ToString("000000000000000")
+                                            sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * 100).ToString("000000000000000")
                                         End If
 
                                     Else
                                         If chkAguinaldo.Checked Then
-                                            sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(12).Value) * 100).ToString("000000000000000")
+                                            sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(13).Value) * 100).ToString("000000000000000")
                                         Else
                                             sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * 100).ToString("000000000000000")
                                         End If
@@ -3395,7 +3395,7 @@ Public Class frmcontpaqnominas3
                                         For z As Integer = 0 To dtgDatos.Rows.Count - 1
                                             If dtgDatos.Rows(z).Cells(0).Value Then
                                                 If chkSindicato.Checked Then
-                                                    suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(20).Value)
+                                                    suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(21).Value)
                                                 Else
                                                     suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(8).Value)
                                                 End If
@@ -3427,7 +3427,7 @@ Public Class frmcontpaqnominas3
 
                                                 'Neto SA 
                                                 If chkSindicato.Checked Then
-                                                    sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * 100).ToString("000000000000000000")
+                                                    sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * 100).ToString("000000000000000000")
                                                 Else
                                                     sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * 100).ToString("000000000000000000")
                                                 End If
@@ -3636,15 +3636,15 @@ Public Class frmcontpaqnominas3
                                             If dtgDatos.Rows(z).Cells(0).Value Then
                                                 If chkSindicato.Checked Then
                                                     If chkAguinaldo.Checked Then
-                                                        suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(18).Value)
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(19).Value)
                                                     Else
-                                                        suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(20).Value)
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(21).Value)
                                                     End If
 
 
                                                 Else
                                                     If chkAguinaldo.Checked Then
-                                                        suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(12).Value)
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(13).Value)
                                                     Else
                                                         suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(8).Value)
                                                     End If
@@ -3679,14 +3679,14 @@ Public Class frmcontpaqnominas3
                                                 'Neto SA 
                                                 If chkSindicato.Checked Then
                                                     If chkAguinaldo.Checked Then
-                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(18).Value) * 100).ToString("000000000000000000")
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(19).Value) * 100).ToString("000000000000000000")
                                                     Else
-                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * 100).ToString("000000000000000000")
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * 100).ToString("000000000000000000")
                                                     End If
 
                                                 Else
                                                     If chkAguinaldo.Checked Then
-                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(12).Value) * 100).ToString("000000000000000000")
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(13).Value) * 100).ToString("000000000000000000")
                                                     Else
                                                         sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * 100).ToString("000000000000000000")
                                                     End If
@@ -3845,7 +3845,7 @@ Public Class frmcontpaqnominas3
                                         For z As Integer = 0 To dtgDatos.Rows.Count - 1
                                             If dtgDatos.Rows(z).Cells(0).Value Then
                                                 If chkSindicato.Checked Then
-                                                    suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(20).Value)
+                                                    suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(21).Value)
                                                 Else
                                                     suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(8).Value)
                                                 End If
@@ -3904,7 +3904,7 @@ Public Class frmcontpaqnominas3
 
                                                 'Neto SA 
                                                 If chkSindicato.Checked Then
-                                                    sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * 100).ToString("000000000000000")
+                                                    sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * 100).ToString("000000000000000")
                                                 Else
                                                     sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * 100).ToString("000000000000000")
                                                 End If
@@ -4029,14 +4029,14 @@ Public Class frmcontpaqnominas3
                                             If dtgDatos.Rows(z).Cells(0).Value Then
                                                 If chkSindicato.Checked Then
                                                     If chkAguinaldo.Checked Then
-                                                        suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(18).Value)
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(19).Value)
                                                     Else
-                                                        suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(20).Value)
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(21).Value)
                                                     End If
 
                                                 Else
                                                     If chkAguinaldo.Checked Then
-                                                        suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(12).Value)
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(13).Value)
                                                     Else
                                                         suma = suma + Double.Parse(dtgDatos.Rows(z).Cells(8).Value)
                                                     End If
@@ -4103,15 +4103,15 @@ Public Class frmcontpaqnominas3
                                                 'Neto SA 
                                                 If chkSindicato.Checked Then
                                                     If chkAguinaldo.Checked Then
-                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(18).Value) * 100).ToString("000000000000000")
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(19).Value) * 100).ToString("000000000000000")
                                                     Else
-                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * 100).ToString("000000000000000")
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * 100).ToString("000000000000000")
                                                     End If
 
 
                                                 Else
                                                     If chkAguinaldo.Checked Then
-                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(12).Value) * 100).ToString("000000000000000")
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(13).Value) * 100).ToString("000000000000000")
                                                     Else
                                                         sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * 100).ToString("000000000000000")
                                                     End If
@@ -4247,8 +4247,8 @@ Public Class frmcontpaqnominas3
 
                                                 'Neto SA 
                                                 If chkSindicato.Checked Then
-                                                    sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * 100).ToString("00000000000000000")
-                                                    suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(20).Value)
+                                                    sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * 100).ToString("00000000000000000")
+                                                    suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(21).Value)
                                                 Else
                                                     sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * 100).ToString("00000000000000000")
                                                     suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
@@ -4460,17 +4460,17 @@ Public Class frmcontpaqnominas3
                                                 'Neto SA 
                                                 If chkSindicato.Checked Then
                                                     If chkAguinaldo.Checked Then
-                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(18).Value) * 100).ToString("00000000000000000")
-                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(18).Value)
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(19).Value) * 100).ToString("00000000000000000")
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(19).Value)
                                                     Else
-                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * 100).ToString("00000000000000000")
-                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(20).Value)
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * 100).ToString("00000000000000000")
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(21).Value)
                                                     End If
 
                                                 Else
                                                     If chkAguinaldo.Checked Then
-                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(12).Value) * 100).ToString("00000000000000000")
-                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(12).Value)
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(13).Value) * 100).ToString("00000000000000000")
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(13).Value)
                                                     Else
                                                         sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * 100).ToString("00000000000000000")
                                                         suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
@@ -4665,7 +4665,7 @@ Public Class frmcontpaqnominas3
 
                                             If dtgDatos.Rows(x).Cells(0).Value Then
                                                 sRenglon = rwDatos(0)("cuentacargo").ToString()
-                                                sRenglon &= "    " '5 espacios
+                                                sRenglon &= "     " '5 espacios
                                                 'sRenglon &= "04"
                                                 sql = "select * from EmpleadosC where iIdEmpleadoC = " & dtgDatos.Rows(x).Cells(3).Value
                                                 Dim rwDatosCuenta As DataRow() = nConsulta(sql)
@@ -4708,8 +4708,8 @@ Public Class frmcontpaqnominas3
 
                                                 'Neto SA 
                                                 If chkSindicato.Checked Then
-                                                    sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * 100).ToString("000000000000000")
-                                                    suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(20).Value)
+                                                    sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * 100).ToString("000000000000000")
+                                                    suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(21).Value)
                                                 Else
                                                     sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * 100).ToString("000000000000000")
                                                     suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
@@ -4885,17 +4885,17 @@ Public Class frmcontpaqnominas3
                                                 'Neto SA 
                                                 If chkSindicato.Checked Then
                                                     If chkAguinaldo.Checked Then
-                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(18).Value) * 100).ToString("000000000000000000")
-                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(18).Value)
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(19).Value) * 100).ToString("000000000000000000")
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(19).Value)
                                                     Else
-                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(20).Value) * 100).ToString("000000000000000000")
-                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(20).Value)
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * 100).ToString("000000000000000000")
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(21).Value)
                                                     End If
 
                                                 Else
                                                     If chkAguinaldo.Checked Then
-                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(12).Value) * 100).ToString("000000000000000000")
-                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(12).Value)
+                                                        sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(13).Value) * 100).ToString("000000000000000000")
+                                                        suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(13).Value)
                                                     Else
                                                         sRenglon &= (Double.Parse(dtgDatos.Rows(x).Cells(8).Value) * 100).ToString("000000000000000000")
                                                         suma = suma + Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
