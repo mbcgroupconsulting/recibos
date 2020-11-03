@@ -321,6 +321,14 @@ Public Class frmcontpaqnominas3
                 End If
 
 
+                If dt.Columns.IndexOf("Seguro de vivienda Infonavit") <> -1 Then
+                    If (Not (row("Seguro de vivienda Infonavit") Is DBNull.Value)) Then
+                        infonavit = infonavit + IIf(Trim(row("Seguro de vivienda Infonavit")) = "", "0.00", Trim(row("Seguro de vivienda Infonavit")))
+                    End If
+                End If
+
+
+
 
                 fila.Item("infonavit") = infonavit
 

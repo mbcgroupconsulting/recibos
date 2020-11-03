@@ -103,8 +103,8 @@ Public Class frmFiniquito
                     SQL = "select * from VacacionesLey where Numanios=" & NudAniosCompletos.Value
                     Dim rwVacacionesLey As DataRow() = nConsulta(SQL)
                     If rwVacacionesLey Is Nothing = False Then
-                        NudVacacionesContrato.Value = rwVacacionesLey(0)("Numdias")
-                        NudVacacionesLey.Value = rwVacacionesLey(0)("Numdias")
+                        NudVacacionesContrato.Value = rwVacacionesLey(0)("Dias")
+                        NudVacacionesLey.Value = rwVacacionesLey(0)("Dias")
                     Else
                         NudVacacionesContrato.Value = 6
                         NudVacacionesLey.Value = 6
@@ -123,6 +123,9 @@ Public Class frmFiniquito
         End Try
 
     End Sub
+
+
+
 
     Function DiasAguinaldo(idempleado As String, idempresa As String) As Integer
 
@@ -297,6 +300,8 @@ Public Class frmFiniquito
                 End If
                 ' MsgBox("Ya cumplio")
                 Cumplidos = True
+            Else
+                Cumplidos = True
             End If
         End If
 
@@ -316,6 +321,11 @@ Public Class frmFiniquito
         End If
         'SACAMOS LA CANTIDAD DE DIAS EXACTOS
         Dim EdadDia As Integer = (DiaActual - DiaNacimiento)
+        If EdadDia < 0 Then
+            EdadMes = EdadMes - 1
+            Dim dias As Integer = (DateDiff("y", Date.Parse(DiaNacimiento & "/" & MesActual - 1 & "/" & AñoActual), Date.Parse(DiaActual & "/" & MesActual & "/" & AñoActual))) + 1
+            EdadDia = dias
+        End If
 
         'RETORNAMOS LOS VALORES EN UNA CADENA STRING
         Return (EdadAños)
@@ -325,14 +335,45 @@ Public Class frmFiniquito
 
 
     Private Sub cmdCalcular_Click(sender As System.Object, e As System.EventArgs) Handles cmdCalcular.Click
-        'Aguinaldo
-        txtProporAguinaldoS.Text = Math.Round(((Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDiasAguinaldo.Value)) / 365) * Double.Parse(NudAguinaldoLaborado.Value), 2)
-        txtProporVacacionesS.Text = Math.Round(((Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value))) / 365) * Double.Parse(NudAguinaldoLaborado.Value), 2)
-        txtProporPrimaS.Text = Math.Round((((Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value))) / 365) * Double.Parse(NudAguinaldoLaborado.Value)) * (NudPorPrima.Value / 100), 2)
-        txtSalarioDevengadoS.Text = Math.Round((Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDevengados.Value)) + (Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDiasVacPendientes.Value)), 2)
+        Try
+            Dim FPRIMAV As Double
+            Dim FAGUINALDO As Double
+            Dim SDI As Double
+
+            'Aguinaldo
+            txtProporAguinaldoS.Text = Math.Round(Math.Round(((Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDiasAguinaldo.Value)) / 365), 2) * Double.Parse(NudAguinaldoLaborado.Value), 2)
+            txtProporVacacionesS.Text = Math.Round(Math.Round(((Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value))) / 365), 2) * Double.Parse(NudDiasVacaciones.Value), 2)
+            txtProporPrimaS.Text = Math.Round(Math.Round(((Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value))) / 365), 2) * Double.Parse(NudDiasVacaciones.Value) * (Double.Parse(NudPorPrima.Value) / 100), 2)
+            txtSalarioDevengadoS.Text = Math.Round(Math.Round((Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDevengados.Value)) + (Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDiasVacPendientes.Value)), 2), 2)
+            'verificcar si estan activadas las otras opciones
+            If chkPrimaAntiguedad.Checked Then
+                txtPrimaAntiguedadS.Text = Math.Round(((NudAniosCompletos.Value + (NudDiasVacaciones.Value / 365)) * 12) * Double.Parse(txtCuotaDiaria.Text), 2)
+            End If
+            FPRIMAV = Math.Round(Math.Round(Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value)) * Double.Parse(NudPorPrima.Value / 100), 2) / 365, 2)
+            FAGUINALDO = Math.Round((Double.Parse(txtCuotaDiaria.Text) * NudDiasAguinaldo.Value) / 365, 2)
+            SDI = Double.Parse(txtCuotaDiaria.Text) + FPRIMAV + FAGUINALDO
+
+            If chkConstitucional.Checked Then
+                'se calcula primero el salario base de cotizacion
+
+                If Double.Parse(IIf(txtIndemnizacionSugerida.Text = "", "0.00", txtIndemnizacionSugerida.Text)) > 0 Then
+                    txtIndeConstitucionalS.Text = Math.Round(SDI * Double.Parse(txtIndemnizacionSugerida.Text), 2)
+                Else
+                    txtIndeConstitucionalS.Text = Math.Round(SDI * 90, 2)
+                End If
+            End If
+
+            If chkServicio.Checked Then
+                txtIndeServicioS.Text = Math.Round(SDI * 20 * NudAniosCompletos.Value, 2)
+            End If
 
 
-        calcular()
+            calcular()
+        Catch ex As Exception
+
+        End Try
+
+        
 
     End Sub
 
