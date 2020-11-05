@@ -33,7 +33,8 @@ Public Class frmFiniquito
             If rwFiniquitoC Is Nothing = False Then
                 'Hay un finiquito previo cargamos los datos
                 iIdFiniquitoC = rwFiniquitoC(0)("iIdFiniquitoC")
-
+                gIdEmpleado = rwFiniquitoC(0)("fkiIdEmpleadoC")
+                gIdPeriodo = rwFiniquitoC(0)("fkiIdPeriodo")
                 txtTrabajador.Text = rwFiniquitoC(0)("cNombreLargo")
                 txtContratacion.Text = rwFiniquitoC(0)("TipoContratacion")
                 dtpIngreso.Value = rwFiniquitoC(0)("FechaAlta")
@@ -55,8 +56,8 @@ Public Class frmFiniquito
 
                 txtSalario.Text = rwFiniquitoC(0)("SalarioPatrona")
 
-                txtIndeServicioP.Text = rwFiniquitoC(0)("IndeAniosP")
-                txtIndeServicioS.Text = rwFiniquitoC(0)("IndeAniosS")
+                txtIndeServicioP.Text = rwFiniquitoC(0)("IndeAniosSP")
+                txtIndeServicioS.Text = rwFiniquitoC(0)("IndeAniosSS")
                 txtIndeConstitucionalP.Text = rwFiniquitoC(0)("IndeConstitucionalP")
                 txtIndeConstitucionalS.Text = rwFiniquitoC(0)("IndeConstitucionalS")
                 txtPrimaAntiguedadP.Text = rwFiniquitoC(0)("PrimaAntigueP")
@@ -73,6 +74,12 @@ Public Class frmFiniquito
                 txtSalarioDevengadoS.Text = rwFiniquitoC(0)("SalarioDevengadoS")
                 txtCreditoInfonavitP.Text = rwFiniquitoC(0)("CreditoInfonavitP")
                 txtCreditoInfonavitS.Text = rwFiniquitoC(0)("CreditoInfonavitS")
+                txtPensionP.Text = rwFiniquitoC(0)("PensionAlimenticiaP")
+                txtPensionS.Text = rwFiniquitoC(0)("PensionAlimenticiaS")
+                txtFonacotP.Text = rwFiniquitoC(0)("FonacotP")
+                txtFonacotS.Text = rwFiniquitoC(0)("FonacotS")
+                txtIsrP.Text = rwFiniquitoC(0)("ISR")
+
                 'txtTotalPatrona.Text = rwFiniquitoC(0)("PrimaAntugeS")
                 'txtTotalSindicato.Text = rwFiniquitoC(0)("PrimaAntugeS")
                 'txtPartePatrona.Text = rwFiniquitoC(0)("PrimaAntugeS")
@@ -83,6 +90,13 @@ Public Class frmFiniquito
                 existe = True
             Else
                 'Subir Datos empleados
+                Dim dt As DataTable
+                Dim infonavit As Double = 0
+                Dim fonacot As Double = 0
+
+                Dim ISR As Double = 0
+
+
                 SQL = "select * from EmpleadosC where iIdEmpleadoC=" & gIdEmpleado
 
                 Dim rwEmpleado As DataRow() = nConsulta(SQL)
@@ -103,14 +117,135 @@ Public Class frmFiniquito
                     SQL = "select * from VacacionesLey where Numanios=" & NudAniosCompletos.Value
                     Dim rwVacacionesLey As DataRow() = nConsulta(SQL)
                     If rwVacacionesLey Is Nothing = False Then
-                        NudVacacionesContrato.Value = rwVacacionesLey(0)("Numdias")
-                        NudVacacionesLey.Value = rwVacacionesLey(0)("Numdias")
+                        NudVacacionesContrato.Value = rwVacacionesLey(0)("Dias")
+                        NudVacacionesLey.Value = rwVacacionesLey(0)("Dias")
                     Else
                         NudVacacionesContrato.Value = 6
                         NudVacacionesLey.Value = 6
                     End If
 
                 End If
+
+                'buscar los datos del finiquito, para esto hay que ver si ya hay datos en los movimientos
+
+                SQL = "SELECT * from  movimientos inner join concepto_pago on fkiIdConceptoPago = iIdConceptoPago"
+                SQL &= " where fkiIdEmpleado =" & gIdEmpleado & " and fkiIdPeriodo=" & gIdPeriodo
+                SQL &= " order by fImporteTotal"
+
+                Dim rwConceptos As DataRow() = nConsulta(SQL)
+                infonavit = 0
+                fonacot =0
+                ISR = 0
+
+                If rwConceptos Is Nothing = False Then
+                    dt = rwConceptos.CopyToDataTable()
+                    For Each row As DataRow In dt.Rows
+
+                        'If dt.Columns.IndexOf("Préstamo FONACOT") <> -1 Then
+                        '    If (Not (row("Préstamo FONACOT") Is DBNull.Value)) Then
+                        '        fonacot = IIf(Trim(row("Préstamo FONACOT")) = "", "0.00", Trim(row("Préstamo FONACOT")))
+                        '    End If
+                        'End If
+
+                        If Trim(row("cDescripcion")) = "Separación Unica" Then
+                            txtIndeServicioP.Text = Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+                        If Trim(row("cDescripcion")) = "Indemnización" Then
+                            txtIndeConstitucionalP.Text = Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+                        If Trim(row("cDescripcion")) = "Prima de antiguedad" Then
+                            txtPrimaAntiguedadP.Text = Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+                        If Trim(row("cDescripcion")) = "Sueldo" Then
+                            txtSalarioDevengadoP.Text = Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+
+
+
+                        If Trim(row("cDescripcion")) = "Pensión Alimenticia" Then
+                            txtPensionP.Text = Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+                        
+
+                        If Trim(row("cDescripcion")) = "Préstamo Infonavit (vsm)" Then
+                            infonavit = infonavit + Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+                        
+
+
+
+                        If Trim(row("cDescripcion")) = "Préstamo Infonavit (cf)" Then
+                            infonavit = infonavit + Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+                        If Trim(row("cDescripcion")) = "Diferencia Infonavit" Then
+                            infonavit = infonavit + Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+                        If Trim(row("cDescripcion")) = "Seguro de vivienda Infonavit" Then
+                            infonavit = infonavit + Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+
+                        If Trim(row("cDescripcion")) = "Préstamo FONACOT" Then
+                            txtFonacotP.Text = Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+                        If Trim(row("cDescripcion")) = "Vacaciones a tiempo" Then
+                            txtProporVacacionesP.Text = Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+                        If Trim(row("cDescripcion")) = "Prima de vacaciones reportada $" Then
+                            txtProporPrimaP.Text = Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+                       
+
+
+
+                        'Agregamos aguinaldo
+
+                        If Trim(row("cDescripcion")) = "Aguinaldo" Then
+                            txtProporAguinaldoP.Text = Double.Parse(row("fImporteTotal").ToString)
+                        End If
+
+
+                        'suma resta deducciones
+                        If Trim(row("cDescripcion")) = "Subs al Empleo acreditado" Then
+                            ISR = ISR + Double.Parse(row("fImporteTotal").ToString)
+                        End If
+                        If Trim(row("cDescripcion")) = "Subs al Empleo (mes)" Then
+                            'ISR = ISR + Double.Parse(row("fImporteTotal").ToString)
+                        End If
+                        If Trim(row("cDescripcion")) = "I.S.R. antes de Subs al Empleo" Then
+                            ISR = ISR + Double.Parse(row("fImporteTotal").ToString)
+                        End If
+                        If Trim(row("cDescripcion")) = "I.M.S.S." Then
+                            ISR = ISR + Double.Parse(row("fImporteTotal").ToString)
+                        End If
+                        If Trim(row("cDescripcion")) = "Ajuste al neto" Then
+                            ISR = ISR + Double.Parse(row("fImporteTotal").ToString)
+                        End If
+                        If Trim(row("cDescripcion")) = "I.S.R. finiquito" Then
+                            ISR = ISR + Double.Parse(row("fImporteTotal").ToString)
+                        End If
+                        
+
+                    Next
+
+                    txtCreditoInfonavitP.Text = infonavit
+                    txtIsrP.Text = ISR
+
+                Else
+                    MessageBox.Show("No hay datos calculados en el trabajador en contpaq, si continua de esta manera solo se calculara el finiquito real", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+
 
                 lblleyenda.Text = ""
 
@@ -123,6 +258,9 @@ Public Class frmFiniquito
         End Try
 
     End Sub
+
+
+
 
     Function DiasAguinaldo(idempleado As String, idempresa As String) As Integer
 
@@ -297,6 +435,8 @@ Public Class frmFiniquito
                 End If
                 ' MsgBox("Ya cumplio")
                 Cumplidos = True
+            Else
+                Cumplidos = True
             End If
         End If
 
@@ -316,6 +456,11 @@ Public Class frmFiniquito
         End If
         'SACAMOS LA CANTIDAD DE DIAS EXACTOS
         Dim EdadDia As Integer = (DiaActual - DiaNacimiento)
+        If EdadDia < 0 Then
+            EdadMes = EdadMes - 1
+            Dim dias As Integer = (DateDiff("y", Date.Parse(DiaNacimiento & "/" & MesActual - 1 & "/" & AñoActual), Date.Parse(DiaActual & "/" & MesActual & "/" & AñoActual))) + 1
+            EdadDia = dias
+        End If
 
         'RETORNAMOS LOS VALORES EN UNA CADENA STRING
         Return (EdadAños)
@@ -325,20 +470,51 @@ Public Class frmFiniquito
 
 
     Private Sub cmdCalcular_Click(sender As System.Object, e As System.EventArgs) Handles cmdCalcular.Click
-        'Aguinaldo
-        txtProporAguinaldoS.Text = Math.Round(((Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDiasAguinaldo.Value)) / 365) * Double.Parse(NudAguinaldoLaborado.Value), 2)
-        txtProporVacacionesS.Text = Math.Round(((Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value))) / 365) * Double.Parse(NudAguinaldoLaborado.Value), 2)
-        txtProporPrimaS.Text = Math.Round((((Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value))) / 365) * Double.Parse(NudAguinaldoLaborado.Value)) * (NudPorPrima.Value / 100), 2)
-        txtSalarioDevengadoS.Text = Math.Round((Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDevengados.Value)) + (Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDiasVacPendientes.Value)), 2)
+        Try
+            Dim FPRIMAV As Double
+            Dim FAGUINALDO As Double
+            Dim SDI As Double
+
+            'Aguinaldo
+            txtProporAguinaldoS.Text = Math.Round(Math.Round(((Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDiasAguinaldo.Value)) / 365), 2) * Double.Parse(NudAguinaldoLaborado.Value), 2)
+            txtProporVacacionesS.Text = Math.Round(Math.Round(((Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value))) / 365), 2) * Double.Parse(NudDiasVacaciones.Value), 2)
+            txtProporPrimaS.Text = Math.Round(Math.Round(((Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value))) / 365), 2) * Double.Parse(NudDiasVacaciones.Value) * (Double.Parse(NudPorPrima.Value) / 100), 2)
+            txtSalarioDevengadoS.Text = Math.Round(Math.Round((Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDevengados.Value)) + (Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDiasVacPendientes.Value)), 2), 2)
+            'verificcar si estan activadas las otras opciones
+            If chkPrimaAntiguedad.Checked Then
+                txtPrimaAntiguedadS.Text = Math.Round(((NudAniosCompletos.Value + (NudDiasVacaciones.Value / 365)) * 12) * Double.Parse(txtCuotaDiaria.Text), 2)
+            End If
+            FPRIMAV = Math.Round(Math.Round(Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value)) * Double.Parse(NudPorPrima.Value / 100), 2) / 365, 2)
+            FAGUINALDO = Math.Round((Double.Parse(txtCuotaDiaria.Text) * NudDiasAguinaldo.Value) / 365, 2)
+            SDI = Double.Parse(txtCuotaDiaria.Text) + FPRIMAV + FAGUINALDO
+
+            If chkConstitucional.Checked Then
+                'se calcula primero el salario base de cotizacion
+
+                If Double.Parse(IIf(txtIndemnizacionSugerida.Text = "", "0.00", txtIndemnizacionSugerida.Text)) > 0 Then
+                    txtIndeConstitucionalS.Text = Math.Round(SDI * Double.Parse(txtIndemnizacionSugerida.Text), 2)
+                Else
+                    txtIndeConstitucionalS.Text = Math.Round(SDI * 90, 2)
+                End If
+            End If
+
+            If chkServicio.Checked Then
+                txtIndeServicioS.Text = Math.Round(SDI * 20 * NudAniosCompletos.Value, 2)
+            End If
 
 
-        calcular()
+            calcular()
+        Catch ex As Exception
+
+        End Try
+
+        
 
     End Sub
 
     Private Sub calcular()
-        Dim indeserviciop, indeconstitucionalp, primaantiguedadp, proporaguinaldop, proporvacacionesp, proporprimap, salariodevengadop, creditoinfonavitp
-        Dim indeservicios, indeconstitucionals, primaantiguedads, proporaguinaldos, proporvacacioness, proporprimas, salariodevengados, creditoinfonavits
+        Dim indeserviciop, indeconstitucionalp, primaantiguedadp, proporaguinaldop, proporvacacionesp, proporprimap, salariodevengadop, creditoinfonavitp, pensionp, fonacotp, isrp As Double
+        Dim indeservicios, indeconstitucionals, primaantiguedads, proporaguinaldos, proporvacacioness, proporprimas, salariodevengados, creditoinfonavits, pensions, fonacots As Double
 
         indeserviciop = Double.Parse(IIf(txtIndeServicioP.Text = "", "0", txtIndeServicioP.Text))
         indeconstitucionalp = Double.Parse(IIf(txtIndeConstitucionalP.Text = "", "0", txtIndeConstitucionalP.Text))
@@ -348,6 +524,9 @@ Public Class frmFiniquito
         proporprimap = Double.Parse(IIf(txtProporPrimaP.Text = "", "0", txtProporPrimaP.Text))
         salariodevengadop = Double.Parse(IIf(txtSalarioDevengadoP.Text = "", "0", txtSalarioDevengadoP.Text))
         creditoinfonavitp = Double.Parse(IIf(txtCreditoInfonavitP.Text = "", "0", txtCreditoInfonavitP.Text))
+        pensionp = Double.Parse(IIf(txtPensionP.Text = "", "0", txtPensionP.Text))
+        fonacotp = Double.Parse(IIf(txtFonacotP.Text = "", "0", txtFonacotP.Text))
+        isrp = Double.Parse(IIf(txtIsrP.Text = "", "0", txtIsrP.Text))
 
         indeservicios = Double.Parse(IIf(txtIndeServicioS.Text = "", "0", txtIndeServicioS.Text))
         indeconstitucionals = Double.Parse(IIf(txtIndeConstitucionalS.Text = "", "0", txtIndeConstitucionalS.Text))
@@ -357,10 +536,11 @@ Public Class frmFiniquito
         proporprimas = Double.Parse(IIf(txtProporPrimaS.Text = "", "0", txtProporPrimaS.Text))
         salariodevengados = Double.Parse(IIf(txtSalarioDevengadoS.Text = "", "0", txtSalarioDevengadoS.Text))
         creditoinfonavits = Double.Parse(IIf(txtCreditoInfonavitS.Text = "", "0", txtCreditoInfonavitS.Text))
+        pensions = Double.Parse(IIf(txtPensionS.Text = "", "0", txtPensionS.Text))
+        fonacots = Double.Parse(IIf(txtFonacotS.Text = "", "0", txtFonacotS.Text))
 
-
-        txtTotalPatrona.Text = Math.Round(indeserviciop + indeconstitucionalp + primaantiguedadp + proporaguinaldop + proporvacacionesp + proporprimap + salariodevengadop + creditoinfonavitp, 2)
-        txtTotalSindicato.Text = Math.Round(indeservicios + indeconstitucionals + primaantiguedads + proporaguinaldos + proporvacacioness + proporprimas + salariodevengados + creditoinfonavits, 2)
+        txtTotalPatrona.Text = Math.Round(indeserviciop + indeconstitucionalp + primaantiguedadp + proporaguinaldop + proporvacacionesp + proporprimap + salariodevengadop + creditoinfonavitp + pensionp + fonacotp - isrp, 2)
+        txtTotalSindicato.Text = Math.Round(indeservicios + indeconstitucionals + primaantiguedads + proporaguinaldos + proporvacacioness + proporprimas + salariodevengados + creditoinfonavits + pensions + fonacots, 2)
 
         txtPartePatrona.Text = txtTotalPatrona.Text
         txtParteSindicato.Text = Math.Round(Double.Parse(txtTotalSindicato.Text) - Double.Parse(txtTotalPatrona.Text), 2)
@@ -413,8 +593,17 @@ Public Class frmFiniquito
                 SQL &= "," & IIf(txtSalarioDevengadoS.Text = "", "0", txtSalarioDevengadoS.Text)
                 SQL &= "," & IIf(txtCreditoInfonavitP.Text = "", "0", txtCreditoInfonavitP.Text)
                 SQL &= "," & IIf(txtCreditoInfonavitS.Text = "", "0", txtCreditoInfonavitS.Text)
+                SQL &= "," & IIf(txtPensionP.Text = "", "0", txtPensionP.Text)
+                SQL &= "," & IIf(txtPensionS.Text = "", "0", txtPensionS.Text)
+                SQL &= "," & IIf(txtFonacotP.Text = "", "0", txtFonacotP.Text)
+                SQL &= "," & IIf(txtFonacotS.Text = "", "0", txtFonacotS.Text)
+                SQL &= "," & IIf(txtIsrP.Text = "", "0", txtIsrP.Text)
+                SQL &= "," & IIf(txtTotalPatrona.Text = "", "0", txtTotalPatrona.Text)
+                SQL &= "," & IIf(txtTotalSindicato.Text = "", "0", txtTotalSindicato.Text)
+                SQL &= "," & IIf(txtPartePatrona.Text = "", "0", txtPartePatrona.Text)
+                SQL &= "," & IIf(txtParteSindicato.Text = "", "0", txtParteSindicato.Text)
                 SQL &= ",1"
-                SQL &= ",1"
+                'SQL &= ",1"
             Else
                 SQL = "EXEC setFiniquitoCInsertar   0"
                 SQL &= "," & gIdEmpleado
@@ -454,8 +643,17 @@ Public Class frmFiniquito
                 SQL &= "," & IIf(txtSalarioDevengadoS.Text = "", "0", txtSalarioDevengadoS.Text)
                 SQL &= "," & IIf(txtCreditoInfonavitP.Text = "", "0", txtCreditoInfonavitP.Text)
                 SQL &= "," & IIf(txtCreditoInfonavitS.Text = "", "0", txtCreditoInfonavitS.Text)
+                SQL &= "," & IIf(txtPensionP.Text = "", "0", txtPensionP.Text)
+                SQL &= "," & IIf(txtPensionS.Text = "", "0", txtPensionS.Text)
+                SQL &= "," & IIf(txtFonacotP.Text = "", "0", txtFonacotP.Text)
+                SQL &= "," & IIf(txtFonacotS.Text = "", "0", txtFonacotS.Text)
+                SQL &= "," & IIf(txtIsrP.Text = "", "0", txtIsrP.Text)
+                SQL &= "," & IIf(txtTotalPatrona.Text = "", "0", txtTotalPatrona.Text)
+                SQL &= "," & IIf(txtTotalSindicato.Text = "", "0", txtTotalSindicato.Text)
+                SQL &= "," & IIf(txtPartePatrona.Text = "", "0", txtPartePatrona.Text)
+                SQL &= "," & IIf(txtParteSindicato.Text = "", "0", txtParteSindicato.Text)
                 SQL &= ",1"
-                SQL &= ",1"
+                'SQL &= ",1"
 
             End If
 
@@ -474,15 +672,30 @@ Public Class frmFiniquito
     Private Sub cmdBorrar_Click(sender As System.Object, e As System.EventArgs) Handles cmdBorrar.Click
 
         If existe Then
-            Dim resultado As Integer = MessageBox.Show("¿Esta seguro de borrar este finiquito?", "Pregunta", MessageBoxButtons.YesNo)
+            'Buscamos su la nomina ya esta guardada como final
+            SQL = "select * "
+            SQL &= " from NominaSindicato"
+            SQL &= " where NominaSindicato.fkiIdEmpresa=" & gIdEmpresa & " and fkiIdPeriodo=" & gIdPeriodo & " and iEstatusNomina=1 and NominaSindicato.iEstatus=1"
 
-            If resultado = DialogResult.Yes Then
-                SQL = " DELETE FROM  FiniquitoC "
-                SQL &= "WHERE iIdFiniquitoC=" & iIdFiniquitoC
-                If nExecute(SQL) = False Then
-                    MessageBox.Show("Hubo un error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Dim rwfinal As DataRow() = nConsulta(SQL)
+            If rwfinal Is Nothing = False Then
+                MessageBox.Show("La nomina ya esta marcada como final, no  se puede borrar el finiquito", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Else
+                Dim resultado As Integer = MessageBox.Show("¿Esta seguro de borrar este finiquito?", "Pregunta", MessageBoxButtons.YesNo)
+
+                If resultado = DialogResult.Yes Then
+                    SQL = " DELETE FROM  FiniquitoC "
+                    SQL &= "WHERE iIdFiniquitoC=" & iIdFiniquitoC
+                    If nExecute(SQL) = False Then
+                        MessageBox.Show("Hubo un error al eliminar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    End If
                 End If
+
             End If
+
+
+
+            
         End If
         limpiar()
         CargarFiniquito()
@@ -507,7 +720,8 @@ Public Class frmFiniquito
         txtSalarioDevengadoS.Text = ""
         txtCreditoInfonavitP.Text = ""
         txtCreditoInfonavitS.Text = ""
-        
+        txtPensionP.Text = ""
+        txtPensionS.Text = ""
         calcular()
 
     End Sub
@@ -941,6 +1155,118 @@ Public Class frmFiniquito
 
         End Try
 
+
+    End Sub
+
+    Private Sub txtIndeServicioP_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtIndeServicioP.TextChanged
+
+    End Sub
+
+    Private Sub txtIndeServicioS_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtIndeServicioS.TextChanged
+
+    End Sub
+
+    Private Sub txtIndeConstitucionalP_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtIndeConstitucionalP.TextChanged
+
+    End Sub
+
+    Private Sub txtIndeConstitucionalS_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtIndeConstitucionalS.TextChanged
+
+    End Sub
+
+    Private Sub txtPrimaAntiguedadP_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtPrimaAntiguedadP.TextChanged
+
+    End Sub
+
+    Private Sub txtPrimaAntiguedadS_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtPrimaAntiguedadS.TextChanged
+
+    End Sub
+
+    Private Sub txtProporAguinaldoP_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtProporAguinaldoP.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtProporAguinaldoP_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtProporAguinaldoP.TextChanged
+
+    End Sub
+
+    Private Sub txtProporAguinaldoS_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtProporAguinaldoS.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtProporAguinaldoS_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtProporAguinaldoS.TextChanged
+
+    End Sub
+
+    Private Sub txtProporVacacionesP_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtProporVacacionesP.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtProporVacacionesP_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtProporVacacionesP.TextChanged
+
+    End Sub
+
+    Private Sub txtProporVacacionesS_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtProporVacacionesS.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtProporVacacionesS_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtProporVacacionesS.TextChanged
+
+    End Sub
+
+    Private Sub txtProporPrimaP_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtProporPrimaP.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtProporPrimaP_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtProporPrimaP.TextChanged
+
+    End Sub
+
+    Private Sub txtProporPrimaS_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtProporPrimaS.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtProporPrimaS_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtProporPrimaS.TextChanged
+
+    End Sub
+
+    Private Sub txtSalarioDevengadoP_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtSalarioDevengadoP.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtSalarioDevengadoP_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtSalarioDevengadoP.TextChanged
+
+    End Sub
+
+    Private Sub txtSalarioDevengadoS_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtSalarioDevengadoS.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtSalarioDevengadoS_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtSalarioDevengadoS.TextChanged
+
+    End Sub
+
+    Private Sub txtCreditoInfonavitP_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtCreditoInfonavitP.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtCreditoInfonavitP_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCreditoInfonavitP.TextChanged
+
+    End Sub
+
+    Private Sub txtCreditoInfonavitS_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtCreditoInfonavitS.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtCreditoInfonavitS_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCreditoInfonavitS.TextChanged
+
+    End Sub
+
+    Private Sub txtPensionP_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtPensionP.KeyPress
+        SoloNumero.NumeroDec(e, sender)
+    End Sub
+
+    Private Sub txtPensionP_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtPensionP.TextChanged
 
     End Sub
 End Class

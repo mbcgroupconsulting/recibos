@@ -257,7 +257,7 @@
                             If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
                                 idperiodo = Forma.gIPeriodo
                                 nombre = Forma.gNombrePeriodo
-                                Dim Forma2 As New frmcontpaqnominas2
+                                Dim Forma2 As New frmcontpaqnominas3
                                 Forma2.gIdEmpresa = id
                                 Forma2.gIdTipoPeriodo = idperiodo
                                 Forma2.gNombrePeriodo = nombre

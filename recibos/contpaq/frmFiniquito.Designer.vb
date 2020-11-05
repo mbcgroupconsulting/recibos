@@ -58,6 +58,9 @@ Partial Class frmFiniquito
         Me.Label21 = New System.Windows.Forms.Label()
         Me.nudComisionCliente = New System.Windows.Forms.NumericUpDown()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtPensionS = New System.Windows.Forms.TextBox()
+        Me.txtPensionP = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
         Me.cmdExccel = New System.Windows.Forms.Button()
         Me.cmdBorrar = New System.Windows.Forms.Button()
         Me.cmdcancelar = New System.Windows.Forms.Button()
@@ -107,6 +110,11 @@ Partial Class frmFiniquito
         Me.chkServicio = New System.Windows.Forms.CheckBox()
         Me.chkConstitucional = New System.Windows.Forms.CheckBox()
         Me.chkPrimaAntiguedad = New System.Windows.Forms.CheckBox()
+        Me.txtFonacotS = New System.Windows.Forms.TextBox()
+        Me.txtFonacotP = New System.Windows.Forms.TextBox()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.txtIsrP = New System.Windows.Forms.TextBox()
+        Me.Label38 = New System.Windows.Forms.Label()
         CType(Me.NudDiasAguinaldo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudSubsidio, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudDiasVacPendientes, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -417,6 +425,14 @@ Partial Class frmFiniquito
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.txtIsrP)
+        Me.Panel1.Controls.Add(Me.Label38)
+        Me.Panel1.Controls.Add(Me.txtFonacotS)
+        Me.Panel1.Controls.Add(Me.txtFonacotP)
+        Me.Panel1.Controls.Add(Me.Label37)
+        Me.Panel1.Controls.Add(Me.txtPensionS)
+        Me.Panel1.Controls.Add(Me.txtPensionP)
+        Me.Panel1.Controls.Add(Me.Label27)
         Me.Panel1.Controls.Add(Me.cmdExccel)
         Me.Panel1.Controls.Add(Me.cmdBorrar)
         Me.Panel1.Controls.Add(Me.cmdcancelar)
@@ -456,14 +472,41 @@ Partial Class frmFiniquito
         Me.Panel1.Controls.Add(Me.Label23)
         Me.Panel1.Location = New System.Drawing.Point(593, 61)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(668, 488)
+        Me.Panel1.Size = New System.Drawing.Size(668, 589)
         Me.Panel1.TabIndex = 39
+        '
+        'txtPensionS
+        '
+        Me.txtPensionS.Enabled = False
+        Me.txtPensionS.Location = New System.Drawing.Point(407, 305)
+        Me.txtPensionS.Name = "txtPensionS"
+        Me.txtPensionS.Size = New System.Drawing.Size(113, 26)
+        Me.txtPensionS.TabIndex = 84
+        Me.txtPensionS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtPensionP
+        '
+        Me.txtPensionP.Enabled = False
+        Me.txtPensionP.Location = New System.Drawing.Point(277, 305)
+        Me.txtPensionP.Name = "txtPensionP"
+        Me.txtPensionP.Size = New System.Drawing.Size(113, 26)
+        Me.txtPensionP.TabIndex = 83
+        Me.txtPensionP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(119, 308)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(151, 18)
+        Me.Label27.TabIndex = 82
+        Me.Label27.Text = "PENSIÓN ALIMENTICIA:"
         '
         'cmdExccel
         '
         Me.cmdExccel.Image = CType(resources.GetObject("cmdExccel.Image"), System.Drawing.Image)
         Me.cmdExccel.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdExccel.Location = New System.Drawing.Point(532, 401)
+        Me.cmdExccel.Location = New System.Drawing.Point(532, 491)
         Me.cmdExccel.Name = "cmdExccel"
         Me.cmdExccel.Size = New System.Drawing.Size(87, 72)
         Me.cmdExccel.TabIndex = 81
@@ -475,7 +518,7 @@ Partial Class frmFiniquito
         '
         Me.cmdBorrar.Image = CType(resources.GetObject("cmdBorrar.Image"), System.Drawing.Image)
         Me.cmdBorrar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdBorrar.Location = New System.Drawing.Point(424, 401)
+        Me.cmdBorrar.Location = New System.Drawing.Point(424, 491)
         Me.cmdBorrar.Name = "cmdBorrar"
         Me.cmdBorrar.Size = New System.Drawing.Size(87, 72)
         Me.cmdBorrar.TabIndex = 80
@@ -488,7 +531,7 @@ Partial Class frmFiniquito
         Me.cmdcancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdcancelar.Image = CType(resources.GetObject("cmdcancelar.Image"), System.Drawing.Image)
         Me.cmdcancelar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdcancelar.Location = New System.Drawing.Point(318, 401)
+        Me.cmdcancelar.Location = New System.Drawing.Point(318, 491)
         Me.cmdcancelar.Name = "cmdcancelar"
         Me.cmdcancelar.Size = New System.Drawing.Size(87, 72)
         Me.cmdcancelar.TabIndex = 79
@@ -500,7 +543,7 @@ Partial Class frmFiniquito
         '
         Me.cmdguardar.Image = CType(resources.GetObject("cmdguardar.Image"), System.Drawing.Image)
         Me.cmdguardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdguardar.Location = New System.Drawing.Point(215, 401)
+        Me.cmdguardar.Location = New System.Drawing.Point(215, 491)
         Me.cmdguardar.Name = "cmdguardar"
         Me.cmdguardar.Size = New System.Drawing.Size(87, 72)
         Me.cmdguardar.TabIndex = 78
@@ -510,7 +553,8 @@ Partial Class frmFiniquito
         '
         'txtParteSindicato
         '
-        Me.txtParteSindicato.Location = New System.Drawing.Point(512, 354)
+        Me.txtParteSindicato.Enabled = False
+        Me.txtParteSindicato.Location = New System.Drawing.Point(512, 444)
         Me.txtParteSindicato.Name = "txtParteSindicato"
         Me.txtParteSindicato.Size = New System.Drawing.Size(113, 26)
         Me.txtParteSindicato.TabIndex = 77
@@ -518,7 +562,8 @@ Partial Class frmFiniquito
         '
         'txtPartePatrona
         '
-        Me.txtPartePatrona.Location = New System.Drawing.Point(251, 356)
+        Me.txtPartePatrona.Enabled = False
+        Me.txtPartePatrona.Location = New System.Drawing.Point(251, 446)
         Me.txtPartePatrona.Name = "txtPartePatrona"
         Me.txtPartePatrona.Size = New System.Drawing.Size(113, 26)
         Me.txtPartePatrona.TabIndex = 76
@@ -526,7 +571,8 @@ Partial Class frmFiniquito
         '
         'txtTotalSindicato
         '
-        Me.txtTotalSindicato.Location = New System.Drawing.Point(407, 320)
+        Me.txtTotalSindicato.Enabled = False
+        Me.txtTotalSindicato.Location = New System.Drawing.Point(407, 410)
         Me.txtTotalSindicato.Name = "txtTotalSindicato"
         Me.txtTotalSindicato.Size = New System.Drawing.Size(113, 26)
         Me.txtTotalSindicato.TabIndex = 75
@@ -534,7 +580,8 @@ Partial Class frmFiniquito
         '
         'txtTotalPatrona
         '
-        Me.txtTotalPatrona.Location = New System.Drawing.Point(276, 320)
+        Me.txtTotalPatrona.Enabled = False
+        Me.txtTotalPatrona.Location = New System.Drawing.Point(276, 410)
         Me.txtTotalPatrona.Name = "txtTotalPatrona"
         Me.txtTotalPatrona.Size = New System.Drawing.Size(113, 26)
         Me.txtTotalPatrona.TabIndex = 74
@@ -542,6 +589,7 @@ Partial Class frmFiniquito
         '
         'txtCreditoInfonavitS
         '
+        Me.txtCreditoInfonavitS.Enabled = False
         Me.txtCreditoInfonavitS.Location = New System.Drawing.Point(407, 272)
         Me.txtCreditoInfonavitS.Name = "txtCreditoInfonavitS"
         Me.txtCreditoInfonavitS.Size = New System.Drawing.Size(113, 26)
@@ -550,6 +598,7 @@ Partial Class frmFiniquito
         '
         'txtCreditoInfonavitP
         '
+        Me.txtCreditoInfonavitP.Enabled = False
         Me.txtCreditoInfonavitP.Location = New System.Drawing.Point(276, 272)
         Me.txtCreditoInfonavitP.Name = "txtCreditoInfonavitP"
         Me.txtCreditoInfonavitP.Size = New System.Drawing.Size(113, 26)
@@ -558,6 +607,7 @@ Partial Class frmFiniquito
         '
         'txtSalarioDevengadoS
         '
+        Me.txtSalarioDevengadoS.Enabled = False
         Me.txtSalarioDevengadoS.Location = New System.Drawing.Point(407, 239)
         Me.txtSalarioDevengadoS.Name = "txtSalarioDevengadoS"
         Me.txtSalarioDevengadoS.Size = New System.Drawing.Size(113, 26)
@@ -566,6 +616,7 @@ Partial Class frmFiniquito
         '
         'txtSalarioDevengadoP
         '
+        Me.txtSalarioDevengadoP.Enabled = False
         Me.txtSalarioDevengadoP.Location = New System.Drawing.Point(276, 239)
         Me.txtSalarioDevengadoP.Name = "txtSalarioDevengadoP"
         Me.txtSalarioDevengadoP.Size = New System.Drawing.Size(113, 26)
@@ -574,6 +625,7 @@ Partial Class frmFiniquito
         '
         'txtProporPrimaS
         '
+        Me.txtProporPrimaS.Enabled = False
         Me.txtProporPrimaS.Location = New System.Drawing.Point(407, 207)
         Me.txtProporPrimaS.Name = "txtProporPrimaS"
         Me.txtProporPrimaS.Size = New System.Drawing.Size(113, 26)
@@ -582,6 +634,7 @@ Partial Class frmFiniquito
         '
         'txtProporPrimaP
         '
+        Me.txtProporPrimaP.Enabled = False
         Me.txtProporPrimaP.Location = New System.Drawing.Point(276, 207)
         Me.txtProporPrimaP.Name = "txtProporPrimaP"
         Me.txtProporPrimaP.Size = New System.Drawing.Size(113, 26)
@@ -590,6 +643,7 @@ Partial Class frmFiniquito
         '
         'txtProporVacacionesS
         '
+        Me.txtProporVacacionesS.Enabled = False
         Me.txtProporVacacionesS.Location = New System.Drawing.Point(407, 175)
         Me.txtProporVacacionesS.Name = "txtProporVacacionesS"
         Me.txtProporVacacionesS.Size = New System.Drawing.Size(113, 26)
@@ -598,6 +652,7 @@ Partial Class frmFiniquito
         '
         'txtProporVacacionesP
         '
+        Me.txtProporVacacionesP.Enabled = False
         Me.txtProporVacacionesP.Location = New System.Drawing.Point(276, 175)
         Me.txtProporVacacionesP.Name = "txtProporVacacionesP"
         Me.txtProporVacacionesP.Size = New System.Drawing.Size(113, 26)
@@ -606,6 +661,7 @@ Partial Class frmFiniquito
         '
         'txtProporAguinaldoS
         '
+        Me.txtProporAguinaldoS.Enabled = False
         Me.txtProporAguinaldoS.Location = New System.Drawing.Point(407, 143)
         Me.txtProporAguinaldoS.Name = "txtProporAguinaldoS"
         Me.txtProporAguinaldoS.Size = New System.Drawing.Size(113, 26)
@@ -614,6 +670,7 @@ Partial Class frmFiniquito
         '
         'txtProporAguinaldoP
         '
+        Me.txtProporAguinaldoP.Enabled = False
         Me.txtProporAguinaldoP.Location = New System.Drawing.Point(276, 143)
         Me.txtProporAguinaldoP.Name = "txtProporAguinaldoP"
         Me.txtProporAguinaldoP.Size = New System.Drawing.Size(113, 26)
@@ -622,6 +679,7 @@ Partial Class frmFiniquito
         '
         'txtPrimaAntiguedadS
         '
+        Me.txtPrimaAntiguedadS.Enabled = False
         Me.txtPrimaAntiguedadS.Location = New System.Drawing.Point(407, 93)
         Me.txtPrimaAntiguedadS.Name = "txtPrimaAntiguedadS"
         Me.txtPrimaAntiguedadS.Size = New System.Drawing.Size(113, 26)
@@ -630,6 +688,7 @@ Partial Class frmFiniquito
         '
         'txtPrimaAntiguedadP
         '
+        Me.txtPrimaAntiguedadP.Enabled = False
         Me.txtPrimaAntiguedadP.Location = New System.Drawing.Point(276, 93)
         Me.txtPrimaAntiguedadP.Name = "txtPrimaAntiguedadP"
         Me.txtPrimaAntiguedadP.Size = New System.Drawing.Size(113, 26)
@@ -638,6 +697,7 @@ Partial Class frmFiniquito
         '
         'txtIndeConstitucionalS
         '
+        Me.txtIndeConstitucionalS.Enabled = False
         Me.txtIndeConstitucionalS.Location = New System.Drawing.Point(407, 61)
         Me.txtIndeConstitucionalS.Name = "txtIndeConstitucionalS"
         Me.txtIndeConstitucionalS.Size = New System.Drawing.Size(113, 26)
@@ -646,6 +706,7 @@ Partial Class frmFiniquito
         '
         'txtIndeConstitucionalP
         '
+        Me.txtIndeConstitucionalP.Enabled = False
         Me.txtIndeConstitucionalP.Location = New System.Drawing.Point(276, 61)
         Me.txtIndeConstitucionalP.Name = "txtIndeConstitucionalP"
         Me.txtIndeConstitucionalP.Size = New System.Drawing.Size(113, 26)
@@ -654,6 +715,7 @@ Partial Class frmFiniquito
         '
         'txtIndeServicioS
         '
+        Me.txtIndeServicioS.Enabled = False
         Me.txtIndeServicioS.Location = New System.Drawing.Point(407, 29)
         Me.txtIndeServicioS.Name = "txtIndeServicioS"
         Me.txtIndeServicioS.Size = New System.Drawing.Size(113, 26)
@@ -662,6 +724,7 @@ Partial Class frmFiniquito
         '
         'txtIndeServicioP
         '
+        Me.txtIndeServicioP.Enabled = False
         Me.txtIndeServicioP.Location = New System.Drawing.Point(276, 29)
         Me.txtIndeServicioP.Name = "txtIndeServicioP"
         Me.txtIndeServicioP.Size = New System.Drawing.Size(113, 26)
@@ -689,7 +752,7 @@ Partial Class frmFiniquito
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(427, 359)
+        Me.Label34.Location = New System.Drawing.Point(427, 449)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(79, 18)
         Me.Label34.TabIndex = 53
@@ -698,7 +761,7 @@ Partial Class frmFiniquito
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(174, 361)
+        Me.Label33.Location = New System.Drawing.Point(174, 451)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(71, 18)
         Me.Label33.TabIndex = 52
@@ -707,7 +770,7 @@ Partial Class frmFiniquito
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(220, 323)
+        Me.Label32.Location = New System.Drawing.Point(220, 413)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(50, 18)
         Me.Label32.TabIndex = 51
@@ -890,6 +953,51 @@ Partial Class frmFiniquito
         Me.chkPrimaAntiguedad.Text = "Prima de Antiguedad"
         Me.chkPrimaAntiguedad.UseVisualStyleBackColor = True
         '
+        'txtFonacotS
+        '
+        Me.txtFonacotS.Enabled = False
+        Me.txtFonacotS.Location = New System.Drawing.Point(407, 337)
+        Me.txtFonacotS.Name = "txtFonacotS"
+        Me.txtFonacotS.Size = New System.Drawing.Size(113, 26)
+        Me.txtFonacotS.TabIndex = 87
+        Me.txtFonacotS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtFonacotP
+        '
+        Me.txtFonacotP.Enabled = False
+        Me.txtFonacotP.Location = New System.Drawing.Point(277, 337)
+        Me.txtFonacotP.Name = "txtFonacotP"
+        Me.txtFonacotP.Size = New System.Drawing.Size(113, 26)
+        Me.txtFonacotP.TabIndex = 86
+        Me.txtFonacotP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(198, 340)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(72, 18)
+        Me.Label37.TabIndex = 85
+        Me.Label37.Text = "FONACOT:"
+        '
+        'txtIsrP
+        '
+        Me.txtIsrP.Enabled = False
+        Me.txtIsrP.Location = New System.Drawing.Point(277, 370)
+        Me.txtIsrP.Name = "txtIsrP"
+        Me.txtIsrP.Size = New System.Drawing.Size(113, 26)
+        Me.txtIsrP.TabIndex = 89
+        Me.txtIsrP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label38
+        '
+        Me.Label38.AutoSize = True
+        Me.Label38.Location = New System.Drawing.Point(175, 374)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(95, 18)
+        Me.Label38.TabIndex = 88
+        Me.Label38.Text = "SUBSIDIO/ISR:"
+        '
         'frmFiniquito
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1046,4 +1154,12 @@ Partial Class frmFiniquito
     Friend WithEvents chkServicio As System.Windows.Forms.CheckBox
     Friend WithEvents chkConstitucional As System.Windows.Forms.CheckBox
     Friend WithEvents chkPrimaAntiguedad As System.Windows.Forms.CheckBox
+    Friend WithEvents txtPensionS As System.Windows.Forms.TextBox
+    Friend WithEvents txtPensionP As System.Windows.Forms.TextBox
+    Friend WithEvents Label27 As System.Windows.Forms.Label
+    Friend WithEvents txtIsrP As System.Windows.Forms.TextBox
+    Friend WithEvents Label38 As System.Windows.Forms.Label
+    Friend WithEvents txtFonacotS As System.Windows.Forms.TextBox
+    Friend WithEvents txtFonacotP As System.Windows.Forms.TextBox
+    Friend WithEvents Label37 As System.Windows.Forms.Label
 End Class
