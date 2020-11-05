@@ -272,7 +272,19 @@ Public Class frmcontpaqnominas3
                 fila.Item("idempleado") = Trim(row("fkiIdEmpleado"))
                 fila.Item("numcuenta") = Trim(row("NumCuenta"))
                 fila.Item("nombre") = Trim(row("nombre")).ToUpper()
-                fila.Item("sueldo") = Trim(row("fSueldoOrd"))
+                'verificamos si hay finiquito, tomamos el total de sindicato para el sueldo ordinario
+
+                Sql = "select * from finiquitoC inner join EmpleadosC on finiquitoC.fkiIdEmpleadoC= EmpleadosC.iIdEmpleadoC where fkiIdEmpleadoC=" & Trim(row("fkiIdEmpleado")) & " and fkiIdPeriodo=" & cboperiodo.SelectedValue
+
+                Dim rwFiniquitoC As DataRow() = nConsulta(Sql)
+
+                If rwFiniquitoC Is Nothing = False Then
+                    fila.Item("sueldo") = rwFiniquitoC(0)("TotalS")
+                Else
+                    fila.Item("sueldo") = Trim(row("fSueldoOrd"))
+                End If
+
+
                 fila.Item("neto") = Trim(row("neto"))
 
                 'If dt.Columns.IndexOf("I.S.R. finiquito") <> -1 Then
@@ -1401,6 +1413,7 @@ Public Class frmcontpaqnominas3
         Dim BanPeriodo As Boolean
         Dim bandera As Boolean
         Dim Igualar0 As Boolean
+        Dim SiFiniquito As Integer
 
         Dim sueldoord, neto, pensionpatrona, infonavit, fonacot, descuento, prestamo, sindicato, pensionsindicato, primasin, totalsindicato, netopagar, primasa, aguinaldosa, aguinaldosin, Extra As Double
         Dim imss, ISR, costosocial1, costosocial2, comisionSA, comisionSindicato, subtotal, iva, subsidio As Double
@@ -1465,13 +1478,29 @@ Public Class frmcontpaqnominas3
 
                         'If Double.Parse(rwDatosBanco(0)("fsueldoOrd")) > 0 Then
                         If Double.Parse(IIf(dtgDatos.Rows(x).Cells(7).Value = "", "0", dtgDatos.Rows(x).Cells(7).Value)) > 0 Then
+                            'vemos si es finiquito
+                            sql = "select * from finiquitoC inner join EmpleadosC on finiquitoC.fkiIdEmpleadoC= EmpleadosC.iIdEmpleadoC where fkiIdEmpleadoC=" & dtgDatos.Rows(x).Cells(3).Value & " and fkiIdPeriodo=" & cboperiodo.SelectedValue
+
+                            Dim rwFiniquitoC As DataRow() = nConsulta(sql)
+
+                            If rwFiniquitoC Is Nothing = False Then
+                                SiFiniquito = 1
+                                If Double.Parse(rwFiniquitoC(0)("ISR")) > 0 Then
+                                    dtgDatos.Rows(x).Cells(24).Value = rwFiniquitoC(0)("ISR")
+                                End If
+
+                            Else
+                                SiFiniquito = 0
+                            End If
 
                             'validamos la tabla del cliente para validar si tiene el sueldo ordinario como absoluto
 
-                            If OrdinarioAbsoluto = 1 Then
+                            If OrdinarioAbsoluto = 1 Or SiFiniquito = 1 Then
                                 sindicato = IIf(sueldoord - neto - pensionpatrona - infonavit - fonacot - descuento - prestamo >= 0, sueldoord - neto - pensionpatrona - infonavit - fonacot - descuento - prestamo, 0)
-                                dtgDatos.Rows(x).Cells(17).Value = "0.00"
                                 dtgDatos.Rows(x).Cells(18).Value = "0.00"
+                                dtgDatos.Rows(x).Cells(19).Value = "0.00"
+                                primasin = dtgDatos.Rows(x).Cells(18).Value
+                                aguinaldosin = dtgDatos.Rows(x).Cells(19).Value
                                 BanSueldoOrd = True
                             Else
                                 BanSueldoOrd = True
@@ -1536,7 +1565,7 @@ Public Class frmcontpaqnominas3
                         dtgDatos.Rows(x).Cells(16).Value = Math.Round(sindicato, 2).ToString("##0.00")
 
 
-                        If OrdinarioAbsoluto = 1 Then
+                        If OrdinarioAbsoluto = 1 Or SiFiniquito = 1 Then
 
                             totalsindicato = sindicato - pensionsindicato + primasin + aguinaldosin + Extra
                             netopagar = neto + totalsindicato
