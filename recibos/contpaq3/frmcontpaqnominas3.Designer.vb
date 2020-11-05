@@ -67,6 +67,7 @@ Partial Class frmcontpaqnominas3
         Me.cmenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Igualar0 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DesactivarIgualarA0ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnrpFiniquito = New System.Windows.Forms.Button()
         Me.pnlProgreso.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         CType(Me.dtgDatos, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -127,6 +128,7 @@ Partial Class frmcontpaqnominas3
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlCatalogo.Controls.Add(Me.btnrpFiniquito)
         Me.pnlCatalogo.Controls.Add(Me.btnReporteExcel)
         Me.pnlCatalogo.Controls.Add(Me.cmdBorrar)
         Me.pnlCatalogo.Controls.Add(Me.cmdGuardarSueldo)
@@ -511,6 +513,16 @@ Partial Class frmcontpaqnominas3
         Me.DesactivarIgualarA0ToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.DesactivarIgualarA0ToolStripMenuItem.Text = "Desactivar igualar a 0"
         '
+        'btnrpFiniquito
+        '
+        Me.btnrpFiniquito.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnrpFiniquito.Location = New System.Drawing.Point(1064, 32)
+        Me.btnrpFiniquito.Name = "btnrpFiniquito"
+        Me.btnrpFiniquito.Size = New System.Drawing.Size(103, 29)
+        Me.btnrpFiniquito.TabIndex = 24
+        Me.btnrpFiniquito.Text = "Rep Finiquito"
+        Me.btnrpFiniquito.UseVisualStyleBackColor = True
+        '
         'frmcontpaqnominas3
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -579,4 +591,5 @@ Partial Class frmcontpaqnominas3
     Friend WithEvents Igualar0 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DesactivarIgualarA0ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btnReporteExcel As System.Windows.Forms.Button
+    Friend WithEvents btnrpFiniquito As System.Windows.Forms.Button
 End Class

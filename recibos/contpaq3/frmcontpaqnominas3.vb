@@ -1,5 +1,6 @@
 ﻿Imports ClosedXML.Excel
 Imports System.IO
+
 Public Class frmcontpaqnominas3
     Private m_currentControl As Control = Nothing
     Public gIdEmpresa As String
@@ -6303,6 +6304,12 @@ Public Class frmcontpaqnominas3
                         hoja.Cell(f, c).Style.Fill.BackgroundColor = XLColor.NoColor
                     Case "text black"
                         hoja.Cell(f, c).Style.Font.SetFontColor(XLColor.Black)
+                    Case "sin borde"
+                        hoja.Cell(f, c).Style.Border.SetBottomBorder(BorderStyle.None)
+                        hoja.Cell(f, c).Style.Border.SetInsideBorder(BorderStyle.None)
+                        hoja.Cell(f, c).Style.Border.SetLeftBorder(BorderStyle.None)
+                        hoja.Cell(f, c).Style.Border.SetRightBorder(BorderStyle.None)
+
                 End Select
             Next
         Next
@@ -6367,4 +6374,171 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
+    Private Sub btnrpFiniquito_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnrpFiniquito.Click
+        Try
+            Dim filaExcel As Integer = 0
+            Dim dialogo As New SaveFileDialog()
+            Dim periodo, periodoini, periodofin, diaini As String
+            Dim clienteasignado As String
+            Dim numerocliente As Int32
+            pnlProgreso.Visible = True
+            pnlCatalogo.Enabled = False
+            Application.DoEvents()
+
+            pgbProgreso.Minimum = 0
+            pgbProgreso.Value = 0
+            pgbProgreso.Maximum = dtgDatos.Rows.Count
+
+
+            If dtgDatos.Rows.Count > 0 Then
+
+                Dim sql As String = "select * from IntClienteEmpresaContpaq inner join clientes on fkIdCliente= iIdCliente where fkIdEmpresaC=" & gIdEmpresa
+                Dim rwCliente As DataRow() = nConsulta(sql)
+                If rwCliente Is Nothing = False Then
+                    clienteasignado = rwCliente(0)("nombre")
+                End If
+
+                periodo = cboperiodo.Text
+                periodoini = CDate(cboperiodo.Text.ToString.Remove(10)).ToLongDateString.Substring(CDate(cboperiodo.Text.ToString.Remove(10)).ToLongDateString.IndexOf(", ") + 2).ToUpper()
+                diaini = CDate(periodoini).Day
+                periodofin = CDate(periodo.Substring(11)).ToLongDateString().Substring(CDate(periodo.Substring(11)).ToLongDateString().IndexOf(", ") + 2).ToUpper()
+
+
+
+
+                Dim ruta As String
+                ruta = My.Application.Info.DirectoryPath() & "\Archivos\reportenominafiniquito.xlsx"
+                Dim book As New ClosedXML.Excel.XLWorkbook(ruta)
+                Dim libro As New ClosedXML.Excel.XLWorkbook
+
+                book.Worksheet(1).CopyTo(libro, "DATOS")
+                book.Worksheet(2).CopyTo(libro, "DIV.CALCULOS")
+                book.Worksheet(3).CopyTo(libro, "PAGOS")
+                book.Worksheet(4).CopyTo(libro, "RESUMEN RET")
+                book.Worksheet(5).CopyTo(libro, "RELACIONES CHEQUES")
+
+                Dim hoja As IXLWorksheet = libro.Worksheets(0)
+                Dim hoja2 As IXLWorksheet = libro.Worksheets(1)
+                Dim hoja3 As IXLWorksheet = libro.Worksheets(2)
+                Dim hoja4 As IXLWorksheet = libro.Worksheets(3)
+                Dim hoja5 As IXLWorksheet = libro.Worksheets(4)
+
+                filaExcel = 16
+                Dim fileV(dtgDatos.Rows.Count - 1) As String
+
+                For x As Integer = 0 To dtgDatos.Rows.Count - 1
+
+                    '<<<<<<< DATOS >>>>>>>
+                    Dim fechaingreso As String
+                    Dim fSueldoOrd, fSueldoBase, cuotadiaria As Double
+
+                    sql = "SELECT * FROM empleadosC where iIdEmpleadoC=" & dtgDatos.Rows(x).Cells(3).Value
+                    Dim rwEmpleadosC As DataRow() = nConsulta(sql)
+                    If rwEmpleadosC Is Nothing = False Then
+                        fechaingreso = rwEmpleadosC(0)("dFechaPatrona")
+                        fSueldoBase = rwEmpleadosC(0)("fSueldoBase")
+                        fSueldoOrd = rwEmpleadosC(0)("fSueldoOrd")
+                    End If
+
+
+                    cuotadiaria = fSueldoOrd / 15
+                    hoja.Cell(5, 4).Value = dtgDatos.Rows(x).Cells(6).Value
+                    hoja.Cell(6, 4).Value = "B"
+                    hoja.Cell(7, 4).Value = "TIPO INDETERMIDADO"
+                    hoja.Cell(8, 4).Value = fechaingreso
+                    hoja.Cell(9, 4).Value = Date.Now()
+                    hoja.Cell(10, 4).Value = cuotadiaria
+                    hoja.Cell(11, 4).Value = DatePart("yyyy", fechaingreso) - DatePart("yyyy", Date.Now())
+                    hoja.Cell(12, 4).Value = "328"
+                    hoja.Cell(13, 4).Value = "60"
+                    hoja.Cell(14, 4).Value = ""
+                    hoja.Cell(15, 4).Value = CalcularDiasVac(CInt(DatePart("yyyy", fechaingreso) - DatePart("yyyy", Date.Now())))
+                    hoja.Cell(16, 4).Value = "25%"
+                    hoja.Cell(17, 4).Value = "15"
+                    hoja.Cell(18, 4).Value = "100.00%"
+                    hoja.Cell(19, 4).Value = ""
+                    hoja.Cell(20, 4).Value = ""
+                    hoja.Cell(21, 4).Value = "0%"
+                    hoja.Cell(8, 7).Value = IIf(fSueldoBase = Nothing, "0.00", fSueldoBase)
+
+                    '<<<<<<< RESUMEN RET >>>>>>>
+
+                    hoja4.Cell(16, 3).Value = dtgDatos.Rows(x).Cells(13).Value
+                    hoja4.Cell(20, 3).Value = dtgDatos.Rows(x).Cells(12).Value
+
+                    hoja4.Cell(31, 3).Value = dtgDatos.Rows(x).Cells(26).Value
+
+                    fileV(x) = dtgDatos.Rows(x).Cells(1).Value & ". " & "FINIQUITO " & dtgDatos.Rows(0).Cells(6).Value.ToString.ToUpper & " " & periodofin & ".xlsx"
+
+                Next x
+
+                Dim myStream As Stream
+
+                dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
+                dialogo.FilterIndex = 2
+                dialogo.RestoreDirectory = True
+
+                'dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
+                'dialogo.RestoreDirectory = True
+                'dialogo.FileName = "FINIQUITO " & dtgDatos.Rows(0).Cells(6).Value.ToString.ToUpper & " " & periodofin '& ".xlsx"
+
+                If dialogo.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+                    myStream = dialogo.OpenFile()
+                    If myStream IsNot Nothing Then
+
+                        For i As Integer = 0 To fileV.Count - 1
+
+                            Dim tw As StreamWriter = System.IO.File.AppendText(dialogo.FileName + ".xlsx")
+                            tw.WriteLine(fileV(i))
+                            tw.Flush()
+                            tw.Close()
+
+                        Next
+                        myStream.Close()
+
+                    End If
+
+
+                End If
+
+                pnlProgreso.Visible = False
+                pnlCatalogo.Enabled = True
+
+
+                'End If
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            pnlCatalogo.Enabled = True
+            pnlProgreso.Visible = False
+        End Try
+    End Sub
+
+
+    Public Function CalcularDiasVac(ByRef anios As Integer) As Integer
+        Select Case anios
+
+            Case 1
+                Return 6
+            Case 2
+                Return 2
+            Case 3
+                Return 10
+            Case 4
+                Return 12
+            Case 4 To 9
+                Return 14
+            Case 10 To 14
+                Return 16
+            Case 15 To 19
+                Return 18
+            Case 20 To 24
+                Return 20
+            Case Else
+                Return 6
+
+        End Select
+
+    End Function
 End Class
