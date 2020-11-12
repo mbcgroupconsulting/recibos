@@ -482,7 +482,22 @@ Public Class frmFiniquito
             txtSalarioDevengadoS.Text = Math.Round(Math.Round((Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDevengados.Value)) + (Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDiasVacPendientes.Value)), 2), 2)
             'verificcar si estan activadas las otras opciones
             If chkPrimaAntiguedad.Checked Then
-                txtPrimaAntiguedadS.Text = Math.Round(((NudAniosCompletos.Value + (NudDiasVacaciones.Value / 365)) * 12) * Double.Parse(txtCuotaDiaria.Text), 2)
+                SQL = "select * from salario where anio=" & DateTime.Parse(dtpBaja.Value).Year
+                Dim rwSalario As DataRow() = nConsulta(SQL)
+                Dim SD As Double
+                If rwSalario Is Nothing = False Then
+                    SD = Double.Parse(rwSalario(0)("areac").ToString)
+                    SD = SD * 2
+                    If Double.Parse(txtCuotaDiaria.Text) > SD Then
+                        'no se hace nada
+                    Else
+                        SD = Double.Parse(txtCuotaDiaria.Text)
+                    End If
+                    txtPrimaAntiguedadS.Text = Math.Round(((NudAniosCompletos.Value + (NudDiasVacaciones.Value / 365)) * 12) * SD, 2)
+                Else
+                    MessageBox.Show("Revisar la tabla salarios, ya que no existe informacion para el año de la baja", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+
             End If
             FPRIMAV = Math.Round(Math.Round(Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value)) * Double.Parse(NudPorPrima.Value / 100), 2) / 365, 2)
             FAGUINALDO = Math.Round((Double.Parse(txtCuotaDiaria.Text) * NudDiasAguinaldo.Value) / 365, 2)
