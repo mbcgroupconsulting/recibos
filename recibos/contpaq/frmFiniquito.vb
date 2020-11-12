@@ -474,7 +474,7 @@ Public Class frmFiniquito
             Dim FPRIMAV As Double
             Dim FAGUINALDO As Double
             Dim SDI As Double
-
+            limpiar()
             'Aguinaldo
             txtProporAguinaldoS.Text = Math.Round(Math.Round(((Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDiasAguinaldo.Value)) / 365), 2) * Double.Parse(NudAguinaldoLaborado.Value), 2)
             txtProporVacacionesS.Text = Math.Round(Math.Round(((Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value))) / 365), 2) * Double.Parse(NudDiasVacaciones.Value), 2)
