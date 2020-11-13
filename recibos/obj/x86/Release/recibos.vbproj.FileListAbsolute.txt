@@ -1,0 +1,2 @@
+D:\Escritorio\Team\recibos\recibos\bin\Release\recibos.exe.config
+D:\Escritorio\Team\recibos\recibos\obj\x86\Release\recibos.vbproj.ResolveComReference.cache

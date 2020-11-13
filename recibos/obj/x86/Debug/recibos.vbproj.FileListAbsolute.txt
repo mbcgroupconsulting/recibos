@@ -438,3 +438,5 @@ E:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.frmTM
 E:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.vbproj.GenerateResource.Cache
 E:\c\systemw\proyectos\recibosgrupo2\recibos\recibos\obj\x86\Debug\recibos.exe
 >>>>>>> origin/master
+D:\Escritorio\Team\recibos\recibos\obj\x86\Debug\recibos.vbprojResolveAssemblyReference.cache
+D:\Escritorio\Team\recibos\recibos\bin\Debug\ClosedXML.xml
