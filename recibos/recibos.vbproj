@@ -1641,9 +1641,11 @@
     <Content Include="Resources\1361008917_shutdown.png" />
     <Content Include="Resources\1361155112_ok-green.png" />
     <Content Include="Resources\1361622577_find.png" />
+    <None Include="Resources\xls %282%29.png" />
     <None Include="Resources\bloggif_5aa81d204bc8d.png" />
     <None Include="Resources\cubo-de-basura.png" />
     <None Include="Resources\1428662_70548557.jpg" />
+    <None Include="Resources\excel %282%29.png" />
     <Content Include="Resources\GF1.png" />
     <Content Include="Resources\GF3.png" />
     <None Include="Resources\material-escolar.png" />

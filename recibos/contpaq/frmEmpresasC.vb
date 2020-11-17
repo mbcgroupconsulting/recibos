@@ -192,9 +192,7 @@
 
     End Sub
 
-    Private Sub lsvLista_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lsvLista.SelectedIndexChanged
-
-    End Sub
+  
 
     Private Sub lsvLista_ItemActivate(sender As Object, e As EventArgs) Handles lsvLista.ItemActivate
         
@@ -239,7 +237,7 @@
                         If id = 180 Or id = 184 Or id = 181 Or id = 182 Or id = 183 Or id = 179 Or id = 178 Then
                             MessageBox.Show("No tiene permisos para trabajar con esta empresa, consulte al administrador", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
-                        ElseIf (Fila.Item("Nombre") = "Claudia") Then
+                        ElseIf (Fila.Item("Nombre") = "Claudia" Or Fila.Item("Nombre") = "Cinthia") Then
 
                             Dim Forma As New frmPeriodos
                             Forma.gIEmpresa = id

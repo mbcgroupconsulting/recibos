@@ -58,13 +58,14 @@ Partial Class frmFiniquito
         Me.Label21 = New System.Windows.Forms.Label()
         Me.nudComisionCliente = New System.Windows.Forms.NumericUpDown()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtIsrP = New System.Windows.Forms.TextBox()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.txtFonacotS = New System.Windows.Forms.TextBox()
+        Me.txtFonacotP = New System.Windows.Forms.TextBox()
+        Me.Label37 = New System.Windows.Forms.Label()
         Me.txtPensionS = New System.Windows.Forms.TextBox()
         Me.txtPensionP = New System.Windows.Forms.TextBox()
         Me.Label27 = New System.Windows.Forms.Label()
-        Me.cmdExccel = New System.Windows.Forms.Button()
-        Me.cmdBorrar = New System.Windows.Forms.Button()
-        Me.cmdcancelar = New System.Windows.Forms.Button()
-        Me.cmdguardar = New System.Windows.Forms.Button()
         Me.txtParteSindicato = New System.Windows.Forms.TextBox()
         Me.txtPartePatrona = New System.Windows.Forms.TextBox()
         Me.txtTotalSindicato = New System.Windows.Forms.TextBox()
@@ -110,11 +111,11 @@ Partial Class frmFiniquito
         Me.chkServicio = New System.Windows.Forms.CheckBox()
         Me.chkConstitucional = New System.Windows.Forms.CheckBox()
         Me.chkPrimaAntiguedad = New System.Windows.Forms.CheckBox()
-        Me.txtFonacotS = New System.Windows.Forms.TextBox()
-        Me.txtFonacotP = New System.Windows.Forms.TextBox()
-        Me.Label37 = New System.Windows.Forms.Label()
-        Me.txtIsrP = New System.Windows.Forms.TextBox()
-        Me.Label38 = New System.Windows.Forms.Label()
+        Me.cmdExcel2 = New System.Windows.Forms.Button()
+        Me.cmdExccel = New System.Windows.Forms.Button()
+        Me.cmdBorrar = New System.Windows.Forms.Button()
+        Me.cmdcancelar = New System.Windows.Forms.Button()
+        Me.cmdguardar = New System.Windows.Forms.Button()
         CType(Me.NudDiasAguinaldo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudSubsidio, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudDiasVacPendientes, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -425,6 +426,7 @@ Partial Class frmFiniquito
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.cmdExcel2)
         Me.Panel1.Controls.Add(Me.txtIsrP)
         Me.Panel1.Controls.Add(Me.Label38)
         Me.Panel1.Controls.Add(Me.txtFonacotS)
@@ -475,6 +477,51 @@ Partial Class frmFiniquito
         Me.Panel1.Size = New System.Drawing.Size(668, 589)
         Me.Panel1.TabIndex = 39
         '
+        'txtIsrP
+        '
+        Me.txtIsrP.Enabled = False
+        Me.txtIsrP.Location = New System.Drawing.Point(277, 370)
+        Me.txtIsrP.Name = "txtIsrP"
+        Me.txtIsrP.Size = New System.Drawing.Size(113, 26)
+        Me.txtIsrP.TabIndex = 89
+        Me.txtIsrP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label38
+        '
+        Me.Label38.AutoSize = True
+        Me.Label38.Location = New System.Drawing.Point(175, 374)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(95, 18)
+        Me.Label38.TabIndex = 88
+        Me.Label38.Text = "SUBSIDIO/ISR:"
+        '
+        'txtFonacotS
+        '
+        Me.txtFonacotS.Enabled = False
+        Me.txtFonacotS.Location = New System.Drawing.Point(407, 337)
+        Me.txtFonacotS.Name = "txtFonacotS"
+        Me.txtFonacotS.Size = New System.Drawing.Size(113, 26)
+        Me.txtFonacotS.TabIndex = 87
+        Me.txtFonacotS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtFonacotP
+        '
+        Me.txtFonacotP.Enabled = False
+        Me.txtFonacotP.Location = New System.Drawing.Point(277, 337)
+        Me.txtFonacotP.Name = "txtFonacotP"
+        Me.txtFonacotP.Size = New System.Drawing.Size(113, 26)
+        Me.txtFonacotP.TabIndex = 86
+        Me.txtFonacotP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(198, 340)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(72, 18)
+        Me.Label37.TabIndex = 85
+        Me.Label37.Text = "FONACOT:"
+        '
         'txtPensionS
         '
         Me.txtPensionS.Enabled = False
@@ -501,55 +548,6 @@ Partial Class frmFiniquito
         Me.Label27.Size = New System.Drawing.Size(151, 18)
         Me.Label27.TabIndex = 82
         Me.Label27.Text = "PENSIÓN ALIMENTICIA:"
-        '
-        'cmdExccel
-        '
-        Me.cmdExccel.Image = CType(resources.GetObject("cmdExccel.Image"), System.Drawing.Image)
-        Me.cmdExccel.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdExccel.Location = New System.Drawing.Point(532, 491)
-        Me.cmdExccel.Name = "cmdExccel"
-        Me.cmdExccel.Size = New System.Drawing.Size(87, 72)
-        Me.cmdExccel.TabIndex = 81
-        Me.cmdExccel.Text = "Excel"
-        Me.cmdExccel.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdExccel.UseVisualStyleBackColor = True
-        '
-        'cmdBorrar
-        '
-        Me.cmdBorrar.Image = CType(resources.GetObject("cmdBorrar.Image"), System.Drawing.Image)
-        Me.cmdBorrar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdBorrar.Location = New System.Drawing.Point(424, 491)
-        Me.cmdBorrar.Name = "cmdBorrar"
-        Me.cmdBorrar.Size = New System.Drawing.Size(87, 72)
-        Me.cmdBorrar.TabIndex = 80
-        Me.cmdBorrar.Text = "Borrar"
-        Me.cmdBorrar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdBorrar.UseVisualStyleBackColor = True
-        '
-        'cmdcancelar
-        '
-        Me.cmdcancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdcancelar.Image = CType(resources.GetObject("cmdcancelar.Image"), System.Drawing.Image)
-        Me.cmdcancelar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdcancelar.Location = New System.Drawing.Point(318, 491)
-        Me.cmdcancelar.Name = "cmdcancelar"
-        Me.cmdcancelar.Size = New System.Drawing.Size(87, 72)
-        Me.cmdcancelar.TabIndex = 79
-        Me.cmdcancelar.Text = "Cancelar"
-        Me.cmdcancelar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdcancelar.UseVisualStyleBackColor = True
-        '
-        'cmdguardar
-        '
-        Me.cmdguardar.Image = CType(resources.GetObject("cmdguardar.Image"), System.Drawing.Image)
-        Me.cmdguardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdguardar.Location = New System.Drawing.Point(215, 491)
-        Me.cmdguardar.Name = "cmdguardar"
-        Me.cmdguardar.Size = New System.Drawing.Size(87, 72)
-        Me.cmdguardar.TabIndex = 78
-        Me.cmdguardar.Text = "Guardar"
-        Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdguardar.UseVisualStyleBackColor = True
         '
         'txtParteSindicato
         '
@@ -953,50 +951,65 @@ Partial Class frmFiniquito
         Me.chkPrimaAntiguedad.Text = "Prima de Antiguedad"
         Me.chkPrimaAntiguedad.UseVisualStyleBackColor = True
         '
-        'txtFonacotS
+        'cmdExcel2
         '
-        Me.txtFonacotS.Enabled = False
-        Me.txtFonacotS.Location = New System.Drawing.Point(407, 337)
-        Me.txtFonacotS.Name = "txtFonacotS"
-        Me.txtFonacotS.Size = New System.Drawing.Size(113, 26)
-        Me.txtFonacotS.TabIndex = 87
-        Me.txtFonacotS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.cmdExcel2.Image = Global.recibos.My.Resources.Resources.xls__2_
+        Me.cmdExcel2.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdExcel2.Location = New System.Drawing.Point(440, 498)
+        Me.cmdExcel2.Name = "cmdExcel2"
+        Me.cmdExcel2.Size = New System.Drawing.Size(87, 72)
+        Me.cmdExcel2.TabIndex = 90
+        Me.cmdExcel2.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdExcel2.UseVisualStyleBackColor = True
         '
-        'txtFonacotP
+        'cmdExccel
         '
-        Me.txtFonacotP.Enabled = False
-        Me.txtFonacotP.Location = New System.Drawing.Point(277, 337)
-        Me.txtFonacotP.Name = "txtFonacotP"
-        Me.txtFonacotP.Size = New System.Drawing.Size(113, 26)
-        Me.txtFonacotP.TabIndex = 86
-        Me.txtFonacotP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.cmdExccel.Image = CType(resources.GetObject("cmdExccel.Image"), System.Drawing.Image)
+        Me.cmdExccel.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdExccel.Location = New System.Drawing.Point(341, 498)
+        Me.cmdExccel.Name = "cmdExccel"
+        Me.cmdExccel.Size = New System.Drawing.Size(87, 72)
+        Me.cmdExccel.TabIndex = 81
+        Me.cmdExccel.Text = "Excel"
+        Me.cmdExccel.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdExccel.UseVisualStyleBackColor = True
         '
-        'Label37
+        'cmdBorrar
         '
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(198, 340)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(72, 18)
-        Me.Label37.TabIndex = 85
-        Me.Label37.Text = "FONACOT:"
+        Me.cmdBorrar.Image = CType(resources.GetObject("cmdBorrar.Image"), System.Drawing.Image)
+        Me.cmdBorrar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdBorrar.Location = New System.Drawing.Point(233, 498)
+        Me.cmdBorrar.Name = "cmdBorrar"
+        Me.cmdBorrar.Size = New System.Drawing.Size(87, 72)
+        Me.cmdBorrar.TabIndex = 80
+        Me.cmdBorrar.Text = "Borrar"
+        Me.cmdBorrar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdBorrar.UseVisualStyleBackColor = True
         '
-        'txtIsrP
+        'cmdcancelar
         '
-        Me.txtIsrP.Enabled = False
-        Me.txtIsrP.Location = New System.Drawing.Point(277, 370)
-        Me.txtIsrP.Name = "txtIsrP"
-        Me.txtIsrP.Size = New System.Drawing.Size(113, 26)
-        Me.txtIsrP.TabIndex = 89
-        Me.txtIsrP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.cmdcancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdcancelar.Image = CType(resources.GetObject("cmdcancelar.Image"), System.Drawing.Image)
+        Me.cmdcancelar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdcancelar.Location = New System.Drawing.Point(127, 498)
+        Me.cmdcancelar.Name = "cmdcancelar"
+        Me.cmdcancelar.Size = New System.Drawing.Size(87, 72)
+        Me.cmdcancelar.TabIndex = 79
+        Me.cmdcancelar.Text = "Cancelar"
+        Me.cmdcancelar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdcancelar.UseVisualStyleBackColor = True
         '
-        'Label38
+        'cmdguardar
         '
-        Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(175, 374)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(95, 18)
-        Me.Label38.TabIndex = 88
-        Me.Label38.Text = "SUBSIDIO/ISR:"
+        Me.cmdguardar.Image = CType(resources.GetObject("cmdguardar.Image"), System.Drawing.Image)
+        Me.cmdguardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdguardar.Location = New System.Drawing.Point(24, 498)
+        Me.cmdguardar.Name = "cmdguardar"
+        Me.cmdguardar.Size = New System.Drawing.Size(87, 72)
+        Me.cmdguardar.TabIndex = 78
+        Me.cmdguardar.Text = "Guardar"
+        Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdguardar.UseVisualStyleBackColor = True
         '
         'frmFiniquito
         '
@@ -1162,4 +1175,5 @@ Partial Class frmFiniquito
     Friend WithEvents txtFonacotS As System.Windows.Forms.TextBox
     Friend WithEvents txtFonacotP As System.Windows.Forms.TextBox
     Friend WithEvents Label37 As System.Windows.Forms.Label
+    Friend WithEvents cmdExcel2 As System.Windows.Forms.Button
 End Class

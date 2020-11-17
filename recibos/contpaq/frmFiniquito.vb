@@ -1284,4 +1284,118 @@ Public Class frmFiniquito
     Private Sub txtPensionP_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtPensionP.TextChanged
 
     End Sub
+
+    Private Sub cmdExcel2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdExcel2.Click
+        Try
+            Dim filaExcel As Integer = 0
+            Dim dialogo As New SaveFileDialog()
+            Dim periodo, periodoini, periodofin, diaini As String
+            Dim clienteasignado As String
+            Dim numerocliente As Int32
+
+
+
+
+            Dim sql As String = "select * from IntClienteEmpresaContpaq inner join clientes on fkIdCliente= iIdCliente where fkIdEmpresaC=" & gIdEmpresa
+            Dim rwCliente As DataRow() = nConsulta(sql)
+            If rwCliente Is Nothing = False Then
+                clienteasignado = rwCliente(0)("nombre")
+            End If
+
+
+            Dim ruta As String
+            ruta = My.Application.Info.DirectoryPath() & "\Archivos\reportenominafiniquito.xlsx"
+            Dim book As New ClosedXML.Excel.XLWorkbook(ruta)
+            Dim libro As New ClosedXML.Excel.XLWorkbook
+
+            book.Worksheet(1).CopyTo(libro, "DATOS")
+            book.Worksheet(2).CopyTo(libro, "DIV.CALCULOS")
+            book.Worksheet(3).CopyTo(libro, "PAGOS")
+            book.Worksheet(4).CopyTo(libro, "RESUMEN RET")
+            book.Worksheet(5).CopyTo(libro, "RELACIONES CHEQUES")
+
+            Dim hoja As IXLWorksheet = libro.Worksheets(0)
+            Dim hoja2 As IXLWorksheet = libro.Worksheets(1)
+            Dim hoja3 As IXLWorksheet = libro.Worksheets(2)
+            Dim hoja4 As IXLWorksheet = libro.Worksheets(3)
+            Dim hoja5 As IXLWorksheet = libro.Worksheets(4)
+
+            filaExcel = 16
+           
+
+            '<<<<<<< DATOS >>>>>>>
+            Dim fechaingreso As String
+            Dim fSueldoOrd, fSueldoBase, cuotadiaria As Double
+
+            sql = "SELECT * FROM empleadosC where iIdEmpleadoC=" & gIdEmpleado
+            Dim rwEmpleadosC As DataRow() = nConsulta(sql)
+            If rwEmpleadosC Is Nothing = False Then
+                fechaingreso = rwEmpleadosC(0)("dFechaPatrona")
+                fSueldoBase = rwEmpleadosC(0)("fSueldoBase")
+                fSueldoOrd = rwEmpleadosC(0)("fSueldoOrd")
+            End If
+
+
+            cuotadiaria = fSueldoOrd / 15
+            hoja.Cell(5, 4).Value = txtTrabajador.Text 'NOMBRE TRABJADOR
+            hoja.Cell(6, 4).Value = "B" ' ZONA GEOGRAFICA
+            hoja.Cell(7, 4).Value = txtContratacion.Text 'TIPO DE CONTRATACION
+            hoja.Cell(8, 4).Value = dtpIngreso.Value 'FECHA DE INGRESO
+            hoja.Cell(9, 4).Value = dtpBaja.Value 'FECHA DE BAJA
+            hoja.Cell(10, 4).Value = txtCuotaDiaria.Text ' CUOTA DIARIA
+            hoja.Cell(11, 4).Value = NudAniosCompletos.Value
+            hoja.Cell(12, 4).Value = NudDiasVacaciones.Value
+            hoja.Cell(13, 4).Value = NudAguinaldoLaborado.Value
+            hoja.Cell(14, 4).Value = NudVacacionesContrato.Value
+            hoja.Cell(15, 4).Value = NudVacacionesLey.Value
+            hoja.Cell(16, 4).Value = NudPorPrima.Value & "%"
+            hoja.Cell(17, 4).Value = NudDiasAguinaldo.Value
+            hoja.Cell(18, 4).Value = NudSubsidio.Value & "%"
+            hoja.Cell(19, 4).Value = NudDevengados.Value
+            hoja.Cell(20, 4).Value = txtIndemnizacionSugerida.Text
+            hoja.Cell(21, 4).Value = nudComisionCliente.Value & "%"
+            hoja.Cell(8, 7).Value = txtSalario.Text
+
+
+            '<<<<<<< RESUMEN RET >>>>>>>
+            hoja4.Cell(8, 3).Value = txtIndeServicioP.Text
+            hoja4.Cell(8, 5).Value = txtIndeServicioS.Text
+            hoja4.Cell(10, 3).Value = txtIndeConstitucionalP.Text
+            hoja4.Cell(10, 5).Value = txtIndeConstitucionalS.Text
+            hoja4.Cell(12, 3).Value = txtPrimaAntiguedadP.Text
+            hoja4.Cell(12, 5).Value = txtPrimaAntiguedadS.Text
+            hoja4.Cell(16, 3).Value = txtProporAguinaldoP.Text
+            hoja4.Cell(16, 5).Value = txtProporAguinaldoS.Text
+            hoja4.Cell(18, 3).Value = txtProporVacacionesP.Text
+            hoja4.Cell(18, 5).Value = txtProporVacacionesS.Text
+            hoja4.Cell(20, 3).Value = txtProporPrimaP.Text
+            hoja4.Cell(20, 5).Value = txtProporPrimaS.Text
+            hoja4.Cell(22, 3).Value = txtSalarioDevengadoP.Text
+            hoja4.Cell(22, 5).Value = txtSalarioDevengadoS.Text
+            hoja4.Cell(24, 3).Value = txtCreditoInfonavitP.Text
+            hoja4.Cell(24, 5).Value = txtCreditoInfonavitS.Text
+            hoja4.Cell(26, 3).Value = txtIsrP.Text
+
+            ' hoja4.Cell(31, 3).Value = 'costo social
+
+            
+            dialogo.FileName = "FINIQUITO " & UCase(txtTrabajador.Text)
+            dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
+
+
+            If dialogo.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+                ' OK button pressed
+                libro.SaveAs(dialogo.FileName)
+                libro = Nothing
+                MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End Try
+    End Sub
 End Class

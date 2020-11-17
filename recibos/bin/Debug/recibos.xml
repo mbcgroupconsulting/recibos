@@ -83,6 +83,10 @@ recibos
 	<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
+</member><member name="P:recibos.My.Resources.Resources.excel__2_">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
 </member><member name="P:recibos.My.Resources.Resources.GF1">
 	<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
@@ -100,6 +104,10 @@ recibos
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
 </member><member name="P:recibos.My.Resources.Resources.material_escolar">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:recibos.My.Resources.Resources.xls__2_">
 	<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
