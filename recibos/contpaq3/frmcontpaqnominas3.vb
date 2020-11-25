@@ -2459,6 +2459,16 @@ Public Class frmcontpaqnominas3
                         Exit Sub
                     End If
 
+
+                    SueldoSA = SueldoSA + dtgDatos.Rows(x).Cells(8).Value.ToString.Replace(",", "")
+                    Sindicato = Sindicato + dtgDatos.Rows(x).Cells(16).Value.ToString.Replace(",", "")
+                    Infonavit = Infonavit + dtgDatos.Rows(x).Cells(10).Value.ToString.Replace(",", "")
+                    Pension = Pension + dtgDatos.Rows(x).Cells(9).Value.ToString.Replace(",", "")
+                    Imss = Imss + dtgDatos.Rows(x).Cells(23).Value.ToString.Replace(",", "")
+                    ComisionSA = ComisionSA + dtgDatos.Rows(x).Cells(28).Value.ToString.Replace(",", "")
+                    ComisionSindicato = ComisionSindicato + dtgDatos.Rows(x).Cells(29).Value.ToString.Replace(",", "")
+                    CostoSocial = CostoSocial + dtgDatos.Rows(x).Cells(26).Value.ToString.Replace(",", "")
+
                     sql = "update empleadosC set fSueldoOrd=" & dtgDatos.Rows(x).Cells(7).Value '& ", fCosto =" & dtgDatos.Rows(x).Cells(22).Value
                     sql &= " where iIdEmpleadoC = " & dtgDatos.Rows(x).Cells(3).Value
 
@@ -5190,6 +5200,7 @@ Public Class frmcontpaqnominas3
                     MessageBox.Show("La empresa en el programa de conpaq no tiene conceptos de pago", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
 
+
                 MessageBox.Show("Los datos han sido importados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 DesconectarContpaq()
                 'cargarperiodos()
@@ -5203,6 +5214,8 @@ Public Class frmcontpaqnominas3
         Dim sql As String
         Dim sql2 As String
         Dim iBan As Integer
+        Dim depto As String
+        Dim puesto As String
         Dim nacimiento As String
         Try
             If Ruta <> "" And Ruta <> "ctCSyAP" Then
@@ -5234,13 +5247,37 @@ Public Class frmcontpaqnominas3
                             For y As Integer = 0 To rwEmpleados.Length - 1
                                 If (rwEmpleadosC(x)("codigoempleado").ToString() = rwEmpleados(y)("cCodigoEmpleado").ToString) Then
 
+                                    sql2 = "Select * from puestos where cNombre='" & rwEmpleadosC(x)("puesto") & "' and fkiIdEmpresa=" & gIdEmpresa
 
+
+                                    Dim rwPuesto As DataRow() = nConsulta(sql2)
+
+                                    If rwPuesto Is Nothing = False Then
+                                        puesto = rwPuesto(0)("iIdPuesto")
+                                    Else
+                                        puesto = "-1"
+                                    End If
+
+
+                                    sql2 = "Select * from departamentos where cNombre='" & rwEmpleadosC(x)("departamento") & "' and fkiIdEmpresa=" & gIdEmpresa
+
+
+                                    Dim rwDepto As DataRow() = nConsulta(sql2)
+
+                                    If rwDepto Is Nothing = False Then
+                                        depto = rwDepto(0)("iIdDepartamento")
+                                    Else
+                                        depto = ",-1"
+                                    End If
 
                                     If rwEmpleadosC(x)("estadoempleado").ToString() = "B" Then
 
 
                                         sql = "update empleadosC set fkiIdClienteInter = 1,fSueldoBase=" & rwEmpleadosC(x)("sueldodiario") & ",fSueldoIntegrado=" & rwEmpleadosC(x)("sueldointegrado")
                                         sql &= ",dFechaCap='" & Date.Parse(rwEmpleadosC(x)("fechabaja").ToString()).ToShortDateString & "'"
+                                        sql &= ",fkiIdDepartamento=" & depto
+                                        sql &= ",cPuesto='" & puesto & "'"
+                                        sql &= ",fkiIdPuesto=" & puesto
                                         sql &= " where iIdEmpleadoC=" & rwEmpleados(y)("iIdEmpleadoC").ToString
 
                                         If nExecute(sql) = False Then
@@ -5268,6 +5305,9 @@ Public Class frmcontpaqnominas3
                                             sql = "update empleadosC set fSueldoBase=" & rwEmpleadosC(x)("sueldodiario") & ",fSueldoIntegrado=" & rwEmpleadosC(x)("sueldointegrado")
                                             sql &= ",fkiIdBanco=" & cadenaiIdBanco & ",Numcuenta='" & rwEmpleadosC(x)("cuentapagoelectronico") & "',Clabe='" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
                                             sql &= ",fkiIdBanco2=" & cadenaiIdBanco & ",cuenta2='" & rwEmpleadosC(x)("cuentapagoelectronico") & "',clabe2='" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
+                                            sql &= ",fkiIdDepartamento=" & depto
+                                            sql &= ",cPuesto='" & puesto & "'"
+                                            sql &= ",fkiIdPuesto=" & puesto
                                             sql &= " where iIdEmpleadoC=" & rwEmpleados(y)("iIdEmpleadoC").ToString
 
                                         Else
@@ -5285,6 +5325,9 @@ Public Class frmcontpaqnominas3
                                             sql = "update empleadosC set fSueldoBase=" & rwEmpleadosC(x)("sueldodiario") & ",fSueldoIntegrado=" & rwEmpleadosC(x)("sueldointegrado")
                                             'sql &= ",fkiIdBanco=" & cadenaiIdBanco & ",Numcuenta='" & rwEmpleadosC(x)("cuentapagoelectronico") & "',Clabe='" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
                                             'sql &= ",fkiIdBanco2=" & cadenaiIdBanco & ",cuenta2='" & rwEmpleadosC(x)("cuentapagoelectronico") & "',clabe2='" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
+                                            sql &= ",fkiIdDepartamento=" & depto
+                                            sql &= ",cPuesto='" & puesto & "'"
+                                            sql &= ",fkiIdPuesto=" & puesto
                                             sql &= " where iIdEmpleadoC=" & rwEmpleados(y)("iIdEmpleadoC").ToString
 
                                         End If
