@@ -775,7 +775,7 @@ Public Class frmEmpleados
     End Sub
 
     Private Sub txtCostoSocial_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtCostoSocial.KeyPress
-        SoloNumero.NumeroDec(e, sender)
+        SoloNumero.NumeroDec4(e, sender)
     End Sub
 
     Private Sub txtCostoSocial_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCostoSocial.TextChanged

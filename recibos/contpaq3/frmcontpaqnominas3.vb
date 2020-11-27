@@ -5260,7 +5260,18 @@ Public Class frmcontpaqnominas3
 
 
                                     sql2 = "Select * from departamentos where cNombre='" & rwEmpleadosC(x)("departamento") & "' and fkiIdEmpresa=" & gIdEmpresa
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/master
+
+                                    Dim rwDepto As DataRow() = nConsulta(sql2)
+
+                                    If rwDepto Is Nothing = False Then
+                                        depto = rwDepto(0)("iIdDepartamento")
+                                    Else
+                                        depto = ",-1"
+                                    End If
 
                                     Dim rwDepto As DataRow() = nConsulta(sql2)
 
