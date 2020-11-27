@@ -133,6 +133,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="catalogos\frmBuscarBanco.Designer.vb">
+      <DependentUpon>frmBuscarBanco.vb</DependentUpon>
+    </Compile>
+    <Compile Include="catalogos\frmBuscarBanco.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="catalogos\frmNotarioC.Designer.vb">
       <DependentUpon>frmNotarioC.vb</DependentUpon>
     </Compile>
@@ -1106,6 +1112,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="catalogos\frmBuscarBanco.resx">
+      <DependentUpon>frmBuscarBanco.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="catalogos\frmNotarioC.resx">
       <DependentUpon>frmNotarioC.vb</DependentUpon>
     </EmbeddedResource>
