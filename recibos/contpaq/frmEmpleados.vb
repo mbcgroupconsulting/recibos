@@ -778,7 +778,5 @@ Public Class frmEmpleados
         SoloNumero.NumeroDec4(e, sender)
     End Sub
 
-    Private Sub txtCostoSocial_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCostoSocial.TextChanged
-
-    End Sub
+  
 End Class

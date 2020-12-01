@@ -67,4 +67,6 @@
             cmdBuscar_Click(Nothing, Nothing)
         End If
     End Sub
+
+    
 End Class

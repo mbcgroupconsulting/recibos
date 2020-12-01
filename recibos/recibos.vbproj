@@ -349,6 +349,12 @@
     <Compile Include="contpaq\frmbanorte.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="contpaq\frmBuscarBanco.Designer.vb">
+      <DependentUpon>frmBuscarBanco.vb</DependentUpon>
+    </Compile>
+    <Compile Include="contpaq\frmBuscarBanco.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="contpaq\frmBuscarEmpleado.Designer.vb">
       <DependentUpon>frmBuscarEmpleado.vb</DependentUpon>
     </Compile>
@@ -1215,6 +1221,9 @@
     <EmbeddedResource Include="contpaq\frmbanorte.resx">
       <DependentUpon>frmbanorte.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="contpaq\frmBuscarBanco.resx">
+      <DependentUpon>frmBuscarBanco.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="contpaq\frmBuscarEmpleado.resx">
       <DependentUpon>frmBuscarEmpleado.vb</DependentUpon>
     </EmbeddedResource>
@@ -1612,6 +1621,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ClassDiagram1.cd" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

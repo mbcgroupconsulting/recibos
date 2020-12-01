@@ -6,6 +6,9 @@
     Public gIdEmpresa As String
     Private Sub frmSantander_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         cargarbancosasociados()
+        If gIdDatosBancos <> "" Then
+
+        End If
     End Sub
     Private Sub cargarbancosasociados()
         Dim sql As String

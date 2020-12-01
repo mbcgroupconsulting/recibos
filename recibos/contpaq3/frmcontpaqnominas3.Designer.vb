@@ -62,12 +62,12 @@ Partial Class frmcontpaqnominas3
         Me.tsbIEmpleados = New System.Windows.Forms.ToolStripButton()
         Me.tsbAguinaldo = New System.Windows.Forms.ToolStripButton()
         Me.tsbCliente = New System.Windows.Forms.ToolStripButton()
+        Me.tsbBanco = New System.Windows.Forms.ToolStripButton()
         Me.tsbEmpresa = New System.Windows.Forms.ToolStripButton()
         Me.tsbExportarExcelEmpleado = New System.Windows.Forms.ToolStripButton()
         Me.cmenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Igualar0 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DesactivarIgualarA0ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btnrpFiniquito = New System.Windows.Forms.Button()
         Me.pnlProgreso.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         CType(Me.dtgDatos, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -128,7 +128,6 @@ Partial Class frmcontpaqnominas3
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.pnlCatalogo.Controls.Add(Me.btnrpFiniquito)
         Me.pnlCatalogo.Controls.Add(Me.btnReporteExcel)
         Me.pnlCatalogo.Controls.Add(Me.cmdBorrar)
         Me.pnlCatalogo.Controls.Add(Me.cmdGuardarSueldo)
@@ -377,7 +376,7 @@ Partial Class frmcontpaqnominas3
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbDatos, Me.tsbEmpleados, Me.tsbPeriodos, Me.tsbpuestos, Me.tsbdeptos, Me.tsbImportar, Me.tsbLayout, Me.tsbIEmpleados, Me.tsbAguinaldo, Me.tsbCliente, Me.tsbEmpresa, Me.tsbExportarExcelEmpleado})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbDatos, Me.tsbEmpleados, Me.tsbPeriodos, Me.tsbpuestos, Me.tsbdeptos, Me.tsbImportar, Me.tsbLayout, Me.tsbIEmpleados, Me.tsbAguinaldo, Me.tsbCliente, Me.tsbBanco, Me.tsbEmpresa, Me.tsbExportarExcelEmpleado})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1497, 54)
@@ -477,6 +476,15 @@ Partial Class frmcontpaqnominas3
         Me.tsbCliente.Text = "Cliente asignado"
         Me.tsbCliente.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
+        'tsbBanco
+        '
+        Me.tsbBanco.Image = CType(resources.GetObject("tsbBanco.Image"), System.Drawing.Image)
+        Me.tsbBanco.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbBanco.Name = "tsbBanco"
+        Me.tsbBanco.Size = New System.Drawing.Size(95, 51)
+        Me.tsbBanco.Text = "Banco asignado"
+        Me.tsbBanco.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
         'tsbEmpresa
         '
         Me.tsbEmpresa.Image = CType(resources.GetObject("tsbEmpresa.Image"), System.Drawing.Image)
@@ -512,16 +520,6 @@ Partial Class frmcontpaqnominas3
         Me.DesactivarIgualarA0ToolStripMenuItem.Name = "DesactivarIgualarA0ToolStripMenuItem"
         Me.DesactivarIgualarA0ToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.DesactivarIgualarA0ToolStripMenuItem.Text = "Desactivar igualar a 0"
-        '
-        'btnrpFiniquito
-        '
-        Me.btnrpFiniquito.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnrpFiniquito.Location = New System.Drawing.Point(1064, 32)
-        Me.btnrpFiniquito.Name = "btnrpFiniquito"
-        Me.btnrpFiniquito.Size = New System.Drawing.Size(103, 29)
-        Me.btnrpFiniquito.TabIndex = 24
-        Me.btnrpFiniquito.Text = "Rep Finiquito"
-        Me.btnrpFiniquito.UseVisualStyleBackColor = True
         '
         'frmcontpaqnominas3
         '
@@ -591,5 +589,5 @@ Partial Class frmcontpaqnominas3
     Friend WithEvents Igualar0 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DesactivarIgualarA0ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btnReporteExcel As System.Windows.Forms.Button
-    Friend WithEvents btnrpFiniquito As System.Windows.Forms.Button
+    Friend WithEvents tsbBanco As System.Windows.Forms.ToolStripButton
 End Class
