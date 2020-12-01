@@ -5260,18 +5260,9 @@ Public Class frmcontpaqnominas3
 
 
                                     sql2 = "Select * from departamentos where cNombre='" & rwEmpleadosC(x)("departamento") & "' and fkiIdEmpresa=" & gIdEmpresa
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
 
-                                    Dim rwDepto As DataRow() = nConsulta(sql2)
 
-                                    If rwDepto Is Nothing = False Then
-                                        depto = rwDepto(0)("iIdDepartamento")
-                                    Else
-                                        depto = ",-1"
-                                    End If
 
                                     Dim rwDepto As DataRow() = nConsulta(sql2)
 
@@ -5280,6 +5271,14 @@ Public Class frmcontpaqnominas3
                                     Else
                                         depto = ",-1"
                                     End If
+
+                                    'Dim rwDepto As DataRow() = nConsulta(sql2)
+
+                                    'If rwDepto Is Nothing = False Then
+                                    '    depto = rwDepto(0)("iIdDepartamento")
+                                    'Else
+                                    '    depto = ",-1"
+                                    'End If
 
                                     If rwEmpleadosC(x)("estadoempleado").ToString() = "B" Then
 
@@ -6119,7 +6118,7 @@ Public Class frmcontpaqnominas3
                 diaini = CDate(periodoini).Day
                 periodofin = CDate(periodo.Substring(11)).ToLongDateString().Substring(CDate(periodo.Substring(11)).ToLongDateString().IndexOf(", ") + 2).ToUpper()
 
-               
+
                 'End If
 
                 Dim ruta As String
@@ -6161,7 +6160,7 @@ Public Class frmcontpaqnominas3
                     hoja.Cell(filaExcel, 6).Value = dtgDatos.Rows(x).Cells(20).Value 'otros ingresos
                     hoja.Cell(filaExcel, 7).Value = dtgDatos.Rows(x).Cells(11).Value 'fonacot
                     hoja.Cell(filaExcel, 8).Value = dtgDatos.Rows(x).Cells(10).Value 'infonavit
-                    hoja.Cell(filaExcel, 9).Value = "" 'otros descuentos p-sindical
+                    hoja.Cell(filaExcel, 9).Value = dtgDatos.Rows(x).Cells(14).Value 'otros descuentos p-sindical
                     hoja.Cell(filaExcel, 10).Value = "" 'otros decuentosp-asim
                     hoja.Cell(filaExcel, 11).Value = dtgDatos.Rows(x).Cells(8).Value ' patrona neto
                     hoja.Cell(filaExcel, 12).Value = 0 'asim
@@ -6276,7 +6275,7 @@ Public Class frmcontpaqnominas3
 
                 hoja.Range(filaExcel + 8, 11, filaExcel + 8, 14).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right
                 hoja.Range(filaExcel + 8, 11, filaExcel + 8, 14).Style.Alignment.Vertical = XLAlignmentHorizontalValues.Center
-                
+
                 hoja.Cell(filaExcel + 14, 14).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right
                 'style
                 hoja.Range("A" & filaExcel + 6 & ":N" & filaExcel + 6).Row(1).Merge()
@@ -6412,9 +6411,9 @@ Public Class frmcontpaqnominas3
                 hoja3.Cell(4, 11).Value = "SINDICATO"
 
                 'Style
-               
 
-                
+
+
 
                 filaExcel = 5
                 Dim totalfila As Integer
@@ -6423,7 +6422,7 @@ Public Class frmcontpaqnominas3
 
 
 
-                    sql = "select iIdempleadoC,NumCuenta,Clabe,cuenta2,clabe2,fkiIdBanco,bancos.cBanco as banco1,fkiIdBanco2,bancos2.cBanco as banco2"
+                    sql = "select iIdempleadoC,cCodigoEmpleado,NumCuenta,Clabe,cuenta2,clabe2,fkiIdBanco,bancos.cBanco as banco1,fkiIdBanco2,bancos2.cBanco as banco2"
                     sql &= " from (empleadosC"
                     sql &= " inner join bancos on empleadosC.fkiIdBanco= bancos.iIdBanco)"
                     sql &= " inner join (select iIdBanco,cBanco from bancos) as bancos2 on empleadosC.fkiIdBanco2= bancos2.iIdBanco"
@@ -6433,7 +6432,7 @@ Public Class frmcontpaqnominas3
                     If rwEmpleado Is Nothing = False Then
 
                         'Codigo
-                        hoja3.Cell(filaExcel + x, 2).Value = dtgDatos.Rows(x).Cells(3).Value
+                        hoja3.Cell(filaExcel + x, 2).Value = rwEmpleado(0)("cCodigoEmpleado").ToString
                         'Nombre
                         hoja3.Cell(filaExcel + x, 3).Value = dtgDatos.Rows(x).Cells(6).Value
                         'Banco
@@ -6536,7 +6535,7 @@ Public Class frmcontpaqnominas3
     End Sub
 
 
-    Private Sub cboperiodo_SelectedIndexChanged_1(sender As System.Object, e As System.EventArgs) Handles cboperiodo.SelectedIndexChanged
+    Private Sub cboperiodo_SelectedIndexChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboperiodo.SelectedIndexChanged
         Try
             dtgDatos.DataSource = ""
             dtgDatos.Columns.Clear()
@@ -6548,22 +6547,22 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub dtgDatos_CellMouseEnter(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dtgDatos.CellMouseEnter
+    Private Sub dtgDatos_CellMouseEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dtgDatos.CellMouseEnter
 
     End Sub
 
-    Private Sub ToolStrip1_ItemClicked(sender As System.Object, e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
+    Private Sub ToolStrip1_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
 
     End Sub
 
-    Private Sub chkAll_CheckedChanged_1(sender As System.Object, e As System.EventArgs) Handles chkAll.CheckedChanged
+    Private Sub chkAll_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkAll.CheckedChanged
         For x As Integer = 0 To dtgDatos.Rows.Count - 1
             dtgDatos.Rows(x).Cells(0).Value = Not dtgDatos.Rows(x).Cells(0).Value
         Next
         chkAll.Text = IIf(chkAll.Checked, "Desmarcar todos", "Marcar todos")
     End Sub
 
-    Private Sub dtgDatos_ColumnHeaderMouseClick1(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dtgDatos.ColumnHeaderMouseClick
+    Private Sub dtgDatos_ColumnHeaderMouseClick1(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dtgDatos.ColumnHeaderMouseClick
         Try
             Dim newColumn As DataGridViewColumn = dtgDatos.Columns(e.ColumnIndex)
 
@@ -6575,7 +6574,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-    Private Sub dtgDatos_EditingControlShowing1(sender As Object, e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles dtgDatos.EditingControlShowing
+    Private Sub dtgDatos_EditingControlShowing1(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles dtgDatos.EditingControlShowing
         Dim columna As Integer
         m_currentControl = Nothing
         columna = CInt(DirectCast(sender, System.Windows.Forms.DataGridView).CurrentCell.ColumnIndex)
@@ -6585,7 +6584,7 @@ Public Class frmcontpaqnominas3
         End If
     End Sub
 
-    Private Sub dtgDatos_KeyPress1(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles dtgDatos.KeyPress
+    Private Sub dtgDatos_KeyPress1(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles dtgDatos.KeyPress
         Try
 
             SoloNumero.NumeroDec(e, sender)
@@ -6594,7 +6593,7 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
-   
+
 
     Public Function CalcularDiasVac(ByRef anios As Integer) As Integer
         Select Case anios
@@ -6629,6 +6628,9 @@ Public Class frmcontpaqnominas3
             Dim Forma As New frmBuscarBanco
             Dim temp As Integer = 0
             Dim encontro As Boolean = False
+
+            Forma.gIdEmpresa = gIdEmpresa
+            Forma.gIdCliente = gIdClienteAsignada
             If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
 
             End If
@@ -6639,4 +6641,5 @@ Public Class frmcontpaqnominas3
         End Try
     End Sub
 
+    
 End Class

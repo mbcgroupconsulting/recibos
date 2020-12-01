@@ -196,9 +196,6 @@
 
     Private Sub lsvLista_ItemActivate(sender As Object, e As EventArgs) Handles lsvLista.ItemActivate
         
-        
-
-
         Try
             Dim id As Long
             Dim idperiodo As Long
@@ -286,4 +283,6 @@
     Private Sub pnlCatalogo_Paint(sender As Object, e As PaintEventArgs) Handles pnlCatalogo.Paint
 
     End Sub
+
+  
 End Class

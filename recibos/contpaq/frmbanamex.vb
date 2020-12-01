@@ -6,8 +6,14 @@
     Public gIdEmpresa As String
 
 
+
     Private Sub frmbanamex_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cargarbancosasociados()
+
+
+        If gIdDatosBancos <> "" Then
+
+        End If
     End Sub
 
     Private Sub cargarbancosasociados()
