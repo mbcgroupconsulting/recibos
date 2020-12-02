@@ -6635,7 +6635,7 @@ Public Class frmcontpaqnominas3
 
             End If
 
-
+            cargarbancosasociados()
         Catch ex As Exception
             MessageBox.Show(ex.Message.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
         End Try
