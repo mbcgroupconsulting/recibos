@@ -32,16 +32,14 @@ Partial Class frmBuscarBanco
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader6 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader5 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader7 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.btnAsignar = New System.Windows.Forms.Button()
         Me.cbBancos = New System.Windows.Forms.ComboBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.NudFilaI = New System.Windows.Forms.NumericUpDown()
-        Me.dtpFecha = New System.Windows.Forms.DateTimePicker()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.txtsucursal = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtcuentacargo = New System.Windows.Forms.TextBox()
@@ -49,15 +47,12 @@ Partial Class frmBuscarBanco
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtempresa = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.cbocliente = New System.Windows.Forms.ComboBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtdescripcion = New System.Windows.Forms.TextBox()
-        Me.ColumnHeader6 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader7 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.txtcliente = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
-        CType(Me.NudFilaI, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtbuscar
@@ -134,9 +129,18 @@ Partial Class frmBuscarBanco
         Me.ColumnHeader4.Text = "Sucursal"
         Me.ColumnHeader4.Width = 109
         '
+        'ColumnHeader6
+        '
+        Me.ColumnHeader6.Text = "Empresa"
+        Me.ColumnHeader6.Width = 129
+        '
         'ColumnHeader5
         '
         Me.ColumnHeader5.Text = "Tipo"
+        '
+        'ColumnHeader7
+        '
+        Me.ColumnHeader7.Text = "Descripcion"
         '
         'Label2
         '
@@ -178,7 +182,7 @@ Partial Class frmBuscarBanco
         Me.cbBancos.Location = New System.Drawing.Point(89, 16)
         Me.cbBancos.Name = "cbBancos"
         Me.cbBancos.Size = New System.Drawing.Size(484, 27)
-        Me.cbBancos.TabIndex = 29
+        Me.cbBancos.TabIndex = 1
         '
         'Panel1
         '
@@ -188,43 +192,6 @@ Partial Class frmBuscarBanco
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(802, 242)
         Me.Panel1.TabIndex = 30
-        '
-        'NudFilaI
-        '
-        Me.NudFilaI.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudFilaI.Location = New System.Drawing.Point(733, 131)
-        Me.NudFilaI.Maximum = New Decimal(New Integer() {99999, 0, 0, 0})
-        Me.NudFilaI.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NudFilaI.Name = "NudFilaI"
-        Me.NudFilaI.Size = New System.Drawing.Size(53, 22)
-        Me.NudFilaI.TabIndex = 61
-        Me.NudFilaI.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
-        'dtpFecha
-        '
-        Me.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFecha.Location = New System.Drawing.Point(645, 82)
-        Me.dtpFecha.Name = "dtpFecha"
-        Me.dtpFecha.Size = New System.Drawing.Size(111, 27)
-        Me.dtpFecha.TabIndex = 60
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(718, 115)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(78, 19)
-        Me.Label7.TabIndex = 59
-        Me.Label7.Text = "Secuencial"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(642, 66)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(103, 19)
-        Me.Label6.TabIndex = 58
-        Me.Label6.Text = "Fecha de pago"
         '
         'txtsucursal
         '
@@ -281,23 +248,6 @@ Partial Class frmBuscarBanco
         Me.txtempresa.Size = New System.Drawing.Size(198, 27)
         Me.txtempresa.TabIndex = 50
         '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(22, 66)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(77, 19)
-        Me.Label9.TabIndex = 49
-        Me.Label9.Text = "No Cliente"
-        '
-        'cbocliente
-        '
-        Me.cbocliente.FormattingEnabled = True
-        Me.cbocliente.Location = New System.Drawing.Point(25, 82)
-        Me.cbocliente.Name = "cbocliente"
-        Me.cbocliente.Size = New System.Drawing.Size(172, 27)
-        Me.cbocliente.TabIndex = 48
-        '
         'Label10
         '
         Me.Label10.AutoSize = True
@@ -323,26 +273,31 @@ Partial Class frmBuscarBanco
         Me.txtdescripcion.Size = New System.Drawing.Size(374, 27)
         Me.txtdescripcion.TabIndex = 63
         '
-        'ColumnHeader6
+        'txtcliente
         '
-        Me.ColumnHeader6.Text = "Empresa"
-        Me.ColumnHeader6.Width = 129
+        Me.txtcliente.Location = New System.Drawing.Point(25, 79)
+        Me.txtcliente.Name = "txtcliente"
+        Me.txtcliente.Size = New System.Drawing.Size(172, 27)
+        Me.txtcliente.TabIndex = 2
         '
-        'ColumnHeader7
+        'Label9
         '
-        Me.ColumnHeader7.Text = "Descripcion"
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(27, 66)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(77, 19)
+        Me.Label9.TabIndex = 66
+        Me.Label9.Text = "No Cliente"
         '
         'frmBuscarBanco
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(849, 479)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.txtcliente)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.txtdescripcion)
         Me.Controls.Add(Me.Label10)
-        Me.Controls.Add(Me.NudFilaI)
-        Me.Controls.Add(Me.dtpFecha)
-        Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.txtsucursal)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.txtcuentacargo)
@@ -350,8 +305,6 @@ Partial Class frmBuscarBanco
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.txtempresa)
-        Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.cbocliente)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.cbBancos)
         Me.Controls.Add(Me.Label2)
@@ -368,7 +321,6 @@ Partial Class frmBuscarBanco
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Buscar Banco"
         Me.Panel1.ResumeLayout(False)
-        CType(Me.NudFilaI, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -388,10 +340,6 @@ Partial Class frmBuscarBanco
     Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader5 As System.Windows.Forms.ColumnHeader
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
-    Friend WithEvents NudFilaI As System.Windows.Forms.NumericUpDown
-    Friend WithEvents dtpFecha As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents txtsucursal As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents txtcuentacargo As System.Windows.Forms.TextBox
@@ -399,11 +347,11 @@ Partial Class frmBuscarBanco
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents txtempresa As System.Windows.Forms.TextBox
-    Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents cbocliente As System.Windows.Forms.ComboBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents txtdescripcion As System.Windows.Forms.TextBox
     Friend WithEvents ColumnHeader6 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader7 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents txtcliente As System.Windows.Forms.TextBox
+    Friend WithEvents Label9 As System.Windows.Forms.Label
 End Class

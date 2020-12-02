@@ -8,7 +8,8 @@
     Private Sub frmBuscarBanco_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         cargarbancos()
         cargarbancosasociados()
-        cargarbancosasociadosScotia()
+        TabIndex()
+
         blnNuevo = True
     End Sub
     Private Sub cargarbancos()
@@ -20,20 +21,18 @@
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-    Private Sub cargarbancosasociadosScotia()
-        Dim sql As String
-        Try
-            If cbBancos.SelectedValue = 13 Then
 
-                sql = "select * from datosbanco where fkiidBanco =" & gIdBanco & " and fkiIdEmpresa=" & gIdEmpresa & " order by numcliente"
-                nCargaCBO(cbocliente, sql, "numcliente", "iIdDatosBanco")
-
-            End If
-
-        Catch ex As Exception
-
-        End Try
+    Public Sub tabIndex()
+        cbBancos.TabIndex = 1
+        txtcliente.TabIndex = 2
+        txtempresa.TabIndex = 3
+        txttipo.TabIndex = 4
+        txtcuentacargo.TabIndex = 5
+        txtsucursal.TabIndex = 6
+        txtdescripcion.TabIndex = 7
+        btnAsignar.TabIndex = 8
     End Sub
+ 
     Private Sub cargarbancosasociados()
         Dim sql As String
         Dim Alter As Boolean = False
@@ -49,15 +48,19 @@
 
             Dim item As ListViewItem
             lsvBancos.Columns.Add("Banco")
-            lsvBancos.Columns(0).Width = 250
+            lsvBancos.Columns(0).Width = 200
             lsvBancos.Columns.Add("Numero Cliente")
             lsvBancos.Columns(1).Width = 170
             lsvBancos.Columns.Add("Cuenta Cargo")
-            lsvBancos.Columns(2).Width = 350
+            lsvBancos.Columns(2).Width = 170
             lsvBancos.Columns.Add("Sucursal")
-            lsvBancos.Columns(3).Width = 120
+            lsvBancos.Columns(3).Width = 100
+            lsvBancos.Columns.Add("Empresa")
+            lsvBancos.Columns(4).Width = 200
             lsvBancos.Columns.Add("Tipo")
-            lsvBancos.Columns(4).Width = 270
+            lsvBancos.Columns(5).Width = 200
+            lsvBancos.Columns.Add("Descripcion")
+            lsvBancos.Columns(6).Width = 200
 
             Dim rwBancosD As DataRow() = nConsulta(sql)
             If rwBancosD Is Nothing = False Then
@@ -68,7 +71,9 @@
                     item.SubItems.Add("" & Fila.Item("numcliente"))
                     item.SubItems.Add("" & Fila.Item("cuentacargo"))
                     item.SubItems.Add("" & Fila.Item("numsucursal"))
+                    item.SubItems.Add("" & Fila.Item("empresa"))
                     item.SubItems.Add("" & Fila.Item("Tipo"))
+                    item.SubItems.Add("" & Fila.Item("descripcion"))
                     item.Tag = Fila.Item("iIdDatosBanco")
                     item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
                     Alter = Not Alter
@@ -112,22 +117,23 @@
 
                 SQL = "UPDATE DatosBanco SET "
                 SQL &= "fkiIdBanco=" & cbBancos.SelectedValue & ","
-                SQL &= " numcliente=" & cbocliente.SelectedText & ","
-                SQL &= " empresa= " & txtempresa.Text & ","
-                SQL &= " descripcion= " & txtdescripcion.Text & ","
-                SQL &= " cuentacargo= " & txtcuentacargo.Text & ","
-                SQL &= " numsucursal= " & txtsucursal.Text & ","
+                SQL &= " numcliente= '" & txtcliente.Text & "',"
+                SQL &= " empresa= '" & txtempresa.Text & "',"
+                SQL &= " descripcion= '" & txtdescripcion.Text & "',"
+                SQL &= " cuentacargo= '" & txtcuentacargo.Text & "',"
+                SQL &= " numsucursal= '" & txtsucursal.Text & "',"
                 SQL &= " fkiIdEmpresa= " & gIdEmpresa & ","
-                SQL &= " Tipo= " & txttipo.Text
-
+                SQL &= " Tipo= '" & txttipo.Text & "'"
+                SQL &= " WHERE iIdDatosBanco=" & lsvBancos.SelectedItems(0).Tag
             Else
-                SQL = "EXEC setBuscarDatosInsertar 0,"
+                SQL = "EXEC setDatosBancoInsertar 0,"
                 SQL &= cbBancos.SelectedValue & ", "
-                SQL &= cbocliente.SelectedValue & ","
+                SQL &= "'" & txtcliente.Text & "',"
                 SQL &= "'" & txtempresa.Text & "', "
                 SQL &= "'" & txtdescripcion.Text & "', "
                 SQL &= "'" & txtcuentacargo.Text & "',"
                 SQL &= "'" & txtsucursal.Text & "', "
+                SQL &= gIdEmpresa & ", "
                 SQL &= "'" & txttipo.Text & "' "
 
             End If
@@ -136,27 +142,24 @@
                 Exit Sub
             End If
 
-            'Registrar modificaicones
-            If blnNuevo Then
-                SQL = "SELECT MAX(iIdDatosBanco) as id from  DatosBanco"
-                Dim rwFilas As DataRow() = nConsulta(SQL)
+            'Se Registra
 
-                If rwFilas Is Nothing = False Then
-                    Dim Fila As DataRow = rwFilas(0)
-                 
-
-                Else
+            SQL = "EXEC setDatosBancoBajaAltaInsertar 0,"
+            SQL &= lsvBancos.SelectedItems(0).Tag & ", "
+            SQL &= "'" & Usuario.Nombre & "', '"
+            SQL &= Date.Today.ToShortDateString() & "',"
+            SQL &= "' Empresa: " & txtempresa.Text & " ',"
+            SQL &= gIdEmpresa
 
 
-                    SQL = "EXEC setDatosBancoBajaAltaInsertar 0,"
-                    SQL &= lsvBancos.Tag & ", "
-                    SQL &= "'" & Usuario.Nombre & "', '"
-                    SQL &= Date.Now & "',"
-                    SQL &= "'" & txtempresa.Text & "'"
+            If SQL <> "" Then
+                If nExecute(SQL) = False Then
+                    Exit Sub
                 End If
-               
             End If
 
+            cargarbancosasociados()
+            limpiar()
 
 
         Catch ex As Exception
@@ -172,64 +175,42 @@
             Dim nombre As String
             Dim sql As String
             If lsvBancos.SelectedItems.Count > 0 Then
-                id = lsvBancos.SelectedItems(0).Tag
+                id = lsvBancos.SelectedItems(0).Tag ' id datos banco
 
 
-                sql = "SELECT * FROM datosbanco where iIdDatosBanco = " & id
+                sql = "SELECT * FROM Bancos where cbanco = '" & lsvBancos.SelectedItems(0).SubItems(0).Text & "'"
 
-                Dim rwFilas As DataRow() = nConsulta(sql)
-                If rwFilas Is Nothing = False Then
-                    Select Case rwFilas(0).Item("iIdBanco")
-                        Case 1
+                Dim rwBancos As DataRow() = nConsulta(sql)
 
-                        Case 4
-
-                        Case 5
-
-                        Case 13
-
-                        Case 18
-
-                        Case Else
-
-                    End Select
-                End If
-
-                cbBancos.SelectedValue = id
-                cbocliente.SelectedText = lsvBancos.SelectedItems(0).SubItems(1).Text
+                cbBancos.SelectedValue = rwBancos(0).Item("iIdBanco")
+                txtcliente.Text = lsvBancos.SelectedItems(0).SubItems(1).Text
                 txtcuentacargo.Text = lsvBancos.SelectedItems(0).SubItems(2).Text
                 txtsucursal.Text = lsvBancos.SelectedItems(0).SubItems(3).Text
-                txttipo.Text = lsvBancos.SelectedItems(0).SubItems(4).Text
+                txtempresa.Text = lsvBancos.SelectedItems(0).SubItems(4).Text
+                txttipo.Text = lsvBancos.SelectedItems(0).SubItems(5).Text
+                txtdescripcion.Text = lsvBancos.SelectedItems(0).SubItems(6).Text
 
+                blnNuevo = False
 
 
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
-        If lsvBancos.SelectedItems.Count > 0 Then
-            gIdBanco = lsvBancos.SelectedItems(0).Tag
-            Me.DialogResult = Windows.Forms.DialogResult.OK
-            Me.Close()
-        End If
+
     End Sub
 
-    Private Sub cbocliente_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cbocliente.SelectedIndexChanged
-        Dim sql As String
-        Try
-            sql = "select * from DatosBanco where iIdDatosBanco=" & cbocliente.SelectedValue
-            Dim rwDatos As DataRow() = nConsulta(sql)
+    Public Sub limpiar()
 
-            If rwDatos Is Nothing = False Then
-                txtempresa.Text = rwDatos(0)("empresa").ToString
-                txttipo.Text = rwDatos(0)("descripcion").ToString
-                txtcuentacargo.Text = rwDatos(0)("cuentacargo").ToString
-                txtsucursal.Text = rwDatos(0)("numsucursal").ToString
-            Else
-                MessageBox.Show("No se encontraron datos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
-        Catch ex As Exception
-
-        End Try
+        cbBancos.SelectedIndex = 0
+        txtcliente.Text = ""
+        txtcliente.Text = ""
+        txtempresa.Text = ""
+        txttipo.Text = ""
+        txtcuentacargo.Text = ""
+        txtsucursal.Text = ""
+        txtdescripcion.Text = ""
+        txtcliente.Focus()
     End Sub
+
 End Class
