@@ -23,8 +23,12 @@
             gIdTipo = 4
         End If
         If rbtmm.Checked Then
-            gIdTipo = 5
+            gIdTipo = 5e
 
+        End If
+
+        If rb20nov.Checked Then
+            gIdTipo = 7
         End If
 
         Me.DialogResult = Windows.Forms.DialogResult.OK
