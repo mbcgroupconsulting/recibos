@@ -34,6 +34,7 @@ Partial Class frmAguinaldo
         Me.nuddias = New System.Windows.Forms.NumericUpDown()
         Me.cboperiodo = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.chk365 = New System.Windows.Forms.CheckBox()
         CType(Me.dtgDatos, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nuddias, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -148,10 +149,23 @@ Partial Class frmAguinaldo
         Me.Label3.TabIndex = 10
         Me.Label3.Text = "Tipo de periodo:"
         '
+        'chk365
+        '
+        Me.chk365.AutoSize = True
+        Me.chk365.Checked = True
+        Me.chk365.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chk365.Location = New System.Drawing.Point(771, 17)
+        Me.chk365.Name = "chk365"
+        Me.chk365.Size = New System.Drawing.Size(226, 23)
+        Me.chk365.TabIndex = 14
+        Me.chk365.Text = "Tomar en cuenta solo 365 dias"
+        Me.chk365.UseVisualStyleBackColor = True
+        '
         'frmAguinaldo
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1051, 545)
+        Me.Controls.Add(Me.chk365)
         Me.Controls.Add(Me.cboperiodo)
         Me.Controls.Add(Me.nuddias)
         Me.Controls.Add(Me.cmdGuardar)
@@ -187,4 +201,5 @@ Partial Class frmAguinaldo
     Friend WithEvents nuddias As NumericUpDown
     Friend WithEvents cboperiodo As ComboBox
     Friend WithEvents Label3 As Label
+    Friend WithEvents chk365 As System.Windows.Forms.CheckBox
 End Class

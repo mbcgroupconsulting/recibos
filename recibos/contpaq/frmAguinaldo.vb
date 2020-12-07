@@ -72,7 +72,7 @@ Public Class frmAguinaldo
 
                 fila.Item("Días_Prestación") = nuddias.Value
                 fila.Item("Días_Trabajados") = DiasEmpleado(rwDatosSindicato(x)("iIdEmpleadoC"), gIdEmpresa) 'Llamamos a la función
-                fila.Item("Días_Aguinaldo") = Math.Round(Double.Parse(fila.Item("Días_Trabajados")) * Integer.Parse(nuddias.Value) / Diasanio(txtanio.Text), 2)
+                fila.Item("Días_Aguinaldo") = Math.Round(Double.Parse(fila.Item("Días_Trabajados")) * Integer.Parse(nuddias.Value) / Diasanio(txtanio.Text), 7)
 
                 fila.Item("Aguinaldo") = ""
 
@@ -195,7 +195,10 @@ Public Class frmAguinaldo
         Catch ex As Exception
 
         End Try
+        If (txtanio.Text Mod 4) = 0 And chk365.Checked And dias = 365 Then
+            dias = dias - 1
 
+        End If
 
         Return dias + 1
 
@@ -207,12 +210,18 @@ Public Class frmAguinaldo
         'Buscamos el banco y verificarmos el tipo de cuenta a tercero o interbancaria
 
         Dim dias As Integer
-        If (txtanio.Text Mod 4) = 0 Then
-            dias = 366
-        Else
+        If chk365.Checked Then
             dias = 365
+        Else
+            If (txtanio.Text Mod 4) = 0 Then
+                dias = 366
+            Else
+                dias = 365
+            End If
+
         End If
 
+        
 
         Return dias
 

@@ -606,6 +606,11 @@ Public Class frmcontpaqnominas3
             aguinaldosin = 0
         Else
             aguinaldosin = aguinaldosin - Double.Parse(montoAguinaldoSA)
+            If aguinaldosin < 0 Then
+                aguinaldosin = 0
+            End If
+
+
         End If
         Return aguinaldosin
 
