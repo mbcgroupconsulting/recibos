@@ -23,7 +23,7 @@
             gIdTipo = 4
         End If
         If rbtmm.Checked Then
-            gIdTipo = 5e
+            gIdTipo = 5
 
         End If
 

@@ -5312,7 +5312,7 @@ Public Class frmcontpaqnominas3
                                                 cadenaiIdBanco = "1"
                                             End If
 
-                                            sql = "update empleadosC set fSueldoBase=" & rwEmpleadosC(x)("sueldodiario") & ",fSueldoIntegrado=" & rwEmpleadosC(x)("sueldointegrado")
+                                            sql = "update empleadosC set fkiIdClienteInter = -1,fSueldoBase=" & rwEmpleadosC(x)("sueldodiario") & ",fSueldoIntegrado=" & rwEmpleadosC(x)("sueldointegrado")
                                             sql &= ",fkiIdBanco=" & cadenaiIdBanco & ",Numcuenta='" & rwEmpleadosC(x)("cuentapagoelectronico") & "',Clabe='" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
                                             sql &= ",fkiIdBanco2=" & cadenaiIdBanco & ",cuenta2='" & rwEmpleadosC(x)("cuentapagoelectronico") & "',clabe2='" & rwEmpleadosC(x)("Clabeinterbancaria") & "'"
                                             sql &= ",fkiIdDepartamento=" & depto

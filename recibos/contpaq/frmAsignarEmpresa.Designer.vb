@@ -24,9 +24,9 @@ Partial Class frmAsignarEmpresa
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAsignarEmpresa))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.cmdguardar = New System.Windows.Forms.Button()
         Me.cboEmpresa = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.cmdguardar = New System.Windows.Forms.Button()
         Me.lblempresa = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -39,6 +39,18 @@ Partial Class frmAsignarEmpresa
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(98, 80)
         Me.Panel1.TabIndex = 44
+        '
+        'cmdguardar
+        '
+        Me.cmdguardar.Image = CType(resources.GetObject("cmdguardar.Image"), System.Drawing.Image)
+        Me.cmdguardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdguardar.Location = New System.Drawing.Point(4, 3)
+        Me.cmdguardar.Name = "cmdguardar"
+        Me.cmdguardar.Size = New System.Drawing.Size(87, 72)
+        Me.cmdguardar.TabIndex = 34
+        Me.cmdguardar.Text = "Guardar"
+        Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdguardar.UseVisualStyleBackColor = True
         '
         'cboEmpresa
         '
@@ -57,30 +69,19 @@ Partial Class frmAsignarEmpresa
         Me.Label1.TabIndex = 42
         Me.Label1.Text = "Seleccione al cliente a quien pertenece la nomina"
         '
-        'cmdguardar
-        '
-        Me.cmdguardar.Image = CType(resources.GetObject("cmdguardar.Image"), System.Drawing.Image)
-        Me.cmdguardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdguardar.Location = New System.Drawing.Point(4, 3)
-        Me.cmdguardar.Name = "cmdguardar"
-        Me.cmdguardar.Size = New System.Drawing.Size(87, 72)
-        Me.cmdguardar.TabIndex = 34
-        Me.cmdguardar.Text = "Guardar"
-        Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdguardar.UseVisualStyleBackColor = True
-        '
         'lblempresa
         '
         Me.lblempresa.AutoSize = True
-        Me.lblempresa.Location = New System.Drawing.Point(18, 71)
+        Me.lblempresa.Location = New System.Drawing.Point(16, 61)
         Me.lblempresa.Name = "lblempresa"
-        Me.lblempresa.Size = New System.Drawing.Size(0, 18)
+        Me.lblempresa.Size = New System.Drawing.Size(62, 18)
         Me.lblempresa.TabIndex = 45
+        Me.lblempresa.Text = "empresa"
         '
         'frmAsignarEmpresa
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(603, 142)
+        Me.ClientSize = New System.Drawing.Size(603, 246)
         Me.Controls.Add(Me.lblempresa)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.cboEmpresa)
