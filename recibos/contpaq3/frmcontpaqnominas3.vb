@@ -2992,7 +2992,13 @@ Public Class frmcontpaqnominas3
                         'Cuenta
                         hoja2.Cell(filaExcel + x, 5).Value = If(rwEmpleado(0)("NumCuenta").ToString = "", "", "'" & rwEmpleado(0)("NumCuenta").ToString)
                         'Patrona
-                        hoja2.Cell(filaExcel + x, 6).Value = dtgDatos.Rows(x).Cells(8).Value
+                        If chkAguinaldo.Checked Then
+                            hoja2.Cell(filaExcel + x, 6).Value = dtgDatos.Rows(x).Cells(13).Value
+                        Else
+                            hoja2.Cell(filaExcel + x, 6).Value = dtgDatos.Rows(x).Cells(8).Value
+                        End If
+
+
                         'Banco
                         hoja2.Cell(filaExcel + x, 7).Value = rwEmpleado(0)("banco2").ToString
                         'Clabe
@@ -3000,7 +3006,13 @@ Public Class frmcontpaqnominas3
                         'Cuenta
                         hoja2.Cell(filaExcel + x, 9).Value = If(rwEmpleado(0)("cuenta2").ToString = "", "", "'" & rwEmpleado(0)("cuenta2").ToString)
                         'Sindicato
-                        hoja2.Cell(filaExcel + x, 10).Value = dtgDatos.Rows(x).Cells(21).Value
+
+                        If chkAguinaldo.Checked Then
+                            hoja2.Cell(filaExcel + x, 10).Value = dtgDatos.Rows(x).Cells(21).Value
+                        Else
+                            hoja2.Cell(filaExcel + x, 10).Value = dtgDatos.Rows(x).Cells(21).Value
+                        End If
+
 
                     End If
 

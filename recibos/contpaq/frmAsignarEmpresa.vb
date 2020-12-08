@@ -13,6 +13,8 @@
             cboEmpresa.SelectedValue = rwCliente(0)("fkiIdEmpresa")
             lblempresa.Text = "Empresa asignada actualmente: " & cboEmpresa.Text
             iIdEmpresaEmpresaContpaq = rwCliente(0)("iIdEmpresaEmpresaContpaq")
+            cboInterPatrona.SelectedValue = rwCliente(0)("fkiIdEmpresaInterPatrona")
+            cboInterExcedente.SelectedValue = rwCliente(0)("fkiIdEmpresaInterExcedente")
             existe = True
         Else
             lblempresa.Text = ""
@@ -25,6 +27,13 @@
         Try
             sql = "Select nombre,iIdEmpresa from empresa where iEstatus=1 order by nombre "
             nCargaCBO(cboEmpresa, sql, "nombre", "iIdEmpresa")
+
+            sql = "Select nombre,iIdEmpresa from empresa where iEstatus=1 order by nombre "
+            nCargaCBO(cboInterPatrona, sql, "nombre", "iIdEmpresa")
+
+            sql = "Select nombre,iIdEmpresa from empresa where iEstatus=1 order by nombre "
+            nCargaCBO(cboInterExcedente, sql, "nombre", "iIdEmpresa")
+
         Catch ex As Exception
         End Try
     End Sub
@@ -35,10 +44,13 @@
             If existe Then
                 sql = "EXEC setIntEmpresaEmpresaContpaqActualizar " & iIdEmpresaEmpresaContpaq & "," & gidEmpresa
                 sql &= "," & cboEmpresa.SelectedValue
-
+                sql &= "," & cboInterPatrona.SelectedValue
+                sql &= "," & cboInterExcedente.SelectedValue
             Else
                 sql = "EXEC setIntEmpresaEmpresaContpaqInsertar   0," & gidEmpresa
                 sql &= "," & cboEmpresa.SelectedValue
+                sql &= "," & cboInterPatrona.SelectedValue
+                sql &= "," & cboInterExcedente.SelectedValue
             End If
 
             If nExecute(sql) = False Then
