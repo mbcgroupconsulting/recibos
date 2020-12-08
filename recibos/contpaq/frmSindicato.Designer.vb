@@ -34,6 +34,7 @@ Partial Class frmSindicato
         Me.rbcroc = New System.Windows.Forms.RadioButton()
         Me.rbctm = New System.Windows.Forms.RadioButton()
         Me.rbctmlogo = New System.Windows.Forms.RadioButton()
+        Me.rb20nov = New System.Windows.Forms.RadioButton()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -91,6 +92,7 @@ Partial Class frmSindicato
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.rb20nov)
         Me.GroupBox1.Controls.Add(Me.rbtmm)
         Me.GroupBox1.Controls.Add(Me.rbalimentos)
         Me.GroupBox1.Controls.Add(Me.rbcroc)
@@ -98,7 +100,7 @@ Partial Class frmSindicato
         Me.GroupBox1.Controls.Add(Me.rbctmlogo)
         Me.GroupBox1.Location = New System.Drawing.Point(6, 84)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(525, 57)
+        Me.GroupBox1.Size = New System.Drawing.Size(622, 57)
         Me.GroupBox1.TabIndex = 24
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Tipo de sindicato y formato"
@@ -155,10 +157,20 @@ Partial Class frmSindicato
         Me.rbctmlogo.Text = "CTM Con logo"
         Me.rbctmlogo.UseVisualStyleBackColor = True
         '
+        'rb20nov
+        '
+        Me.rb20nov.AutoSize = True
+        Me.rb20nov.Location = New System.Drawing.Point(526, 25)
+        Me.rb20nov.Name = "rb20nov"
+        Me.rb20nov.Size = New System.Drawing.Size(72, 23)
+        Me.rb20nov.TabIndex = 5
+        Me.rb20nov.Text = "20 Nov"
+        Me.rb20nov.UseVisualStyleBackColor = True
+        '
         'frmSindicato
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(543, 196)
+        Me.ClientSize = New System.Drawing.Size(640, 196)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.dtpfecha)
@@ -189,4 +201,5 @@ Partial Class frmSindicato
     Friend WithEvents rbcroc As RadioButton
     Friend WithEvents rbctm As RadioButton
     Friend WithEvents rbctmlogo As RadioButton
+    Friend WithEvents rb20nov As System.Windows.Forms.RadioButton
 End Class

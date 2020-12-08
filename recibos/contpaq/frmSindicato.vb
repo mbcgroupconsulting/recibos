@@ -27,6 +27,10 @@
 
         End If
 
+        If rb20nov.Checked Then
+            gIdTipo = 7
+        End If
+
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub

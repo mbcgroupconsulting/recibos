@@ -14,6 +14,8 @@
             lblempresa.Text = "Empresa asignada actualmente: " & cboEmpresa.Text
             iIdEmpresaEmpresaContpaq = rwCliente(0)("iIdEmpresaEmpresaContpaq")
             existe = True
+        Else
+            lblempresa.Text = ""
         End If
     End Sub
 
