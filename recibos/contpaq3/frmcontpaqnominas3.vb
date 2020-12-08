@@ -6155,6 +6155,16 @@ Public Class frmcontpaqnominas3
                 hoja.Cell("R14").Value = porcentaje & "%"
                 hoja.Cell("S14").Value = porsindicato & "%"
 
+                'Aguinaldos
+
+                If chkAguinaldo.Checked = True Then
+                    hoja.Cell("B13").Value = "AGUINALDO"
+                    hoja.Cell("K13").Value = "AGUINALDO SA"
+                    hoja.Cell("M13").Value = "AGUINALDO SINDICATO"
+                    hoja.Cell("Q13").Value = "COSTO SOCIAL (ISN AGUINALDO 3%)"
+                End If
+
+
                 For x As Integer = 0 To dtgDatos.Rows.Count - 1
 
                     hoja.Cell(filaExcel, 1).Value = dtgDatos.Rows(x).Cells(6).Value 'trabajador
@@ -6167,14 +6177,14 @@ Public Class frmcontpaqnominas3
                     hoja.Cell(filaExcel, 8).Value = dtgDatos.Rows(x).Cells(10).Value 'infonavit
                     hoja.Cell(filaExcel, 9).Value = dtgDatos.Rows(x).Cells(14).Value 'otros descuentos p-sindical
                     hoja.Cell(filaExcel, 10).Value = "" 'otros decuentosp-asim
-                    hoja.Cell(filaExcel, 11).Value = dtgDatos.Rows(x).Cells(8).Value ' patrona neto
+                    hoja.Cell(filaExcel, 11).Value = IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(13).Value, dtgDatos.Rows(x).Cells(8).Value) ' patrona neto/aguinaldo sa
                     hoja.Cell(filaExcel, 12).Value = 0 'asim
                     'sindicato
                     hoja.Cell(filaExcel, 13).FormulaA1 = "=B" & filaExcel & "-K" & filaExcel & "+((C" & filaExcel & "+D" & filaExcel & "+E" & filaExcel & "+F" & filaExcel & ")-(G" & filaExcel & "+H" & filaExcel & "+I" & filaExcel & "))"
                     hoja.Cell(filaExcel, 14).FormulaA1 = "=+K" & filaExcel & "+L" & filaExcel & "+M" & filaExcel & "-G" & filaExcel
                     hoja.Cell(filaExcel, 15).Value = dtgDatos.Rows(x).Cells(23).Value  'retencion imss
                     hoja.Cell(filaExcel, 16).Value = dtgDatos.Rows(x).Cells(24).Value 'retemcion isr
-                    hoja.Cell(filaExcel, 17).Value = dtgDatos.Rows(x).Cells(26).Value
+                    hoja.Cell(filaExcel, 17).FormulaA1 = IIf(chkAguinaldo.Checked, "=K" & filaExcel & "*3%", dtgDatos.Rows(x).Cells(26).Value)
                     hoja.Cell(filaExcel, 18).FormulaA1 = "=SUM(K" & filaExcel & "+G" & filaExcel & "+H" & filaExcel & ")*" & porcentaje & "%"
                     hoja.Cell(filaExcel, 19).FormulaA1 = "=SUM(L" & filaExcel & "+M" & filaExcel & ")*" & porsindicato & "%"
                     hoja.Cell(filaExcel, 20).FormulaA1 = "=K" & filaExcel & "+L" & filaExcel & "+M" & filaExcel & "+O" & filaExcel & "+P" & filaExcel & "+Q" & filaExcel & "+R" & filaExcel & "+S" & filaExcel & "+H" & filaExcel & ""
@@ -6488,8 +6498,9 @@ Public Class frmcontpaqnominas3
 
                 pnlProgreso.Visible = False
                 pnlCatalogo.Enabled = True
-
-                dialogo.FileName = clienteasignado.Trim & " DEL " & diaini & " AL " & periodofin
+                Dim aguinaldotext As String
+                aguinaldotext = IIf(chkAguinaldo.Checked, "AGUINALDO ", "")
+                dialogo.FileName = aguinaldotext & clienteasignado.Trim & " DEL " & diaini & " AL " & periodofin
                 dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
                 ''  dialogo.ShowDialog()
 
