@@ -26,10 +26,35 @@
             gIdTipo = 5
 
         End If
-
+        If rdbconstruccion.Checked Then
+            gIdTipo = 6
+        End If
         If rb20nov.Checked Then
             gIdTipo = 7
         End If
+
+        
+        If rdbcarmen.Checked Then
+            gIdTipo = 8
+
+        End If
+        If rdbindustria.Checked Then
+            gIdTipo = 9
+
+        End If
+        If rdbobrerosindustria.Checked Then
+            gIdTipo = 10
+
+        End If
+        If rdbsolidario.Checked Then
+            gIdTipo = 11
+
+        End If
+        If rdbenero.Checked Then
+            gIdTipo = 12
+
+        End If
+
 
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()

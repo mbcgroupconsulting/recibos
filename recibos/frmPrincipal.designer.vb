@@ -109,9 +109,9 @@ Partial Class frmPrincipal
         Me.AgregarDatosNominasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AgregarDatosJuridicoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AgregarDatosFacturaciónToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AgregarDatosJuridicoToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.AgregarDatosJuridicoToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlBar.SuspendLayout()
         Me.MenuInicio.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -621,6 +621,12 @@ Partial Class frmPrincipal
         Me.AgregarDatosFacturaciónToolStripMenuItem.Size = New System.Drawing.Size(261, 24)
         Me.AgregarDatosFacturaciónToolStripMenuItem.Text = "Agregar datos Facturación"
         '
+        'AgregarDatosJuridicoToolStripMenuItem1
+        '
+        Me.AgregarDatosJuridicoToolStripMenuItem1.Name = "AgregarDatosJuridicoToolStripMenuItem1"
+        Me.AgregarDatosJuridicoToolStripMenuItem1.Size = New System.Drawing.Size(261, 24)
+        Me.AgregarDatosJuridicoToolStripMenuItem1.Text = "Agregar Datos Juridico"
+        '
         'mnuSalir
         '
         Me.mnuSalir.Image = CType(resources.GetObject("mnuSalir.Image"), System.Drawing.Image)
@@ -633,19 +639,13 @@ Partial Class frmPrincipal
         '
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PictureBox1.Image = Global.recibos.My.Resources.Resources._1428662_70548557
-        Me.PictureBox1.Location = New System.Drawing.Point(387, 167)
+        Me.PictureBox1.Location = New System.Drawing.Point(550, 12)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(309, 213)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 4
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Visible = False
-        '
-        'AgregarDatosJuridicoToolStripMenuItem1
-        '
-        Me.AgregarDatosJuridicoToolStripMenuItem1.Name = "AgregarDatosJuridicoToolStripMenuItem1"
-        Me.AgregarDatosJuridicoToolStripMenuItem1.Size = New System.Drawing.Size(261, 24)
-        Me.AgregarDatosJuridicoToolStripMenuItem1.Text = "Agregar Datos Juridico"
         '
         'frmPrincipal
         '

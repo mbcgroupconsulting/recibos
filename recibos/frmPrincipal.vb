@@ -1474,4 +1474,8 @@ Public Class frmPrincipal
 
         End Try
     End Sub
+
+    Private Sub lsvPanel_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lsvPanel.SelectedIndexChanged
+
+    End Sub
 End Class
