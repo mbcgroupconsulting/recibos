@@ -28,6 +28,10 @@ Partial Class frmAsignarEmpresa
         Me.cboEmpresa = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblempresa = New System.Windows.Forms.Label()
+        Me.cboInterPatrona = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.cboInterExcedente = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -35,7 +39,7 @@ Partial Class frmAsignarEmpresa
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel1.Controls.Add(Me.cmdguardar)
-        Me.Panel1.Location = New System.Drawing.Point(493, 58)
+        Me.Panel1.Location = New System.Drawing.Point(493, 204)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(98, 80)
         Me.Panel1.TabIndex = 44
@@ -65,9 +69,9 @@ Partial Class frmAsignarEmpresa
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(12, 5)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(315, 18)
+        Me.Label1.Size = New System.Drawing.Size(326, 18)
         Me.Label1.TabIndex = 42
-        Me.Label1.Text = "Seleccione al cliente a quien pertenece la nomina"
+        Me.Label1.Text = "Seleccione la empresa a quien pertenece la nomina"
         '
         'lblempresa
         '
@@ -78,10 +82,48 @@ Partial Class frmAsignarEmpresa
         Me.lblempresa.TabIndex = 45
         Me.lblempresa.Text = "empresa"
         '
+        'cboInterPatrona
+        '
+        Me.cboInterPatrona.FormattingEnabled = True
+        Me.cboInterPatrona.Location = New System.Drawing.Point(12, 113)
+        Me.cboInterPatrona.Name = "cboInterPatrona"
+        Me.cboInterPatrona.Size = New System.Drawing.Size(579, 26)
+        Me.cboInterPatrona.TabIndex = 47
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(12, 92)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(299, 18)
+        Me.Label2.TabIndex = 46
+        Me.Label2.Text = "Seleccione la empresa intermedia para patrona"
+        '
+        'cboInterExcedente
+        '
+        Me.cboInterExcedente.FormattingEnabled = True
+        Me.cboInterExcedente.Location = New System.Drawing.Point(12, 166)
+        Me.cboInterExcedente.Name = "cboInterExcedente"
+        Me.cboInterExcedente.Size = New System.Drawing.Size(579, 26)
+        Me.cboInterExcedente.TabIndex = 49
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(12, 145)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(317, 18)
+        Me.Label3.TabIndex = 48
+        Me.Label3.Text = "Seleccione la empresa intermedia para excedente"
+        '
         'frmAsignarEmpresa
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(603, 246)
+        Me.ClientSize = New System.Drawing.Size(603, 295)
+        Me.Controls.Add(Me.cboInterExcedente)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.cboInterPatrona)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.lblempresa)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.cboEmpresa)
@@ -101,4 +143,8 @@ Partial Class frmAsignarEmpresa
     Friend WithEvents cboEmpresa As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents lblempresa As System.Windows.Forms.Label
+    Friend WithEvents cboInterPatrona As System.Windows.Forms.ComboBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents cboInterExcedente As System.Windows.Forms.ComboBox
+    Friend WithEvents Label3 As System.Windows.Forms.Label
 End Class
