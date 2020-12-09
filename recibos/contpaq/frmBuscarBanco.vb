@@ -77,8 +77,9 @@
                     item.Tag = Fila.Item("iIdDatosBanco")
                     item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)
                     Alter = Not Alter
-                    blnNuevo = False
+
                 Next
+                'blnNuevo = False
             Else
                 blnNuevo = True
             End If
@@ -125,6 +126,7 @@
                 SQL &= " fkiIdEmpresa= " & gIdEmpresa & ","
                 SQL &= " Tipo= '" & txttipo.Text & "'"
                 SQL &= " WHERE iIdDatosBanco=" & lsvBancos.SelectedItems(0).Tag
+                '   blnNuevo = False
             Else
                 SQL = "EXEC setDatosBancoInsertar 0,"
                 SQL &= cbBancos.SelectedValue & ", "
@@ -143,18 +145,29 @@
             End If
 
             'Se Registra
+            If blnNuevo Then
 
-            SQL = "EXEC setDatosBancoBajaAltaInsertar 0,"
-            SQL &= lsvBancos.SelectedItems(0).Tag & ", "
-            SQL &= "'" & Usuario.Nombre & "', '"
-            SQL &= Date.Today.ToShortDateString() & "',"
-            SQL &= "' Empresa: " & txtempresa.Text & " ',"
-            SQL &= gIdEmpresa
+                SQL = "EXEC setDatosBancoBajaAltaInsertar 0,"
+                SQL &= cbBancos.SelectedValue & ", "
+                SQL &= "'" & Usuario.Nombre & "', '"
+                SQL &= Date.Today.ToShortDateString() & "',"
+                SQL &= "' Empresa: " & txtempresa.Text & " ',"
+                SQL &= gIdEmpresa
+
+            Else
+                SQL = "EXEC setDatosBancoBajaAltaInsertar 0,"
+                SQL &= lsvBancos.SelectedItems(0).Tag & ", "
+                SQL &= "'" & Usuario.Nombre & "', '"
+                SQL &= Date.Today.ToShortDateString() & "',"
+                SQL &= "' Empresa: " & txtempresa.Text & " ',"
+                SQL &= gIdEmpresa
+            End If
+
 
 
             If SQL <> "" Then
                 If nExecute(SQL) = False Then
-                    Exit Sub
+                    '  Exit Sub
                 End If
             End If
 

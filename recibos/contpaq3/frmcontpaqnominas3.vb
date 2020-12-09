@@ -6177,10 +6177,49 @@ Public Class frmcontpaqnominas3
                 End If
 
 
+
+                Dim totalneto, ajusteneto, cs As Double
+                'RECORRE DATAGRID
                 For x As Integer = 0 To dtgDatos.Rows.Count - 1
+                    totalneto = 0
+                    ajusteneto = 0
+
+
+                    If chkAguinaldo.Checked Then
+
+                        sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value
+                        Dim rwDatosPeriodo As DataRow() = nConsulta(sql)
+
+                       
+                        If rwCliente Is Nothing = False Then
+                            'RECORRE PROCED ALMACENADO
+                            For Each row As DataRow In dt.Rows
+
+                                If dt.Columns.IndexOf("Neto") <> -1 Then
+                                    If (Not (row("Neto") Is DBNull.Value)) Then
+
+                                        totalneto = IIf(Trim(row("Neto")) = "", "0.00", Trim(row("Neto")))
+                                    End If
+                                End If
+
+                                If dt.Columns.IndexOf("Ajuste al neto") <> -1 Then
+                                    If (Not (row("Ajuste al neto") Is DBNull.Value)) Then
+
+                                        ajusteneto = IIf(Trim(row("Ajuste al neto")) = "", "0.00", Trim(row("Ajuste al neto")))
+                                    End If
+                                End If
+
+                                cs = (totalneto - ajusteneto) * 0.03
+
+
+                            Next
+
+                        End If
+                        
+                    End If
 
                     hoja.Cell(filaExcel, 1).Value = dtgDatos.Rows(x).Cells(6).Value 'trabajador
-                    hoja.Cell(filaExcel, 2).Value = dtgDatos.Rows(x).Cells(7).Value 'sueldo ordinario
+                    hoja.Cell(filaExcel, 2).Value = IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(22).Value, dtgDatos.Rows(x).Cells(7).Value) 'sueldo ordinario/aguinaldo sa
                     hoja.Cell(filaExcel, 3).Value = "0" 'sueldo retroactivos
                     hoja.Cell(filaExcel, 4).Value = "0" 'horas extrasl
                     hoja.Cell(filaExcel, 5).Value = dtgDatos.Rows(x).Cells(12).Value 'prima vacacional
@@ -6196,7 +6235,7 @@ Public Class frmcontpaqnominas3
                     hoja.Cell(filaExcel, 14).FormulaA1 = "=+K" & filaExcel & "+L" & filaExcel & "+M" & filaExcel & "-G" & filaExcel
                     hoja.Cell(filaExcel, 15).Value = dtgDatos.Rows(x).Cells(23).Value  'retencion imss
                     hoja.Cell(filaExcel, 16).Value = dtgDatos.Rows(x).Cells(24).Value 'retemcion isr
-                    hoja.Cell(filaExcel, 17).FormulaA1 = IIf(chkAguinaldo.Checked, "=K" & filaExcel & "*3%", dtgDatos.Rows(x).Cells(26).Value)
+                    hoja.Cell(filaExcel, 17).Value = IIf(chkAguinaldo.Checked, cs, dtgDatos.Rows(x).Cells(26).Value)
                     hoja.Cell(filaExcel, 18).FormulaA1 = "=SUM(K" & filaExcel & "+G" & filaExcel & "+H" & filaExcel & ")*" & porcentaje & "%"
                     hoja.Cell(filaExcel, 19).FormulaA1 = "=SUM(L" & filaExcel & "+M" & filaExcel & ")*" & porsindicato & "%"
                     hoja.Cell(filaExcel, 20).FormulaA1 = "=K" & filaExcel & "+L" & filaExcel & "+M" & filaExcel & "+O" & filaExcel & "+P" & filaExcel & "+Q" & filaExcel & "+R" & filaExcel & "+S" & filaExcel & "+H" & filaExcel & ""
@@ -6253,7 +6292,20 @@ Public Class frmcontpaqnominas3
                 hoja.Cell(filaExcel + 4, 21).FormulaA1 = "=U" & filaExcel + 2
                 hoja.Cell(filaExcel + 4, 22).FormulaA1 = "=V" & filaExcel + 2
 
+                'Sindicato Asociado
+                sql = "SELECT * FROM IntEmpresaEmpresaContpaq where fkIdEmpresaC= " & gIdEmpresa
+                Dim rwIntEmpresaContpaq As DataRow() = nConsulta(sql)
+                Dim InterPatrona, InterSindicato As String
 
+                If rwIntEmpresaContpaq Is Nothing = False Then
+
+
+                    Dim rwEmpresasInter As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona"))
+                    Dim rwEmpresaExedente As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente"))
+                    InterPatrona = rwEmpresasInter(0).Item("nombre")
+                    InterSindicato = rwEmpresaExedente(0).Item("nombre")
+
+                End If
 
 
                 'Tabla fact
@@ -6266,7 +6318,7 @@ Public Class frmcontpaqnominas3
                 hoja.Cell(filaExcel + 7, 14).Value = "TOTAL"
 
                 hoja.Cell(filaExcel + 8, 1).Value = clienteasignado
-                hoja.Cell(filaExcel + 8, 2).Value = "GRUPO GADERYRA"
+                hoja.Cell(filaExcel + 8, 2).Value = InterPatrona ' "GRUPO GADERYRA"
                 hoja.Cell(filaExcel + 8, 11).FormulaA1 = "=K" & filaExcel + 2 & "+G" & filaExcel + 2 & "+H" & filaExcel + 2 & "+O" & filaExcel + 2 & "+P" & filaExcel + 2 & "+Q" & filaExcel + 2 & "+R" & filaExcel + 2
                 hoja.Cell(filaExcel + 8, 12).FormulaA1 = "=K" & filaExcel + 8 & "*0.16"
                 hoja.Cell(filaExcel + 8, 14).FormulaA1 = "=K" & filaExcel + 8 & "+L" & filaExcel + 8
@@ -6280,7 +6332,7 @@ Public Class frmcontpaqnominas3
                 hoja.Cell(filaExcel + 11, 14).Value = "TOTAL"
 
                 hoja.Cell(filaExcel + 12, 1).Value = "SINDICATO"
-                hoja.Cell(filaExcel + 12, 2).Value = "--"
+                hoja.Cell(filaExcel + 12, 2).Value = InterSindicato '"--"
                 hoja.Cell(filaExcel + 12, 11).FormulaA1 = "=L" & filaExcel + 2 & "+M" & filaExcel + 2 & "+S" & filaExcel + 2
                 hoja.Cell(filaExcel + 12, 12).FormulaA1 = "=K" & filaExcel + 12 & "*0.16"
                 hoja.Cell(filaExcel + 12, 14).FormulaA1 = "=K" & filaExcel + 12 & "+L" & filaExcel + 12
@@ -6469,7 +6521,7 @@ Public Class frmcontpaqnominas3
                         'Cuenta
                         hoja3.Cell(filaExcel + x, 6).Value = If(rwEmpleado(0)("NumCuenta").ToString = "", "", "'" & rwEmpleado(0)("NumCuenta").ToString)
                         'Patrona
-                        hoja3.Cell(filaExcel + x, 7).Value = dtgDatos.Rows(x).Cells(8).Value
+                        hoja3.Cell(filaExcel + x, 7).Value = IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(13).Value, dtgDatos.Rows(x).Cells(8).Value) ' patrona neto/aguinaldo sa
                         'Banco
                         hoja3.Cell(filaExcel + x, 8).Value = rwEmpleado(0)("banco2").ToString
                         'Clabe
@@ -6477,7 +6529,7 @@ Public Class frmcontpaqnominas3
                         'Cuenta
                         hoja3.Cell(filaExcel + x, 10).Value = If(rwEmpleado(0)("cuenta2").ToString = "", "", "'" & rwEmpleado(0)("cuenta2").ToString)
                         'Sindicato
-                        hoja3.Cell(filaExcel + x, 11).Value = dtgDatos.Rows(x).Cells(21).Value
+                        hoja3.Cell(filaExcel + x, 11).Value = IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(19).Value, dtgDatos.Rows(x).Cells(21).Value)
 
 
                     End If
