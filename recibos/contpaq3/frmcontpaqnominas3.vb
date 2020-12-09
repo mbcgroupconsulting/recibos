@@ -2533,6 +2533,9 @@ Public Class frmcontpaqnominas3
                     End If
                 Next
 
+                guardarRespaldoNominaFinal()
+
+
                 MessageBox.Show("Datos guardados y marcados como final", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 'Insertar fondeo
@@ -6719,6 +6722,114 @@ Public Class frmcontpaqnominas3
         Catch ex As Exception
             MessageBox.Show(ex.Message.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
         End Try
+    End Sub
+
+    Private Sub guardarRespaldoNominaFinal()
+        Dim sql As String
+
+        For x As Integer = 0 To dtgDatos.Rows.Count - 1
+
+
+            sql = "EXEC [setNominaSindicatoRespaldoInsertar ] 0"
+            'periodo
+            sql &= "," & cboperiodo.SelectedValue
+            'idempresa
+            sql &= "," & gIdEmpresa
+            'idempleado
+            sql &= "," & dtgDatos.Rows(x).Cells(3).Value
+            'sueldoordinario
+            sql &= "," & dtgDatos.Rows(x).Cells(7).Value.ToString.Replace(",", "")
+            'neto
+            sql &= "," & dtgDatos.Rows(x).Cells(8).Value.ToString.Replace(",", "")
+            'descuento
+            sql &= "," & dtgDatos.Rows(x).Cells(14).Value.ToString.Replace(",", "")
+            'Prestamo
+            sql &= "," & dtgDatos.Rows(x).Cells(15).Value.ToString.Replace(",", "")
+            'sindicato
+            sql &= "," & dtgDatos.Rows(x).Cells(16).Value.ToString.Replace(",", "")
+            'sueldo neto
+            sql &= "," & dtgDatos.Rows(x).Cells(22).Value.ToString.Replace(",", "")
+            'retencion imss
+            sql &= "," & dtgDatos.Rows(x).Cells(23).Value.ToString.Replace(",", "")
+            'retenciones
+            sql &= "," & dtgDatos.Rows(x).Cells(25).Value.ToString.Replace(",", "")
+            'costosocial
+            sql &= "," & dtgDatos.Rows(x).Cells(26).Value.ToString.Replace(",", "")
+            'comision
+            sql &= "," & dtgDatos.Rows(x).Cells(28).Value.ToString.Replace(",", "")
+            'subtotal
+            sql &= "," & dtgDatos.Rows(x).Cells(30).Value.ToString.Replace(",", "")
+            'IVA
+            sql &= "," & dtgDatos.Rows(x).Cells(31).Value.ToString.Replace(",", "")
+            'total
+            sql &= "," & dtgDatos.Rows(x).Cells(32).Value.ToString.Replace(",", "")
+            'iestatus
+            sql &= ",1"
+            'estatusnomina
+            sql &= ",1"
+            'cuenta
+            sql &= ",'" & dtgDatos.Rows(x).Cells(4).Value & "'"
+            'infonavit
+            sql &= "," & dtgDatos.Rows(x).Cells(10).Value.ToString.Replace(",", "")
+            'departamento
+            sql &= ",'" & dtgDatos.Rows(x).Cells(5).Value & "'"
+            'incremento
+            sql &= ",0.00"
+            'Prima SA
+            sql &= "," & dtgDatos.Rows(x).Cells(12).Value.ToString.Replace(",", "")
+            'Prima Sindicato
+            sql &= "," & dtgDatos.Rows(x).Cells(18).Value.ToString.Replace(",", "")
+
+            'fAguinaldoSA
+            sql &= "," & dtgDatos.Rows(x).Cells(13).Value.ToString.Replace(",", "")
+
+            'fAguinaldoSin
+            sql &= "," & dtgDatos.Rows(x).Cells(19).Value.ToString.Replace(",", "")
+            'fVacacionesSA
+            sql &= ",0.00"
+            'fVacacionesSin
+            sql &= ",0.00"
+            'fIndemnizacionLeySA
+            sql &= ",0.00"
+            'fIndemnizacionLeySin
+            sql &= ",0.00"
+            'fPrimaAntSA
+            sql &= ",0.00"
+            'fPrimaAntSin
+            sql &= ",0.00"
+            'fPrimaAntSA2
+            sql &= ",0.00"
+            'fPrimaAntSin2
+            sql &= ",0.00"
+            'fImporteSA1 =CostoSocial2 grid
+            sql &= "," & dtgDatos.Rows(x).Cells(27).Value.ToString.Replace(",", "")
+            'fImporteSin1 = Importe sindicato Extra grid
+            sql &= "," & dtgDatos.Rows(x).Cells(20).Value.ToString.Replace(",", "")
+            'fImporteSA2 = Pensión Alimenticia Patrona Grid
+            sql &= "," & dtgDatos.Rows(x).Cells(9).Value.ToString.Replace(",", "")
+            'fImporteSin2 = comision Sindicato grid
+            sql &= "," & dtgDatos.Rows(x).Cells(29).Value.ToString.Replace(",", "")
+            'fImporteSA3 = fonacot
+            sql &= "," & dtgDatos.Rows(x).Cells(11).Value.ToString.Replace(",", "")
+            'fImporteSin3 =Pension Alimenticia Sindicato grid
+            sql &= "," & dtgDatos.Rows(x).Cells(17).Value.ToString.Replace(",", "")
+            'fImporteSA4 = ISR
+            sql &= "," & dtgDatos.Rows(x).Cells(24).Value.ToString.Replace(",", "")
+            'fImporteSin4
+            sql &= ",0.00"
+            'Usuario que guarda
+            sql &= ",'" & Usuario.Nombre & "'"
+            'Fecha en que guarda
+            sql &= ",'" & Date.Today.ToShortDateString & "'"
+
+
+            If nExecute(sql) = False Then
+                MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                'pnlProgreso.Visible = False
+                Exit Sub
+            End If
+
+        Next x
     End Sub
 
     
