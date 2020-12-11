@@ -2533,6 +2533,9 @@ Public Class frmcontpaqnominas3
                     End If
                 Next
 
+                guardarRespaldoNominaFinal()
+
+
                 MessageBox.Show("Datos guardados y marcados como final", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 'Insertar fondeo
@@ -6180,10 +6183,59 @@ Public Class frmcontpaqnominas3
                 hoja.Cell("R14").Value = porcentaje & "%"
                 hoja.Cell("S14").Value = porsindicato & "%"
 
+                'Aguinaldos
+
+                If chkAguinaldo.Checked = True Then
+                    hoja.Cell("B13").Value = "AGUINALDO"
+                    hoja.Cell("K13").Value = "AGUINALDO SA"
+                    hoja.Cell("M13").Value = "AGUINALDO SINDICATO"
+                    hoja.Cell("Q13").Value = "COSTO SOCIAL (ISN AGUINALDO 3%)"
+                End If
+
+
+
+                Dim totalneto, ajusteneto, cs As Double
+                'RECORRE DATAGRID
                 For x As Integer = 0 To dtgDatos.Rows.Count - 1
+                    totalneto = 0
+                    ajusteneto = 0
+
+
+                    If chkAguinaldo.Checked Then
+
+                        sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value
+                        Dim rwDatosPeriodo As DataRow() = nConsulta(sql)
+
+                       
+                        If rwCliente Is Nothing = False Then
+                            'RECORRE PROCED ALMACENADO
+                            For Each row As DataRow In dt.Rows
+
+                                If dt.Columns.IndexOf("Neto") <> -1 Then
+                                    If (Not (row("Neto") Is DBNull.Value)) Then
+
+                                        totalneto = IIf(Trim(row("Neto")) = "", "0.00", Trim(row("Neto")))
+                                    End If
+                                End If
+
+                                If dt.Columns.IndexOf("Ajuste al neto") <> -1 Then
+                                    If (Not (row("Ajuste al neto") Is DBNull.Value)) Then
+
+                                        ajusteneto = IIf(Trim(row("Ajuste al neto")) = "", "0.00", Trim(row("Ajuste al neto")))
+                                    End If
+                                End If
+
+                                cs = (totalneto - ajusteneto) * 0.03
+
+
+                            Next
+
+                        End If
+                        
+                    End If
 
                     hoja.Cell(filaExcel, 1).Value = dtgDatos.Rows(x).Cells(6).Value 'trabajador
-                    hoja.Cell(filaExcel, 2).Value = dtgDatos.Rows(x).Cells(7).Value 'sueldo ordinario
+                    hoja.Cell(filaExcel, 2).Value = IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(22).Value, dtgDatos.Rows(x).Cells(7).Value) 'sueldo ordinario/aguinaldo sa
                     hoja.Cell(filaExcel, 3).Value = "0" 'sueldo retroactivos
                     hoja.Cell(filaExcel, 4).Value = "0" 'horas extrasl
                     hoja.Cell(filaExcel, 5).Value = dtgDatos.Rows(x).Cells(12).Value 'prima vacacional
@@ -6192,14 +6244,14 @@ Public Class frmcontpaqnominas3
                     hoja.Cell(filaExcel, 8).Value = dtgDatos.Rows(x).Cells(10).Value 'infonavit
                     hoja.Cell(filaExcel, 9).Value = dtgDatos.Rows(x).Cells(14).Value 'otros descuentos p-sindical
                     hoja.Cell(filaExcel, 10).Value = "" 'otros decuentosp-asim
-                    hoja.Cell(filaExcel, 11).Value = dtgDatos.Rows(x).Cells(8).Value ' patrona neto
+                    hoja.Cell(filaExcel, 11).Value = IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(13).Value, dtgDatos.Rows(x).Cells(8).Value) ' patrona neto/aguinaldo sa
                     hoja.Cell(filaExcel, 12).Value = 0 'asim
                     'sindicato
                     hoja.Cell(filaExcel, 13).FormulaA1 = "=B" & filaExcel & "-K" & filaExcel & "+((C" & filaExcel & "+D" & filaExcel & "+E" & filaExcel & "+F" & filaExcel & ")-(G" & filaExcel & "+H" & filaExcel & "+I" & filaExcel & "))"
                     hoja.Cell(filaExcel, 14).FormulaA1 = "=+K" & filaExcel & "+L" & filaExcel & "+M" & filaExcel & "-G" & filaExcel
                     hoja.Cell(filaExcel, 15).Value = dtgDatos.Rows(x).Cells(23).Value  'retencion imss
                     hoja.Cell(filaExcel, 16).Value = dtgDatos.Rows(x).Cells(24).Value 'retemcion isr
-                    hoja.Cell(filaExcel, 17).Value = dtgDatos.Rows(x).Cells(26).Value
+                    hoja.Cell(filaExcel, 17).Value = IIf(chkAguinaldo.Checked, cs, dtgDatos.Rows(x).Cells(26).Value)
                     hoja.Cell(filaExcel, 18).FormulaA1 = "=SUM(K" & filaExcel & "+G" & filaExcel & "+H" & filaExcel & ")*" & porcentaje & "%"
                     hoja.Cell(filaExcel, 19).FormulaA1 = "=SUM(L" & filaExcel & "+M" & filaExcel & ")*" & porsindicato & "%"
                     hoja.Cell(filaExcel, 20).FormulaA1 = "=K" & filaExcel & "+L" & filaExcel & "+M" & filaExcel & "+O" & filaExcel & "+P" & filaExcel & "+Q" & filaExcel & "+R" & filaExcel & "+S" & filaExcel & "+H" & filaExcel & ""
@@ -6256,7 +6308,20 @@ Public Class frmcontpaqnominas3
                 hoja.Cell(filaExcel + 4, 21).FormulaA1 = "=U" & filaExcel + 2
                 hoja.Cell(filaExcel + 4, 22).FormulaA1 = "=V" & filaExcel + 2
 
+                'Sindicato Asociado
+                sql = "SELECT * FROM IntEmpresaEmpresaContpaq where fkIdEmpresaC= " & gIdEmpresa
+                Dim rwIntEmpresaContpaq As DataRow() = nConsulta(sql)
+                Dim InterPatrona, InterSindicato As String
 
+                If rwIntEmpresaContpaq Is Nothing = False Then
+
+
+                    Dim rwEmpresasInter As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona"))
+                    Dim rwEmpresaExedente As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente"))
+                    InterPatrona = rwEmpresasInter(0).Item("nombre")
+                    InterSindicato = rwEmpresaExedente(0).Item("nombre")
+
+                End If
 
 
                 'Tabla fact
@@ -6269,7 +6334,7 @@ Public Class frmcontpaqnominas3
                 hoja.Cell(filaExcel + 7, 14).Value = "TOTAL"
 
                 hoja.Cell(filaExcel + 8, 1).Value = clienteasignado
-                hoja.Cell(filaExcel + 8, 2).Value = "GRUPO GADERYRA"
+                hoja.Cell(filaExcel + 8, 2).Value = InterPatrona ' "GRUPO GADERYRA"
                 hoja.Cell(filaExcel + 8, 11).FormulaA1 = "=K" & filaExcel + 2 & "+G" & filaExcel + 2 & "+H" & filaExcel + 2 & "+O" & filaExcel + 2 & "+P" & filaExcel + 2 & "+Q" & filaExcel + 2 & "+R" & filaExcel + 2
                 hoja.Cell(filaExcel + 8, 12).FormulaA1 = "=K" & filaExcel + 8 & "*0.16"
                 hoja.Cell(filaExcel + 8, 14).FormulaA1 = "=K" & filaExcel + 8 & "+L" & filaExcel + 8
@@ -6283,7 +6348,7 @@ Public Class frmcontpaqnominas3
                 hoja.Cell(filaExcel + 11, 14).Value = "TOTAL"
 
                 hoja.Cell(filaExcel + 12, 1).Value = "SINDICATO"
-                hoja.Cell(filaExcel + 12, 2).Value = "--"
+                hoja.Cell(filaExcel + 12, 2).Value = InterSindicato '"--"
                 hoja.Cell(filaExcel + 12, 11).FormulaA1 = "=L" & filaExcel + 2 & "+M" & filaExcel + 2 & "+S" & filaExcel + 2
                 hoja.Cell(filaExcel + 12, 12).FormulaA1 = "=K" & filaExcel + 12 & "*0.16"
                 hoja.Cell(filaExcel + 12, 14).FormulaA1 = "=K" & filaExcel + 12 & "+L" & filaExcel + 12
@@ -6472,7 +6537,7 @@ Public Class frmcontpaqnominas3
                         'Cuenta
                         hoja3.Cell(filaExcel + x, 6).Value = If(rwEmpleado(0)("NumCuenta").ToString = "", "", "'" & rwEmpleado(0)("NumCuenta").ToString)
                         'Patrona
-                        hoja3.Cell(filaExcel + x, 7).Value = dtgDatos.Rows(x).Cells(8).Value
+                        hoja3.Cell(filaExcel + x, 7).Value = IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(13).Value, dtgDatos.Rows(x).Cells(8).Value) ' patrona neto/aguinaldo sa
                         'Banco
                         hoja3.Cell(filaExcel + x, 8).Value = rwEmpleado(0)("banco2").ToString
                         'Clabe
@@ -6480,7 +6545,7 @@ Public Class frmcontpaqnominas3
                         'Cuenta
                         hoja3.Cell(filaExcel + x, 10).Value = If(rwEmpleado(0)("cuenta2").ToString = "", "", "'" & rwEmpleado(0)("cuenta2").ToString)
                         'Sindicato
-                        hoja3.Cell(filaExcel + x, 11).Value = dtgDatos.Rows(x).Cells(21).Value
+                        hoja3.Cell(filaExcel + x, 11).Value = IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(19).Value, dtgDatos.Rows(x).Cells(21).Value)
 
 
                     End If
@@ -6513,8 +6578,9 @@ Public Class frmcontpaqnominas3
 
                 pnlProgreso.Visible = False
                 pnlCatalogo.Enabled = True
-
-                dialogo.FileName = clienteasignado.Trim & " DEL " & diaini & " AL " & periodofin
+                Dim aguinaldotext As String
+                aguinaldotext = IIf(chkAguinaldo.Checked, "AGUINALDO ", "")
+                dialogo.FileName = aguinaldotext & clienteasignado.Trim & " DEL " & diaini & " AL " & periodofin
                 dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
                 ''  dialogo.ShowDialog()
 
@@ -6669,6 +6735,114 @@ Public Class frmcontpaqnominas3
         Catch ex As Exception
             MessageBox.Show(ex.Message.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
         End Try
+    End Sub
+
+    Private Sub guardarRespaldoNominaFinal()
+        Dim sql As String
+
+        For x As Integer = 0 To dtgDatos.Rows.Count - 1
+
+
+            sql = "EXEC [setNominaSindicatoRespaldoInsertar ] 0"
+            'periodo
+            sql &= "," & cboperiodo.SelectedValue
+            'idempresa
+            sql &= "," & gIdEmpresa
+            'idempleado
+            sql &= "," & dtgDatos.Rows(x).Cells(3).Value
+            'sueldoordinario
+            sql &= "," & dtgDatos.Rows(x).Cells(7).Value.ToString.Replace(",", "")
+            'neto
+            sql &= "," & dtgDatos.Rows(x).Cells(8).Value.ToString.Replace(",", "")
+            'descuento
+            sql &= "," & dtgDatos.Rows(x).Cells(14).Value.ToString.Replace(",", "")
+            'Prestamo
+            sql &= "," & dtgDatos.Rows(x).Cells(15).Value.ToString.Replace(",", "")
+            'sindicato
+            sql &= "," & dtgDatos.Rows(x).Cells(16).Value.ToString.Replace(",", "")
+            'sueldo neto
+            sql &= "," & dtgDatos.Rows(x).Cells(22).Value.ToString.Replace(",", "")
+            'retencion imss
+            sql &= "," & dtgDatos.Rows(x).Cells(23).Value.ToString.Replace(",", "")
+            'retenciones
+            sql &= "," & dtgDatos.Rows(x).Cells(25).Value.ToString.Replace(",", "")
+            'costosocial
+            sql &= "," & dtgDatos.Rows(x).Cells(26).Value.ToString.Replace(",", "")
+            'comision
+            sql &= "," & dtgDatos.Rows(x).Cells(28).Value.ToString.Replace(",", "")
+            'subtotal
+            sql &= "," & dtgDatos.Rows(x).Cells(30).Value.ToString.Replace(",", "")
+            'IVA
+            sql &= "," & dtgDatos.Rows(x).Cells(31).Value.ToString.Replace(",", "")
+            'total
+            sql &= "," & dtgDatos.Rows(x).Cells(32).Value.ToString.Replace(",", "")
+            'iestatus
+            sql &= ",1"
+            'estatusnomina
+            sql &= ",1"
+            'cuenta
+            sql &= ",'" & dtgDatos.Rows(x).Cells(4).Value & "'"
+            'infonavit
+            sql &= "," & dtgDatos.Rows(x).Cells(10).Value.ToString.Replace(",", "")
+            'departamento
+            sql &= ",'" & dtgDatos.Rows(x).Cells(5).Value & "'"
+            'incremento
+            sql &= ",0.00"
+            'Prima SA
+            sql &= "," & dtgDatos.Rows(x).Cells(12).Value.ToString.Replace(",", "")
+            'Prima Sindicato
+            sql &= "," & dtgDatos.Rows(x).Cells(18).Value.ToString.Replace(",", "")
+
+            'fAguinaldoSA
+            sql &= "," & dtgDatos.Rows(x).Cells(13).Value.ToString.Replace(",", "")
+
+            'fAguinaldoSin
+            sql &= "," & dtgDatos.Rows(x).Cells(19).Value.ToString.Replace(",", "")
+            'fVacacionesSA
+            sql &= ",0.00"
+            'fVacacionesSin
+            sql &= ",0.00"
+            'fIndemnizacionLeySA
+            sql &= ",0.00"
+            'fIndemnizacionLeySin
+            sql &= ",0.00"
+            'fPrimaAntSA
+            sql &= ",0.00"
+            'fPrimaAntSin
+            sql &= ",0.00"
+            'fPrimaAntSA2
+            sql &= ",0.00"
+            'fPrimaAntSin2
+            sql &= ",0.00"
+            'fImporteSA1 =CostoSocial2 grid
+            sql &= "," & dtgDatos.Rows(x).Cells(27).Value.ToString.Replace(",", "")
+            'fImporteSin1 = Importe sindicato Extra grid
+            sql &= "," & dtgDatos.Rows(x).Cells(20).Value.ToString.Replace(",", "")
+            'fImporteSA2 = Pensión Alimenticia Patrona Grid
+            sql &= "," & dtgDatos.Rows(x).Cells(9).Value.ToString.Replace(",", "")
+            'fImporteSin2 = comision Sindicato grid
+            sql &= "," & dtgDatos.Rows(x).Cells(29).Value.ToString.Replace(",", "")
+            'fImporteSA3 = fonacot
+            sql &= "," & dtgDatos.Rows(x).Cells(11).Value.ToString.Replace(",", "")
+            'fImporteSin3 =Pension Alimenticia Sindicato grid
+            sql &= "," & dtgDatos.Rows(x).Cells(17).Value.ToString.Replace(",", "")
+            'fImporteSA4 = ISR
+            sql &= "," & dtgDatos.Rows(x).Cells(24).Value.ToString.Replace(",", "")
+            'fImporteSin4
+            sql &= ",0.00"
+            'Usuario que guarda
+            sql &= ",'" & Usuario.Nombre & "'"
+            'Fecha en que guarda
+            sql &= ",'" & Date.Today.ToShortDateString & "'"
+
+
+            If nExecute(sql) = False Then
+                MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                'pnlProgreso.Visible = False
+                Exit Sub
+            End If
+
+        Next x
     End Sub
 
     
