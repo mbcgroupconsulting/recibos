@@ -531,8 +531,8 @@ Public Class frmFondeoPatrona
                                             Else
 
                                                 'Buscamos a las empresas relacionadas con los cargos
-                                                If InStr(Trim(producto.SubItems(4).Text).ToUpper, "SUELDO") > 0 Then
-                                                    producto.SubItems(8).Text = "NOMINA"
+                                                If InStr(Trim(producto.SubItems(4).Text).ToUpper, "RASTREO") > 0 Then
+                                                    producto.SubItems(8).Text = "OPERADORA AFIRME NOMINA NOV"
                                                     'producto.SubItems.Add("NOMINA")
                                                     producto.SubItems(11).Text = "3"
                                                     'producto.SubItems.Add("1")
