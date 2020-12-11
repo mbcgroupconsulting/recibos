@@ -4,6 +4,11 @@ Public Class Servidor
     Public Shared User As String
     Public Shared PWD As String
     Public Shared Base As String
+    Public Shared IP2 As String
+    Public Shared Nombre2 As String
+    Public Shared User2 As String
+    Public Shared PWD2 As String
+    Public Shared Base2 As String
     Public Shared Fecha As Date
     Public Shared Hora As String
     Public Shared Fecha_Hora As String
