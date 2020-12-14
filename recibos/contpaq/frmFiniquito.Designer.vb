@@ -58,6 +58,7 @@ Partial Class frmFiniquito
         Me.Label21 = New System.Windows.Forms.Label()
         Me.nudComisionCliente = New System.Windows.Forms.NumericUpDown()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.cmdExcel2 = New System.Windows.Forms.Button()
         Me.txtIsrP = New System.Windows.Forms.TextBox()
         Me.Label38 = New System.Windows.Forms.Label()
         Me.txtFonacotS = New System.Windows.Forms.TextBox()
@@ -66,6 +67,10 @@ Partial Class frmFiniquito
         Me.txtPensionS = New System.Windows.Forms.TextBox()
         Me.txtPensionP = New System.Windows.Forms.TextBox()
         Me.Label27 = New System.Windows.Forms.Label()
+        Me.cmdExccel = New System.Windows.Forms.Button()
+        Me.cmdBorrar = New System.Windows.Forms.Button()
+        Me.cmdcancelar = New System.Windows.Forms.Button()
+        Me.cmdguardar = New System.Windows.Forms.Button()
         Me.txtParteSindicato = New System.Windows.Forms.TextBox()
         Me.txtPartePatrona = New System.Windows.Forms.TextBox()
         Me.txtTotalSindicato = New System.Windows.Forms.TextBox()
@@ -111,11 +116,6 @@ Partial Class frmFiniquito
         Me.chkServicio = New System.Windows.Forms.CheckBox()
         Me.chkConstitucional = New System.Windows.Forms.CheckBox()
         Me.chkPrimaAntiguedad = New System.Windows.Forms.CheckBox()
-        Me.cmdExcel2 = New System.Windows.Forms.Button()
-        Me.cmdExccel = New System.Windows.Forms.Button()
-        Me.cmdBorrar = New System.Windows.Forms.Button()
-        Me.cmdcancelar = New System.Windows.Forms.Button()
-        Me.cmdguardar = New System.Windows.Forms.Button()
         CType(Me.NudDiasAguinaldo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudSubsidio, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudDiasVacPendientes, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -477,6 +477,17 @@ Partial Class frmFiniquito
         Me.Panel1.Size = New System.Drawing.Size(668, 589)
         Me.Panel1.TabIndex = 39
         '
+        'cmdExcel2
+        '
+        Me.cmdExcel2.Image = Global.recibos.My.Resources.Resources.xls__2_
+        Me.cmdExcel2.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdExcel2.Location = New System.Drawing.Point(440, 498)
+        Me.cmdExcel2.Name = "cmdExcel2"
+        Me.cmdExcel2.Size = New System.Drawing.Size(87, 72)
+        Me.cmdExcel2.TabIndex = 90
+        Me.cmdExcel2.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdExcel2.UseVisualStyleBackColor = True
+        '
         'txtIsrP
         '
         Me.txtIsrP.Enabled = False
@@ -548,6 +559,55 @@ Partial Class frmFiniquito
         Me.Label27.Size = New System.Drawing.Size(151, 18)
         Me.Label27.TabIndex = 82
         Me.Label27.Text = "PENSIÓN ALIMENTICIA:"
+        '
+        'cmdExccel
+        '
+        Me.cmdExccel.Image = CType(resources.GetObject("cmdExccel.Image"), System.Drawing.Image)
+        Me.cmdExccel.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdExccel.Location = New System.Drawing.Point(341, 498)
+        Me.cmdExccel.Name = "cmdExccel"
+        Me.cmdExccel.Size = New System.Drawing.Size(87, 72)
+        Me.cmdExccel.TabIndex = 81
+        Me.cmdExccel.Text = "Excel"
+        Me.cmdExccel.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdExccel.UseVisualStyleBackColor = True
+        '
+        'cmdBorrar
+        '
+        Me.cmdBorrar.Image = CType(resources.GetObject("cmdBorrar.Image"), System.Drawing.Image)
+        Me.cmdBorrar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdBorrar.Location = New System.Drawing.Point(233, 498)
+        Me.cmdBorrar.Name = "cmdBorrar"
+        Me.cmdBorrar.Size = New System.Drawing.Size(87, 72)
+        Me.cmdBorrar.TabIndex = 80
+        Me.cmdBorrar.Text = "Borrar"
+        Me.cmdBorrar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdBorrar.UseVisualStyleBackColor = True
+        '
+        'cmdcancelar
+        '
+        Me.cmdcancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdcancelar.Image = CType(resources.GetObject("cmdcancelar.Image"), System.Drawing.Image)
+        Me.cmdcancelar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdcancelar.Location = New System.Drawing.Point(127, 498)
+        Me.cmdcancelar.Name = "cmdcancelar"
+        Me.cmdcancelar.Size = New System.Drawing.Size(87, 72)
+        Me.cmdcancelar.TabIndex = 79
+        Me.cmdcancelar.Text = "Cancelar"
+        Me.cmdcancelar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdcancelar.UseVisualStyleBackColor = True
+        '
+        'cmdguardar
+        '
+        Me.cmdguardar.Image = CType(resources.GetObject("cmdguardar.Image"), System.Drawing.Image)
+        Me.cmdguardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdguardar.Location = New System.Drawing.Point(24, 498)
+        Me.cmdguardar.Name = "cmdguardar"
+        Me.cmdguardar.Size = New System.Drawing.Size(87, 72)
+        Me.cmdguardar.TabIndex = 78
+        Me.cmdguardar.Text = "Guardar"
+        Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdguardar.UseVisualStyleBackColor = True
         '
         'txtParteSindicato
         '
@@ -950,66 +1010,6 @@ Partial Class frmFiniquito
         Me.chkPrimaAntiguedad.TabIndex = 56
         Me.chkPrimaAntiguedad.Text = "Prima de Antiguedad"
         Me.chkPrimaAntiguedad.UseVisualStyleBackColor = True
-        '
-        'cmdExcel2
-        '
-        Me.cmdExcel2.Image = Global.recibos.My.Resources.Resources.xls__2_
-        Me.cmdExcel2.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdExcel2.Location = New System.Drawing.Point(440, 498)
-        Me.cmdExcel2.Name = "cmdExcel2"
-        Me.cmdExcel2.Size = New System.Drawing.Size(87, 72)
-        Me.cmdExcel2.TabIndex = 90
-        Me.cmdExcel2.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdExcel2.UseVisualStyleBackColor = True
-        '
-        'cmdExccel
-        '
-        Me.cmdExccel.Image = CType(resources.GetObject("cmdExccel.Image"), System.Drawing.Image)
-        Me.cmdExccel.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdExccel.Location = New System.Drawing.Point(341, 498)
-        Me.cmdExccel.Name = "cmdExccel"
-        Me.cmdExccel.Size = New System.Drawing.Size(87, 72)
-        Me.cmdExccel.TabIndex = 81
-        Me.cmdExccel.Text = "Excel"
-        Me.cmdExccel.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdExccel.UseVisualStyleBackColor = True
-        '
-        'cmdBorrar
-        '
-        Me.cmdBorrar.Image = CType(resources.GetObject("cmdBorrar.Image"), System.Drawing.Image)
-        Me.cmdBorrar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdBorrar.Location = New System.Drawing.Point(233, 498)
-        Me.cmdBorrar.Name = "cmdBorrar"
-        Me.cmdBorrar.Size = New System.Drawing.Size(87, 72)
-        Me.cmdBorrar.TabIndex = 80
-        Me.cmdBorrar.Text = "Borrar"
-        Me.cmdBorrar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdBorrar.UseVisualStyleBackColor = True
-        '
-        'cmdcancelar
-        '
-        Me.cmdcancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdcancelar.Image = CType(resources.GetObject("cmdcancelar.Image"), System.Drawing.Image)
-        Me.cmdcancelar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdcancelar.Location = New System.Drawing.Point(127, 498)
-        Me.cmdcancelar.Name = "cmdcancelar"
-        Me.cmdcancelar.Size = New System.Drawing.Size(87, 72)
-        Me.cmdcancelar.TabIndex = 79
-        Me.cmdcancelar.Text = "Cancelar"
-        Me.cmdcancelar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdcancelar.UseVisualStyleBackColor = True
-        '
-        'cmdguardar
-        '
-        Me.cmdguardar.Image = CType(resources.GetObject("cmdguardar.Image"), System.Drawing.Image)
-        Me.cmdguardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdguardar.Location = New System.Drawing.Point(24, 498)
-        Me.cmdguardar.Name = "cmdguardar"
-        Me.cmdguardar.Size = New System.Drawing.Size(87, 72)
-        Me.cmdguardar.TabIndex = 78
-        Me.cmdguardar.Text = "Guardar"
-        Me.cmdguardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.cmdguardar.UseVisualStyleBackColor = True
         '
         'frmFiniquito
         '

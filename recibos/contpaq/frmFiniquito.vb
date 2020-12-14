@@ -205,7 +205,9 @@ Public Class frmFiniquito
                             txtProporPrimaP.Text = Double.Parse(row("fImporteTotal").ToString)
                         End If
 
-                       
+                        If Trim(row("cDescripcion")) = "Prima de vacaciones a tiempo" Then
+                            txtProporPrimaP.Text = txtProporPrimaP.Text + Double.Parse(row("fImporteTotal").ToString)
+                        End If
 
 
 
@@ -474,7 +476,7 @@ Public Class frmFiniquito
             Dim FPRIMAV As Double
             Dim FAGUINALDO As Double
             Dim SDI As Double
-            limpiar()
+            limpiar2()
             'Aguinaldo
             txtProporAguinaldoS.Text = Math.Round(Math.Round(((Double.Parse(txtCuotaDiaria.Text) * Double.Parse(NudDiasAguinaldo.Value)) / 365), 2) * Double.Parse(NudAguinaldoLaborado.Value), 2)
             txtProporVacacionesS.Text = Math.Round(Math.Round(((Double.Parse(txtCuotaDiaria.Text) * (IIf(NudVacacionesContrato.Value >= NudVacacionesLey.Value, NudVacacionesContrato.Value, NudVacacionesLey.Value))) / 365), 2) * Double.Parse(NudDiasVacaciones.Value), 2)
@@ -738,6 +740,29 @@ Public Class frmFiniquito
         txtPensionP.Text = ""
         txtPensionS.Text = ""
         calcular()
+
+    End Sub
+
+    Private Sub limpiar2()
+
+        txtIndeServicioS.Text = ""
+
+        txtIndeConstitucionalS.Text = ""
+
+        txtPrimaAntiguedadS.Text = ""
+
+        txtProporAguinaldoS.Text = ""
+
+        txtProporVacacionesS.Text = ""
+
+        txtProporPrimaS.Text = ""
+
+        txtSalarioDevengadoS.Text = ""
+
+        txtCreditoInfonavitS.Text = ""
+
+        txtPensionS.Text = ""
+        'calcular()
 
     End Sub
 
@@ -1397,5 +1422,9 @@ Public Class frmFiniquito
             MessageBox.Show(ex.Message.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         End Try
+    End Sub
+
+    Private Sub dtpBaja_ValueChanged(sender As System.Object, e As System.EventArgs) Handles dtpBaja.ValueChanged
+        CargarFiniquito()
     End Sub
 End Class
