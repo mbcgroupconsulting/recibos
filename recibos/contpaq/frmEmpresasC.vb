@@ -79,24 +79,26 @@
             lsvLista.Clear()
 
 
-            SQL = "select iIdEmpresaC,empresaC.nombre as empresac, ruta, empresa.nombre as empresa,"
-            SQL &= "empresa.registropatronal,clientes.nombre as cliente "
-            SQL &= " from (empresaC left join empresa on empresaC.fkiIdEmpresa=empresa.iIdEmpresa)"
-            SQL &= " left join clientes on empresac.fkiIdCliente = clientes.iIdCliente"
-            SQL &= " where EmpresaC.iEstatus=1"
-            SQL &= " order by empresac.nombre"
+            'SQL = "select iIdEmpresaC,empresaC.nombre as empresac, ruta, empresa.nombre as empresa,"
+            'SQL &= "empresa.registropatronal,clientes.nombre as cliente "
+            'SQL &= " from (empresaC left join empresa on empresaC.fkiIdEmpresa=empresa.iIdEmpresa)"
+            'SQL &= " left join clientes on empresac.fkiIdCliente = clientes.iIdCliente"
+            'SQL &= " where EmpresaC.iEstatus=1"
+            'SQL &= " order by empresac.nombre"
+            SQL = "select iIdEmpresaC,empresaC.nombre as empresac, ruta,campo1,descripcion from empresac inner join CatSucursales on empresac.campo1= catsucursales.idSucursal"
+            SQL &= " where EmpresaC.iEstatus=1 order by empresac.nombre"
 
             Dim item As ListViewItem
             lsvLista.Columns.Add("Nombre")
-            lsvLista.Columns(0).Width = 250
+            lsvLista.Columns(0).Width = 300
             lsvLista.Columns.Add("Nombre Base")
-            lsvLista.Columns(1).Width = 170
-            lsvLista.Columns.Add("Empresa patrona")
-            lsvLista.Columns(2).Width = 350
-            lsvLista.Columns.Add("Registro Patronal")
-            lsvLista.Columns(3).Width = 120
-            lsvLista.Columns.Add("Cliente Asignado")
-            lsvLista.Columns(4).Width = 270
+            lsvLista.Columns(1).Width = 300
+            lsvLista.Columns.Add("Sucursal")
+            lsvLista.Columns(2).Width = 170
+            'lsvLista.Columns.Add("Registro Patronal")
+            'lsvLista.Columns(3).Width = 120
+            'lsvLista.Columns.Add("Cliente Asignado")
+            'lsvLista.Columns(4).Width = 270
 
             Dim rwEmpresaC As DataRow() = nConsulta(SQL)
             If rwEmpresaC Is Nothing = False Then
@@ -170,9 +172,9 @@
                     item = lsvLista.Items.Add("" & Fila.Item("empresac"))
 
                     item.SubItems.Add("" & Fila.Item("ruta"))
-                    item.SubItems.Add("" & Fila.Item("empresa"))
-                    item.SubItems.Add("" & Fila.Item("registropatronal"))
-                    item.SubItems.Add("" & Fila.Item("cliente"))
+                    item.SubItems.Add("" & Fila.Item("descripcion"))
+                    'item.SubItems.Add("" & Fila.Item("registropatronal"))
+                    'item.SubItems.Add("" & Fila.Item("cliente"))
 
                     item.Tag = Fila.Item("iIdEmpresaC")
                     'item.BackColor = IIf(Alter, Color.WhiteSmoke, Color.White)

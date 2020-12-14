@@ -63,6 +63,7 @@ Module mdoInicio
             mdoObjetos2.Conectado = False
 
             CONTPAQCONEXION.ConnectionString = "Server=192.168.1.224\compac;uid=sa;Password=12345;DataBase=" & Base
+            'CONTPAQCONEXION.ConnectionString = "Server=192.168.1.224\compac;uid=sa;Password=12345;DataBase=" & Base
             'CONTPAQCONEXION.ConnectionString = "Server=localhost;uid=sa;Password=1123581321;DataBase=" & Base
             CONTPAQCONEXION.Open()
 
@@ -151,6 +152,12 @@ Module mdoInicio
                 Servidor.Base = "unificacion"
                 Servidor.User = "sa"
                 Servidor.PWD = "12345"
+                Servidor.IP2 = "192.168.1.224\compac"
+                'Servidor.IP = "192.168.1.222"
+                Servidor.Nombre2 = "192.168.1.224\compac"
+                Servidor.Base2 = "unificacion"
+                Servidor.User2 = "sa"
+                Servidor.PWD2 = "12345"
                 'Servidor.PWD = "kiosko2016"
 
             End If
