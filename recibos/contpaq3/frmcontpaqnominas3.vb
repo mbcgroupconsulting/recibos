@@ -6181,20 +6181,27 @@ Public Class frmcontpaqnominas3
 
 
 
-                Dim totalneto, ajusteneto, cs As Double
+                Dim totalneto, ajusteneto, cs, costosocialsinajuste As Double
+
+
                 'RECORRE DATAGRID
                 For x As Integer = 0 To dtgDatos.Rows.Count - 1
-                    totalneto = 0
-                    ajusteneto = 0
-
 
                     If chkAguinaldo.Checked Then
 
-                        sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value
-                        Dim rwDatosPeriodo As DataRow() = nConsulta(sql)
+                        totalneto = 0
+                        ajusteneto = 0
+                        costosocialsinajuste = 0
 
-                       
-                        If rwCliente Is Nothing = False Then
+                        sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value
+                        Dim rwDatosPeriodo2 As DataRow() = nConsulta(sql)
+
+
+
+                        If rwDatosPeriodo2 Is Nothing = False Then
+
+                            dt = rwDatosPeriodo2.CopyToDataTable()
+
                             'RECORRE PROCED ALMACENADO
                             For Each row As DataRow In dt.Rows
 
@@ -6212,14 +6219,17 @@ Public Class frmcontpaqnominas3
                                     End If
                                 End If
 
-                                cs = (totalneto - ajusteneto) * 0.03
+                                '  cs = (totalneto - ajusteneto) '* 0.03
 
 
                             Next
 
                         End If
-                        
+
                     End If
+
+                    costosocialsinajuste = CDbl(dtgDatos.Rows(x).Cells(13).Value) * 0.03
+
 
                     hoja.Cell(filaExcel, 1).Value = dtgDatos.Rows(x).Cells(6).Value 'trabajador
                     hoja.Cell(filaExcel, 2).Value = IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(22).Value, dtgDatos.Rows(x).Cells(7).Value) 'sueldo ordinario/aguinaldo sa
@@ -6231,14 +6241,16 @@ Public Class frmcontpaqnominas3
                     hoja.Cell(filaExcel, 8).Value = dtgDatos.Rows(x).Cells(10).Value 'infonavit
                     hoja.Cell(filaExcel, 9).Value = dtgDatos.Rows(x).Cells(14).Value 'otros descuentos p-sindical
                     hoja.Cell(filaExcel, 10).Value = "" 'otros decuentosp-asim
-                    hoja.Cell(filaExcel, 11).Value = IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(13).Value, dtgDatos.Rows(x).Cells(8).Value) ' patrona neto/aguinaldo sa
+                    hoja.Cell(filaExcel, 11).Value = IIf(chkAguinaldo.Checked, totalneto, dtgDatos.Rows(x).Cells(8).Value) ' patrona neto/aguinaldo sa
                     hoja.Cell(filaExcel, 12).Value = 0 'asim
                     'sindicato
                     hoja.Cell(filaExcel, 13).FormulaA1 = "=B" & filaExcel & "-K" & filaExcel & "+((C" & filaExcel & "+D" & filaExcel & "+E" & filaExcel & "+F" & filaExcel & ")-(G" & filaExcel & "+H" & filaExcel & "+I" & filaExcel & "))"
                     hoja.Cell(filaExcel, 14).FormulaA1 = "=+K" & filaExcel & "+L" & filaExcel & "+M" & filaExcel & "-G" & filaExcel
                     hoja.Cell(filaExcel, 15).Value = dtgDatos.Rows(x).Cells(23).Value  'retencion imss
                     hoja.Cell(filaExcel, 16).Value = dtgDatos.Rows(x).Cells(24).Value 'retemcion isr
-                    hoja.Cell(filaExcel, 17).Value = IIf(chkAguinaldo.Checked, cs, dtgDatos.Rows(x).Cells(26).Value)
+
+                    hoja.Cell(filaExcel, 17).Value = IIf(chkAguinaldo.Checked, costosocialsinajuste, dtgDatos.Rows(x).Cells(26).Value)
+
                     hoja.Cell(filaExcel, 18).FormulaA1 = "=SUM(K" & filaExcel & "+G" & filaExcel & "+H" & filaExcel & ")*" & porcentaje & "%"
                     hoja.Cell(filaExcel, 19).FormulaA1 = "=SUM(L" & filaExcel & "+M" & filaExcel & ")*" & porsindicato & "%"
                     hoja.Cell(filaExcel, 20).FormulaA1 = "=K" & filaExcel & "+L" & filaExcel & "+M" & filaExcel & "+O" & filaExcel & "+P" & filaExcel & "+Q" & filaExcel & "+R" & filaExcel & "+S" & filaExcel & "+H" & filaExcel & ""
