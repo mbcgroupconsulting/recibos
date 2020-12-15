@@ -6750,9 +6750,89 @@ Public Class frmcontpaqnominas3
     End Sub
 
     Private Sub guardarRespaldoNominaFinal()
-        Dim sql As String
+
+        Dim periodo, periodoini, periodofin, diaini As String
+        Dim clienteasignado As String
+        Dim porcentaje, porsindicato As String
+
+
+        Dim sql As String = "select * from IntClienteEmpresaContpaq inner join clientes on fkIdCliente= iIdCliente where fkIdEmpresaC=" & gIdEmpresa
+        Dim rwCliente As DataRow() = nConsulta(sql)
+        If rwCliente Is Nothing = False Then
+            clienteasignado = rwCliente(0)("nombre")
+            porcentaje = rwCliente(0)("porcentaje")
+            porsindicato = rwCliente(0)("porsindicato")
+        End If
+
+        periodo = cboperiodo.Text
+        periodoini = CDate(cboperiodo.Text.ToString.Remove(10)).ToLongDateString.Substring(CDate(cboperiodo.Text.ToString.Remove(10)).ToLongDateString.IndexOf(", ") + 2).ToUpper()
+        diaini = CDate(periodoini).Day
+        periodofin = CDate(periodo.Substring(11)).ToLongDateString().Substring(CDate(periodo.Substring(11)).ToLongDateString().IndexOf(", ") + 2).ToUpper()
+
+
+        'Intermediarias Asociadas
+        sql = "SELECT * FROM IntEmpresaEmpresaContpaq where fkIdEmpresaC= " & gIdEmpresa
+        Dim rwIntEmpresaContpaq As DataRow() = nConsulta(sql)
+        Dim InterPatrona, InterSindicato As String
+
+        If rwIntEmpresaContpaq Is Nothing = False Then
+
+
+            Dim rwEmpresasInter As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona"))
+            Dim rwEmpresaExedente As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente"))
+            InterPatrona = rwEmpresasInter(0).Item("nombre")
+            InterSindicato = rwEmpresaExedente(0).Item("nombre")
+
+        End If
+
+        Dim totalneto, ajusteneto, cs, costosocialsinajuste As Double
+
 
         For x As Integer = 0 To dtgDatos.Rows.Count - 1
+
+
+            If chkAguinaldo.Checked Then
+
+                totalneto = 0
+                ajusteneto = 0
+                costosocialsinajuste = 0
+
+                sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value
+                Dim rwDatosPeriodo2 As DataRow() = nConsulta(sql)
+
+
+
+                If rwDatosPeriodo2 Is Nothing = False Then
+
+                    dt = rwDatosPeriodo2.CopyToDataTable()
+
+                    'RECORRE PROCED ALMACENADO
+                    For Each row As DataRow In dt.Rows
+
+                        If dt.Columns.IndexOf("Neto") <> -1 Then
+                            If (Not (row("Neto") Is DBNull.Value)) Then
+
+                                totalneto = IIf(Trim(row("Neto")) = "", "0.00", Trim(row("Neto")))
+                            End If
+                        End If
+
+                        If dt.Columns.IndexOf("Ajuste al neto") <> -1 Then
+                            If (Not (row("Ajuste al neto") Is DBNull.Value)) Then
+
+                                ajusteneto = IIf(Trim(row("Ajuste al neto")) = "", "0.00", Trim(row("Ajuste al neto")))
+                            End If
+                        End If
+
+                        '  cs = (totalneto - ajusteneto) '* 0.03
+
+
+                    Next
+
+                End If
+
+            End If
+
+            costosocialsinajuste = CDbl(dtgDatos.Rows(x).Cells(13).Value) * 0.03
 
 
             sql = "EXEC [setNominaSindicatoRespaldoInsertar ] 0"
@@ -6762,89 +6842,63 @@ Public Class frmcontpaqnominas3
             sql &= "," & gIdEmpresa
             'idempleado
             sql &= "," & dtgDatos.Rows(x).Cells(3).Value
-            'sueldoordinario
+            '@TRABAJADOR
+            sql &= ",'" & dtgDatos.Rows(x).Cells(6).Value.ToString.Replace(",", "") & "'"
+            '@SUELDO_ORDINARIO
             sql &= "," & dtgDatos.Rows(x).Cells(7).Value.ToString.Replace(",", "")
-            'neto
-            sql &= "," & dtgDatos.Rows(x).Cells(8).Value.ToString.Replace(",", "")
-            'descuento
-            sql &= "," & dtgDatos.Rows(x).Cells(14).Value.ToString.Replace(",", "")
-            'Prestamo
-            sql &= "," & dtgDatos.Rows(x).Cells(15).Value.ToString.Replace(",", "")
-            'sindicato
-            sql &= "," & dtgDatos.Rows(x).Cells(16).Value.ToString.Replace(",", "")
-            'sueldo neto
-            sql &= "," & dtgDatos.Rows(x).Cells(22).Value.ToString.Replace(",", "")
-            'retencion imss
-            sql &= "," & dtgDatos.Rows(x).Cells(23).Value.ToString.Replace(",", "")
-            'retenciones
-            sql &= "," & dtgDatos.Rows(x).Cells(25).Value.ToString.Replace(",", "")
-            'costosocial
-            sql &= "," & dtgDatos.Rows(x).Cells(26).Value.ToString.Replace(",", "")
-            'comision
-            sql &= "," & dtgDatos.Rows(x).Cells(28).Value.ToString.Replace(",", "")
-            'subtotal
-            sql &= "," & dtgDatos.Rows(x).Cells(30).Value.ToString.Replace(",", "")
-            'IVA
-            sql &= "," & dtgDatos.Rows(x).Cells(31).Value.ToString.Replace(",", "")
-            'total
-            sql &= "," & dtgDatos.Rows(x).Cells(32).Value.ToString.Replace(",", "")
-            'iestatus
-            sql &= ",1"
-            'estatusnomina
-            sql &= ",1"
-            'cuenta
-            sql &= ",'" & dtgDatos.Rows(x).Cells(4).Value & "'"
-            'infonavit
-            sql &= "," & dtgDatos.Rows(x).Cells(10).Value.ToString.Replace(",", "")
-            'departamento
-            sql &= ",'" & dtgDatos.Rows(x).Cells(5).Value & "'"
-            'incremento
-            sql &= ",0.00"
-            'Prima SA
+            '@SUELDOS_RETROACTIVOS
+            sql &= "," & 0
+            '@HORAS_EXTRAS
+            sql &= "," & 0
+            '@PRIMA_VACACIONAL
             sql &= "," & dtgDatos.Rows(x).Cells(12).Value.ToString.Replace(",", "")
-            'Prima Sindicato
-            sql &= "," & dtgDatos.Rows(x).Cells(18).Value.ToString.Replace(",", "")
-
-            'fAguinaldoSA
-            sql &= "," & dtgDatos.Rows(x).Cells(13).Value.ToString.Replace(",", "")
-
-            'fAguinaldoSin
-            sql &= "," & dtgDatos.Rows(x).Cells(19).Value.ToString.Replace(",", "")
-            'fVacacionesSA
-            sql &= ",0.00"
-            'fVacacionesSin
-            sql &= ",0.00"
-            'fIndemnizacionLeySA
-            sql &= ",0.00"
-            'fIndemnizacionLeySin
-            sql &= ",0.00"
-            'fPrimaAntSA
-            sql &= ",0.00"
-            'fPrimaAntSin
-            sql &= ",0.00"
-            'fPrimaAntSA2
-            sql &= ",0.00"
-            'fPrimaAntSin2
-            sql &= ",0.00"
-            'fImporteSA1 =CostoSocial2 grid
-            sql &= "," & dtgDatos.Rows(x).Cells(27).Value.ToString.Replace(",", "")
-            'fImporteSin1 = Importe sindicato Extra grid
+            '@OTROS_INGRESOS
             sql &= "," & dtgDatos.Rows(x).Cells(20).Value.ToString.Replace(",", "")
-            'fImporteSA2 = Pensión Alimenticia Patrona Grid
-            sql &= "," & dtgDatos.Rows(x).Cells(9).Value.ToString.Replace(",", "")
-            'fImporteSin2 = comision Sindicato grid
-            sql &= "," & dtgDatos.Rows(x).Cells(29).Value.ToString.Replace(",", "")
-            'fImporteSA3 = fonacot
+            '@CREDITO_FONACOT
             sql &= "," & dtgDatos.Rows(x).Cells(11).Value.ToString.Replace(",", "")
-            'fImporteSin3 =Pension Alimenticia Sindicato grid
-            sql &= "," & dtgDatos.Rows(x).Cells(17).Value.ToString.Replace(",", "")
-            'fImporteSA4 = ISR
+            '@INFONAVIT
+            sql &= "," & dtgDatos.Rows(x).Cells(10).Value.ToString.Replace(",", "")
+            '@OTROS_DESCUENTOS_P_SINDICAL
+            sql &= "," & dtgDatos.Rows(x).Cells(14).Value.ToString.Replace(",", "")
+            '@OTROS_DESCUENTOS_P_ASIMILADOS
+            sql &= "," & 0
+            '@PATRONA_NETO
+            sql &= "," & IIf(chkAguinaldo.Checked, totalneto, CDbl(dtgDatos.Rows(x).Cells(8).Value)) ' patrona neto/aguinaldo sa
+            '@ASIMILADOS
+            sql &= "," & 0
+            '@SINDICATO
+            Dim sindicato As Double = CDbl(dtgDatos.Rows(x).Cells(7).Value.ToString.Replace(",", "")) - IIf(chkAguinaldo.Checked, totalneto, CDbl(dtgDatos.Rows(x).Cells(8).Value)) + ((0 + 0 + CDbl(dtgDatos.Rows(x).Cells(12).Value.ToString.Replace(",", "")) + CDbl(dtgDatos.Rows(x).Cells(20).Value.ToString.Replace(",", ""))) - (CDbl(dtgDatos.Rows(x).Cells(11).Value.ToString.Replace(",", "")) + CDbl(dtgDatos.Rows(x).Cells(10).Value.ToString.Replace(",", "")) + CDbl(dtgDatos.Rows(x).Cells(14).Value.ToString.Replace(",", ""))))
+            sql &= "," & sindicato
+            '@TOTAL_A_PAGAR
+            Dim totalpagar As Double = IIf(chkAguinaldo.Checked, totalneto, CDbl(dtgDatos.Rows(x).Cells(8).Value)) + CDbl(dtgDatos.Rows(x).Cells(16).Value.ToString.Replace(",", ""))
+            sql &= "," & totalpagar
+            '@RETENCIÓN_IMSS
+            sql &= "," & dtgDatos.Rows(x).Cells(23).Value.ToString.Replace(",", "")
+            '@RETENCION_ISR
             sql &= "," & dtgDatos.Rows(x).Cells(24).Value.ToString.Replace(",", "")
-            'fImporteSin4
-            sql &= ",0.00"
-            'Usuario que guarda
+            '@COSTO_SOCIAL
+            sql &= "," & IIf(chkAguinaldo.Checked, costosocialsinajuste, dtgDatos.Rows(x).Cells(26).Value)
+            '@COMISION_SA
+            Dim comisionsa As Double = (CDbl(dtgDatos.Rows(x).Cells(11).Value.ToString.Replace(",", "")) + CDbl(dtgDatos.Rows(x).Cells(10).Value.ToString.Replace(",", "")) + IIf(chkAguinaldo.Checked, totalneto, CDbl(dtgDatos.Rows(x).Cells(8).Value))) * (porcentaje / 100)
+            sql &= "," & comisionsa
+            '@COMISION_EXCEDENTE
+            Dim comisionexedente As Double = sindicato * (porsindicato / 100)
+            sql &= "," & comisionexedente
+            '@SUBTOTAL
+            Dim subtotal As Double = IIf(chkAguinaldo.Checked, totalneto, CDbl(dtgDatos.Rows(x).Cells(8).Value)) + sindicato + CDbl(dtgDatos.Rows(x).Cells(23).Value.ToString.Replace(",", "")) + CDbl(dtgDatos.Rows(x).Cells(24).Value.ToString.Replace(",", "")) + IIf(chkAguinaldo.Checked, costosocialsinajuste, CDbl(dtgDatos.Rows(x).Cells(26).Value)) + comisionsa + comisionexedente + CDbl(dtgDatos.Rows(x).Cells(10).Value.ToString.Replace(",", ""))
+            sql &= "," & subtotal
+            '@IVA
+            Dim iva As Double = subtotal * 0.16
+            sql &= "," & iva
+            '@TOTAL
+            sql &= "," & subtotal + iva
+            '@fkiIdEmpresaInterPatrona
+            sql &= "," & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona")
+            '@fkiIdEmpresaInterExcedente
+            sql &= "," & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente")
+            '@cUsuario
             sql &= ",'" & Usuario.Nombre & "'"
-            'Fecha en que guarda
+            '@dFechaFinal
             sql &= ",'" & Date.Today.ToShortDateString & "'"
 
 
