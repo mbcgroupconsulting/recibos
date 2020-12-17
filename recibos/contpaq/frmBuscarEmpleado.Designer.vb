@@ -34,6 +34,7 @@ Partial Class frmBuscarEmpleado
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmdCerrar = New System.Windows.Forms.Button()
         Me.cmdBuscar = New System.Windows.Forms.Button()
+        Me.chkActivos = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'lsvEmpresas
@@ -44,7 +45,7 @@ Partial Class frmBuscarEmpleado
         Me.lsvEmpresas.Location = New System.Drawing.Point(12, 39)
         Me.lsvEmpresas.MultiSelect = False
         Me.lsvEmpresas.Name = "lsvEmpresas"
-        Me.lsvEmpresas.Size = New System.Drawing.Size(744, 318)
+        Me.lsvEmpresas.Size = New System.Drawing.Size(870, 318)
         Me.lsvEmpresas.TabIndex = 24
         Me.lsvEmpresas.UseCompatibleStateImageBehavior = False
         Me.lsvEmpresas.View = System.Windows.Forms.View.Details
@@ -100,7 +101,7 @@ Partial Class frmBuscarEmpleado
         Me.cmdCerrar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdCerrar.Image = Global.recibos.My.Resources.Resources._1358748424_shutdown
         Me.cmdCerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cmdCerrar.Location = New System.Drawing.Point(678, 363)
+        Me.cmdCerrar.Location = New System.Drawing.Point(804, 362)
         Me.cmdCerrar.Name = "cmdCerrar"
         Me.cmdCerrar.Size = New System.Drawing.Size(78, 30)
         Me.cmdCerrar.TabIndex = 21
@@ -120,10 +121,21 @@ Partial Class frmBuscarEmpleado
         Me.cmdBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.cmdBuscar.UseVisualStyleBackColor = True
         '
+        'chkActivos
+        '
+        Me.chkActivos.AutoSize = True
+        Me.chkActivos.Location = New System.Drawing.Point(726, 9)
+        Me.chkActivos.Name = "chkActivos"
+        Me.chkActivos.Size = New System.Drawing.Size(105, 23)
+        Me.chkActivos.TabIndex = 25
+        Me.chkActivos.Text = "Solo activos"
+        Me.chkActivos.UseVisualStyleBackColor = True
+        '
         'frmBuscarEmpleado
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(768, 399)
+        Me.ClientSize = New System.Drawing.Size(894, 398)
+        Me.Controls.Add(Me.chkActivos)
         Me.Controls.Add(Me.lsvEmpresas)
         Me.Controls.Add(Me.txtbuscar)
         Me.Controls.Add(Me.Label1)
@@ -150,4 +162,5 @@ Partial Class frmBuscarEmpleado
     Friend WithEvents ColumnHeader4 As ColumnHeader
     Friend WithEvents ColumnHeader5 As ColumnHeader
     Friend WithEvents ColumnHeader6 As ColumnHeader
+    Friend WithEvents chkActivos As System.Windows.Forms.CheckBox
 End Class

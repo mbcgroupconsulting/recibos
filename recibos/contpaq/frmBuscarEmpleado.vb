@@ -9,6 +9,9 @@
             SQL &= " where (cNombreLargo like '%" & txtbuscar.Text & "%') and fkiIdEmpresa=" & gIdEmpresa
             'If SoloActivo Then
             SQL &= " AND iEstatus = 1"
+            If chkActivos.Checked Then
+                SQL &= " AND fkiIdClienteInter=-1"
+            End If
             'End If
             SQL &= " order by cNombreLargo"
             Dim rwFilas As DataRow() = nConsulta(SQL)

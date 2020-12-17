@@ -153,7 +153,7 @@ Partial Class frmcapturafactura
         Me.pnlCatalogo.Controls.Add(Me.chkActivo)
         Me.pnlCatalogo.Location = New System.Drawing.Point(0, 51)
         Me.pnlCatalogo.Name = "pnlCatalogo"
-        Me.pnlCatalogo.Size = New System.Drawing.Size(796, 489)
+        Me.pnlCatalogo.Size = New System.Drawing.Size(1322, 489)
         Me.pnlCatalogo.TabIndex = 21
         '
         'chkFlujoNom
@@ -481,7 +481,7 @@ Partial Class frmcapturafactura
         Me.lsvLista.Location = New System.Drawing.Point(15, 192)
         Me.lsvLista.MultiSelect = False
         Me.lsvLista.Name = "lsvLista"
-        Me.lsvLista.Size = New System.Drawing.Size(779, 285)
+        Me.lsvLista.Size = New System.Drawing.Size(1305, 285)
         Me.lsvLista.TabIndex = 34
         Me.lsvLista.UseCompatibleStateImageBehavior = False
         Me.lsvLista.View = System.Windows.Forms.View.Details
@@ -795,7 +795,7 @@ Partial Class frmcapturafactura
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(796, 542)
+        Me.ClientSize = New System.Drawing.Size(1322, 542)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.pnlCatalogo)
