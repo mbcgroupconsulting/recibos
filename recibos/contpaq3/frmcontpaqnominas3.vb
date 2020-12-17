@@ -6523,6 +6523,7 @@ Public Class frmcontpaqnominas3
 
 
                 filaExcel = 5
+                Dim filaExcelnomina = 16
                 Dim totalfila As Integer
 
                 For x As Integer = 0 To dtgDatos.Rows.Count - 1
@@ -6549,7 +6550,7 @@ Public Class frmcontpaqnominas3
                         'Cuenta
                         hoja3.Cell(filaExcel + x, 6).Value = If(rwEmpleado(0)("NumCuenta").ToString = "", "", "'" & rwEmpleado(0)("NumCuenta").ToString)
                         'Patrona
-                        hoja3.Cell(filaExcel + x, 7).Value = IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(13).Value, dtgDatos.Rows(x).Cells(8).Value) ' patrona neto/aguinaldo sa
+                        hoja3.Cell(filaExcel + x, 7).FormulaA1 = "=+NOMINA!K" & filaExcelnomina ' patrona neto/aguinaldo sa
                         'Banco
                         hoja3.Cell(filaExcel + x, 8).Value = rwEmpleado(0)("banco2").ToString
                         'Clabe
@@ -6557,9 +6558,9 @@ Public Class frmcontpaqnominas3
                         'Cuenta
                         hoja3.Cell(filaExcel + x, 10).Value = If(rwEmpleado(0)("cuenta2").ToString = "", "", "'" & rwEmpleado(0)("cuenta2").ToString)
                         'Sindicato
-                        hoja3.Cell(filaExcel + x, 11).Value = IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(19).Value, dtgDatos.Rows(x).Cells(21).Value)
+                        hoja3.Cell(filaExcel + x, 11).FormulaA1 = "=+NOMINA!M" & filaExcelnomina 'IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(19).Value, dtgDatos.Rows(x).Cells(21).Value)
 
-
+                        filaExcelnomina = filaExcelnomina + 1
                     End If
                     totalfila = filaExcel + x
 
