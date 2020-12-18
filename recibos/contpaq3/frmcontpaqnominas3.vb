@@ -207,7 +207,7 @@ Public Class frmcontpaqnominas3
         'Aguinaldo_Sin
         dtgDatos.Columns(19).Width = 100
         dtgDatos.Columns(19).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-        dtgDatos.Columns(19).ReadOnly = True
+        'dtgDatos.Columns(19).ReadOnly = True
 
         'Importe sindicato Extra
         dtgDatos.Columns(20).Width = 100
@@ -1420,6 +1420,7 @@ Public Class frmcontpaqnominas3
         Dim bandera As Boolean
         Dim Igualar0 As Boolean
         Dim SiFiniquito As Integer
+        Dim CalcularIVA As Integer
 
         Dim sueldoord, neto, pensionpatrona, infonavit, fonacot, descuento, prestamo, sindicato, pensionsindicato, primasin, totalsindicato, netopagar, primasa, aguinaldosa, aguinaldosin, Extra As Double
         Dim imss, ISR, costosocial1, costosocial2, comisionSA, comisionSindicato, subtotal, iva, subsidio As Double
@@ -1438,6 +1439,7 @@ Public Class frmcontpaqnominas3
                     aguinaldosin = dtgDatos.Rows(x).Cells(19).Value
                     netopagar = aguinaldosa + aguinaldosin
                     dtgDatos.Rows(x).Cells(22).Value = Math.Round(netopagar, 2).ToString("##0.00")
+                    calcularcomisiones(x)
                 Else
                     sueldoord = dtgDatos.Rows(x).Cells(7).Value
                     neto = dtgDatos.Rows(x).Cells(8).Value
@@ -1611,94 +1613,108 @@ Public Class frmcontpaqnominas3
 
                         dtgDatos.Rows(x).Cells(22).Value = Math.Round(netopagar, 2).ToString("##0.00")
 
+                        calcularcomisiones(x)
+
                         'Calculamos comisiones
 
-                        CSAneto = 0
-                        CSApensionA = 0
-                        CSAinfonavit = 0
-                        CSAFonacot = 0
-                        totalcomisionSA = 0
-                        sql = "select * from IntClienteEmpresaContpaq where fkIdEmpresaC=" & gIdEmpresa
+                        'CSAneto = 0
+                        'CSApensionA = 0
+                        'CSAinfonavit = 0
+                        'CSAFonacot = 0
+                        'totalcomisionSA = 0
+                        'sql = "select * from IntClienteEmpresaContpaq where fkIdEmpresaC=" & gIdEmpresa
 
-                        Dim rwClienteEmpresaContpaq As DataRow() = nConsulta(sql)
+                        'Dim rwClienteEmpresaContpaq As DataRow() = nConsulta(sql)
 
-                        If rwClienteEmpresaContpaq Is Nothing = False Then
-                            sql = "select * from clientes where iIdCliente=" & rwClienteEmpresaContpaq(0)("fkIdCliente")
+                        'If rwClienteEmpresaContpaq Is Nothing = False Then
 
-                            Dim rwCliente As DataRow() = nConsulta(sql)
-                            If rwCliente Is Nothing = False Then
-                                'Calcular la comision de acuerdo a lo que se metio en en la pantalla de los clientes-empresa contpaq
-                                'verificamos y sumamos
+                        '    If rwClienteEmpresaContpaq(0)("CalcularIVA") = "1" Then
+                        '        CalcularIVA = 0
+                        '    Else
+                        '        CalcularIVA = 1
+                        '    End If
 
-
-                                If rwClienteEmpresaContpaq(0)("CSAneto") = "1" Then
-                                    CSAneto = Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
-                                End If
-                                If rwClienteEmpresaContpaq(0)("CSApensionA") = "1" Then
-                                    CSApensionA = Double.Parse(dtgDatos.Rows(x).Cells(9).Value)
-                                End If
-                                If rwClienteEmpresaContpaq(0)("CSAinfonavit") = "1" Then
-                                    CSAinfonavit = Double.Parse(dtgDatos.Rows(x).Cells(10).Value)
-                                End If
-
-                                If rwClienteEmpresaContpaq(0)("CSAFonacot") = "1" Then
-                                    CSAFonacot = Double.Parse(dtgDatos.Rows(x).Cells(11).Value)
-                                End If
+                        '    sql = "select * from clientes where iIdCliente=" & rwClienteEmpresaContpaq(0)("fkIdCliente")
+                        '    Dim rwCliente As DataRow() = nConsulta(sql)
+                        '    If rwCliente Is Nothing = False Then
+                        '        'Calcular la comision de acuerdo a lo que se metio en en la pantalla de los clientes-empresa contpaq
+                        '        'verificamos y sumamos
 
 
-                                totalcomisionSA = CSAneto + CSApensionA + CSAinfonavit + CSAFonacot
-                                If rwCliente(0)("iTipoPor") = "0" Then
-                                    dtgDatos.Rows(x).Cells(28).Value = Math.Round(totalcomisionSA * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
-                                    dtgDatos.Rows(x).Cells(29).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * (Double.Parse(rwCliente(0)("porsindicato").ToString()) / 100), 2).ToString("#,###,##0.00")
-                                Else
-                                    'Calcular la comision de acuerdo a lo que se metio en en la pantalla de los clientes-empresa contpaq
-                                    dtgDatos.Rows(x).Cells(28).Value = Math.Round(totalcomisionSA * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
-                                    dtgDatos.Rows(x).Cells(29).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
+                        '        If rwClienteEmpresaContpaq(0)("CSAneto") = "1" Then
+                        '            CSAneto = Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
+                        '        End If
+                        '        If rwClienteEmpresaContpaq(0)("CSApensionA") = "1" Then
+                        '            CSApensionA = Double.Parse(dtgDatos.Rows(x).Cells(9).Value)
+                        '        End If
+                        '        If rwClienteEmpresaContpaq(0)("CSAinfonavit") = "1" Then
+                        '            CSAinfonavit = Double.Parse(dtgDatos.Rows(x).Cells(10).Value)
+                        '        End If
 
-                                End If
-
-
-                            End If
-
-                        Else
-                            'No existe relación
-                            If bandera = False Then
-                                MessageBox.Show("No existe un cliente asignado para el calculo de la comisión. Asigne al cliente y vuelva a calcular la nomina", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                                bandera = True
-                            End If
-
-                        End If
-
-                        'Calculo subtotal = neto a pagar + imss + costo social + costo social 2 + comision sa + comision sindicato 
-                        netopagar = Double.Parse(IIf(dtgDatos.Rows(x).Cells(22).Value = "", "0", dtgDatos.Rows(x).Cells(22).Value))
-                        imss = Double.Parse(IIf(dtgDatos.Rows(x).Cells(23).Value = "", "0", dtgDatos.Rows(x).Cells(23).Value))
-                        ISR = Double.Parse(IIf(dtgDatos.Rows(x).Cells(24).Value = "", "0", dtgDatos.Rows(x).Cells(24).Value))
-                        subsidio = Double.Parse(IIf(dtgDatos.Rows(x).Cells(25).Value = "", "0", dtgDatos.Rows(x).Cells(25).Value))
-                        costosocial1 = Double.Parse(IIf(dtgDatos.Rows(x).Cells(26).Value = "", "0", dtgDatos.Rows(x).Cells(26).Value))
-                        costosocial2 = Double.Parse(IIf(dtgDatos.Rows(x).Cells(27).Value = "", "0", dtgDatos.Rows(x).Cells(27).Value))
-                        comisionSA = Double.Parse(IIf(dtgDatos.Rows(x).Cells(28).Value = "", "0", dtgDatos.Rows(x).Cells(28).Value))
-                        comisionSindicato = Double.Parse(IIf(dtgDatos.Rows(x).Cells(29).Value = "", "0", dtgDatos.Rows(x).Cells(29).Value))
-
-                        If calculosubsidio = 0 Then
-                            subtotal = netopagar + imss + ISR + costosocial1 + costosocial2 + comisionSA + comisionSindicato + CSApensionA + CSAinfonavit + CSAFonacot
-                        ElseIf calculosubsidio = 1 Then
-                            subtotal = netopagar + subsidio + imss + ISR + costosocial1 + costosocial2 + comisionSA + comisionSindicato + CSApensionA + CSAinfonavit + CSAFonacot
-                        ElseIf calculosubsidio = 2 Then
-                            subtotal = netopagar - subsidio + imss + ISR + costosocial1 + costosocial2 + comisionSA + comisionSindicato + CSApensionA + CSAinfonavit + CSAFonacot
-                        End If
-
-                        'subtotal = netopagar + imss + costosocial1 + costosocial2 + comisionSA + comisionSindicato
-                        dtgDatos.Rows(x).Cells(30).Value = Math.Round(subtotal, 2).ToString("#,###,##0.00")
-
-                        'Calculo IVA
-                        iva = Math.Round(subtotal * 0.16, 2)
-
-                        dtgDatos.Rows(x).Cells(31).Value = iva.ToString("#,###,##0.00")
+                        '        If rwClienteEmpresaContpaq(0)("CSAFonacot") = "1" Then
+                        '            CSAFonacot = Double.Parse(dtgDatos.Rows(x).Cells(11).Value)
+                        '        End If
 
 
-                        'Calculo total
+                        '        totalcomisionSA = CSAneto + CSApensionA + CSAinfonavit + CSAFonacot
+                        '        If rwCliente(0)("iTipoPor") = "0" Then
+                        '            dtgDatos.Rows(x).Cells(28).Value = Math.Round(totalcomisionSA * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
+                        '            dtgDatos.Rows(x).Cells(29).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * (Double.Parse(rwCliente(0)("porsindicato").ToString()) / 100), 2).ToString("#,###,##0.00")
+                        '        Else
+                        '            'Calcular la comision de acuerdo a lo que se metio en en la pantalla de los clientes-empresa contpaq
+                        '            dtgDatos.Rows(x).Cells(28).Value = Math.Round(totalcomisionSA * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
+                        '            dtgDatos.Rows(x).Cells(29).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
 
-                        dtgDatos.Rows(x).Cells(32).Value = Math.Round(subtotal + iva, 2).ToString("#,###,##0.00")
+                        '        End If
+
+
+                        '    End If
+
+                        'Else
+                        '    'No existe relación
+                        '    If bandera = False Then
+                        '        MessageBox.Show("No existe un cliente asignado para el calculo de la comisión. Asigne al cliente y vuelva a calcular la nomina", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        '        bandera = True
+                        '    End If
+
+                        'End If
+
+                        ''Calculo subtotal = neto a pagar + imss + costo social + costo social 2 + comision sa + comision sindicato 
+                        'netopagar = Double.Parse(IIf(dtgDatos.Rows(x).Cells(22).Value = "", "0", dtgDatos.Rows(x).Cells(22).Value))
+                        'imss = Double.Parse(IIf(dtgDatos.Rows(x).Cells(23).Value = "", "0", dtgDatos.Rows(x).Cells(23).Value))
+                        'ISR = Double.Parse(IIf(dtgDatos.Rows(x).Cells(24).Value = "", "0", dtgDatos.Rows(x).Cells(24).Value))
+                        'subsidio = Double.Parse(IIf(dtgDatos.Rows(x).Cells(25).Value = "", "0", dtgDatos.Rows(x).Cells(25).Value))
+                        'costosocial1 = Double.Parse(IIf(dtgDatos.Rows(x).Cells(26).Value = "", "0", dtgDatos.Rows(x).Cells(26).Value))
+                        'costosocial2 = Double.Parse(IIf(dtgDatos.Rows(x).Cells(27).Value = "", "0", dtgDatos.Rows(x).Cells(27).Value))
+                        'comisionSA = Double.Parse(IIf(dtgDatos.Rows(x).Cells(28).Value = "", "0", dtgDatos.Rows(x).Cells(28).Value))
+                        'comisionSindicato = Double.Parse(IIf(dtgDatos.Rows(x).Cells(29).Value = "", "0", dtgDatos.Rows(x).Cells(29).Value))
+
+                        'If calculosubsidio = 0 Then
+                        '    subtotal = netopagar + imss + ISR + costosocial1 + costosocial2 + comisionSA + comisionSindicato + CSApensionA + CSAinfonavit + CSAFonacot
+                        'ElseIf calculosubsidio = 1 Then
+                        '    subtotal = netopagar + subsidio + imss + ISR + costosocial1 + costosocial2 + comisionSA + comisionSindicato + CSApensionA + CSAinfonavit + CSAFonacot
+                        'ElseIf calculosubsidio = 2 Then
+                        '    subtotal = netopagar - subsidio + imss + ISR + costosocial1 + costosocial2 + comisionSA + comisionSindicato + CSApensionA + CSAinfonavit + CSAFonacot
+                        'End If
+
+                        ''subtotal = netopagar + imss + costosocial1 + costosocial2 + comisionSA + comisionSindicato
+                        'dtgDatos.Rows(x).Cells(30).Value = Math.Round(subtotal, 2).ToString("#,###,##0.00")
+
+                        ''Calculo IVA
+                        'If CalcularIVA = 1 Then
+                        '    iva = Math.Round(subtotal * 0.16, 2)
+                        'Else
+                        '    iva = 0
+                        'End If
+
+
+
+                        'dtgDatos.Rows(x).Cells(31).Value = iva.ToString("#,###,##0.00")
+
+
+                        ''Calculo total
+
+                        'dtgDatos.Rows(x).Cells(32).Value = Math.Round(subtotal + iva, 2).ToString("#,###,##0.00")
 
                     End If
                 End If
@@ -1712,7 +1728,132 @@ Public Class frmcontpaqnominas3
 
         End Try
     End Sub
+    Private Sub calcularcomisiones(x As Integer)
+        Try
+            Dim sql As String
+            Dim anios As Integer
+            Dim sueldodiario As Double
+            Dim dias As Integer
+            Dim BanSueldoOrd As Boolean
+            Dim BanPeriodo As Boolean
+            Dim bandera As Boolean
+            Dim Igualar0 As Boolean
+            Dim SiFiniquito As Integer
+            Dim CalcularIVA As Integer
 
+            Dim sueldoord, neto, pensionpatrona, infonavit, fonacot, descuento, prestamo, sindicato, pensionsindicato, primasin, totalsindicato, netopagar, primasa, aguinaldosa, aguinaldosin, Extra As Double
+            Dim imss, ISR, costosocial1, costosocial2, comisionSA, comisionSindicato, subtotal, iva, subsidio As Double
+            Dim CSAneto As Double
+            Dim CSAinfonavit As Double
+            Dim CSAFonacot As Double
+            Dim CSApensionA As Double
+            Dim totalcomisionSA As Double
+
+
+            'Calculamos comisiones
+
+            CSAneto = 0
+            CSApensionA = 0
+            CSAinfonavit = 0
+            CSAFonacot = 0
+            totalcomisionSA = 0
+            Sql = "select * from IntClienteEmpresaContpaq where fkIdEmpresaC=" & gIdEmpresa
+
+            Dim rwClienteEmpresaContpaq As DataRow() = nConsulta(Sql)
+
+            If rwClienteEmpresaContpaq Is Nothing = False Then
+
+                If rwClienteEmpresaContpaq(0)("CalcularIVA") = "1" Then
+                    CalcularIVA = 0
+                Else
+                    CalcularIVA = 1
+                End If
+
+                Sql = "select * from clientes where iIdCliente=" & rwClienteEmpresaContpaq(0)("fkIdCliente")
+                Dim rwCliente As DataRow() = nConsulta(Sql)
+                If rwCliente Is Nothing = False Then
+                    'Calcular la comision de acuerdo a lo que se metio en en la pantalla de los clientes-empresa contpaq
+                    'verificamos y sumamos
+
+
+                    If rwClienteEmpresaContpaq(0)("CSAneto") = "1" Then
+                        CSAneto = Double.Parse(dtgDatos.Rows(x).Cells(8).Value)
+                    End If
+                    If rwClienteEmpresaContpaq(0)("CSApensionA") = "1" Then
+                        CSApensionA = Double.Parse(dtgDatos.Rows(x).Cells(9).Value)
+                    End If
+                    If rwClienteEmpresaContpaq(0)("CSAinfonavit") = "1" Then
+                        CSAinfonavit = Double.Parse(dtgDatos.Rows(x).Cells(10).Value)
+                    End If
+
+                    If rwClienteEmpresaContpaq(0)("CSAFonacot") = "1" Then
+                        CSAFonacot = Double.Parse(dtgDatos.Rows(x).Cells(11).Value)
+                    End If
+
+
+                    totalcomisionSA = CSAneto + CSApensionA + CSAinfonavit + CSAFonacot
+                    If rwCliente(0)("iTipoPor") = "0" Then
+                        dtgDatos.Rows(x).Cells(28).Value = Math.Round(totalcomisionSA * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
+                        dtgDatos.Rows(x).Cells(29).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * (Double.Parse(rwCliente(0)("porsindicato").ToString()) / 100), 2).ToString("#,###,##0.00")
+                    Else
+                        'Calcular la comision de acuerdo a lo que se metio en en la pantalla de los clientes-empresa contpaq
+                        dtgDatos.Rows(x).Cells(28).Value = Math.Round(totalcomisionSA * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
+                        dtgDatos.Rows(x).Cells(29).Value = Math.Round(Double.Parse(dtgDatos.Rows(x).Cells(21).Value) * (Double.Parse(rwCliente(0)("porcentaje").ToString()) / 100), 2).ToString("#,###,##0.00")
+
+                    End If
+
+
+                End If
+
+            Else
+                'No existe relación
+                If bandera = False Then
+                    MessageBox.Show("No existe un cliente asignado para el calculo de la comisión. Asigne al cliente y vuelva a calcular la nomina", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    bandera = True
+                End If
+
+            End If
+
+            'Calculo subtotal = neto a pagar + imss + costo social + costo social 2 + comision sa + comision sindicato 
+            netopagar = Double.Parse(IIf(dtgDatos.Rows(x).Cells(22).Value = "", "0", dtgDatos.Rows(x).Cells(22).Value))
+            imss = Double.Parse(IIf(dtgDatos.Rows(x).Cells(23).Value = "", "0", dtgDatos.Rows(x).Cells(23).Value))
+            ISR = Double.Parse(IIf(dtgDatos.Rows(x).Cells(24).Value = "", "0", dtgDatos.Rows(x).Cells(24).Value))
+            subsidio = Double.Parse(IIf(dtgDatos.Rows(x).Cells(25).Value = "", "0", dtgDatos.Rows(x).Cells(25).Value))
+            costosocial1 = Double.Parse(IIf(dtgDatos.Rows(x).Cells(26).Value = "", "0", dtgDatos.Rows(x).Cells(26).Value))
+            costosocial2 = Double.Parse(IIf(dtgDatos.Rows(x).Cells(27).Value = "", "0", dtgDatos.Rows(x).Cells(27).Value))
+            comisionSA = Double.Parse(IIf(dtgDatos.Rows(x).Cells(28).Value = "", "0", dtgDatos.Rows(x).Cells(28).Value))
+            comisionSindicato = Double.Parse(IIf(dtgDatos.Rows(x).Cells(29).Value = "", "0", dtgDatos.Rows(x).Cells(29).Value))
+
+            If calculosubsidio = 0 Then
+                subtotal = netopagar + imss + ISR + costosocial1 + costosocial2 + comisionSA + comisionSindicato + CSApensionA + CSAinfonavit + CSAFonacot
+            ElseIf calculosubsidio = 1 Then
+                subtotal = netopagar + subsidio + imss + ISR + costosocial1 + costosocial2 + comisionSA + comisionSindicato + CSApensionA + CSAinfonavit + CSAFonacot
+            ElseIf calculosubsidio = 2 Then
+                subtotal = netopagar - subsidio + imss + ISR + costosocial1 + costosocial2 + comisionSA + comisionSindicato + CSApensionA + CSAinfonavit + CSAFonacot
+            End If
+
+            'subtotal = netopagar + imss + costosocial1 + costosocial2 + comisionSA + comisionSindicato
+            dtgDatos.Rows(x).Cells(30).Value = Math.Round(subtotal, 2).ToString("#,###,##0.00")
+
+            'Calculo IVA
+            If CalcularIVA = 1 Then
+                iva = Math.Round(subtotal * 0.16, 2)
+            Else
+                iva = 0
+            End If
+
+
+
+            dtgDatos.Rows(x).Cells(31).Value = iva.ToString("#,###,##0.00")
+
+
+            'Calculo total
+
+            dtgDatos.Rows(x).Cells(32).Value = Math.Round(subtotal + iva, 2).ToString("#,###,##0.00")
+        Catch ex As Exception
+
+        End Try
+    End Sub
 
     Private Sub cboperiodo_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
         Try
@@ -6913,4 +7054,27 @@ Public Class frmcontpaqnominas3
     End Sub
 
     
+    Private Sub cmdAguinaldoFijo_Click(sender As System.Object, e As System.EventArgs) Handles cmdAguinaldoFijo.Click
+        Try
+            Dim aguinaldosin As Double
+            Dim netopagar As Double
+            Dim sueldoord As Double
+            If chkAguinaldo.Checked Then
+                For x As Integer = 0 To dtgDatos.Rows.Count - 1
+                    sueldoord = dtgDatos.Rows(x).Cells(7).Value
+                    AguinaldoSA = dtgDatos.Rows(x).Cells(13).Value
+                    dtgDatos.Rows(x).Cells(19).Value = Math.Round(sueldoord - AguinaldoSA, 2)
+
+                    aguinaldosin = dtgDatos.Rows(x).Cells(19).Value
+                    netopagar = AguinaldoSA + aguinaldosin
+                    dtgDatos.Rows(x).Cells(22).Value = Math.Round(netopagar, 2).ToString("##0.00")
+                    calcularcomisiones(x)
+                Next
+            Else
+                MessageBox.Show("No esta activado el check de aguinaldo", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

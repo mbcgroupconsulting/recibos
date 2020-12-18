@@ -31,7 +31,7 @@
             chkInfonavit.Checked = IIf(rwCliente(0)("CSAinfonavit") = "1", True, False)
             chkFonacot.Checked = IIf(rwCliente(0)("CSAFonacot") = "1", True, False)
             chkPension.Checked = IIf(rwCliente(0)("CSApensionA") = "1", True, False)
-
+            chkCalcularIVA.Checked = IIf(rwCliente(0)("CalcularIVA") = "1", True, False)
             existe = True
         End If
 
@@ -73,6 +73,7 @@
                 sql &= "," & IIf(chkInfonavit.Checked, 1, 0)
                 sql &= "," & IIf(chkFonacot.Checked, 1, 0)
                 sql &= "," & IIf(chkPension.Checked, 1, 0)
+                sql &= "," & IIf(chkCalcularIVA.Checked, 1, 0)
 
             Else
                 sql = "EXEC setIntClienteEmpresaContpaqInsertar   0," & gidEmpresa
@@ -96,7 +97,7 @@
                 sql &= "," & IIf(chkInfonavit.Checked, 1, 0)
                 sql &= "," & IIf(chkFonacot.Checked, 1, 0)
                 sql &= "," & IIf(chkPension.Checked, 1, 0)
-
+                sql &= "," & IIf(chkCalcularIVA.Checked, 1, 0)
             End If
 
             If nExecute(sql) = False Then
