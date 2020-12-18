@@ -42,6 +42,7 @@ Partial Class frmAsignarCliente
         Me.chkFonacot = New System.Windows.Forms.CheckBox()
         Me.chkInfonavit = New System.Windows.Forms.CheckBox()
         Me.chkNeto = New System.Windows.Forms.CheckBox()
+        Me.chkCalcularIVA = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
         Me.grbSubsidio.SuspendLayout()
         Me.grbSA.SuspendLayout()
@@ -238,10 +239,21 @@ Partial Class frmAsignarCliente
         Me.chkNeto.Text = "Neto"
         Me.chkNeto.UseVisualStyleBackColor = True
         '
+        'chkCalcularIVA
+        '
+        Me.chkCalcularIVA.AutoSize = True
+        Me.chkCalcularIVA.Location = New System.Drawing.Point(324, 270)
+        Me.chkCalcularIVA.Name = "chkCalcularIVA"
+        Me.chkCalcularIVA.Size = New System.Drawing.Size(119, 22)
+        Me.chkCalcularIVA.TabIndex = 50
+        Me.chkCalcularIVA.Text = "No calcular IVA"
+        Me.chkCalcularIVA.UseVisualStyleBackColor = True
+        '
         'frmAsignarCliente
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(650, 505)
+        Me.Controls.Add(Me.chkCalcularIVA)
         Me.Controls.Add(Me.grbSA)
         Me.Controls.Add(Me.chkOrdinarioAbsoluto)
         Me.Controls.Add(Me.chkCalcularOrdinario)
@@ -286,4 +298,5 @@ Partial Class frmAsignarCliente
     Friend WithEvents chkFonacot As System.Windows.Forms.CheckBox
     Friend WithEvents chkInfonavit As System.Windows.Forms.CheckBox
     Friend WithEvents chkNeto As System.Windows.Forms.CheckBox
+    Friend WithEvents chkCalcularIVA As System.Windows.Forms.CheckBox
 End Class

@@ -68,6 +68,7 @@ Partial Class frmcontpaqnominas3
         Me.cmenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Igualar0 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DesactivarIgualarA0ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmdAguinaldoFijo = New System.Windows.Forms.Button()
         Me.pnlProgreso.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         CType(Me.dtgDatos, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -125,9 +126,10 @@ Partial Class frmcontpaqnominas3
         'pnlCatalogo
         '
         Me.pnlCatalogo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlCatalogo.Controls.Add(Me.cmdAguinaldoFijo)
         Me.pnlCatalogo.Controls.Add(Me.btnReporteExcel)
         Me.pnlCatalogo.Controls.Add(Me.cmdBorrar)
         Me.pnlCatalogo.Controls.Add(Me.cmdGuardarSueldo)
@@ -337,8 +339,8 @@ Partial Class frmcontpaqnominas3
         Me.dtgDatos.AllowUserToAddRows = False
         Me.dtgDatos.AllowUserToDeleteRows = False
         Me.dtgDatos.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtgDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgDatos.Location = New System.Drawing.Point(1, 65)
         Me.dtgDatos.Name = "dtgDatos"
@@ -521,6 +523,16 @@ Partial Class frmcontpaqnominas3
         Me.DesactivarIgualarA0ToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.DesactivarIgualarA0ToolStripMenuItem.Text = "Desactivar igualar a 0"
         '
+        'cmdAguinaldoFijo
+        '
+        Me.cmdAguinaldoFijo.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdAguinaldoFijo.Location = New System.Drawing.Point(1360, 4)
+        Me.cmdAguinaldoFijo.Name = "cmdAguinaldoFijo"
+        Me.cmdAguinaldoFijo.Size = New System.Drawing.Size(111, 27)
+        Me.cmdAguinaldoFijo.TabIndex = 24
+        Me.cmdAguinaldoFijo.Text = "Aguinaldo fijo"
+        Me.cmdAguinaldoFijo.UseVisualStyleBackColor = True
+        '
         'frmcontpaqnominas3
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -590,4 +602,5 @@ Partial Class frmcontpaqnominas3
     Friend WithEvents DesactivarIgualarA0ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btnReporteExcel As System.Windows.Forms.Button
     Friend WithEvents tsbBanco As System.Windows.Forms.ToolStripButton
+    Friend WithEvents cmdAguinaldoFijo As System.Windows.Forms.Button
 End Class
