@@ -6558,7 +6558,7 @@ Public Class frmcontpaqnominas3
                         'Cuenta
                         hoja3.Cell(filaExcel + x, 10).Value = If(rwEmpleado(0)("cuenta2").ToString = "", "", "'" & rwEmpleado(0)("cuenta2").ToString)
                         'Sindicato
-                        hoja3.Cell(filaExcel + x, 11).FormulaA1 = "=+NOMINA!M" & filaExcelnomina 'IIf(chkAguinaldo.Checked, dtgDatos.Rows(x).Cells(19).Value, dtgDatos.Rows(x).Cells(21).Value)
+                        hoja3.Cell(filaExcel + x, 11).FormulaA1 = "=+NOMINA!M" & filaExcelnomina '
 
                         filaExcelnomina = filaExcelnomina + 1
                     End If
