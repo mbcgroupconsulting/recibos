@@ -540,8 +540,25 @@ Public Class frmcontpaqnominas3
                             Else
                                 If Trim(row("fkiIdClienteInter")) = "1" And FechaTermino.CompareTo(FechaFinal) <= 0 Then
                                     dias = (DateDiff("y", FechaInicial, FechaTermino)) + 1
+
                                 Else
-                                    dias = (DateDiff("y", FechaInicial, FechaFinal)) + 1
+                                    Sql = "select * from IntClienteEmpresaContpaq where fkIdEmpresaC=" & gIdEmpresa
+
+                                    Dim rwClienteEmpresaContpaq As DataRow() = nConsulta(Sql)
+
+                                    If rwClienteEmpresaContpaq Is Nothing = False Then
+
+                                        If rwClienteEmpresaContpaq(0)("CostoPeriodo") = "1" Then
+                                            dias = diasperiodo
+                                        Else
+                                            dias = (DateDiff("y", FechaInicial, FechaFinal)) + 1
+                                        End If
+                                    Else
+                                        dias = (DateDiff("y", FechaInicial, FechaFinal)) + 1
+                                    End If
+
+                                    ''dias = (DateDiff("y", FechaInicial, FechaFinal)) + 1
+                                    'dias = diasperiodo
                                 End If
                             End If
                         End If
