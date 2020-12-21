@@ -1,5 +1,7 @@
 ﻿Public Class frmAsignarCliente
     Public gidEmpresa As String
+    Public gidPeriodo As String
+    Dim orden As String
     Dim iIdClienteEmpresaContpaq As String
     Dim sql As String
     Dim existe As Boolean = False
@@ -33,8 +35,23 @@
             chkPension.Checked = IIf(rwCliente(0)("CSApensionA") = "1", True, False)
             chkCalcularIVA.Checked = IIf(rwCliente(0)("CalcularIVA") = "1", True, False)
             existe = True
-        End If
 
+            'Ordedamiento
+
+
+        End If
+        sql = "select * from TipoOrden where fkiIdEmpresa=" & gidEmpresa & " AND fkiIdPeriodo=" & gidPeriodo
+        Dim rwOrdenamiento As DataRow() = nConsulta(sql)
+
+        If rwOrdenamiento Is Nothing = False Then
+
+            If rwOrdenamiento(0).Item("cOrden") = "Nombre" Then
+                rdbNombreEmpleado.Checked = True
+            Else
+                rdbCodigoEmpleado.Checked = True
+
+            End If
+        End If
 
     End Sub
 
@@ -51,6 +68,31 @@
     Private Sub cmdguardar_Click(sender As System.Object, e As System.EventArgs) Handles cmdguardar.Click
         Try
             Dim valor As Integer
+
+
+            'Ordenamiento
+            sql = "select * from TipoOrden where fkiIdEmpresa=" & gidEmpresa & " AND fkiIdPeriodo=" & gidPeriodo
+            Dim rwOrdenamiento As DataRow() = nConsulta(sql)
+
+            If rwOrdenamiento Is Nothing Then
+                sql = "setTipoOrdenInsertar 0, " & gidEmpresa
+                sql &= ", 1"
+                sql &= ", " & gidPeriodo
+                sql &= ", '" & orden & "'"
+                sql &= ",  '" & orden & "'"
+                sql &= ",1"
+            Else
+                sql = "UPDATE TABLE TipoOrden SET cOrden = '" & orden & "'"
+                sql &= " , descripcion= '" & orden & "'"
+                sql &= "WHERE iIdTipoOrden= " & rwOrdenamiento(0).Item("iIdTipoOrden")
+
+            End If
+            If nExecute(sql) = False Then
+
+            End If
+
+
+
             If existe Then
                 sql = "EXEC setIntClienteEmpresaContpaqActualizar " & iIdClienteEmpresaContpaq & "," & gidEmpresa
                 sql &= "," & cboClientes.SelectedValue
@@ -104,11 +146,30 @@
                 Exit Sub
             End If
 
+
             MessageBox.Show("Datos guardados correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
+    End Sub
+
+    Private Sub rdbNombreEmpleado_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbNombreEmpleado.CheckedChanged
+
+        If rdbNombreEmpleado.Checked Then
+            rdbCodigoEmpleado.Checked = False
+            orden = "Nombre"
+        End If
+
+    End Sub
+
+    Private Sub rdbCodigoEmpleado_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbCodigoEmpleado.CheckedChanged
+
+        If rdbCodigoEmpleado.Checked Then
+            rdbNombreEmpleado.Checked = False
+            orden = "cCodigoEmpleado"
+        End If
+
     End Sub
 End Class

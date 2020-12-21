@@ -43,9 +43,13 @@ Partial Class frmAsignarCliente
         Me.chkInfonavit = New System.Windows.Forms.CheckBox()
         Me.chkNeto = New System.Windows.Forms.CheckBox()
         Me.chkCalcularIVA = New System.Windows.Forms.CheckBox()
+        Me.grbOrden = New System.Windows.Forms.GroupBox()
+        Me.rdbNombreEmpleado = New System.Windows.Forms.RadioButton()
+        Me.rdbCodigoEmpleado = New System.Windows.Forms.RadioButton()
         Me.Panel1.SuspendLayout()
         Me.grbSubsidio.SuspendLayout()
         Me.grbSA.SuspendLayout()
+        Me.grbOrden.SuspendLayout()
         Me.SuspendLayout()
         '
         'cboClientes
@@ -249,10 +253,44 @@ Partial Class frmAsignarCliente
         Me.chkCalcularIVA.Text = "No calcular IVA"
         Me.chkCalcularIVA.UseVisualStyleBackColor = True
         '
+        'grbOrden
+        '
+        Me.grbOrden.Controls.Add(Me.rdbCodigoEmpleado)
+        Me.grbOrden.Controls.Add(Me.rdbNombreEmpleado)
+        Me.grbOrden.Location = New System.Drawing.Point(320, 391)
+        Me.grbOrden.Name = "grbOrden"
+        Me.grbOrden.Size = New System.Drawing.Size(305, 100)
+        Me.grbOrden.TabIndex = 51
+        Me.grbOrden.TabStop = False
+        Me.grbOrden.Text = "Orden"
+        '
+        'rdbNombreEmpleado
+        '
+        Me.rdbNombreEmpleado.AutoSize = True
+        Me.rdbNombreEmpleado.Location = New System.Drawing.Point(7, 17)
+        Me.rdbNombreEmpleado.Name = "rdbNombreEmpleado"
+        Me.rdbNombreEmpleado.Size = New System.Drawing.Size(142, 22)
+        Me.rdbNombreEmpleado.TabIndex = 0
+        Me.rdbNombreEmpleado.TabStop = True
+        Me.rdbNombreEmpleado.Text = "Nombre Empleado"
+        Me.rdbNombreEmpleado.UseVisualStyleBackColor = True
+        '
+        'rdbCodigoEmpleado
+        '
+        Me.rdbCodigoEmpleado.AutoSize = True
+        Me.rdbCodigoEmpleado.Location = New System.Drawing.Point(7, 46)
+        Me.rdbCodigoEmpleado.Name = "rdbCodigoEmpleado"
+        Me.rdbCodigoEmpleado.Size = New System.Drawing.Size(134, 22)
+        Me.rdbCodigoEmpleado.TabIndex = 1
+        Me.rdbCodigoEmpleado.TabStop = True
+        Me.rdbCodigoEmpleado.Text = "Codigo Empleado"
+        Me.rdbCodigoEmpleado.UseVisualStyleBackColor = True
+        '
         'frmAsignarCliente
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(650, 505)
+        Me.Controls.Add(Me.grbOrden)
         Me.Controls.Add(Me.chkCalcularIVA)
         Me.Controls.Add(Me.grbSA)
         Me.Controls.Add(Me.chkOrdinarioAbsoluto)
@@ -275,6 +313,8 @@ Partial Class frmAsignarCliente
         Me.grbSubsidio.PerformLayout()
         Me.grbSA.ResumeLayout(False)
         Me.grbSA.PerformLayout()
+        Me.grbOrden.ResumeLayout(False)
+        Me.grbOrden.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -299,4 +339,7 @@ Partial Class frmAsignarCliente
     Friend WithEvents chkInfonavit As System.Windows.Forms.CheckBox
     Friend WithEvents chkNeto As System.Windows.Forms.CheckBox
     Friend WithEvents chkCalcularIVA As System.Windows.Forms.CheckBox
+    Friend WithEvents grbOrden As System.Windows.Forms.GroupBox
+    Friend WithEvents rdbCodigoEmpleado As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbNombreEmpleado As System.Windows.Forms.RadioButton
 End Class
