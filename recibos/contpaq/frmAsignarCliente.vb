@@ -34,6 +34,7 @@
             chkFonacot.Checked = IIf(rwCliente(0)("CSAFonacot") = "1", True, False)
             chkPension.Checked = IIf(rwCliente(0)("CSApensionA") = "1", True, False)
             chkCalcularIVA.Checked = IIf(rwCliente(0)("CalcularIVA") = "1", True, False)
+            chkCostoPeriodo.Checked = IIf(rwCliente(0)("CostoPeriodo") = "1", True, False)
             existe = True
 
             'Ordedamiento
@@ -116,7 +117,7 @@
                 sql &= "," & IIf(chkFonacot.Checked, 1, 0)
                 sql &= "," & IIf(chkPension.Checked, 1, 0)
                 sql &= "," & IIf(chkCalcularIVA.Checked, 1, 0)
-
+                sql &= "," & IIf(chkCostoPeriodo.Checked, 1, 0)
             Else
                 sql = "EXEC setIntClienteEmpresaContpaqInsertar   0," & gidEmpresa
                 sql &= "," & cboClientes.SelectedValue
@@ -140,6 +141,7 @@
                 sql &= "," & IIf(chkFonacot.Checked, 1, 0)
                 sql &= "," & IIf(chkPension.Checked, 1, 0)
                 sql &= "," & IIf(chkCalcularIVA.Checked, 1, 0)
+                sql &= "," & IIf(chkCostoPeriodo.Checked, 1, 0)
             End If
 
             If nExecute(sql) = False Then

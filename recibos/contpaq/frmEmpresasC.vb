@@ -287,4 +287,7 @@
     End Sub
 
   
+    Private Sub lsvLista_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lsvLista.SelectedIndexChanged
+
+    End Sub
 End Class
