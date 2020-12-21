@@ -913,7 +913,7 @@ Public Class frmcontpaqnominas3
                 'verificamos si ya hay datos guardados en nomina aun cuando no estan marcados como final
                 'primero buscamos en la nomina importada si hay datos es posible que haya datos guardados
                 'en caso de que no sea asi no hay de donde sacar datos
-                sql = "EXEC getNominaXEmpresaXPeriodo " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1"
+                sql = "EXEC getNominaXEmpresaXPeriodo " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1, " & orden
                 Dim consecutivo As Integer = 1
 
                 Dim rwDatosPeriodo As DataRow() = nConsulta(sql)
@@ -1327,10 +1327,10 @@ Public Class frmcontpaqnominas3
 
                 Else
                     'Buscamos los datos de sindicato solamente
-                    sql = "select iIdEmpleadoC,NumCuenta, (cApellidoP + ' ' + cApellidoM + ' ' + cNombre) as nombre, fkiIdEmpresa,fSueldoOrd,fCosto from empleadosC"
+                    sql = "select iIdEmpleadoC,NumCuenta, (cApellidoP + ' ' + cApellidoM + ' ' + cNombre) as nombre, cCodigoEmpleado, fkiIdEmpresa,fSueldoOrd,fCosto from empleadosC"
                     sql &= " where empleadosC.iOrigen=2 and empleadosC.fkiIdClienteInter=-1"
                     sql &= " and empleadosC.fkiIdEmpresa =" & gIdEmpresa
-                    sql &= " order by nombre"
+                    sql &= " order by " & orden
 
                     Dim rwDatosSindicato As DataRow() = nConsulta(sql)
                     If rwDatosSindicato Is Nothing = False Then
@@ -6370,7 +6370,7 @@ Public Class frmcontpaqnominas3
                         ajusteneto = 0
                         costosocialsinajuste = 0
 
-                        sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value
+                        sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value & "," & orden
                         Dim rwDatosPeriodo2 As DataRow() = nConsulta(sql)
 
 
@@ -6962,7 +6962,7 @@ Public Class frmcontpaqnominas3
                 ajusteneto = 0
                 costosocialsinajuste = 0
 
-                sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value
+                sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value & "," & orden
                 Dim rwDatosPeriodo2 As DataRow() = nConsulta(sql)
 
 

@@ -52,6 +52,8 @@
                 rdbCodigoEmpleado.Checked = True
 
             End If
+        Else
+            rdbNombreEmpleado.Checked = True
         End If
 
     End Sub
@@ -83,9 +85,9 @@
                 sql &= ",  '" & orden & "'"
                 sql &= ",1"
             Else
-                sql = "UPDATE TABLE TipoOrden SET cOrden = '" & orden & "'"
+                sql = "UPDATE TipoOrden SET cOrden = '" & orden & "'"
                 sql &= " , descripcion= '" & orden & "'"
-                sql &= "WHERE iIdTipoOrden= " & rwOrdenamiento(0).Item("iIdTipoOrden")
+                sql &= " WHERE iIdTipoOrden= " & rwOrdenamiento(0).Item("iIdTipoOrden")
 
             End If
             If nExecute(sql) = False Then
