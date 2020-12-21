@@ -26,6 +26,7 @@ Public Class frmcontpaqnominas3
     Dim ISR As Double
     Dim PrimaSA As Double
     Dim SubsidioSA As Double
+    Dim orden As String
 
     Dim dsPeriodo As New DataSet
 
@@ -41,6 +42,7 @@ Public Class frmcontpaqnominas3
 
             BuscarEmpresaAsignada()
             BuscarClienteAsignado()
+            BuscarTipoOrden()
 
 
 
@@ -714,6 +716,7 @@ Public Class frmcontpaqnominas3
             'End If
 
             dtgDatos.Columns.Clear()
+            BuscarTipoOrden()
             llenargrid()
 
 
@@ -818,7 +821,7 @@ Public Class frmcontpaqnominas3
 
 
 
-            sql = "select fkiIdempleado,cCuenta,(cApellidoP + ' ' + cApellidoM + ' ' + empleadosC.cNombre) as nombre,"
+            sql = "select fkiIdempleado,cCuenta,(cApellidoP + ' ' + cApellidoM + ' ' + empleadosC.cNombre) as nombre, empleadosC.cCodigoEmpleado, "
             sql &= " NominaSindicato.fSueldoOrd ,fNeto,fDescuento,fPrestamo,fSindicato,fSueldoNeto,"
             sql &= " fRentencionIMSS,fRetenciones,fCostoSocial,fComision,fSubtotal,fIVA,fTotal,cDepartamento as departamento,fInfonavit,fIncremento"
             sql &= " ,fPrimaSA,fPrimaSin,fAguinaldoSA,fAguinaldoSin,fImporteSin1,fImporteSa1,fImporteSin2,fImporteSA2,fImporteSin3,fImporteSA3,fImporteSA4"
@@ -826,7 +829,9 @@ Public Class frmcontpaqnominas3
             sql &= " inner join empleadosC on NominaSindicato.fkiIdempleado= empleadosC.iIdEmpleadoC"
             sql &= " inner join departamentos on empleadosC.fkiIdDepartamento= departamentos.iIdDepartamento "
             sql &= " where NominaSindicato.fkiIdEmpresa=" & gIdEmpresa & " and fkiIdPeriodo=" & cboperiodo.SelectedValue & " and iEstatusNomina=1 and NominaSindicato.iEstatus=1"
-            sql &= " order by empleadosC.iOrigen,departamentos.cNombre,nombre"
+            sql &= " order by empleadosC.iOrigen,"
+            sql &= "departamentos.cNombre,"
+            sql &= orden
 
             'sql = "EXEC getNominaXEmpresaXPeriodo " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1"
 
@@ -908,7 +913,7 @@ Public Class frmcontpaqnominas3
                 'verificamos si ya hay datos guardados en nomina aun cuando no estan marcados como final
                 'primero buscamos en la nomina importada si hay datos es posible que haya datos guardados
                 'en caso de que no sea asi no hay de donde sacar datos
-                sql = "EXEC getNominaXEmpresaXPeriodo " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1"
+                sql = "EXEC getNominaXEmpresaXPeriodo " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1, " & orden
                 Dim consecutivo As Integer = 1
 
                 Dim rwDatosPeriodo As DataRow() = nConsulta(sql)
@@ -1322,10 +1327,10 @@ Public Class frmcontpaqnominas3
 
                 Else
                     'Buscamos los datos de sindicato solamente
-                    sql = "select iIdEmpleadoC,NumCuenta, (cApellidoP + ' ' + cApellidoM + ' ' + cNombre) as nombre, fkiIdEmpresa,fSueldoOrd,fCosto from empleadosC"
+                    sql = "select iIdEmpleadoC,NumCuenta, (cApellidoP + ' ' + cApellidoM + ' ' + cNombre) as nombre, cCodigoEmpleado, fkiIdEmpresa,fSueldoOrd,fCosto from empleadosC"
                     sql &= " where empleadosC.iOrigen=2 and empleadosC.fkiIdClienteInter=-1"
                     sql &= " and empleadosC.fkiIdEmpresa =" & gIdEmpresa
-                    sql &= " order by nombre"
+                    sql &= " order by " & orden
 
                     Dim rwDatosSindicato As DataRow() = nConsulta(sql)
                     If rwDatosSindicato Is Nothing = False Then
@@ -6175,6 +6180,7 @@ Public Class frmcontpaqnominas3
         Try
             Dim Forma As New frmAsignarCliente
             Forma.gidEmpresa = gIdEmpresa
+            Forma.gidPeriodo = cboperiodo.SelectedValue
             If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
                 'Refrescar la información
 
@@ -6364,7 +6370,7 @@ Public Class frmcontpaqnominas3
                         ajusteneto = 0
                         costosocialsinajuste = 0
 
-                        sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value
+                        sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value & "," & orden
                         Dim rwDatosPeriodo2 As DataRow() = nConsulta(sql)
 
 
@@ -6956,7 +6962,7 @@ Public Class frmcontpaqnominas3
                 ajusteneto = 0
                 costosocialsinajuste = 0
 
-                sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value
+                sql = "EXEC getNominaXEmpresaXPeriodo2 " & gIdEmpresa & "," & cboperiodo.SelectedValue & ",1," & dtgDatos.Rows(x).Cells(3).Value & "," & orden
                 Dim rwDatosPeriodo2 As DataRow() = nConsulta(sql)
 
 
@@ -7094,4 +7100,21 @@ Public Class frmcontpaqnominas3
 
         End Try
     End Sub
+
+    Private Sub BuscarTipoOrden()
+        Try
+            Dim sql As String = "select * from TipoOrden where fkiIdEmpresa=" & gIdEmpresa & " AND fkiIdPeriodo=" & cboperiodo.SelectedValue
+            Dim rwTipoOrden As DataRow() = nConsulta(sql)
+            If rwTipoOrden Is Nothing = False Then
+
+                orden = rwTipoOrden(0).Item("cOrden")
+            Else
+                orden = "Nombre"
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
 End Class

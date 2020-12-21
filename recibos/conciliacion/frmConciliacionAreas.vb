@@ -532,9 +532,9 @@ Public Class frmFondeoPatrona
 
                                                 'Buscamos a las empresas relacionadas con los cargos
                                                 If InStr(Trim(producto.SubItems(4).Text).ToUpper, "RASTREO") > 0 Then
-                                                    producto.SubItems(8).Text = "OPERADORA AFIRME NOMINA NOV"
+                                                    producto.SubItems(8).Text = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" ")) & " NOMINA " & MonthString(dtpfechainicio.Value.Month).ToUpper
                                                     'producto.SubItems.Add("NOMINA")
-                                                    producto.SubItems(11).Text = "3"
+                                                    producto.SubItems(11).Text = "1"
                                                     'producto.SubItems.Add("1")
                                                     producto.BackColor = Color.Green
 
@@ -1781,4 +1781,23 @@ Public Class frmFondeoPatrona
         'End If
     End Sub
 
+    Function MonthString(ByRef month As Integer) As String
+
+        Select Case month
+            Case 1 : Return "Enero"
+            Case 2 : Return "Febrero"
+            Case 3 : Return "Marzo"
+            Case 4 : Return "Abril"
+            Case 5 : Return "Mayo"
+            Case 6 : Return "Junio"
+            Case 7 : Return "Julio"
+            Case 8 : Return "Agosto"
+            Case 9 : Return "Septiembre"
+            Case 10 : Return "Octubre"
+            Case 11 : Return "Noviembre"
+            Case 12, 0 : Return "Diciembre"
+
+        End Select
+
+    End Function
 End Class
