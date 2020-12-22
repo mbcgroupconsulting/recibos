@@ -98,8 +98,8 @@ Partial Class frmcapturafactura
         'pnlCatalogo
         '
         Me.pnlCatalogo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlCatalogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pnlCatalogo.Controls.Add(Me.chkFlujoNom)
         Me.pnlCatalogo.Controls.Add(Me.chkFlujoC)
@@ -472,8 +472,8 @@ Partial Class frmcapturafactura
         'lsvLista
         '
         Me.lsvLista.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lsvLista.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsvLista.FullRowSelect = True
         Me.lsvLista.GridLines = True
@@ -718,7 +718,7 @@ Partial Class frmcapturafactura
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbAbono})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(193, 48)
+        Me.ToolStrip1.Size = New System.Drawing.Size(214, 48)
         Me.ToolStrip1.Stretch = True
         Me.ToolStrip1.TabIndex = 22
         Me.ToolStrip1.Text = "ToolStrip1"
@@ -786,7 +786,7 @@ Partial Class frmcapturafactura
         Me.Panel1.Controls.Add(Me.chkPatrona)
         Me.Panel1.Controls.Add(Me.chkintermediaria)
         Me.Panel1.Controls.Add(Me.chkiva)
-        Me.Panel1.Location = New System.Drawing.Point(222, 10)
+        Me.Panel1.Location = New System.Drawing.Point(250, 10)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(274, 35)
         Me.Panel1.TabIndex = 59

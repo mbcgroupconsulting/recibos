@@ -44,6 +44,9 @@ Public Class frmcapturafactura
                 End If
             End If
 
+            If Usuario.Perfil = 1 Then
+                chkPatrona.Checked = True
+            End If
             MostrarEmpresa()
 
         Catch ex As Exception
@@ -345,13 +348,24 @@ Public Class frmcapturafactura
         SoloNumero.NumeroDec(e, sender)
     End Sub
 
-    Private Sub txtimporte_LostFocus(sender As Object, e As EventArgs) Handles txtimporte.LostFocus
-        txtimporte.Text = Format(CType(IIf(txtimporte.Text = "", "0", txtimporte.Text), Decimal), "###,###,##0.#0")
-        txtiva.Text = Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.16
-        txttotal.Text = Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) + (Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.16)
-        txtiva.Text = Format(CType(IIf(txtiva.Text = "", "0", txtiva.Text), Decimal), "###,###,##0.#0")
-        txttotal.Text = Format(CType(IIf(txttotal.Text = "", "0", txttotal.Text), Decimal), "###,###,##0.#0")
-        txtnomina.Text = "0.00"
+    Private Sub txtimporte_LostFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txtimporte.LostFocus
+        Try
+            txtimporte.Text = Format(CType(IIf(txtimporte.Text = "", "0", txtimporte.Text), Decimal), "###,###,##0.#0")
+            txtiva.Text = Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.16
+            txttotal.Text = Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) + (Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.16)
+            txtiva.Text = Format(CType(IIf(txtiva.Text = "", "0", txtiva.Text), Decimal), "###,###,##0.#0")
+            txttotal.Text = Format(CType(IIf(txttotal.Text = "", "0", txttotal.Text), Decimal), "###,###,##0.#0")
+            If cboempresa.Text.Contains("OPERADORA") Or cboempresa.Text.Contains("NAVIGATOR") Or cboempresa.Text.Contains("XURTEP") Or cboempresa.Text.Contains("MAECCO") Then
+                txtnomina.Text = Format(CType((Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.06), Decimal), "###,###,##0.#0")
+            Else
+                txtnomina.Text = "0.00"
+
+            End If
+        Catch ex As Exception
+
+        End Try
+        
+
     End Sub
 
     Private Sub txttotal_LostFocus(sender As Object, e As EventArgs) Handles txttotal.LostFocus
@@ -767,9 +781,7 @@ Public Class frmcapturafactura
 
     End Sub
 
-    Private Sub txtimporte_TextChanged(sender As Object, e As EventArgs) Handles txtimporte.TextChanged
-
-    End Sub
+  
 
     Private Sub chknota_CheckedChanged(sender As Object, e As EventArgs) Handles chknota.CheckedChanged
         If chknota.Checked Then
