@@ -88,6 +88,7 @@ Partial Class frmcapturafactura
         Me.chkiva = New System.Windows.Forms.CheckBox()
         Me.chkPatrona = New System.Windows.Forms.CheckBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.tsbExel = New System.Windows.Forms.ToolStripButton()
         Me.pnlCatalogo.SuspendLayout()
         Me.pnlcolores.SuspendLayout()
         Me.pnlnota.SuspendLayout()
@@ -715,10 +716,10 @@ Partial Class frmcapturafactura
         Me.ToolStrip1.Dock = System.Windows.Forms.DockStyle.None
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbAbono})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNuevo, Me.tsbAbono, Me.tsbExel})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(214, 48)
+        Me.ToolStrip1.Size = New System.Drawing.Size(240, 48)
         Me.ToolStrip1.Stretch = True
         Me.ToolStrip1.TabIndex = 22
         Me.ToolStrip1.Text = "ToolStrip1"
@@ -786,10 +787,20 @@ Partial Class frmcapturafactura
         Me.Panel1.Controls.Add(Me.chkPatrona)
         Me.Panel1.Controls.Add(Me.chkintermediaria)
         Me.Panel1.Controls.Add(Me.chkiva)
-        Me.Panel1.Location = New System.Drawing.Point(250, 10)
+        Me.Panel1.Location = New System.Drawing.Point(267, 10)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(274, 35)
         Me.Panel1.TabIndex = 59
+        '
+        'tsbExel
+        '
+        Me.tsbExel.Image = CType(resources.GetObject("tsbExel.Image"), System.Drawing.Image)
+        Me.tsbExel.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbExel.Name = "tsbExel"
+        Me.tsbExel.Size = New System.Drawing.Size(38, 45)
+        Me.tsbExel.Text = "Excel"
+        Me.tsbExel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.tsbExel.Visible = False
         '
         'frmcapturafactura
         '
@@ -880,4 +891,5 @@ Partial Class frmcapturafactura
     Friend WithEvents cmdDetFacturas As Button
     Friend WithEvents chkFlujoNom As CheckBox
     Friend WithEvents chkFlujoC As CheckBox
+    Friend WithEvents tsbExel As System.Windows.Forms.ToolStripButton
 End Class
