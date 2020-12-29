@@ -938,8 +938,12 @@ Public Class frmcapturafactura
 
 
                 filaExcel = 2
+                If cboempresa.Text.IndexOf(" ") > 0 Then
+                    empresacliente = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" "))
+                Else
+                    empresacliente = cboempresa.Text
+                End If
 
-                empresacliente = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" "))
 
                 Select Case empresacliente
                     Case "OPERADORA"
@@ -949,6 +953,7 @@ Public Class frmcapturafactura
                     Case "XURTEP"
                         empresa = empresacliente
                     Case "MAECCO"
+                        empresa = empresacliente
                 End Select
                 For x As Integer = 0 To lsvLista.Items.Count - 1
 
@@ -976,7 +981,7 @@ Public Class frmcapturafactura
                 End If
 
             End If
-            
+
         Catch ex As Exception
             MessageBox.Show(ex.Message.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
