@@ -6958,11 +6958,16 @@ Public Class frmcontpaqnominas3
 
         If rwIntEmpresaContpaq Is Nothing = False Then
 
-
-            Dim rwEmpresasInter As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona"))
-            Dim rwEmpresaExedente As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente"))
-            InterPatrona = rwEmpresasInter(0).Item("nombre")
-            InterSindicato = rwEmpresaExedente(0).Item("nombre")
+            If rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona") Is DBNull.Value Or rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente") Is DBNull.Value Then
+                InterPatrona = ""
+                InterSindicato = ""
+            Else
+                Dim rwEmpresasInter As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona"))
+                Dim rwEmpresaExedente As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente"))
+                InterPatrona = rwEmpresasInter(0).Item("nombre")
+                InterSindicato = rwEmpresaExedente(0).Item("nombre")
+            End If
+          
 
         End If
 

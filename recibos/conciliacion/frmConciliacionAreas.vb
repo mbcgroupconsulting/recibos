@@ -239,9 +239,10 @@ Public Class frmFondeoPatrona
                                                 'esto lo quite porque a maribel no le gusto
                                                 'producto.SubItems(8).Text = "NOMINA"
                                                 ''producto.SubItems.Add("NOMINA")
+                                                producto.SubItems(8).Text = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" ")) & " NOMINA " & MonthString(dtpfechainicio.Value.Month).ToUpper
                                                 producto.SubItems(11).Text = "3"
                                                 ''producto.SubItems.Add("1")
-                                                'producto.BackColor = Color.Green
+                                                producto.BackColor = Color.Green
 
                                             ElseIf InStr(Trim(producto.SubItems(4).Text).Replace(",", ""), "DISPERSION") > 0 Then
                                                 'producto.SubItems(8).Text = "NOMINA"
@@ -358,10 +359,13 @@ Public Class frmFondeoPatrona
                                                 End If
 
                                             Else
-                                                producto.SubItems(8).Text = "--"
-                                                'producto.SubItems.Add("--")
-                                                producto.SubItems(11).Text = "3"
-                                                'producto.SubItems.Add("3")
+                                              
+
+                                                    producto.SubItems(8).Text = "--"
+                                                    'producto.SubItems.Add("--")
+                                                    producto.SubItems(11).Text = "3"
+                                                    'producto.SubItems.Add("3")
+
                                             End If
                                         End If
 
@@ -435,6 +439,15 @@ Public Class frmFondeoPatrona
                                                 producto.SubItems(11).Text = "1"
                                                 'producto.SubItems.Add("1")
                                                 producto.BackColor = Color.Green
+                                            ElseIf InStr(Trim(producto.SubItems(4).Text).ToUpper, "SUELDO") > 0 Then
+                                                'esto lo quite porque a maribel no le gusto
+                                                'producto.SubItems(8).Text = "NOMINA"
+                                                ''producto.SubItems.Add("NOMINA")
+                                                producto.SubItems(8).Text = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" ")) & " NOMINA " & MonthString(dtpfechainicio.Value.Month).ToUpper
+                                                producto.SubItems(11).Text = "3"
+                                                ''producto.SubItems.Add("1")
+                                                producto.BackColor = Color.Green
+
                                             Else
                                                 'producto.BackColor = Color.Red
                                                 producto.SubItems(8).Text = "No existe esta factura en la base de facturación"
@@ -442,6 +455,8 @@ Public Class frmFondeoPatrona
                                                 producto.SubItems(11).Text = "3"
                                                 'producto.SubItems.Add("3")
                                                 producto.BackColor = Color.Red
+                                            
+
                                             End If
 
 
@@ -532,6 +547,13 @@ Public Class frmFondeoPatrona
 
                                                 'Buscamos a las empresas relacionadas con los cargos
                                                 If InStr(Trim(producto.SubItems(4).Text).ToUpper, "RASTREO") > 0 Then
+                                                    producto.SubItems(8).Text = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" ")) & " NOMINA " & MonthString(dtpfechainicio.Value.Month).ToUpper
+                                                    'producto.SubItems.Add("NOMINA")
+                                                    producto.SubItems(11).Text = "1"
+                                                    'producto.SubItems.Add("1")
+                                                    producto.BackColor = Color.Green
+
+                                                ElseIf InStr(Trim(producto.SubItems(4).Text).ToUpper, "SUELDO") > 0 And Usuario.Perfil = 1 Then
                                                     producto.SubItems(8).Text = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" ")) & " NOMINA " & MonthString(dtpfechainicio.Value.Month).ToUpper
                                                     'producto.SubItems.Add("NOMINA")
                                                     producto.SubItems(11).Text = "1"
