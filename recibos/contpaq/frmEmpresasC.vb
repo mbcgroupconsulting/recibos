@@ -36,7 +36,7 @@
                         If iBan = 0 Then
                             SQL = "EXEC setEmpresaCInsertar  0,'" & rwEmpresasC(x)("NombreEmpresa")
                             SQL &= "','" & rwEmpresasC(x)("RutaEmpresa")
-                            SQL &= "',1,0,0,1,'','',0,0"
+                            SQL &= "',1,0,0,1,'','',1,0"
                             If nExecute(SQL) = False Then
                                 MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                                 'pnlProgreso.Visible = False
@@ -51,7 +51,7 @@
                         'Dim Fila As DataRow = rwGastos(0)
                         SQL = "EXEC setEmpresaCInsertar  0,'" & rwEmpresasC(x)("NombreEmpresa")
                         SQL &= "','" & rwEmpresasC(x)("RutaEmpresa")
-                        SQL &= "',1,0,0,1,'','',0,0"
+                        SQL &= "',1,0,0,1,'','',1,0"
                         If nExecute(SQL) = False Then
                             MessageBox.Show("Ocurrio un error ", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                             'pnlProgreso.Visible = False
@@ -105,7 +105,7 @@
                 For Each Fila In rwEmpresaC
 
                     If iBuscar = 1 Then
-                        If Fila.Item("ruta") <> "" And Fila.Item("ruta") <> "ctCSyAP" And Fila.Item("ruta") <> "ASESORES" And Fila.Item("ruta") <> "BIDAIA JUAN RAMON" Then
+                        If Fila.Item("ruta") <> "" And Fila.Item("ruta") <> "ctCSyAP" And Fila.Item("ruta") <> "ASESORES" And Fila.Item("ruta") <> "BIDAIA JUAN RAMON" And Fila.Item("ruta") <> "ctJUAN_SOLORIO" And Fila.Item("ruta") <> "ctRENTAAUTOMATICO" And Fila.Item("ruta") <> "RENTAUTOMATICO" Then
                             'importamos los tipos de periodo
                             ConectarContpaq(Fila.Item("ruta"))
                             SQL = "select * from nom10023"
@@ -160,6 +160,8 @@
                             End If
 
                             DesconectarContpaq()
+                        Else
+                            'MessageBox.Show(Fila.Item("ruta"), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                         End If
                     End If
 
@@ -187,7 +189,7 @@
 
             End If
         Catch ex As Exception
-
+            ex.ToString()
         End Try
 
 

@@ -2,6 +2,7 @@
 Imports System.IO
 
 Public Class frmcontpaqnominas2
+    'Este es un comentario para ver si guarda cambios
     Private m_currentControl As Control = Nothing
     Public gIdEmpresa As String
     Public gIdTipoPeriodo As String
@@ -50,7 +51,7 @@ Public Class frmcontpaqnominas2
             End If
 
         Catch ex As Exception
-
+            'FDGFGF
         End Try
 
     End Sub
@@ -101,7 +102,7 @@ Public Class frmcontpaqnominas2
             sql = "select * from bancos inner join ( select distinct(fkiidBanco) from DatosBanco where fkiIdEmpresa=" & gIdEmpresa & ") bancos2 on bancos.iIdBanco=bancos2.fkiidBanco order by cBanco"
             nCargaCBO(cbobancos, sql, "cBanco", "iIdBanco")
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
     Private Sub cargarperiodos()
@@ -114,7 +115,7 @@ Public Class frmcontpaqnominas2
             nCargaCBO(cboperiodo, sql, "dFechainicio", "iIdPeriodo")
 
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
 
     End Sub
@@ -382,7 +383,7 @@ Public Class frmcontpaqnominas2
                 cargarperiodos()
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
 
 
@@ -460,7 +461,7 @@ Public Class frmcontpaqnominas2
                 'cargarperiodos()
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
 
     End Sub
@@ -537,7 +538,7 @@ Public Class frmcontpaqnominas2
                 'cargarperiodos()
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
 
@@ -988,7 +989,7 @@ Public Class frmcontpaqnominas2
                 'cargarperiodos()
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
 
@@ -1011,7 +1012,7 @@ Public Class frmcontpaqnominas2
 
 
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
 
     End Sub

@@ -57,7 +57,7 @@ Partial Class frmIncidenciaEmpleado
         Me.lsvLista.Location = New System.Drawing.Point(4, 176)
         Me.lsvLista.MultiSelect = False
         Me.lsvLista.Name = "lsvLista"
-        Me.lsvLista.Size = New System.Drawing.Size(467, 96)
+        Me.lsvLista.Size = New System.Drawing.Size(467, 120)
         Me.lsvLista.TabIndex = 53
         Me.lsvLista.UseCompatibleStateImageBehavior = False
         Me.lsvLista.View = System.Windows.Forms.View.Details
@@ -152,7 +152,7 @@ Partial Class frmIncidenciaEmpleado
         'frmIncidenciaEmpleado
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(481, 284)
+        Me.ClientSize = New System.Drawing.Size(481, 308)
         Me.Controls.Add(Me.lblnumfactura)
         Me.Controls.Add(Me.lsvLista)
         Me.Controls.Add(Me.cmdcancelar)
