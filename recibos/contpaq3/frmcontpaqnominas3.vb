@@ -6510,8 +6510,9 @@ Public Class frmcontpaqnominas3
                         Dim rwEmpresaExedente As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente"))
                         InterPatrona = rwEmpresasInter(0).Item("nombre")
                         InterSindicato = rwEmpresaExedente(0).Item("nombre")
+
                     End If
-                   
+
 
                 End If
 
@@ -6967,7 +6968,7 @@ Public Class frmcontpaqnominas3
                 InterPatrona = rwEmpresasInter(0).Item("nombre")
                 InterSindicato = rwEmpresaExedente(0).Item("nombre")
             End If
-          
+
 
         End If
 
