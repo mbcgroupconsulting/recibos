@@ -959,10 +959,10 @@ Public Class frmcapturafactura
 
                     hoja.Cell(filaExcel + x, 1).Value = lsvLista.Items.Item(x).SubItems(4).Text 'fecha
                     hoja.Cell(filaExcel + x, 2).Value = lsvLista.Items.Item(x).SubItems(3).Text 'factura
-                    hoja.Cell(filaExcel + x, 3).Value = empresacliente 'cliente
+                    hoja.Cell(filaExcel + x, 3).Value = empresa 'empresa
                     hoja.Cell(filaExcel + x, 4).Value = lsvLista.Items.Item(x).SubItems(5).Text 'cliente
                     hoja.Cell(filaExcel + x, 5).Value = lsvLista.Items.Item(x).SubItems(13).Text 'concepto
-                    hoja.Cell(filaExcel + x, 6).Value = empresa 'empresa
+                    hoja.Cell(filaExcel + x, 6).Value = empresacliente 'cliente
                     hoja.Cell(filaExcel + x, 7).Value = lsvLista.Items.Item(x).SubItems(6).Text 'importe
                     hoja.Cell(filaExcel + x, 8).FormulaA1 = "=+G" & filaExcel + x & "*16%" 'iva
                     hoja.Cell(filaExcel + x, 9).FormulaA1 = "=+IF(C" & filaExcel + x & "=F" & filaExcel + x & ",G" & filaExcel + x & "*6%,0)" 'retencion isn
