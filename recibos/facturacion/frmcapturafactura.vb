@@ -1,4 +1,5 @@
 ﻿Imports System.Math
+Imports ClosedXML.Excel
 
 Public Class frmcapturafactura
 
@@ -11,7 +12,7 @@ Public Class frmcapturafactura
     Public UsuarioCreador As String
     Public gIdCliente As String
     Public gIdFactura As String
-    Private Sub frmcapturafactura_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmcapturafactura_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         blnNuevo = True
         blnlista = True
 
@@ -44,6 +45,10 @@ Public Class frmcapturafactura
                 End If
             End If
 
+            If Usuario.Perfil = 1 Then
+                chkPatrona.Checked = True
+                tsbExel.Visible = True
+            End If
             MostrarEmpresa()
 
         Catch ex As Exception
@@ -324,37 +329,49 @@ Public Class frmcapturafactura
 
 
 
-    Private Sub txtnumfactura_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtnumfactura.KeyPress
+    Private Sub txtnumfactura_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles txtnumfactura.KeyPress
         SoloNumero.NumeroDec(e, sender)
     End Sub
 
 
 
-    Private Sub txtimporte_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtimporte.KeyPress
+    Private Sub txtimporte_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles txtimporte.KeyPress
         SoloNumero.NumeroDec(e, sender)
 
     End Sub
 
 
-    Private Sub txtiva_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtiva.KeyPress
+    Private Sub txtiva_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles txtiva.KeyPress
         SoloNumero.NumeroDec(e, sender)
     End Sub
 
 
-    Private Sub txttotal_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txttotal.KeyPress
+    Private Sub txttotal_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles txttotal.KeyPress
         SoloNumero.NumeroDec(e, sender)
     End Sub
 
-    Private Sub txtimporte_LostFocus(sender As Object, e As EventArgs) Handles txtimporte.LostFocus
-        txtimporte.Text = Format(CType(IIf(txtimporte.Text = "", "0", txtimporte.Text), Decimal), "###,###,##0.#0")
-        txtiva.Text = Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.16
-        txttotal.Text = Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) + (Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.16)
-        txtiva.Text = Format(CType(IIf(txtiva.Text = "", "0", txtiva.Text), Decimal), "###,###,##0.#0")
-        txttotal.Text = Format(CType(IIf(txttotal.Text = "", "0", txttotal.Text), Decimal), "###,###,##0.#0")
-        txtnomina.Text = "0.00"
+    Private Sub txtimporte_LostFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txtimporte.LostFocus
+        Try
+            txtimporte.Text = Format(CType(IIf(txtimporte.Text = "", "0", txtimporte.Text), Decimal), "###,###,##0.#0")
+            txtiva.Text = Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.16
+            '  txttotal.Text = Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) + (Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.16) - txtnomina.Text
+            txtiva.Text = Format(CType(IIf(txtiva.Text = "", "0", txtiva.Text), Decimal), "###,###,##0.#0")
+            txttotal.Text = Format(CType(IIf(txttotal.Text = "", "0", txttotal.Text), Decimal), "###,###,##0.#0")
+            If cboempresa.Text.Contains("OPERADORA") Or cboempresa.Text.Contains("NAVIGATOR") Or cboempresa.Text.Contains("XURTEP") Or cboempresa.Text.Contains("MAECCO") Then
+                txtnomina.Text = Format(CType((Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.06), Decimal), "###,###,##0.#0")
+            Else
+                txtnomina.Text = "0.00"
+
+            End If
+            txttotal.Text = Format(CType(Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) + (Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.16) - txtnomina.Text, Decimal), "###,###,##0.#0")
+        Catch ex As Exception
+
+        End Try
+
+
     End Sub
 
-    Private Sub txttotal_LostFocus(sender As Object, e As EventArgs) Handles txttotal.LostFocus
+    Private Sub txttotal_LostFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txttotal.LostFocus
         'txttotal.Text = Format(CType(IIf(txttotal.Text = "", "0", txttotal.Text), Decimal), "###,###,##0.#0")
         'txtiva.Text = Double.Parse(IIf(txttotal.Text = "", "0", txttotal.Text)) - (Double.Parse(IIf(txttotal.Text = "", "0", txttotal.Text)) / 1.16)
         'txtimporte.Text = Double.Parse(IIf(txttotal.Text = "", "0", txttotal.Text)) - (Double.Parse(IIf(txttotal.Text = "", "0", txttotal.Text)) - (Double.Parse(IIf(txttotal.Text = "", "0", txttotal.Text)) / 1.16))
@@ -364,7 +381,7 @@ Public Class frmcapturafactura
 
     End Sub
 
-    Private Sub cmdagregar_Click(sender As Object, e As EventArgs) Handles cmdagregar.Click
+    Private Sub cmdagregar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdagregar.Click
         Dim SQL As String, Mensaje As String = "", nombresistema As String = ""
         Dim bandera As Boolean
         Dim tipoflujo As Integer
@@ -565,7 +582,7 @@ Public Class frmcapturafactura
 
 
 
-    Private Sub lsvLista_ItemActivate(sender As Object, e As EventArgs) Handles lsvLista.ItemActivate
+    Private Sub lsvLista_ItemActivate(ByVal sender As Object, ByVal e As EventArgs) Handles lsvLista.ItemActivate
 
 
         SQL = "select * from usuarios where idUsuario = " & idUsuario
@@ -618,7 +635,7 @@ Public Class frmcapturafactura
 
     End Sub
 
-    Private Sub EditarAbono(id As String)
+    Private Sub EditarAbono(ByVal id As String)
         Try
             Dim Forma As New frmAbono
             Forma.gIdFactura = id
@@ -633,7 +650,7 @@ Public Class frmcapturafactura
 
         End Try
     End Sub
-    Private Sub EditarColores(id As String)
+    Private Sub EditarColores(ByVal id As String)
 
         Try
             Dim Forma As New frmcolor
@@ -649,8 +666,8 @@ Public Class frmcapturafactura
 
         End Try
     End Sub
-    Private Sub EditarFactura(id As String)
-        Limpiar2()
+    Private Sub EditarFactura(ByVal id As String)
+        limpiar2()
         SQL = "select * from facturas where iIdFactura = " & id
         Dim rwFilas As DataRow() = nConsulta(SQL)
         Try
@@ -727,25 +744,25 @@ Public Class frmcapturafactura
 
     End Sub
 
-    Private Sub lsvLista_SelectedIndexChanged(sender As Object, e As EventArgs)
+    Private Sub lsvLista_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
 
     End Sub
 
-    Private Sub cboempresa_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboempresa.SelectedIndexChanged
+    Private Sub cboempresa_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cboempresa.SelectedIndexChanged
         If blnNuevo And blnlista And cboempresa.SelectedIndex > -1 Then
             cargarlista()
         End If
 
     End Sub
 
-    Private Sub cmdcancelar_Click(sender As Object, e As EventArgs) Handles cmdcancelar.Click
+    Private Sub cmdcancelar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdcancelar.Click
         Limpiar()
         If cboempresa.SelectedIndex > -1 Then
             cargarlista()
         End If
     End Sub
 
-    Private Sub tsbNuevo_Click(sender As Object, e As EventArgs) Handles tsbNuevo.Click
+    Private Sub tsbNuevo_Click(ByVal sender As Object, ByVal e As EventArgs) Handles tsbNuevo.Click
         Dim Forma As New frmverfacturascontrol
         If Forma.ShowDialog = Windows.Forms.DialogResult.OK Then
             'verificar si tiene color verde
@@ -763,15 +780,13 @@ Public Class frmcapturafactura
 
     End Sub
 
-    Private Sub lsvLista_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles lsvLista.SelectedIndexChanged
+    Private Sub lsvLista_SelectedIndexChanged_1(ByVal sender As Object, ByVal e As EventArgs) Handles lsvLista.SelectedIndexChanged
 
     End Sub
 
-    Private Sub txtimporte_TextChanged(sender As Object, e As EventArgs) Handles txtimporte.TextChanged
 
-    End Sub
 
-    Private Sub chknota_CheckedChanged(sender As Object, e As EventArgs) Handles chknota.CheckedChanged
+    Private Sub chknota_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chknota.CheckedChanged
         If chknota.Checked Then
             pnlnota.Enabled = True
         Else
@@ -779,25 +794,25 @@ Public Class frmcapturafactura
         End If
     End Sub
 
-    Private Sub txtnumnota_DoubleClick(sender As Object, e As EventArgs) Handles txtnumnota.DoubleClick
+    Private Sub txtnumnota_DoubleClick(ByVal sender As Object, ByVal e As EventArgs) Handles txtnumnota.DoubleClick
         SoloNumero.NumeroDec(e, sender)
     End Sub
 
-    Private Sub Label17_Click(sender As Object, e As EventArgs)
+    Private Sub Label17_Click(ByVal sender As Object, ByVal e As EventArgs)
 
     End Sub
 
-    Private Sub pnlCatalogo_Paint(sender As Object, e As PaintEventArgs) Handles pnlCatalogo.Paint
+    Private Sub pnlCatalogo_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles pnlCatalogo.Paint
 
     End Sub
 
-    Private Sub dtpfechafin_ValueChanged(sender As Object, e As EventArgs) Handles dtpfechafin.ValueChanged
+    Private Sub dtpfechafin_ValueChanged(ByVal sender As Object, ByVal e As EventArgs) Handles dtpfechafin.ValueChanged
         If cboempresa.SelectedIndex > -1 Then
             cargarlista()
         End If
     End Sub
 
-    Private Sub dtpfechainicio_ValueChanged(sender As Object, e As EventArgs) Handles dtpfechainicio.ValueChanged
+    Private Sub dtpfechainicio_ValueChanged(ByVal sender As Object, ByVal e As EventArgs) Handles dtpfechainicio.ValueChanged
         If blnFechainicio Then
             blnFechainicio = False
         Else
@@ -811,36 +826,36 @@ Public Class frmcapturafactura
 
     End Sub
 
-    Private Sub chkintermediaria_CheckedChanged(sender As Object, e As EventArgs) Handles chkintermediaria.CheckedChanged
+    Private Sub chkintermediaria_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkintermediaria.CheckedChanged
         'MostrarEmpresa()
 
     End Sub
 
-    Private Sub chkiva_CheckedChanged(sender As Object, e As EventArgs) Handles chkiva.CheckedChanged
+    Private Sub chkiva_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkiva.CheckedChanged
         'MostrarEmpresa()
     End Sub
 
-    Private Sub chkPatrona_CheckedChanged(sender As Object, e As EventArgs) Handles chkPatrona.CheckedChanged
+    Private Sub chkPatrona_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkPatrona.CheckedChanged
         'MostrarEmpresa()
     End Sub
 
-    Private Sub chkintermediaria_CheckStateChanged(sender As Object, e As EventArgs) Handles chkintermediaria.CheckStateChanged
+    Private Sub chkintermediaria_CheckStateChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkintermediaria.CheckStateChanged
 
     End Sub
 
-    Private Sub chkintermediaria_MouseClick(sender As Object, e As MouseEventArgs) Handles chkintermediaria.MouseClick
+    Private Sub chkintermediaria_MouseClick(ByVal sender As Object, ByVal e As MouseEventArgs) Handles chkintermediaria.MouseClick
         MostrarEmpresa()
     End Sub
 
-    Private Sub chkiva_MouseClick(sender As Object, e As MouseEventArgs) Handles chkiva.MouseClick
+    Private Sub chkiva_MouseClick(ByVal sender As Object, ByVal e As MouseEventArgs) Handles chkiva.MouseClick
         MostrarEmpresa()
     End Sub
 
-    Private Sub chkPatrona_MouseClick(sender As Object, e As MouseEventArgs) Handles chkPatrona.MouseClick
+    Private Sub chkPatrona_MouseClick(ByVal sender As Object, ByVal e As MouseEventArgs) Handles chkPatrona.MouseClick
         MostrarEmpresa()
     End Sub
 
-    Private Sub tsbAbono_Click(sender As Object, e As EventArgs) Handles tsbAbono.Click
+    Private Sub tsbAbono_Click(ByVal sender As Object, ByVal e As EventArgs) Handles tsbAbono.Click
         Try
             Dim Forma As New frmFacturaAbonos
             'Forma.gIdFactura = ""
@@ -856,15 +871,15 @@ Public Class frmcapturafactura
         End Try
     End Sub
 
-    Private Sub txtnomina_TextChanged(sender As Object, e As EventArgs) Handles txtnomina.TextChanged
+    Private Sub txtnomina_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtnomina.TextChanged
 
     End Sub
 
-    Private Sub txtnomina_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtnomina.KeyPress
+    Private Sub txtnomina_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles txtnomina.KeyPress
         SoloNumero.NumeroDec(e, sender)
     End Sub
 
-    Private Sub txtnomina_LostFocus(sender As Object, e As EventArgs) Handles txtnomina.LostFocus
+    Private Sub txtnomina_LostFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txtnomina.LostFocus
         'txtimporte.Text = Format(CType(IIf(txtimporte.Text = "", "0", txtimporte.Text), Decimal), "###,###,##0.#0")
         'txtiva.Text = Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.16
         txttotal.Text = Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) + (Double.Parse(IIf(txtimporte.Text = "", "0", txtimporte.Text)) * 0.16) - Double.Parse(IIf(txtnomina.Text = "", "0", txtnomina.Text))
@@ -873,7 +888,7 @@ Public Class frmcapturafactura
 
     End Sub
 
-    Private Sub cmdDetFacturas_Click(sender As Object, e As EventArgs) Handles cmdDetFacturas.Click
+    Private Sub cmdDetFacturas_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdDetFacturas.Click
         Try
             Dim Forma As New frmdetfactura
 
@@ -882,7 +897,7 @@ Public Class frmcapturafactura
         End Try
     End Sub
 
-    Private Sub chkflujob_CheckedChanged(sender As Object, e As EventArgs) Handles chkflujob.CheckedChanged
+    Private Sub chkflujob_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkflujob.CheckedChanged
         If chkflujob.Checked Then
             chkFlujoC.Checked = False
 
@@ -890,17 +905,86 @@ Public Class frmcapturafactura
         End If
     End Sub
 
-    Private Sub chkFlujoC_CheckedChanged(sender As Object, e As EventArgs) Handles chkFlujoC.CheckedChanged
+    Private Sub chkFlujoC_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkFlujoC.CheckedChanged
         If chkFlujoC.Checked Then
             chkflujob.Checked = False
 
         End If
     End Sub
 
-    Private Sub chkFlujoNom_CheckedChanged(sender As Object, e As EventArgs) Handles chkFlujoNom.CheckedChanged
+    Private Sub chkFlujoNom_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkFlujoNom.CheckedChanged
         If chkFlujoNom.Checked Then
             chkflujob.Checked = False
             chkFlujoC.Checked = True
         End If
+    End Sub
+
+    Private Sub tsbExel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbExel.Click
+        Try
+            Dim filaExcel As Integer = 0
+            Dim dialogo As New SaveFileDialog()
+            Dim empresacliente, empresa As String
+            Dim pilotin As Boolean
+            Dim rwUsuario As DataRow() = nConsulta("Select * from Usuarios where idUsuario=1")
+
+            If lsvLista.Items.Count > 0 Then
+                Dim ruta As String
+                ruta = My.Application.Info.DirectoryPath() & "\reportes\facturas.xlsx"
+
+                Dim book As New ClosedXML.Excel.XLWorkbook(ruta)
+                Dim libro As New ClosedXML.Excel.XLWorkbook
+                book.Worksheet(1).CopyTo(libro, "FACTURAS")
+                Dim hoja As IXLWorksheet = libro.Worksheets(0)
+
+
+                filaExcel = 2
+                If cboempresa.Text.IndexOf(" ") > 0 Then
+                    empresacliente = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" "))
+                Else
+                    empresacliente = cboempresa.Text
+                End If
+
+
+                Select Case empresacliente
+                    Case "OPERADORA"
+                        empresa = empresacliente
+                    Case "NAVIGATOR"
+                        empresa = empresacliente
+                    Case "XURTEP"
+                        empresa = empresacliente
+                    Case "MAECCO"
+                        empresa = empresacliente
+                End Select
+                For x As Integer = 0 To lsvLista.Items.Count - 1
+
+                    hoja.Cell(filaExcel + x, 1).Value = lsvLista.Items.Item(x).SubItems(4).Text 'fecha
+                    hoja.Cell(filaExcel + x, 2).Value = lsvLista.Items.Item(x).SubItems(3).Text 'factura
+                    hoja.Cell(filaExcel + x, 3).Value = empresa 'empresa
+                    hoja.Cell(filaExcel + x, 4).Value = lsvLista.Items.Item(x).SubItems(5).Text 'cliente
+                    hoja.Cell(filaExcel + x, 5).Value = lsvLista.Items.Item(x).SubItems(13).Text 'concepto
+                    hoja.Cell(filaExcel + x, 6).Value = empresacliente 'cliente
+                    hoja.Cell(filaExcel + x, 7).Value = lsvLista.Items.Item(x).SubItems(6).Text 'importe
+                    hoja.Cell(filaExcel + x, 8).FormulaA1 = "=+G" & filaExcel + x & "*16%" 'iva
+                    hoja.Cell(filaExcel + x, 9).FormulaA1 = "=+IF(C" & filaExcel + x & "=F" & filaExcel + x & ",G" & filaExcel + x & "*6%,0)" 'retencion isn
+                    hoja.Cell(filaExcel + x, 10).Value = lsvLista.Items.Item(x).SubItems(10).Text 'nOTA
+                    hoja.Cell(filaExcel + x, 11).FormulaA1 = "=+G" & filaExcel + x & "+H" & filaExcel + x & "-I" & filaExcel + x
+                Next x
+                dialogo.FileName = "FACTURACION " & empresacliente
+                dialogo.Filter = "Archivos de Excel (*.xlsx)|*.xlsx"
+
+
+                If dialogo.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+                    libro.SaveAs(dialogo.FileName)
+                    libro = Nothing
+                    MessageBox.Show("Archivo generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                End If
+
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message.ToString, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End Try
     End Sub
 End Class

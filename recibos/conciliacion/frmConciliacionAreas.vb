@@ -239,9 +239,15 @@ Public Class frmFondeoPatrona
                                                 'esto lo quite porque a maribel no le gusto
                                                 'producto.SubItems(8).Text = "NOMINA"
                                                 ''producto.SubItems.Add("NOMINA")
+                                                If cboempresa.Text.IndexOf(" ") < 0 Then
+                                                    producto.SubItems(8).Text = "NOMINA"
+                                                Else
+                                                    producto.SubItems(8).Text = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" ")) & " NOMINA " & MonthString(dtpfechainicio.Value.Month).ToUpper
+                                                End If
+
                                                 producto.SubItems(11).Text = "3"
                                                 ''producto.SubItems.Add("1")
-                                                'producto.BackColor = Color.Green
+                                                producto.BackColor = Color.Green
 
                                             ElseIf InStr(Trim(producto.SubItems(4).Text).Replace(",", ""), "DISPERSION") > 0 Then
                                                 'producto.SubItems(8).Text = "NOMINA"
@@ -358,10 +364,13 @@ Public Class frmFondeoPatrona
                                                 End If
 
                                             Else
+
+
                                                 producto.SubItems(8).Text = "--"
                                                 'producto.SubItems.Add("--")
                                                 producto.SubItems(11).Text = "3"
                                                 'producto.SubItems.Add("3")
+
                                             End If
                                         End If
 
@@ -435,14 +444,29 @@ Public Class frmFondeoPatrona
                                                 producto.SubItems(11).Text = "1"
                                                 'producto.SubItems.Add("1")
                                                 producto.BackColor = Color.Green
-                                            Else
-                                                'producto.BackColor = Color.Red
-                                                producto.SubItems(8).Text = "No existe esta factura en la base de facturación"
-                                                'producto.SubItems.Add("No existe esta factura en la base de facturación")
+                                            ElseIf InStr(Trim(producto.SubItems(4).Text).ToUpper, "SUELDO") > 0 Then
+                                                'esto lo quite porque a maribel no le gusto
+                                                'producto.SubItems(8).Text = "NOMINA"
+                                                ''producto.SubItems.Add("NOMINA")
+                                                If cboempresa.Text.IndexOf(" ") < 0 Then
+                                                    producto.SubItems(8).Text = "NOMINA"
+                                                Else
+                                                    producto.SubItems(8).Text = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" ")) & " NOMINA " & MonthString(dtpfechainicio.Value.Month).ToUpper
+                                                  
+                                                End If
                                                 producto.SubItems(11).Text = "3"
-                                                'producto.SubItems.Add("3")
-                                                producto.BackColor = Color.Red
-                                            End If
+                                                ''producto.SubItems.Add("1")
+                                                producto.BackColor = Color.Green
+                                            Else
+                                                    'producto.BackColor = Color.Red
+                                                    producto.SubItems(8).Text = "No existe esta factura en la base de facturación"
+                                                    'producto.SubItems.Add("No existe esta factura en la base de facturación")
+                                                    producto.SubItems(11).Text = "3"
+                                                    'producto.SubItems.Add("3")
+                                                    producto.BackColor = Color.Red
+
+
+                                                End If
 
 
 
@@ -532,69 +556,120 @@ Public Class frmFondeoPatrona
 
                                                 'Buscamos a las empresas relacionadas con los cargos
                                                 If InStr(Trim(producto.SubItems(4).Text).ToUpper, "RASTREO") > 0 Then
-                                                    producto.SubItems(8).Text = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" ")) & " NOMINA " & MonthString(dtpfechainicio.Value.Month).ToUpper
+                                                    If cboempresa.Text.IndexOf(" ") < 0 Then
+                                                        producto.SubItems(8).Text = "NOMINA"
+                                                    Else
+                                                        producto.SubItems(8).Text = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" ")) & " NOMINA " & MonthString(dtpfechainicio.Value.Month).ToUpper
+                                                    End If
+
+
+                                                    'producto.SubItems.Add("NOMINA")
+                                                    producto.SubItems(11).Text = "1"
+                                                    'producto.SubItems.Add("1")
+                                                    producto.BackColor = Color.Green
+
+                                                ElseIf InStr(Trim(producto.SubItems(4).Text).ToUpper, "SUELDO") > 0 And Usuario.Perfil = 1 Then
+                                                    If cboempresa.Text.IndexOf(" ") < 0 Then
+                                                        producto.SubItems(8).Text = "NOMINA"
+                                                    Else
+                                                        producto.SubItems(8).Text = cboempresa.Text.Substring(0, cboempresa.Text.IndexOf(" ")) & " NOMINA " & MonthString(dtpfechainicio.Value.Month).ToUpper
+                                                    End If
                                                     'producto.SubItems.Add("NOMINA")
                                                     producto.SubItems(11).Text = "1"
                                                     'producto.SubItems.Add("1")
                                                     producto.BackColor = Color.Green
 
                                                 ElseIf InStr(Trim(producto.SubItems(4).Text).Replace(",", ""), "DISPERSION") > 0 Then
-                                                    producto.SubItems(8).Text = "NOMINA"
-                                                    'producto.SubItems.Add("NOMINA")
-                                                    producto.SubItems(11).Text = "1"
-                                                    'producto.SubItems.Add("1")
-                                                    producto.BackColor = Color.Green
+                                                        producto.SubItems(8).Text = "NOMINA"
+                                                        'producto.SubItems.Add("NOMINA")
+                                                        producto.SubItems(11).Text = "1"
+                                                        'producto.SubItems.Add("1")
+                                                        producto.BackColor = Color.Green
 
                                                 ElseIf InStr(Trim(producto.SubItems(4).Text).Replace(",", ""), "AGUINALDO") > 0 Then
-                                                    producto.SubItems(8).Text = "NOMINA"
-                                                    'producto.SubItems.Add("NOMINA")
-                                                    producto.SubItems(11).Text = "1"
-                                                    'producto.SubItems.Add("1")
-                                                    producto.BackColor = Color.Green
+                                                        producto.SubItems(8).Text = "NOMINA"
+                                                        'producto.SubItems.Add("NOMINA")
+                                                        producto.SubItems(11).Text = "1"
+                                                        'producto.SubItems.Add("1")
+                                                        producto.BackColor = Color.Green
 
 
                                                 ElseIf txtidempresa.Text <> "" Then
 
-                                                    SQL = "Select * from facturas"
-                                                    SQL &= " inner join empresa On fkiIdEmpresa= iIdEmpresa "
-                                                    SQL &= " where total between " & ValorRangoMenos & " And " & ValorRangoMas
-                                                    SQL &= " And cancelada=1 And facturas.iEstatus=1 "
-                                                    SQL &= " And fecha between '" & inicio.ToShortDateString & "' and '" & fin.ToShortDateString() & "' "
-                                                    SQL &= " and fkiIdCliente=" & txtidempresa.Text
-                                                    Dim rwCargos As DataRow() = nConsulta(SQL)
+                                                        SQL = "Select * from facturas"
+                                                        SQL &= " inner join empresa On fkiIdEmpresa= iIdEmpresa "
+                                                        SQL &= " where total between " & ValorRangoMenos & " And " & ValorRangoMas
+                                                        SQL &= " And cancelada=1 And facturas.iEstatus=1 "
+                                                        SQL &= " And fecha between '" & inicio.ToShortDateString & "' and '" & fin.ToShortDateString() & "' "
+                                                        SQL &= " and fkiIdCliente=" & txtidempresa.Text
+                                                        Dim rwCargos As DataRow() = nConsulta(SQL)
 
-                                                    If rwCargos Is Nothing = False Then
-                                                        If rwCargos.Count = 1 Then
-                                                            'solo hay una cantidad y agregamos el numero de factura y serie al listview
-                                                            Dim Fila As DataRow = rwCargos(0)
+                                                        If rwCargos Is Nothing = False Then
+                                                            If rwCargos.Count = 1 Then
+                                                                'solo hay una cantidad y agregamos el numero de factura y serie al listview
+                                                                Dim Fila As DataRow = rwCargos(0)
 
-                                                            producto.SubItems(8).Text = Fila("numfactura") & " " & Fila("nombre")
-                                                            'producto.SubItems.Add(Fila("numfactura") & " " & Fila("nombre"))
-                                                            producto.SubItems(8).Tag = Fila("iIdFactura")
-                                                            producto.SubItems(11).Text = "1"
-                                                            'producto.SubItems.Add("1")
-                                                            producto.BackColor = Color.Green
-                                                        Else
-                                                            'Hay mas de una cantidad
-                                                            For x As Integer = 0 To rwCargos.Count - 1
-                                                                cadena &= rwCargos(x).Item("numfactura") & "-" & rwCargos(x).Item("nombre") & "/"
-                                                                If x = rwCargos.Count - 1 Then
+                                                                producto.SubItems(8).Text = Fila("numfactura") & " " & Fila("nombre")
+                                                                'producto.SubItems.Add(Fila("numfactura") & " " & Fila("nombre"))
+                                                                producto.SubItems(8).Tag = Fila("iIdFactura")
+                                                                producto.SubItems(11).Text = "1"
+                                                                'producto.SubItems.Add("1")
+                                                                producto.BackColor = Color.Green
+                                                            Else
+                                                                'Hay mas de una cantidad
+                                                                For x As Integer = 0 To rwCargos.Count - 1
+                                                                    cadena &= rwCargos(x).Item("numfactura") & "-" & rwCargos(x).Item("nombre") & "/"
+                                                                    If x = rwCargos.Count - 1 Then
 
-                                                                    facturas &= "F" & rwCargos(x).Item("iIdFactura")
-                                                                Else
-                                                                    facturas &= "F" & rwCargos(x).Item("iIdFactura") & ","
+                                                                        facturas &= "F" & rwCargos(x).Item("iIdFactura")
+                                                                    Else
+                                                                        facturas &= "F" & rwCargos(x).Item("iIdFactura") & ","
+                                                                    End If
+                                                                Next
+                                                                'producto.Tag = facturas
+                                                                producto.SubItems(11).Tag = facturas
+                                                                producto.SubItems(8).Text = cadena
+                                                                'producto.SubItems.Add(cadena)
+                                                                producto.SubItems(11).Text = "2"
+                                                                'producto.SubItems.Add("2")
+                                                                producto.BackColor = Color.Yellow
+
+                                                            End If
+                                                        ElseIf txtcomision.Text <> "" Then
+                                                            comisiones = txtcomision.Text.Split(",")
+                                                            bValidar = True
+                                                            For x As Integer = 0 To comisiones.Length - 1
+
+                                                                If Double.Parse(comisiones(x)) = Double.Parse((producto.SubItems(5).Text).Replace(",", "").Replace("$", "")) Then
+                                                                    producto.SubItems(8).Text = "Comisión"
+                                                                    'producto.SubItems.Add("Comisión")
+                                                                    producto.SubItems(11).Text = "1"
+                                                                    'producto.SubItems.Add("1")
+                                                                    producto.BackColor = Color.Green
+                                                                    x = comisiones.Length
+                                                                    bValidar = False
                                                                 End If
-                                                            Next
-                                                            'producto.Tag = facturas
-                                                            producto.SubItems(11).Tag = facturas
-                                                            producto.SubItems(8).Text = cadena
-                                                            'producto.SubItems.Add(cadena)
-                                                            producto.SubItems(11).Text = "2"
-                                                            'producto.SubItems.Add("2")
-                                                            producto.BackColor = Color.Yellow
 
+
+                                                            Next
+                                                            If bValidar Then
+                                                                producto.SubItems(8).Text = "No existe esta factura en la base de facturación"
+                                                                'producto.SubItems.Add("No existe esta factura en la base de facturación")
+                                                                producto.SubItems(11).Text = "3"
+                                                                'producto.SubItems.Add("3")
+                                                                producto.BackColor = Color.Red
+
+                                                            End If
+
+                                                        Else
+                                                            producto.SubItems(8).Text = "No existe esta factura en la base de facturación"
+                                                            'producto.SubItems.Add("No existe esta factura en la base de facturación")
+                                                            producto.SubItems(11).Text = "3"
+                                                            'producto.SubItems.Add("3")
+                                                            producto.BackColor = Color.Red
                                                         End If
-                                                    ElseIf txtcomision.Text <> "" Then
+
+                                                ElseIf txtcomision.Text <> "" Then
                                                         comisiones = txtcomision.Text.Split(",")
                                                         bValidar = True
                                                         For x As Integer = 0 To comisiones.Length - 1
@@ -620,47 +695,13 @@ Public Class frmFondeoPatrona
 
                                                         End If
 
-                                                    Else
-                                                        producto.SubItems(8).Text = "No existe esta factura en la base de facturación"
-                                                        'producto.SubItems.Add("No existe esta factura en la base de facturación")
-                                                        producto.SubItems(11).Text = "3"
-                                                        'producto.SubItems.Add("3")
-                                                        producto.BackColor = Color.Red
-                                                    End If
-
-                                                ElseIf txtcomision.Text <> "" Then
-                                                    comisiones = txtcomision.Text.Split(",")
-                                                    bValidar = True
-                                                    For x As Integer = 0 To comisiones.Length - 1
-
-                                                        If Double.Parse(comisiones(x)) = Double.Parse((producto.SubItems(5).Text).Replace(",", "").Replace("$", "")) Then
-                                                            producto.SubItems(8).Text = "Comisión"
-                                                            'producto.SubItems.Add("Comisión")
-                                                            producto.SubItems(11).Text = "1"
-                                                            'producto.SubItems.Add("1")
-                                                            producto.BackColor = Color.Green
-                                                            x = comisiones.Length
-                                                            bValidar = False
-                                                        End If
-
-
-                                                    Next
-                                                    If bValidar Then
-                                                        producto.SubItems(8).Text = "No existe esta factura en la base de facturación"
-                                                        'producto.SubItems.Add("No existe esta factura en la base de facturación")
-                                                        producto.SubItems(11).Text = "3"
-                                                        'producto.SubItems.Add("3")
-                                                        producto.BackColor = Color.Red
-
-                                                    End If
-
                                                 Else
-                                                    producto.SubItems(8).Text = "--"
-                                                    'producto.SubItems.Add("--")
-                                                    producto.SubItems(11).Text = "3"
-                                                    'producto.SubItems.Add("3")
+                                                        producto.SubItems(8).Text = "--"
+                                                        'producto.SubItems.Add("--")
+                                                        producto.SubItems(11).Text = "3"
+                                                        'producto.SubItems.Add("3")
+                                                    End If
                                                 End If
-                                            End If
 
 
 

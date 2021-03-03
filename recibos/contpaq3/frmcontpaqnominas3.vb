@@ -6291,6 +6291,8 @@ Public Class frmcontpaqnominas3
             Dim periodo, periodoini, periodofin, diaini As String
             Dim clienteasignado As String
             Dim porcentaje, porsindicato As String
+            Dim calculariva As Boolean
+
             pnlProgreso.Visible = True
             pnlCatalogo.Enabled = False
             Application.DoEvents()
@@ -6309,6 +6311,13 @@ Public Class frmcontpaqnominas3
                     porcentaje = rwCliente(0)("porcentaje")
                     porsindicato = rwCliente(0)("porsindicato")
                 End If
+
+                sql = "SELECT * FROM IntClienteEmpresaContpaq where fkIdEmpresaC=" & gIdEmpresa & " and fkIdCliente=" & gIdClienteAsignada
+                Dim rwClienteEmpresaContpaq As DataRow() = nConsulta(sql)
+                If rwClienteEmpresaContpaq Is Nothing = False Then
+                    calculariva = IIf(rwClienteEmpresaContpaq(0).Item("CalcularIVA") = 1, False, True)
+                End If
+
 
                 periodo = cboperiodo.Text
                 periodoini = CDate(cboperiodo.Text.ToString.Remove(10)).ToLongDateString.Substring(CDate(cboperiodo.Text.ToString.Remove(10)).ToLongDateString.IndexOf(", ") + 2).ToUpper()
@@ -6431,7 +6440,7 @@ Public Class frmcontpaqnominas3
                     hoja.Cell(filaExcel, 18).FormulaA1 = "=SUM(K" & filaExcel & "+G" & filaExcel & "+H" & filaExcel & ")*" & porcentaje & "%"
                     hoja.Cell(filaExcel, 19).FormulaA1 = "=SUM(L" & filaExcel & "+M" & filaExcel & ")*" & porsindicato & "%"
                     hoja.Cell(filaExcel, 20).FormulaA1 = "=K" & filaExcel & "+L" & filaExcel & "+M" & filaExcel & "+O" & filaExcel & "+P" & filaExcel & "+Q" & filaExcel & "+R" & filaExcel & "+S" & filaExcel & "+H" & filaExcel & ""
-                    hoja.Cell(filaExcel, 21).FormulaA1 = "=T" & filaExcel & "*16%"
+                    hoja.Cell(filaExcel, 21).FormulaA1 = IIf(calculariva, "=T" & filaExcel & "*16%", "=0.00")
                     hoja.Cell(filaExcel, 22).FormulaA1 = "=T" & filaExcel & "+U" & filaExcel
 
                     filaExcel = filaExcel + 1
@@ -6491,11 +6500,18 @@ Public Class frmcontpaqnominas3
 
                 If rwIntEmpresaContpaq Is Nothing = False Then
 
-
-                    Dim rwEmpresasInter As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona"))
-                    Dim rwEmpresaExedente As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente"))
-                    InterPatrona = rwEmpresasInter(0).Item("nombre")
-                    InterSindicato = rwEmpresaExedente(0).Item("nombre")
+                    If rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona") Is DBNull.Value Or rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente") Is DBNull.Value Then
+                        MessageBox.Show("Debe asignar empresa Intermediaria, porfavor verifque", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        pnlProgreso.Visible = False
+                        pnlCatalogo.Enabled = True
+                        Exit Sub
+                    Else
+                        Dim rwEmpresasInter As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona"))
+                        Dim rwEmpresaExedente As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente"))
+                        InterPatrona = rwEmpresasInter(0).Item("nombre")
+                        InterSindicato = rwEmpresaExedente(0).Item("nombre")
+                    End If
+                   
 
                 End If
 
@@ -6512,7 +6528,7 @@ Public Class frmcontpaqnominas3
                 hoja.Cell(filaExcel + 8, 1).Value = clienteasignado
                 hoja.Cell(filaExcel + 8, 2).Value = InterPatrona ' "GRUPO GADERYRA"
                 hoja.Cell(filaExcel + 8, 11).FormulaA1 = "=K" & filaExcel + 2 & "+G" & filaExcel + 2 & "+H" & filaExcel + 2 & "+O" & filaExcel + 2 & "+P" & filaExcel + 2 & "+Q" & filaExcel + 2 & "+R" & filaExcel + 2
-                hoja.Cell(filaExcel + 8, 12).FormulaA1 = "=K" & filaExcel + 8 & "*0.16"
+                hoja.Cell(filaExcel + 8, 12).FormulaA1 = IIf(calculariva, "=K" & filaExcel + 8 & "*0.16", "=0")
                 hoja.Cell(filaExcel + 8, 14).FormulaA1 = "=K" & filaExcel + 8 & "+L" & filaExcel + 8
 
                 hoja.Cell(filaExcel + 10, 1).Value = "EXCEDENTE" ''
@@ -6526,7 +6542,7 @@ Public Class frmcontpaqnominas3
                 hoja.Cell(filaExcel + 12, 1).Value = "SINDICATO"
                 hoja.Cell(filaExcel + 12, 2).Value = InterSindicato '"--"
                 hoja.Cell(filaExcel + 12, 11).FormulaA1 = "=L" & filaExcel + 2 & "+M" & filaExcel + 2 & "+S" & filaExcel + 2
-                hoja.Cell(filaExcel + 12, 12).FormulaA1 = "=K" & filaExcel + 12 & "*0.16"
+                hoja.Cell(filaExcel + 12, 12).FormulaA1 = IIf(calculariva, "=K" & filaExcel + 12 & "*0.16", "=0.0")
                 hoja.Cell(filaExcel + 12, 14).FormulaA1 = "=K" & filaExcel + 12 & "+L" & filaExcel + 12
 
 
@@ -6942,11 +6958,16 @@ Public Class frmcontpaqnominas3
 
         If rwIntEmpresaContpaq Is Nothing = False Then
 
-
-            Dim rwEmpresasInter As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona"))
-            Dim rwEmpresaExedente As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente"))
-            InterPatrona = rwEmpresasInter(0).Item("nombre")
-            InterSindicato = rwEmpresaExedente(0).Item("nombre")
+            If rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona") Is DBNull.Value Or rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente") Is DBNull.Value Then
+                InterPatrona = ""
+                InterSindicato = ""
+            Else
+                Dim rwEmpresasInter As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterPatrona"))
+                Dim rwEmpresaExedente As DataRow() = nConsulta("SELECT * FROM empresa where iIdEmpresa=" & rwIntEmpresaContpaq(0).Item("fkiIdEmpresaInterExcedente"))
+                InterPatrona = rwEmpresasInter(0).Item("nombre")
+                InterSindicato = rwEmpresaExedente(0).Item("nombre")
+            End If
+          
 
         End If
 
